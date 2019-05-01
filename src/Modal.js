@@ -177,8 +177,16 @@ class Modal extends React.Component {
     this._modal = ref;
   }
 
+  // We prevent the modal from closing during a drag by detecting where the
+  // the click originates from. If it starts in the modal and then ends outside
+  // don't close.
+  handleDialogMouseDown = () => {
+    this._ignoreBackdropClick = true;
+  };
+
   handleDialogClick(e) {
-    if (e.target !== e.currentTarget) {
+    if (e.target !== e.currentTarget || this._ignoreBackdropClick) {
+      this._ignoreBackdropClick = false;
       return;
     }
 
@@ -270,6 +278,7 @@ class Modal extends React.Component {
           style={{ ...this.state.style, ...style }}
           className={classNames(className, inClassName)}
           onClick={backdrop === true ? this.handleDialogClick : null}
+          handleDialogMouseDown={this.handleDialogMouseDown}
         >
           {children}
         </Dialog>

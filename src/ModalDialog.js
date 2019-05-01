@@ -15,7 +15,12 @@ const propTypes = {
   /**
    * A css class to apply to the Modal dialog DOM node.
    */
-  dialogClassName: PropTypes.string
+  dialogClassName: PropTypes.string,
+
+  /**
+   * A method to run for the mousedown event on the dialog.
+   */
+  handleDialogMouseDown: PropTypes.func
 };
 
 class ModalDialog extends React.Component {
@@ -25,6 +30,7 @@ class ModalDialog extends React.Component {
       className,
       style,
       children,
+      handleDialogMouseDown,
       ...props
     } = this.props;
     const [bsProps, elementProps] = splitBsProps(props);
@@ -48,7 +54,11 @@ class ModalDialog extends React.Component {
         className={classNames(className, bsClassName)}
       >
         <div className={classNames(dialogClassName, dialogClasses)}>
-          <div className={prefix(bsProps, 'content')} role="document">
+          <div
+            className={prefix(bsProps, 'content')}
+            role="document"
+            onMouseDown={handleDialogMouseDown}
+          >
             {children}
           </div>
         </div>
