@@ -14,7 +14,12 @@ class CloseButton extends React.Component {
   render() {
     const { label, onClick } = this.props;
     return (
-      <button type="button" className="close" onClick={onClick}>
+      <button
+        type="button"
+        className="close"
+        onClick={onClick}
+        aria-label={label}
+      >
         <span aria-hidden="true">&times;</span>
         <span className="sr-only">{label}</span>
       </button>
