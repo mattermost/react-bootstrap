@@ -189,7 +189,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactIs = __webpack_require__(105);
 
-var _createChainableTypeChecker = __webpack_require__(23);
+var _createChainableTypeChecker = __webpack_require__(24);
 
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
 
@@ -246,7 +246,7 @@ exports.default = uncontrollable;
 
 var _react = _interopRequireDefault(__webpack_require__(1));
 
-var _invariant = _interopRequireDefault(__webpack_require__(22));
+var _invariant = _interopRequireDefault(__webpack_require__(23));
 
 var Utils = _interopRequireWildcard(__webpack_require__(100));
 
@@ -664,7 +664,7 @@ module.exports = warning;
 /***/ (function(module, exports) {
 
 var core = module.exports = {
-  version: '2.6.5'
+  version: '2.6.9'
 };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
@@ -684,7 +684,7 @@ var core = __webpack_require__(9);
 
 var ctx = __webpack_require__(57);
 
-var hide = __webpack_require__(28);
+var hide = __webpack_require__(29);
 
 var has = __webpack_require__(32);
 
@@ -1337,7 +1337,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = all;
 
-var _createChainableTypeChecker = __webpack_require__(23);
+var _createChainableTypeChecker = __webpack_require__(24);
 
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
 
@@ -1513,6 +1513,19 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(27)(function () {
+  return Object.defineProperty({}, 'a', {
+    get: function () {
+      return 7;
+    }
+  }).a != 7;
+});
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -1539,7 +1552,7 @@ function _interopRequireDefault(obj) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1587,7 +1600,7 @@ var invariant = function (condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1635,7 +1648,7 @@ function createChainableTypeChecker(validate) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1681,7 +1694,7 @@ function elementType(props, propName, componentName, location, propFullName) {
 exports.default = (0, _createChainableTypeChecker2.default)(elementType);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1767,7 +1780,7 @@ var _getContainer = __webpack_require__(38);
 
 var _getContainer2 = _interopRequireDefault(_getContainer);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -2327,7 +2340,7 @@ exports.default = Modal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -2339,20 +2352,20 @@ module.exports = function (exec) {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(101);
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(29);
+var dP = __webpack_require__(30);
 
 var createDesc = __webpack_require__(42);
 
-module.exports = __webpack_require__(31) ? function (object, key, value) {
+module.exports = __webpack_require__(21) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -2360,17 +2373,17 @@ module.exports = __webpack_require__(31) ? function (object, key, value) {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(30);
+var anObject = __webpack_require__(31);
 
 var IE8_DOM_DEFINE = __webpack_require__(84);
 
 var toPrimitive = __webpack_require__(85);
 
 var dP = Object.defineProperty;
-exports.f = __webpack_require__(31) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(21) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -2385,7 +2398,7 @@ exports.f = __webpack_require__(31) ? Object.defineProperty : function definePro
 };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(41);
@@ -2394,19 +2407,6 @@ module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(26)(function () {
-  return Object.defineProperty({}, 'a', {
-    get: function () {
-      return 7;
-    }
-  }).a != 7;
-});
 
 /***/ }),
 /* 32 */
@@ -2473,7 +2473,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _createChainableTypeChecker = __webpack_require__(23);
+var _createChainableTypeChecker = __webpack_require__(24);
 
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
 
@@ -2880,7 +2880,7 @@ var _addEventListener = __webpack_require__(71);
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -3538,7 +3538,7 @@ exports.f = {}.propertyIsEnumerable;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(30);
+var anObject = __webpack_require__(31);
 
 var dPs = __webpack_require__(93);
 
@@ -3597,6 +3597,8 @@ module.exports = Object.create || function create(O, Properties) {
 /* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var DESCRIPTORS = __webpack_require__(21);
+
 var getKeys = __webpack_require__(33);
 
 var toIObject = __webpack_require__(43);
@@ -3612,8 +3614,12 @@ module.exports = function (isEntries) {
     var result = [];
     var key;
 
-    while (length > i) if (isEnum.call(O, key = keys[i++])) {
-      result.push(isEntries ? [key, O[key]] : O[key]);
+    while (length > i) {
+      key = keys[i++];
+
+      if (!DESCRIPTORS || isEnum.call(O, key)) {
+        result.push(isEntries ? [key, O[key]] : O[key]);
+      }
     }
 
     return result;
@@ -3658,7 +3664,7 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(29).f;
+var def = __webpack_require__(30).f;
 
 var has = __webpack_require__(32);
 
@@ -3750,7 +3756,7 @@ var _getContainer = __webpack_require__(38);
 
 var _getContainer2 = _interopRequireDefault(_getContainer);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -4001,7 +4007,7 @@ module.exports = function (it) {
 /* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(31) && !__webpack_require__(26)(function () {
+module.exports = !__webpack_require__(21) && !__webpack_require__(27)(function () {
   return Object.defineProperty(__webpack_require__(58)('div'), 'a', {
     get: function () {
       return 7;
@@ -4034,6 +4040,8 @@ module.exports = function (it, S) {
 "use strict";
  // 19.1.2.1 Object.assign(target, source, ...)
 
+var DESCRIPTORS = __webpack_require__(21);
+
 var getKeys = __webpack_require__(33);
 
 var gOPS = __webpack_require__(90);
@@ -4046,7 +4054,7 @@ var IObject = __webpack_require__(59);
 
 var $assign = Object.assign; // should work with symbols and should have deterministic property order (V8 bug)
 
-module.exports = !$assign || __webpack_require__(26)(function () {
+module.exports = !$assign || __webpack_require__(27)(function () {
   var A = {};
   var B = {}; // eslint-disable-next-line no-undef
 
@@ -4072,7 +4080,10 @@ module.exports = !$assign || __webpack_require__(26)(function () {
     var j = 0;
     var key;
 
-    while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
+    while (length > j) {
+      key = keys[j++];
+      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
+    }
   }
 
   return T;
@@ -4184,13 +4195,13 @@ $export($export.S, 'Object', {
 /* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(29);
+var dP = __webpack_require__(30);
 
-var anObject = __webpack_require__(30);
+var anObject = __webpack_require__(31);
 
 var getKeys = __webpack_require__(33);
 
-module.exports = __webpack_require__(31) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(21) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -4242,7 +4253,7 @@ var $export = __webpack_require__(11);
 
 var core = __webpack_require__(9);
 
-var fails = __webpack_require__(26);
+var fails = __webpack_require__(27);
 
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
@@ -4351,7 +4362,7 @@ exports.isProp = isProp;
 exports.defaultKey = defaultKey;
 exports.isReactComponent = isReactComponent;
 
-var _invariant = _interopRequireDefault(__webpack_require__(22));
+var _invariant = _interopRequireDefault(__webpack_require__(23));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -4845,7 +4856,7 @@ var $export = __webpack_require__(11);
 
 var defined = __webpack_require__(34);
 
-var fails = __webpack_require__(26);
+var fails = __webpack_require__(27);
 
 var spaces = __webpack_require__(69);
 
@@ -5109,7 +5120,7 @@ var $export = __webpack_require__(11);
 
 var redefine = __webpack_require__(124);
 
-var hide = __webpack_require__(28);
+var hide = __webpack_require__(29);
 
 var Iterators = __webpack_require__(48);
 
@@ -5211,7 +5222,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 /* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(28);
+module.exports = __webpack_require__(29);
 
 /***/ }),
 /* 125 */
@@ -5228,7 +5239,7 @@ var setToStringTag = __webpack_require__(70);
 
 var IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 
-__webpack_require__(28)(IteratorPrototype, __webpack_require__(17)('iterator'), function () {
+__webpack_require__(29)(IteratorPrototype, __webpack_require__(17)('iterator'), function () {
   return this;
 });
 
@@ -5325,7 +5336,7 @@ $export($export.S + $export.F * !__webpack_require__(133)(function (iter) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(30);
+var anObject = __webpack_require__(31);
 
 module.exports = function (iterator, fn, value, entries) {
   try {
@@ -5359,7 +5370,7 @@ module.exports = function (it) {
 "use strict";
 
 
-var $defineProperty = __webpack_require__(29);
+var $defineProperty = __webpack_require__(30);
 
 var createDesc = __webpack_require__(42);
 
@@ -5952,7 +5963,7 @@ var _getContainer = __webpack_require__(38);
 
 var _getContainer2 = _interopRequireDefault(_getContainer);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -6274,7 +6285,7 @@ var _getContainer = __webpack_require__(38);
 
 var _getContainer2 = _interopRequireDefault(_getContainer);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -6498,7 +6509,7 @@ var _scrollTop = __webpack_require__(75);
 
 var _scrollTop2 = _interopRequireDefault(_scrollTop);
 
-var _ownerDocument = __webpack_require__(21);
+var _ownerDocument = __webpack_require__(22);
 
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 
@@ -6919,11 +6930,11 @@ var uncontrollable = __webpack_require__(6);
 var uncontrollable_default = /*#__PURE__*/__webpack_require__.n(uncontrollable);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/entries.js
-var entries = __webpack_require__(27);
+var entries = __webpack_require__(28);
 var entries_default = /*#__PURE__*/__webpack_require__.n(entries);
 
 // EXTERNAL MODULE: ./node_modules/invariant/browser.js
-var browser = __webpack_require__(22);
+var browser = __webpack_require__(23);
 var browser_default = /*#__PURE__*/__webpack_require__.n(browser);
 
 // CONCATENATED MODULE: ./src/utils/StyleConfig.js
@@ -7313,7 +7324,7 @@ function toArray(children) {
   toArray: toArray
 });
 // EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js
-var createChainableTypeChecker = __webpack_require__(23);
+var createChainableTypeChecker = __webpack_require__(24);
 var createChainableTypeChecker_default = /*#__PURE__*/__webpack_require__.n(createChainableTypeChecker);
 
 // CONCATENATED MODULE: ./src/utils/PropTypes.js
@@ -7396,7 +7407,7 @@ function exclusiveRoles() {
 
 
 
-var _jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelGroup.js";
+var _jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelGroup.js";
 
 
 
@@ -7553,7 +7564,7 @@ PanelGroup_PanelGroup.childContextTypes = childContextTypes;
 // CONCATENATED MODULE: ./src/Accordion.js
 
 
-var Accordion_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Accordion.js";
+var Accordion_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Accordion.js";
 
 
 
@@ -7589,7 +7600,7 @@ var values_default = /*#__PURE__*/__webpack_require__.n(object_values);
 
 // CONCATENATED MODULE: ./src/CloseButton.js
 
-var CloseButton_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/CloseButton.js";
+var CloseButton_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/CloseButton.js";
 
 
 var CloseButton_propTypes = {
@@ -7619,6 +7630,7 @@ function (_React$Component) {
       type: "button",
       className: "close",
       onClick: onClick,
+      "aria-label": label,
       __source: {
         fileName: CloseButton_jsxFileName,
         lineNumber: 17
@@ -7628,14 +7640,14 @@ function (_React$Component) {
       "aria-hidden": "true",
       __source: {
         fileName: CloseButton_jsxFileName,
-        lineNumber: 18
+        lineNumber: 23
       },
       __self: this
     }, "\xD7"), external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", {
       className: "sr-only",
       __source: {
         fileName: CloseButton_jsxFileName,
-        lineNumber: 19
+        lineNumber: 24
       },
       __self: this
     }, label));
@@ -7652,7 +7664,7 @@ CloseButton_CloseButton.defaultProps = CloseButton_defaultProps;
 
 
 
-var Alert_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Alert.js";
+var Alert_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Alert.js";
 
 
 
@@ -7725,7 +7737,7 @@ Alert_Alert.defaultProps = Alert_defaultProps;
 
 
 
-var Badge_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Badge.js";
+var Badge_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Badge.js";
 
 
 
@@ -7851,7 +7863,7 @@ function createChainedFunction() {
 
 
 
-var SafeAnchor_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/SafeAnchor.js";
+var SafeAnchor_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/SafeAnchor.js";
 
 
 
@@ -7970,7 +7982,7 @@ SafeAnchor_SafeAnchor.defaultProps = SafeAnchor_defaultProps;
 
 
 
-var BreadcrumbItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/BreadcrumbItem.js";
+var BreadcrumbItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/BreadcrumbItem.js";
 
 
 
@@ -8060,7 +8072,7 @@ BreadcrumbItem_BreadcrumbItem.defaultProps = BreadcrumbItem_defaultProps;
 
 
 
-var Breadcrumb_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Breadcrumb.js";
+var Breadcrumb_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Breadcrumb.js";
 
 
 
@@ -8109,7 +8121,7 @@ Breadcrumb_Breadcrumb.Item = src_BreadcrumbItem;
 
 
 
-var Button_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Button.js";
+var Button_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Button.js";
 
 
 
@@ -8215,7 +8227,7 @@ var all_default = /*#__PURE__*/__webpack_require__.n(lib_all);
 
 
 
-var ButtonGroup_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ButtonGroup.js";
+var ButtonGroup_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ButtonGroup.js";
 
 
 
@@ -8289,7 +8301,7 @@ ButtonGroup_ButtonGroup.defaultProps = ButtonGroup_defaultProps;
 
 
 
-var ButtonToolbar_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ButtonToolbar.js";
+var ButtonToolbar_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ButtonToolbar.js";
 
 
 
@@ -8334,7 +8346,7 @@ function (_React$Component) {
 
 
 
-var CarouselCaption_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/CarouselCaption.js";
+var CarouselCaption_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/CarouselCaption.js";
 
 
 
@@ -8397,7 +8409,7 @@ var transition_default = /*#__PURE__*/__webpack_require__.n(dom_helpers_transiti
 
 
 
-var CarouselItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/CarouselItem.js";
+var CarouselItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/CarouselItem.js";
 
 
 
@@ -8529,7 +8541,7 @@ CarouselItem_CarouselItem.defaultProps = CarouselItem_defaultProps;
 
 
 
-var Glyphicon_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Glyphicon.js";
+var Glyphicon_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Glyphicon.js";
 
 
 
@@ -8586,7 +8598,7 @@ Glyphicon_Glyphicon.propTypes = Glyphicon_propTypes;
 
 
 
-var Carousel_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Carousel.js";
+var Carousel_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Carousel.js";
 
 
 
@@ -9028,7 +9040,7 @@ var warning_browser = __webpack_require__(8);
 
 
 
-var Checkbox_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Checkbox.js";
+var Checkbox_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Checkbox.js";
 
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -9159,7 +9171,7 @@ function capitalize(string) {
 
 
 
-var Clearfix_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Clearfix.js";
+var Clearfix_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Clearfix.js";
 
 
 
@@ -9261,7 +9273,7 @@ Clearfix_Clearfix.defaultProps = Clearfix_defaultProps;
 
 
 
-var ControlLabel_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ControlLabel.js";
+var ControlLabel_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ControlLabel.js";
 
 
 
@@ -9335,7 +9347,7 @@ ControlLabel_ControlLabel.contextTypes = contextTypes;
 
 
 
-var Col_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Col.js";
+var Col_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Col.js";
 
 
 
@@ -9610,7 +9622,7 @@ var Transition_default = /*#__PURE__*/__webpack_require__.n(react_transition_gro
 
 
 var _collapseStyles,
-    Collapse_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Collapse.js";
+    Collapse_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Collapse.js";
 
 
 
@@ -9640,7 +9652,7 @@ var Collapse_propTypes = {
   /**
    * Show the component; triggers the expand or collapse animation
    */
-  in: prop_types_default.a.bool,
+  "in": prop_types_default.a.bool,
 
   /**
    * Wait until the first "enter" transition to mount the component (add it to the DOM)
@@ -9719,7 +9731,7 @@ var Collapse_propTypes = {
   role: prop_types_default.a.string
 };
 var Collapse_defaultProps = {
-  in: false,
+  "in": false,
   timeout: 300,
   mountOnEnter: false,
   unmountOnExit: false,
@@ -9804,7 +9816,7 @@ function (_React$Component) {
     var handleExit = utils_createChainedFunction(this.handleExit, onExit);
     var handleExiting = utils_createChainedFunction(this.handleExiting, onExiting);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Transition_default.a, _extends({}, props, {
-      "aria-expanded": props.role ? props.in : null,
+      "aria-expanded": props.role ? props["in"] : null,
       onEnter: handleEnter,
       onEntering: handleEntering,
       onEntered: handleEntered,
@@ -9858,7 +9870,7 @@ var RootCloseWrapper_default = /*#__PURE__*/__webpack_require__.n(RootCloseWrapp
 
 
 
-var DropdownMenu_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/DropdownMenu.js";
+var DropdownMenu_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/DropdownMenu.js";
 
 
 
@@ -10027,7 +10039,7 @@ DropdownMenu_DropdownMenu.defaultProps = DropdownMenu_defaultProps;
 
 
 
-var DropdownToggle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/DropdownToggle.js";
+var DropdownToggle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/DropdownToggle.js";
 
 
 
@@ -10104,7 +10116,7 @@ DropdownToggle_DropdownToggle.defaultProps = DropdownToggle_defaultProps;
 
 
 
-var Dropdown_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Dropdown.js";
+var Dropdown_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Dropdown.js";
 
 
 
@@ -10491,7 +10503,7 @@ function splitComponentProps(props, Component) {
 
 
 
-var DropdownButton_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/DropdownButton.js";
+var DropdownButton_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/DropdownButton.js";
 
 
 
@@ -10570,7 +10582,7 @@ DropdownButton_DropdownButton.propTypes = DropdownButton_propTypes;
 
 
 var _fadeStyles,
-    Fade_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Fade.js";
+    Fade_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Fade.js";
 
 
 
@@ -10580,7 +10592,7 @@ var Fade_propTypes = {
   /**
    * Show the component; triggers the fade in or fade out animation
    */
-  in: prop_types_default.a.bool,
+  "in": prop_types_default.a.bool,
 
   /**
    * Wait until the first "enter" transition to mount the component (add it to the DOM)
@@ -10636,7 +10648,7 @@ var Fade_propTypes = {
   onExited: prop_types_default.a.func
 };
 var Fade_defaultProps = {
-  in: false,
+  "in": false,
   timeout: 300,
   mountOnEnter: false,
   unmountOnExit: false,
@@ -10684,7 +10696,7 @@ Fade_Fade.defaultProps = Fade_defaultProps;
 
 
 
-var Form_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Form.js";
+var Form_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Form.js";
 
 
 
@@ -10754,7 +10766,7 @@ Form_Form.defaultProps = Form_defaultProps;
 
 
 
-var FormControlFeedback_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/FormControlFeedback.js";
+var FormControlFeedback_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/FormControlFeedback.js";
 
 
 
@@ -10844,7 +10856,7 @@ FormControlFeedback_FormControlFeedback.contextTypes = FormControlFeedback_conte
 
 
 
-var FormControlStatic_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/FormControlStatic.js";
+var FormControlStatic_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/FormControlStatic.js";
 
 
 
@@ -10898,7 +10910,7 @@ FormControlStatic_FormControlStatic.defaultProps = FormControlStatic_defaultProp
 
 
 
-var FormControl_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/FormControl.js";
+var FormControl_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/FormControl.js";
 
 
 
@@ -11009,7 +11021,7 @@ FormControl_FormControl.Static = src_FormControlStatic;
 
 
 
-var FormGroup_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/FormGroup.js";
+var FormGroup_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/FormGroup.js";
 
 
 
@@ -11097,7 +11109,7 @@ FormGroup_FormGroup.childContextTypes = FormGroup_childContextTypes;
 
 
 
-var Grid_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Grid.js";
+var Grid_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Grid.js";
 
 
 
@@ -11164,7 +11176,7 @@ Grid_Grid.defaultProps = Grid_defaultProps;
 
 
 
-var HelpBlock_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/HelpBlock.js";
+var HelpBlock_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/HelpBlock.js";
 
 
 
@@ -11208,7 +11220,7 @@ function (_React$Component) {
 
 
 
-var Image_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Image.js";
+var Image_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Image.js";
 
 
 
@@ -11288,7 +11300,7 @@ Image_Image.defaultProps = Image_defaultProps;
 
 
 
-var InputGroupAddon_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/InputGroupAddon.js";
+var InputGroupAddon_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/InputGroupAddon.js";
 
 
 
@@ -11332,7 +11344,7 @@ function (_React$Component) {
 
 
 
-var InputGroupButton_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/InputGroupButton.js";
+var InputGroupButton_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/InputGroupButton.js";
 
 
 
@@ -11376,7 +11388,7 @@ function (_React$Component) {
 
 
 
-var InputGroup_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/InputGroup.js";
+var InputGroup_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/InputGroup.js";
 
 
 
@@ -11425,7 +11437,7 @@ InputGroup_InputGroup.Button = src_InputGroupButton;
 
 
 
-var Jumbotron_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Jumbotron.js";
+var Jumbotron_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Jumbotron.js";
 
 
 
@@ -11480,7 +11492,7 @@ Jumbotron_Jumbotron.defaultProps = Jumbotron_defaultProps;
 
 
 
-var Label_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Label.js";
+var Label_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Label.js";
 
 
 
@@ -11545,7 +11557,7 @@ function (_React$Component) {
 
 
 
-var ListGroupItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ListGroupItem.js";
+var ListGroupItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ListGroupItem.js";
 
 
 
@@ -11662,7 +11674,7 @@ ListGroupItem_ListGroupItem.defaultProps = ListGroupItem_defaultProps;
 
 
 
-var ListGroup_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ListGroup.js";
+var ListGroup_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ListGroup.js";
 
 
 
@@ -11744,7 +11756,7 @@ ListGroup_ListGroup.propTypes = ListGroup_propTypes;
 
 
 
-var MediaBody_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaBody.js";
+var MediaBody_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaBody.js";
 
 
 
@@ -11811,7 +11823,7 @@ MediaBody_MediaBody.defaultProps = MediaBody_defaultProps;
 
 
 
-var MediaHeading_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaHeading.js";
+var MediaHeading_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaHeading.js";
 
 
 
@@ -11865,7 +11877,7 @@ MediaHeading_MediaHeading.defaultProps = MediaHeading_defaultProps;
 
 
 
-var MediaLeft_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaLeft.js";
+var MediaLeft_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaLeft.js";
 
 
 
@@ -11925,7 +11937,7 @@ MediaLeft_MediaLeft.propTypes = MediaLeft_propTypes;
 
 
 
-var MediaList_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaList.js";
+var MediaList_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaList.js";
 
 
 
@@ -11969,7 +11981,7 @@ function (_React$Component) {
 
 
 
-var MediaListItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaListItem.js";
+var MediaListItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaListItem.js";
 
 
 
@@ -12013,7 +12025,7 @@ function (_React$Component) {
 
 
 
-var MediaRight_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MediaRight.js";
+var MediaRight_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MediaRight.js";
 
 
 
@@ -12073,7 +12085,7 @@ MediaRight_MediaRight.propTypes = MediaRight_propTypes;
 
 
 
-var Media_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Media.js";
+var Media_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Media.js";
 
 
 
@@ -12140,7 +12152,7 @@ Media_Media.ListItem = src_MediaListItem;
 
 
 
-var MenuItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/MenuItem.js";
+var MenuItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/MenuItem.js";
 
 
 
@@ -12329,7 +12341,7 @@ var scrollbarSize = __webpack_require__(40);
 var scrollbarSize_default = /*#__PURE__*/__webpack_require__.n(scrollbarSize);
 
 // EXTERNAL MODULE: ./node_modules/react-overlays/lib/Modal.js
-var lib_Modal = __webpack_require__(25);
+var lib_Modal = __webpack_require__(26);
 var Modal_default = /*#__PURE__*/__webpack_require__.n(lib_Modal);
 
 // EXTERNAL MODULE: ./node_modules/react-overlays/lib/utils/isOverflowing.js
@@ -12340,7 +12352,7 @@ var isOverflowing_default = /*#__PURE__*/__webpack_require__.n(isOverflowing);
 
 
 
-var ModalBody_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ModalBody.js";
+var ModalBody_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ModalBody.js";
 
 
 
@@ -12394,7 +12406,7 @@ ModalBody_ModalBody.defaultProps = ModalBody_defaultProps;
 
 
 
-var ModalDialog_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ModalDialog.js";
+var ModalDialog_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ModalDialog.js";
 
 
 
@@ -12484,7 +12496,7 @@ ModalDialog_ModalDialog.propTypes = ModalDialog_propTypes;
 
 
 
-var ModalFooter_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ModalFooter.js";
+var ModalFooter_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ModalFooter.js";
 
 
 
@@ -12538,7 +12550,7 @@ ModalFooter_ModalFooter.defaultProps = ModalFooter_defaultProps;
 
 
 
-var ModalHeader_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ModalHeader.js";
+var ModalHeader_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ModalHeader.js";
 
 
 
@@ -12632,7 +12644,7 @@ ModalHeader_ModalHeader.contextTypes = ModalHeader_contextTypes;
 
 
 
-var ModalTitle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ModalTitle.js";
+var ModalTitle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ModalTitle.js";
 
 
 
@@ -12687,7 +12699,7 @@ ModalTitle_ModalTitle.defaultProps = ModalTitle_defaultProps;
 
 
 
-var Modal_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Modal.js";
+var Modal_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Modal.js";
 
 
 
@@ -12710,7 +12722,7 @@ var Modal_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bo
 
 
 
-var Modal_propTypes = _extends({}, Modal_default.a.propTypes, src_ModalDialog.propTypes, {
+var Modal_propTypes = _extends({}, Modal_default.a.propTypes, {}, src_ModalDialog.propTypes, {
   /**
    * Include a backdrop component. Specify 'static' for a backdrop that doesn't
    * trigger an "onHide" when clicked.
@@ -12969,7 +12981,7 @@ function (_React$Component) {
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Dialog, _extends({}, dialogProps, {
-      style: _extends({}, this.state.style, style),
+      style: _extends({}, this.state.style, {}, style),
       className: classnames_default()(className, inClassName),
       onClick: backdrop === true ? this.handleDialogClick : null,
       handleDialogMouseDown: this.handleDialogMouseDown,
@@ -12999,7 +13011,7 @@ Modal_Modal.BACKDROP_TRANSITION_DURATION = 150;
 
 
 
-var Nav_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Nav.js";
+var Nav_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Nav.js";
 
 
 
@@ -13341,7 +13353,7 @@ Nav_Nav.contextTypes = Nav_contextTypes;
 
 
 
-var NavbarBrand_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavbarBrand.js";
+var NavbarBrand_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavbarBrand.js";
 
 
 
@@ -13399,7 +13411,7 @@ NavbarBrand_NavbarBrand.contextTypes = NavbarBrand_contextTypes;
 
 
 
-var NavbarCollapse_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavbarCollapse.js";
+var NavbarCollapse_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavbarCollapse.js";
 
 
 
@@ -13432,7 +13444,7 @@ function (_React$Component) {
     };
     var bsClassName = prefix(navbarProps, 'collapse');
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Collapse, _extends({
-      in: navbarProps.expanded
+      "in": navbarProps.expanded
     }, props, {
       __source: {
         fileName: NavbarCollapse_jsxFileName,
@@ -13458,7 +13470,7 @@ NavbarCollapse_NavbarCollapse.contextTypes = NavbarCollapse_contextTypes;
 
 
 
-var NavbarHeader_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavbarHeader.js";
+var NavbarHeader_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavbarHeader.js";
 
 
 
@@ -13508,7 +13520,7 @@ NavbarHeader_NavbarHeader.contextTypes = NavbarHeader_contextTypes;
 
 
 
-var NavbarToggle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavbarToggle.js";
+var NavbarToggle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavbarToggle.js";
 
 
 
@@ -13617,7 +13629,7 @@ NavbarToggle_NavbarToggle.contextTypes = NavbarToggle_contextTypes;
 
 
 
-var Navbar_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Navbar.js";
+var Navbar_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Navbar.js";
 // TODO: Remove this pragma once we upgrade eslint-config-airbnb.
 
 /* eslint-disable react/no-multi-comp */
@@ -13897,7 +13909,7 @@ UncontrollableNavbar.Link = createSimpleWrapper('a', 'link', 'NavbarLink'); // S
 
 
 
-var NavDropdown_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavDropdown.js";
+var NavDropdown_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavDropdown.js";
 
 
 
@@ -14013,7 +14025,7 @@ NavDropdown_NavDropdown.propTypes = NavDropdown_propTypes;
 
 
 
-var NavItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/NavItem.js";
+var NavItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/NavItem.js";
 
 
 
@@ -14119,7 +14131,7 @@ var Overlay_default = /*#__PURE__*/__webpack_require__.n(lib_Overlay);
 
 
 
-var Overlay_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Overlay.js";
+var Overlay_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Overlay.js";
 
 
 
@@ -14246,7 +14258,7 @@ var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
 
 
 
-var OverlayTrigger_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/OverlayTrigger.js";
+var OverlayTrigger_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/OverlayTrigger.js";
 
 
 
@@ -14564,7 +14576,7 @@ OverlayTrigger_OverlayTrigger.defaultProps = OverlayTrigger_defaultProps;
 
 
 
-var PageHeader_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PageHeader.js";
+var PageHeader_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PageHeader.js";
 
 
 
@@ -14616,7 +14628,7 @@ function (_React$Component) {
 
 
 
-var PagerItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PagerItem.js";
+var PagerItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PagerItem.js";
 
 
 
@@ -14781,7 +14793,7 @@ function _resetWarned() {
 
 
 
-var Pager_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Pager.js";
+var Pager_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Pager.js";
 
 
 
@@ -14840,7 +14852,7 @@ Pager_Pager.Item = src_PagerItem;
 
 
 
-var PaginationItem_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PaginationItem.js";
+var PaginationItem_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PaginationItem.js";
 
 /* eslint-disable react/no-multi-comp */
 
@@ -14962,7 +14974,7 @@ var Last = createButton('Last', "\xBB");
 
 
 
-var Pagination_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Pagination.js";
+var Pagination_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Pagination.js";
 
 
 
@@ -15014,7 +15026,7 @@ Pagination_Pagination.Last = Last;
 // CONCATENATED MODULE: ./src/PanelCollapse.js
 
 
-var PanelCollapse_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelCollapse.js";
+var PanelCollapse_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelCollapse.js";
 
 
 
@@ -15092,7 +15104,7 @@ function (_React$Component) {
     }
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Collapse, _extends({
-      in: expanded
+      "in": expanded
     }, props, {
       __source: {
         fileName: PanelCollapse_jsxFileName,
@@ -15118,7 +15130,7 @@ PanelCollapse_PanelCollapse.contextTypes = PanelCollapse_contextTypes;
 // CONCATENATED MODULE: ./src/PanelBody.js
 
 
-var PanelBody_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelBody.js";
+var PanelBody_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelBody.js";
 
 
 
@@ -15202,14 +15214,14 @@ PanelBody_PanelBody.defaultProps = PanelBody_defaultProps;
 PanelBody_PanelBody.contextTypes = PanelBody_contextTypes;
 /* harmony default export */ var src_PanelBody = (bootstrapUtils_bsClass('panel', PanelBody_PanelBody));
 // EXTERNAL MODULE: ./node_modules/react-prop-types/lib/elementType.js
-var lib_elementType = __webpack_require__(24);
+var lib_elementType = __webpack_require__(25);
 var lib_elementType_default = /*#__PURE__*/__webpack_require__.n(lib_elementType);
 
 // CONCATENATED MODULE: ./src/PanelHeading.js
 
 
 
-var PanelHeading_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelHeading.js";
+var PanelHeading_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelHeading.js";
 
 
 
@@ -15283,7 +15295,7 @@ PanelHeading_PanelHeading.contextTypes = PanelHeading_contextTypes;
 
 
 
-var PanelToggle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelToggle.js";
+var PanelToggle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelToggle.js";
 
 
 
@@ -15382,7 +15394,7 @@ PanelToggle_PanelToggle.contextTypes = PanelToggle_contextTypes;
 
 
 
-var PanelTitle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelTitle.js";
+var PanelTitle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelTitle.js";
 
 
 
@@ -15465,7 +15477,7 @@ PanelTitle_PanelTitle.contextTypes = PanelTitle_contextTypes;
 // CONCATENATED MODULE: ./src/PanelFooter.js
 
 
-var PanelFooter_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/PanelFooter.js";
+var PanelFooter_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/PanelFooter.js";
 
 
 
@@ -15520,7 +15532,7 @@ PanelFooter_PanelFooter.contextTypes = PanelFooter_contextTypes;
 
 
 
-var Panel_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Panel.js";
+var Panel_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Panel.js";
 
 
 
@@ -15689,7 +15701,7 @@ assign_default()(UncontrolledPanel, {
 
 
 
-var Popover_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Popover.js";
+var Popover_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Popover.js";
 
 
 
@@ -15824,7 +15836,7 @@ Popover_Popover.defaultProps = Popover_defaultProps;
 
 
 
-var ProgressBar_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ProgressBar.js";
+var ProgressBar_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ProgressBar.js";
 
 
 
@@ -16012,7 +16024,7 @@ ProgressBar_ProgressBar.defaultProps = ProgressBar_defaultProps;
 
 
 
-var Radio_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Radio.js";
+var Radio_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Radio.js";
 
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -16139,7 +16151,7 @@ Radio_Radio.defaultProps = Radio_defaultProps;
 
 
 
-var ResponsiveEmbed_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ResponsiveEmbed.js";
+var ResponsiveEmbed_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ResponsiveEmbed.js";
 
 
 
@@ -16219,7 +16231,7 @@ ResponsiveEmbed_ResponsiveEmbed.defaultProps = ResponsiveEmbed_defaultProps;
 
 
 
-var Row_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Row.js";
+var Row_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Row.js";
 
 
 
@@ -16272,7 +16284,7 @@ Row_Row.defaultProps = Row_defaultProps;
 // CONCATENATED MODULE: ./src/SplitToggle.js
 
 
-var SplitToggle_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/SplitToggle.js";
+var SplitToggle_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/SplitToggle.js";
 
 
 
@@ -16308,7 +16320,7 @@ SplitToggle_SplitToggle.defaultProps = src_DropdownToggle.defaultProps;
 
 
 
-var SplitButton_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/SplitButton.js";
+var SplitButton_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/SplitButton.js";
 
 
 
@@ -16533,7 +16545,7 @@ TabContainer_TabContainer.childContextTypes = TabContainer_childContextTypes;
 
 
 
-var TabContent_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/TabContent.js";
+var TabContent_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/TabContent.js";
 
 
 
@@ -16718,7 +16730,7 @@ TabContent_TabContent.childContextTypes = TabContent_childContextTypes;
 
 
 
-var TabPane_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/TabPane.js";
+var TabPane_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/TabPane.js";
 
 
 
@@ -16829,7 +16841,7 @@ function (_React$Component) {
     _this = _React$Component.call(this, props, context) || this;
     _this.handleEnter = _this.handleEnter.bind(_assertThisInitialized(_this));
     _this.handleExited = _this.handleExited.bind(_assertThisInitialized(_this));
-    _this.in = false;
+    _this["in"] = false;
     return _this;
   }
 
@@ -16849,7 +16861,7 @@ function (_React$Component) {
   };
 
   _proto.componentDidUpdate = function componentDidUpdate() {
-    if (this.in) {
+    if (this["in"]) {
       if (!this.shouldBeIn()) {
         // We shouldn't be active any more. Notify the parent.
         this.handleExited();
@@ -16861,7 +16873,7 @@ function (_React$Component) {
   };
 
   _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.in) {
+    if (this["in"]) {
       // In lieu of the action event firing.
       this.handleExited();
     }
@@ -16883,7 +16895,7 @@ function (_React$Component) {
       return;
     }
 
-    this.in = tabContent.onPaneEnter(this, this.props.eventKey);
+    this["in"] = tabContent.onPaneEnter(this, this.props.eventKey);
   };
 
   _proto.handleExited = function handleExited() {
@@ -16894,7 +16906,7 @@ function (_React$Component) {
     }
 
     tabContent.onPaneExited(this);
-    this.in = false;
+    this["in"] = false;
   };
 
   _proto.isActive = function isActive() {
@@ -16968,7 +16980,7 @@ function (_React$Component) {
     if (Transition) {
       var exiting = tabContent && tabContent.exiting;
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Transition, {
-        in: active && !exiting,
+        "in": active && !exiting,
         onEnter: utils_createChainedFunction(this.handleEnter, onEnter),
         onEntering: onEntering,
         onEntered: onEntered,
@@ -16998,7 +17010,7 @@ TabPane_TabPane.childContextTypes = TabPane_childContextTypes;
 // CONCATENATED MODULE: ./src/Tab.js
 
 
-var Tab_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Tab.js";
+var Tab_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Tab.js";
 
 
 
@@ -17054,7 +17066,7 @@ Tab_Tab.Pane = src_TabPane;
 
 
 
-var Table_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Table.js";
+var Table_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Table.js";
 
 
 
@@ -17136,7 +17148,7 @@ Table_Table.defaultProps = Table_defaultProps;
 
 
 
-var Tabs_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Tabs.js";
+var Tabs_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Tabs.js";
 
 
 
@@ -17310,7 +17322,7 @@ bootstrapUtils_bsClass('tab', Tabs_Tabs);
 
 
 
-var Thumbnail_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Thumbnail.js";
+var Thumbnail_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Thumbnail.js";
 
 /* eslint-disable jsx-a11y/alt-text */
 
@@ -17409,7 +17421,7 @@ Thumbnail_Thumbnail.propTypes = Thumbnail_propTypes;
 
 
 
-var ToggleButton_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ToggleButton.js";
+var ToggleButton_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ToggleButton.js";
 
 
 
@@ -17502,7 +17514,7 @@ ToggleButton_ToggleButton.propTypes = ToggleButton_propTypes;
 
 
 
-var ToggleButtonGroup_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/ToggleButtonGroup.js";
+var ToggleButtonGroup_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/ToggleButtonGroup.js";
 
 
 
@@ -17638,7 +17650,7 @@ UncontrolledToggleButtonGroup.Button = src_ToggleButton;
 
 
 
-var Tooltip_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Tooltip.js";
+var Tooltip_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Tooltip.js";
 
 
 
@@ -17758,7 +17770,7 @@ Tooltip_Tooltip.defaultProps = Tooltip_defaultProps;
 
 
 
-var Well_jsxFileName = "/home/mgdelacroix/go/src/github.com/mattermost/react-bootstrap/src/Well.js";
+var Well_jsxFileName = "/Users/devinbinnie/go/src/github.com/mattermost/react-bootstrap/src/Well.js";
 
 
 

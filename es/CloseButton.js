@@ -27,7 +27,8 @@ function (_React$Component) {
     return React.createElement("button", {
       type: "button",
       className: "close",
-      onClick: onClick
+      onClick: onClick,
+      "aria-label": label
     }, React.createElement("span", {
       "aria-hidden": "true"
     }, "\xD7"), React.createElement("span", {
