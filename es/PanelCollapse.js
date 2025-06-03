@@ -9,27 +9,22 @@ var propTypes = {
    * Callback fired before the component expands
    */
   onEnter: PropTypes.func,
-
   /**
    * Callback fired after the component starts to expand
    */
   onEntering: PropTypes.func,
-
   /**
    * Callback fired after the component has expanded
    */
   onEntered: PropTypes.func,
-
   /**
    * Callback fired before the component collapses
    */
   onExit: PropTypes.func,
-
   /**
    * Callback fired after the component starts to collapse
    */
   onExiting: PropTypes.func,
-
   /**
    * Callback fired after the component has collapsed
    */
@@ -43,49 +38,36 @@ var contextTypes = {
     expanded: PropTypes.bool
   })
 };
-
-var PanelCollapse =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelCollapse, _React$Component);
-
+var PanelCollapse = /*#__PURE__*/function (_React$Component) {
   function PanelCollapse() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelCollapse, _React$Component);
   var _proto = PanelCollapse.prototype;
-
   _proto.render = function render() {
     var children = this.props.children;
-
     var _ref = this.context.$bs_panel || {},
-        headingId = _ref.headingId,
-        bodyId = _ref.bodyId,
-        _bsClass = _ref.bsClass,
-        expanded = _ref.expanded;
-
+      headingId = _ref.headingId,
+      bodyId = _ref.bodyId,
+      _bsClass = _ref.bsClass,
+      expanded = _ref.expanded;
     var _splitBsProps = splitBsProps(this.props),
-        bsProps = _splitBsProps[0],
-        props = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      props = _splitBsProps[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
-
     if (headingId && bodyId) {
       props.id = bodyId;
       props.role = props.role || 'tabpanel';
       props['aria-labelledby'] = headingId;
     }
-
     return React.createElement(Collapse, _extends({
-      in: expanded
+      "in": expanded
     }, props), React.createElement("div", {
       className: prefix(bsProps, 'collapse')
     }, children));
   };
-
   return PanelCollapse;
 }(React.Component);
-
 PanelCollapse.propTypes = propTypes;
 PanelCollapse.contextTypes = contextTypes;
 export default bsClass('panel', PanelCollapse);

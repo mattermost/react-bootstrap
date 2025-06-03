@@ -1,6 +1,6 @@
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
+var _excluded = ["onClick", "className", "componentClass"];
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
@@ -14,7 +14,6 @@ var propTypes = {
    * @private
    */
   onClick: PropTypes.func,
-
   /**
    * You can use a custom element for this component
    */
@@ -30,61 +29,45 @@ var contextTypes = {
     expanded: PropTypes.bool
   })
 };
-
-var PanelToggle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelToggle, _React$Component);
-
+var PanelToggle = /*#__PURE__*/function (_React$Component) {
   function PanelToggle() {
     var _this;
-
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleToggle = _this.handleToggle.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(PanelToggle, _React$Component);
   var _proto = PanelToggle.prototype;
-
   _proto.handleToggle = function handleToggle(event) {
     var _ref = this.context.$bs_panel || {},
-        onToggle = _ref.onToggle;
-
+      onToggle = _ref.onToggle;
     if (onToggle) {
       onToggle(event);
     }
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        onClick = _this$props.onClick,
-        className = _this$props.className,
-        componentClass = _this$props.componentClass,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "componentClass"]);
-
+      onClick = _this$props.onClick,
+      className = _this$props.className,
+      componentClass = _this$props.componentClass,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var _ref2 = this.context.$bs_panel || {},
-        expanded = _ref2.expanded,
-        bodyId = _ref2.bodyId;
-
+      expanded = _ref2.expanded,
+      bodyId = _ref2.bodyId;
     var Component = componentClass;
     props.onClick = createChainedFunction(onClick, this.handleToggle);
     props['aria-expanded'] = expanded;
     props.className = classNames(className, !expanded && 'collapsed');
-
     if (bodyId) {
       props['aria-controls'] = bodyId;
     }
-
     return React.createElement(Component, props);
   };
-
   return PanelToggle;
 }(React.Component);
-
 PanelToggle.propTypes = propTypes;
 PanelToggle.defaultProps = defaultProps;
 PanelToggle.contextTypes = contextTypes;

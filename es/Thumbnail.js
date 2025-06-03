@@ -1,8 +1,9 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
-
+var _excluded = ["src", "alt", "onError", "onLoad", "className", "children"];
 /* eslint-disable jsx-a11y/alt-text */
+
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,53 +14,41 @@ var propTypes = {
    * src property that is passed down to the image inside this component
    */
   src: PropTypes.string,
-
   /**
    * alt property that is passed down to the image inside this component
    */
   alt: PropTypes.string,
-
   /**
    * href property that is passed down to the image inside this component
    */
   href: PropTypes.string,
-
   /**
    * onError callback that is passed down to the image inside this component
    */
   onError: PropTypes.func,
-
   /**
    * onLoad callback that is passed down to the image inside this component
    */
   onLoad: PropTypes.func
 };
-
-var Thumbnail =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Thumbnail, _React$Component);
-
+var Thumbnail = /*#__PURE__*/function (_React$Component) {
   function Thumbnail() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Thumbnail, _React$Component);
   var _proto = Thumbnail.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        src = _this$props.src,
-        alt = _this$props.alt,
-        onError = _this$props.onError,
-        onLoad = _this$props.onLoad,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["src", "alt", "onError", "onLoad", "className", "children"]);
-
+      src = _this$props.src,
+      alt = _this$props.alt,
+      onError = _this$props.onError,
+      onLoad = _this$props.onLoad,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var Component = elementProps.href ? SafeAnchor : 'div';
     var classes = getClassSet(bsProps);
     return React.createElement(Component, _extends({}, elementProps, {
@@ -73,9 +62,7 @@ function (_React$Component) {
       className: "caption"
     }, children));
   };
-
   return Thumbnail;
 }(React.Component);
-
 Thumbnail.propTypes = propTypes;
 export default bsClass('thumbnail', Thumbnail);

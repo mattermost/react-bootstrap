@@ -8,22 +8,16 @@ var propTypes = {
 var defaultProps = {
   label: 'Close'
 };
-
-var CloseButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(CloseButton, _React$Component);
-
+var CloseButton = /*#__PURE__*/function (_React$Component) {
   function CloseButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(CloseButton, _React$Component);
   var _proto = CloseButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        label = _this$props.label,
-        onClick = _this$props.onClick;
+      label = _this$props.label,
+      onClick = _this$props.onClick;
     return React.createElement("button", {
       type: "button",
       className: "close",
@@ -35,10 +29,8 @@ function (_React$Component) {
       className: "sr-only"
     }, label));
   };
-
   return CloseButton;
 }(React.Component);
-
 CloseButton.propTypes = propTypes;
 CloseButton.defaultProps = defaultProps;
 export default CloseButton;

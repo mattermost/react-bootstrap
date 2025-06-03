@@ -1,6 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+var _excluded = ["align", "className"];
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,42 +13,30 @@ var propTypes = {
    */
   align: PropTypes.oneOf(['top', 'middle', 'bottom'])
 };
-
-var MediaRight =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaRight, _React$Component);
-
+var MediaRight = /*#__PURE__*/function (_React$Component) {
   function MediaRight() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaRight, _React$Component);
   var _proto = MediaRight.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        align = _this$props.align,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["align", "className"]);
-
+      align = _this$props.align,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (align) {
       // The class is e.g. `media-top`, not `media-right-top`.
       classes[prefix(Media.defaultProps, align)] = true;
     }
-
     return React.createElement("div", _extends({}, elementProps, {
       className: classNames(className, classes)
     }));
   };
-
   return MediaRight;
 }(React.Component);
-
 MediaRight.propTypes = propTypes;
 export default bsClass('media-right', MediaRight);

@@ -1,6 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+var _excluded = ["componentClass", "className"];
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +10,6 @@ import { bsClass, prefix, splitBsProps } from './utils/bootstrapUtils';
 import { DEVICE_SIZES } from './utils/StyleConfig';
 var propTypes = {
   componentClass: elementType,
-
   /**
    * The number of columns you wish to span
    *
@@ -18,7 +18,6 @@ var propTypes = {
    * class-prefix `col-xs-`
    */
   xs: PropTypes.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -27,7 +26,6 @@ var propTypes = {
    * class-prefix `col-sm-`
    */
   sm: PropTypes.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -36,7 +34,6 @@ var propTypes = {
    * class-prefix `col-md-`
    */
   md: PropTypes.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -45,7 +42,6 @@ var propTypes = {
    * class-prefix `col-lg-`
    */
   lg: PropTypes.number,
-
   /**
    * Hide column
    *
@@ -54,7 +50,6 @@ var propTypes = {
    * adds class `hidden-xs`
    */
   xsHidden: PropTypes.bool,
-
   /**
    * Hide column
    *
@@ -63,7 +58,6 @@ var propTypes = {
    * adds class `hidden-sm`
    */
   smHidden: PropTypes.bool,
-
   /**
    * Hide column
    *
@@ -72,7 +66,6 @@ var propTypes = {
    * adds class `hidden-md`
    */
   mdHidden: PropTypes.bool,
-
   /**
    * Hide column
    *
@@ -81,7 +74,6 @@ var propTypes = {
    * adds class `hidden-lg`
    */
   lgHidden: PropTypes.bool,
-
   /**
    * Move columns to the right
    *
@@ -90,7 +82,6 @@ var propTypes = {
    * class-prefix `col-xs-offset-`
    */
   xsOffset: PropTypes.number,
-
   /**
    * Move columns to the right
    *
@@ -99,7 +90,6 @@ var propTypes = {
    * class-prefix `col-sm-offset-`
    */
   smOffset: PropTypes.number,
-
   /**
    * Move columns to the right
    *
@@ -108,7 +98,6 @@ var propTypes = {
    * class-prefix `col-md-offset-`
    */
   mdOffset: PropTypes.number,
-
   /**
    * Move columns to the right
    *
@@ -117,7 +106,6 @@ var propTypes = {
    * class-prefix `col-lg-offset-`
    */
   lgOffset: PropTypes.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -126,7 +114,6 @@ var propTypes = {
    * class-prefix `col-xs-push-`
    */
   xsPush: PropTypes.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -135,7 +122,6 @@ var propTypes = {
    * class-prefix `col-sm-push-`
    */
   smPush: PropTypes.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -144,7 +130,6 @@ var propTypes = {
    * class-prefix `col-md-push-`
    */
   mdPush: PropTypes.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -153,7 +138,6 @@ var propTypes = {
    * class-prefix `col-lg-push-`
    */
   lgPush: PropTypes.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -162,7 +146,6 @@ var propTypes = {
    * class-prefix `col-xs-pull-`
    */
   xsPull: PropTypes.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -171,7 +154,6 @@ var propTypes = {
    * class-prefix `col-sm-pull-`
    */
   smPull: PropTypes.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -180,7 +162,6 @@ var propTypes = {
    * class-prefix `col-md-pull-`
    */
   mdPull: PropTypes.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -193,61 +174,46 @@ var propTypes = {
 var defaultProps = {
   componentClass: 'div'
 };
-
-var Col =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Col, _React$Component);
-
+var Col = /*#__PURE__*/function (_React$Component) {
   function Col() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Col, _React$Component);
   var _proto = Col.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = [];
     DEVICE_SIZES.forEach(function (size) {
       function popProp(propSuffix, modifier) {
         var propName = "" + size + propSuffix;
         var propValue = elementProps[propName];
-
         if (propValue != null) {
           classes.push(prefix(bsProps, "" + size + modifier + "-" + propValue));
         }
-
         delete elementProps[propName];
       }
-
       popProp('', '');
       popProp('Offset', '-offset');
       popProp('Push', '-push');
       popProp('Pull', '-pull');
       var hiddenPropName = size + "Hidden";
-
       if (elementProps[hiddenPropName]) {
         classes.push("hidden-" + size);
       }
-
       delete elementProps[hiddenPropName];
     });
     return React.createElement(Component, _extends({}, elementProps, {
       className: classNames(className, classes)
     }));
   };
-
   return Col;
 }(React.Component);
-
 Col.propTypes = propTypes;
 Col.defaultProps = defaultProps;
 export default bsClass('col', Col);

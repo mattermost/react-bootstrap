@@ -27,46 +27,33 @@ var contextTypes = {
     bsClass: PropTypes.string
   })
 };
-
-var PanelBody =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelBody, _React$Component);
-
+var PanelBody = /*#__PURE__*/function (_React$Component) {
   function PanelBody() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelBody, _React$Component);
   var _proto = PanelBody.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className,
-        collapsible = _this$props.collapsible;
-
+      children = _this$props.children,
+      className = _this$props.className,
+      collapsible = _this$props.collapsible;
     var _ref = this.context.$bs_panel || {},
-        _bsClass = _ref.bsClass;
-
+      _bsClass = _ref.bsClass;
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['collapsible']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
     var body = React.createElement("div", _extends({}, elementProps, {
       className: cn(className, prefix(bsProps, 'body'))
     }), children);
-
     if (collapsible) {
       body = React.createElement(PanelCollapse, null, body);
     }
-
     return body;
   };
-
   return PanelBody;
 }(React.Component);
-
 PanelBody.propTypes = propTypes;
 PanelBody.defaultProps = defaultProps;
 PanelBody.contextTypes = contextTypes;

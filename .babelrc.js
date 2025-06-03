@@ -37,9 +37,7 @@ module.exports = api => {
       ['@babel/preset-react', { development: dev }]
     ],
     plugins: [
-      ['@babel/plugin-proposal-class-properties', { loose: true }],
       '@babel/plugin-proposal-export-default-from',
-      '@babel/plugin-proposal-export-namespace-from',
       [
         '@babel/plugin-transform-runtime',
         { useESModules: !modules, corejs: 2 }

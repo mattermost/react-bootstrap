@@ -1,5 +1,6 @@
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+var _excluded = ["children"];
 import React from 'react';
 import PropTypes from 'prop-types';
 import uncontrollable from 'uncontrollable';
@@ -13,22 +14,17 @@ var propTypes = {
    */
   id: function id(props) {
     var error = null;
-
     if (!props.generateChildId) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
-
       error = idPropType.apply(void 0, [props].concat(args));
-
       if (!error && !props.id) {
         error = new Error('In order to properly initialize Tabs in a way that is accessible ' + 'to assistive technologies (such as screen readers) an `id` or a ' + '`generateChildId` prop to TabContainer is required');
       }
     }
-
     return error;
   },
-
   /**
    * A function that takes an `eventKey` and `type` and returns a unique id for
    * child tab `<NavItem>`s and `<TabPane>`s. The function _must_ be a pure
@@ -41,14 +37,12 @@ var propTypes = {
    * @defaultValue (eventKey, type) => `${this.props.id}-${type}-${key}`
    */
   generateChildId: PropTypes.func,
-
   /**
    * A callback fired when a tab is selected.
    *
    * @controllable activeKey
    */
   onSelect: PropTypes.func,
-
   /**
    * The `eventKey` of the currently active tab.
    *
@@ -64,29 +58,21 @@ var childContextTypes = {
     getPaneId: PropTypes.func.isRequired
   })
 };
-
-var TabContainer =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(TabContainer, _React$Component);
-
+var TabContainer = /*#__PURE__*/function (_React$Component) {
   function TabContainer() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(TabContainer, _React$Component);
   var _proto = TabContainer.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        onSelect = _this$props.onSelect,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
-
+      activeKey = _this$props.activeKey,
+      onSelect = _this$props.onSelect,
+      generateChildId = _this$props.generateChildId,
+      id = _this$props.id;
     var getId = generateChildId || function (key, type) {
       return id ? id + "-" + type + "-" + key : null;
     };
-
     return {
       $bs_tabContainer: {
         activeKey: activeKey,
@@ -100,21 +86,17 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["children"]);
-
+      children = _this$props2.children,
+      props = _objectWithoutPropertiesLoose(_this$props2, _excluded);
     delete props.generateChildId;
     delete props.onSelect;
     delete props.activeKey;
     return React.cloneElement(React.Children.only(children), props);
   };
-
   return TabContainer;
 }(React.Component);
-
 TabContainer.propTypes = propTypes;
 TabContainer.childContextTypes = childContextTypes;
 export default uncontrollable(TabContainer, {

@@ -1,6 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+var _excluded = ["componentClass", "align", "className"];
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -17,44 +18,32 @@ var propTypes = {
 var defaultProps = {
   componentClass: 'div'
 };
-
-var MediaBody =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaBody, _React$Component);
-
+var MediaBody = /*#__PURE__*/function (_React$Component) {
   function MediaBody() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaBody, _React$Component);
   var _proto = MediaBody.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        align = _this$props.align,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "align", "className"]);
-
+      Component = _this$props.componentClass,
+      align = _this$props.align,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (align) {
       // The class is e.g. `media-top`, not `media-left-top`.
       classes[prefix(Media.defaultProps, align)] = true;
     }
-
     return React.createElement(Component, _extends({}, elementProps, {
       className: classNames(className, classes)
     }));
   };
-
   return MediaBody;
 }(React.Component);
-
 MediaBody.propTypes = propTypes;
 MediaBody.defaultProps = defaultProps;
 export default bsClass('media-body', MediaBody);

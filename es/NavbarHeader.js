@@ -1,6 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+var _excluded = ["className"];
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -10,23 +11,16 @@ var contextTypes = {
     bsClass: PropTypes.string
   })
 };
-
-var NavbarHeader =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavbarHeader, _React$Component);
-
+var NavbarHeader = /*#__PURE__*/function (_React$Component) {
   function NavbarHeader() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavbarHeader, _React$Component);
   var _proto = NavbarHeader.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
@@ -35,9 +29,7 @@ function (_React$Component) {
       className: classNames(className, bsClassName)
     }));
   };
-
   return NavbarHeader;
 }(React.Component);
-
 NavbarHeader.contextTypes = contextTypes;
 export default NavbarHeader;

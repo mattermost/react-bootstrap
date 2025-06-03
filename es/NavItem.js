@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
+var _excluded = ["active", "disabled", "onClick", "className", "style"];
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -20,48 +20,38 @@ var defaultProps = {
   active: false,
   disabled: false
 };
-
-var NavItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavItem, _React$Component);
-
+var NavItem = /*#__PURE__*/function (_React$Component) {
   function NavItem(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(NavItem, _React$Component);
   var _proto = NavItem.prototype;
-
   _proto.handleClick = function handleClick(e) {
     if (this.props.disabled) {
       e.preventDefault();
       return;
     }
-
     if (this.props.onSelect) {
       this.props.onSelect(this.props.eventKey, e);
     }
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        active = _this$props.active,
-        disabled = _this$props.disabled,
-        onClick = _this$props.onClick,
-        className = _this$props.className,
-        style = _this$props.style,
-        props = _objectWithoutPropertiesLoose(_this$props, ["active", "disabled", "onClick", "className", "style"]);
-
+      active = _this$props.active,
+      disabled = _this$props.disabled,
+      onClick = _this$props.onClick,
+      className = _this$props.className,
+      style = _this$props.style,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded);
     delete props.onSelect;
-    delete props.eventKey; // These are injected down by `<Nav>` for building `<SubNav>`s.
+    delete props.eventKey;
 
+    // These are injected down by `<Nav>` for building `<SubNav>`s.
     delete props.activeKey;
     delete props.activeHref;
-
     if (!props.role) {
       if (props.href === '#') {
         props.role = 'button';
@@ -69,7 +59,6 @@ function (_React$Component) {
     } else if (props.role === 'tab') {
       props['aria-selected'] = active;
     }
-
     return React.createElement("li", {
       role: "presentation",
       className: classNames(className, {
@@ -82,10 +71,8 @@ function (_React$Component) {
       onClick: createChainedFunction(onClick, this.handleClick)
     })));
   };
-
   return NavItem;
 }(React.Component);
-
 NavItem.propTypes = propTypes;
 NavItem.defaultProps = defaultProps;
 export default NavItem;

@@ -104,6 +104,7 @@ return /******/ (function(modules) { // webpackBootstrap
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 if (false) { var throwOnDirectAccess, isValidElement, REACT_ELEMENT_TYPE; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
@@ -125,26 +126,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
-
 /* global define */
+
 (function () {
   'use strict';
 
   var hasOwn = {}.hasOwnProperty;
-
   function classNames() {
     var classes = [];
-
     for (var i = 0; i < arguments.length; i++) {
       var arg = arguments[i];
       if (!arg) continue;
       var argType = typeof arg;
-
       if (argType === 'string' || argType === 'number') {
         classes.push(arg);
       } else if (Array.isArray(arg) && arg.length) {
         var inner = classNames.apply(null, arg);
-
         if (inner) {
           classes.push(inner);
         }
@@ -156,10 +153,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       }
     }
-
     return classes.join(' ');
   }
-
   if (typeof module !== 'undefined' && module.exports) {
     classNames.default = classNames;
     module.exports = classNames;
@@ -182,37 +177,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactIs = __webpack_require__(104);
-
 var _createChainableTypeChecker = __webpack_require__(22);
-
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function elementType(props, propName, componentName, location, propFullName) {
   var propValue = props[propName];
-
   if (_react2.default.isValidElement(propValue)) {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of type ReactElement ' + ('supplied to `' + componentName + '`,expected an element type (a string ') + ', component class, or function component).');
   }
-
   if (!(0, _reactIs.isValidElementType)(propValue)) {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected an element type (a string ') + ', component class, or function component).');
   }
-
   return null;
 }
-
 exports.default = (0, _createChainableTypeChecker2.default)(elementType);
 module.exports = exports['default'];
 
@@ -231,24 +215,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__4__;
 
 exports.__esModule = true;
 exports.default = uncontrollable;
-
 var _react = _interopRequireDefault(__webpack_require__(1));
-
 var _invariant = _interopRequireDefault(__webpack_require__(21));
-
 var Utils = _interopRequireWildcard(__webpack_require__(99));
-
 function _interopRequireWildcard(obj) {
   if (obj && obj.__esModule) {
     return obj;
   } else {
     var newObj = {};
-
     if (obj != null) {
       for (var key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
           var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
-
           if (desc.get || desc.set) {
             Object.defineProperty(newObj, key, desc);
           } else {
@@ -257,89 +235,68 @@ function _interopRequireWildcard(obj) {
         }
       }
     }
-
     newObj.default = obj;
     return newObj;
   }
 }
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
-
   return _extends.apply(this, arguments);
 }
-
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
   subClass.__proto__ = superClass;
 }
-
 function uncontrollable(Component, controlledValues, methods) {
   if (methods === void 0) {
     methods = [];
   }
-
   var displayName = Component.displayName || Component.name || 'Component';
   var isCompositeComponent = Utils.isReactComponent(Component);
   var controlledProps = Object.keys(controlledValues);
   var PROPS_TO_OMIT = controlledProps.map(Utils.defaultKey);
   !(isCompositeComponent || !methods.length) ?  false ? undefined : invariant(false) : void 0;
-
-  var UncontrolledComponent =
-  /*#__PURE__*/
+  var UncontrolledComponent = /*#__PURE__*/
   function (_React$Component) {
     _inheritsLoose(UncontrolledComponent, _React$Component);
-
     function UncontrolledComponent() {
       var _this;
-
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
-
       _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
       _this.handlers = Object.create(null);
       controlledProps.forEach(function (propName) {
         var handlerName = controlledValues[propName];
-
         var handleChange = function handleChange(value) {
           if (_this.props[handlerName]) {
             var _this$props;
-
             _this._notifying = true;
-
             for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
               args[_key2 - 1] = arguments[_key2];
             }
-
             (_this$props = _this.props)[handlerName].apply(_this$props, [value].concat(args));
-
             _this._notifying = false;
           }
-
           _this._values[propName] = value;
           if (!_this.unmounted) _this.forceUpdate();
         };
-
         _this.handlers[handlerName] = handleChange;
       });
       if (isCompositeComponent) _this.attachRef = function (ref) {
@@ -347,27 +304,21 @@ function uncontrollable(Component, controlledValues, methods) {
       };
       return _this;
     }
-
     var _proto = UncontrolledComponent.prototype;
-
     _proto.shouldComponentUpdate = function shouldComponentUpdate() {
       //let the forceUpdate trigger the update
       return !this._notifying;
     };
-
     _proto.componentWillMount = function componentWillMount() {
       var _this2 = this;
-
       var props = this.props;
       this._values = Object.create(null);
       controlledProps.forEach(function (key) {
         _this2._values[key] = props[Utils.defaultKey(key)];
       });
     };
-
     _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
       var _this3 = this;
-
       var props = this.props;
       controlledProps.forEach(function (key) {
         /**
@@ -379,20 +330,15 @@ function uncontrollable(Component, controlledValues, methods) {
         }
       });
     };
-
     _proto.componentWillUnmount = function componentWillUnmount() {
       this.unmounted = true;
     };
-
     _proto.getControlledInstance = function getControlledInstance() {
       return this.inner;
     };
-
     _proto.render = function render() {
       var _this4 = this;
-
       var props = _extends({}, this.props);
-
       PROPS_TO_OMIT.forEach(function (prop) {
         delete props[prop];
       });
@@ -405,16 +351,13 @@ function uncontrollable(Component, controlledValues, methods) {
         ref: this.attachRef
       }));
     };
-
     return UncontrolledComponent;
   }(_react.default.Component);
-
   UncontrolledComponent.displayName = "Uncontrolled(" + displayName + ")";
   UncontrolledComponent.propTypes = Utils.uncontrolledPropTypes(controlledValues, displayName);
   methods.forEach(function (method) {
     UncontrolledComponent.prototype[method] = function $proxiedMethod() {
       var _inner;
-
       return (_inner = this.inner)[method].apply(_inner, arguments);
     };
   });
@@ -428,13 +371,10 @@ function uncontrollable(Component, controlledValues, methods) {
     if (additions === void 0) {
       additions = {};
     }
-
     return uncontrollable(newComponent, _extends({}, controlledValues, additions), nextMethods);
   };
-
   return UncontrolledComponent;
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -451,27 +391,33 @@ module.exports = exports["default"];
  * @return {Mixed}
  * @api public
  */
+
 function keyCode(searchInput) {
   // Keyboard Events
   if (searchInput && 'object' === typeof searchInput) {
     var hasKeyCode = searchInput.which || searchInput.keyCode || searchInput.charCode;
     if (hasKeyCode) searchInput = hasKeyCode;
-  } // Numbers
+  }
 
+  // Numbers
+  if ('number' === typeof searchInput) return names[searchInput];
 
-  if ('number' === typeof searchInput) return names[searchInput]; // Everything else (cast to string)
+  // Everything else (cast to string)
+  var search = String(searchInput);
 
-  var search = String(searchInput); // check codes
-
+  // check codes
   var foundNamedKey = codes[search.toLowerCase()];
-  if (foundNamedKey) return foundNamedKey; // check aliases
+  if (foundNamedKey) return foundNamedKey;
 
+  // check aliases
   var foundNamedKey = aliases[search.toLowerCase()];
-  if (foundNamedKey) return foundNamedKey; // weird character?
+  if (foundNamedKey) return foundNamedKey;
 
+  // weird character?
   if (search.length === 1) return search.charCodeAt(0);
   return undefined;
 }
+
 /**
  * Compares a keyboard event with a given keyCode or keyName.
  *
@@ -480,39 +426,32 @@ function keyCode(searchInput) {
  * @return {Boolean}
  * @api public
  */
-
-
 keyCode.isEventKey = function isEventKey(event, nameOrCode) {
   if (event && 'object' === typeof event) {
     var keyCode = event.which || event.keyCode || event.charCode;
-
     if (keyCode === null || keyCode === undefined) {
       return false;
     }
-
     if (typeof nameOrCode === 'string') {
       // check codes
       var foundNamedKey = codes[nameOrCode.toLowerCase()];
-
       if (foundNamedKey) {
         return foundNamedKey === keyCode;
-      } // check aliases
+      }
 
-
+      // check aliases
       var foundNamedKey = aliases[nameOrCode.toLowerCase()];
-
       if (foundNamedKey) {
         return foundNamedKey === keyCode;
       }
     } else if (typeof nameOrCode === 'number') {
       return nameOrCode === keyCode;
     }
-
     return false;
   }
 };
-
 exports = module.exports = keyCode;
+
 /**
  * Get by name
  *
@@ -562,9 +501,11 @@ var codes = exports.code = exports.codes = {
   '[': 219,
   '\\': 220,
   ']': 221,
-  "'": 222 // Helper aliases
-
+  "'": 222
 };
+
+// Helper aliases
+
 var aliases = exports.aliases = {
   'windows': 91,
   '⇧': 16,
@@ -586,36 +527,36 @@ var aliases = exports.aliases = {
   'ins': 45,
   'del': 46,
   'cmd': 91
-  /*!
-   * Programatically add the following
-   */
-  // lower case chars
-
 };
 
-for (i = 97; i < 123; i++) codes[String.fromCharCode(i)] = i - 32; // numbers
+/*!
+ * Programatically add the following
+ */
 
+// lower case chars
+for (i = 97; i < 123; i++) codes[String.fromCharCode(i)] = i - 32;
 
-for (var i = 48; i < 58; i++) codes[i - 48] = i; // function keys
+// numbers
+for (var i = 48; i < 58; i++) codes[i - 48] = i;
 
+// function keys
+for (i = 1; i < 13; i++) codes['f' + i] = i + 111;
 
-for (i = 1; i < 13; i++) codes['f' + i] = i + 111; // numpad keys
-
-
+// numpad keys
 for (i = 0; i < 10; i++) codes['numpad ' + i] = i + 96;
+
 /**
  * Get by code
  *
  *   exports.name[13] // => 'Enter'
  */
 
-
 var names = exports.names = exports.title = {}; // title for backward compat
+
 // Create reverse mapping
+for (i in codes) names[codes[i]] = i;
 
-for (i in codes) names[codes[i]] = i; // Add aliases
-
-
+// Add aliases
 for (var alias in aliases) {
   codes[alias] = aliases[alias];
 }
@@ -634,17 +575,16 @@ for (var alias in aliases) {
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+
+
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
  * paths. Removing the logging code for production environments will keep the
  * same logic and follow the same code paths.
  */
-
 var warning = function () {};
-
 if (false) {}
-
 module.exports = warning;
 
 /***/ }),
@@ -667,17 +607,11 @@ module.exports = __webpack_require__(102);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(19);
-
 var core = __webpack_require__(8);
-
 var ctx = __webpack_require__(56);
-
 var hide = __webpack_require__(27);
-
 var has = __webpack_require__(31);
-
 var PROTOTYPE = 'prototype';
-
 var $export = function (type, name, source) {
   var IS_FORCED = type & $export.F;
   var IS_GLOBAL = type & $export.G;
@@ -690,65 +624,53 @@ var $export = function (type, name, source) {
   var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
   var key, own, out;
   if (IS_GLOBAL) source = name;
-
   for (key in source) {
     // contains in native
     own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue; // export native or passed
-
-    out = own ? target[key] : source[key]; // prevent global pollution for namespaces
-
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key] // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global) // wrap global constructors for prevent change them in library
+    if (own && has(exports, key)) continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
     : IS_WRAP && target[key] == out ? function (C) {
       var F = function (a, b, c) {
         if (this instanceof C) {
           switch (arguments.length) {
             case 0:
               return new C();
-
             case 1:
               return new C(a);
-
             case 2:
               return new C(a, b);
           }
-
           return new C(a, b, c);
         }
-
         return C.apply(this, arguments);
       };
-
       F[PROTOTYPE] = C[PROTOTYPE];
-      return F; // make static versions for prototype methods
-    }(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out; // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-
+      return F;
+      // make static versions for prototype methods
+    }(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
     if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out; // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
       if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
     }
   }
-}; // type bitmap
-
-
+};
+// type bitmap
 $export.F = 1; // forced
-
 $export.G = 2; // global
-
 $export.S = 4; // static
-
 $export.P = 8; // proto
-
 $export.B = 16; // bind
-
 $export.W = 32; // wrap
-
 $export.U = 64; // safe
-
 $export.R = 128; // real proto method for `library`
-
 module.exports = $export;
 
 /***/ }),
@@ -773,77 +695,57 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = undefined;
-
 var _propTypes = __webpack_require__(0);
-
 var PropTypes = _interopRequireWildcard(_propTypes);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactLifecyclesCompat = __webpack_require__(117);
-
 var _PropTypes = __webpack_require__(118);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _interopRequireWildcard(obj) {
   if (obj && obj.__esModule) {
     return obj;
   } else {
     var newObj = {};
-
     if (obj != null) {
       for (var key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
       }
     }
-
     newObj.default = obj;
     return newObj;
   }
 }
-
 function _objectWithoutProperties(obj, keys) {
   var target = {};
-
   for (var i in obj) {
     if (keys.indexOf(i) >= 0) continue;
     if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
     target[i] = obj[i];
   }
-
   return target;
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -854,12 +756,12 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-
 var UNMOUNTED = exports.UNMOUNTED = 'unmounted';
 var EXITED = exports.EXITED = 'exited';
 var ENTERING = exports.ENTERING = 'entering';
 var ENTERED = exports.ENTERED = 'entered';
 var EXITING = exports.EXITING = 'exiting';
+
 /**
  * The Transition component lets you describe a transition from one component
  * state to another _over time_ with a simple declarative API. Most commonly
@@ -963,18 +865,14 @@ var EXITING = exports.EXITING = 'exiting';
 
 var Transition = function (_React$Component) {
   _inherits(Transition, _React$Component);
-
   function Transition(props, context) {
     _classCallCheck(this, Transition);
-
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
-    var parentGroup = context.transitionGroup; // In the context of a TransitionGroup all enters are really appears
-
+    var parentGroup = context.transitionGroup;
+    // In the context of a TransitionGroup all enters are really appears
     var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
     var initialStatus = void 0;
     _this.appearStatus = null;
-
     if (props.in) {
       if (appear) {
         initialStatus = EXITED;
@@ -989,35 +887,33 @@ var Transition = function (_React$Component) {
         initialStatus = EXITED;
       }
     }
-
     _this.state = {
       status: initialStatus
     };
     _this.nextCallback = null;
     return _this;
   }
-
   Transition.prototype.getChildContext = function getChildContext() {
     return {
       transitionGroup: null // allows for nested Transitions
-
     };
   };
-
   Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
     var nextIn = _ref.in;
-
     if (nextIn && prevState.status === UNMOUNTED) {
       return {
         status: EXITED
       };
     }
-
     return null;
-  }; // getSnapshotBeforeUpdate(prevProps) {
+  };
+
+  // getSnapshotBeforeUpdate(prevProps) {
   //   let nextStatus = null
+
   //   if (prevProps !== this.props) {
   //     const { status } = this.state
+
   //     if (this.props.in) {
   //       if (status !== ENTERING && status !== ENTERED) {
   //         nextStatus = ENTERING
@@ -1028,20 +924,17 @@ var Transition = function (_React$Component) {
   //       }
   //     }
   //   }
+
   //   return { nextStatus }
   // }
-
 
   Transition.prototype.componentDidMount = function componentDidMount() {
     this.updateStatus(true, this.appearStatus);
   };
-
   Transition.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
     var nextStatus = null;
-
     if (prevProps !== this.props) {
       var status = this.state.status;
-
       if (this.props.in) {
         if (status !== ENTERING && status !== ENTERED) {
           nextStatus = ENTERING;
@@ -1052,44 +945,35 @@ var Transition = function (_React$Component) {
         }
       }
     }
-
     this.updateStatus(false, nextStatus);
   };
-
   Transition.prototype.componentWillUnmount = function componentWillUnmount() {
     this.cancelNextCallback();
   };
-
   Transition.prototype.getTimeouts = function getTimeouts() {
     var timeout = this.props.timeout;
     var exit = void 0,
-        enter = void 0,
-        appear = void 0;
+      enter = void 0,
+      appear = void 0;
     exit = enter = appear = timeout;
-
     if (timeout != null && typeof timeout !== 'number') {
       exit = timeout.exit;
       enter = timeout.enter;
       appear = timeout.appear;
     }
-
     return {
       exit: exit,
       enter: enter,
       appear: appear
     };
   };
-
   Transition.prototype.updateStatus = function updateStatus() {
     var mounting = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     var nextStatus = arguments[1];
-
     if (nextStatus !== null) {
       // nextStatus will always be ENTERING or EXITING.
       this.cancelNextCallback();
-
       var node = _reactDom2.default.findDOMNode(this);
-
       if (nextStatus === ENTERING) {
         this.performEnter(node, mounting);
       } else {
@@ -1101,15 +985,14 @@ var Transition = function (_React$Component) {
       });
     }
   };
-
   Transition.prototype.performEnter = function performEnter(node, mounting) {
     var _this2 = this;
-
     var enter = this.props.enter;
     var appearing = this.context.transitionGroup ? this.context.transitionGroup.isMounting : mounting;
-    var timeouts = this.getTimeouts(); // no enter animation skip right to ENTERED
-    // if we are mounting and running this it means appear _must_ be set
+    var timeouts = this.getTimeouts();
 
+    // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
     if (!mounting && !enter) {
       this.safeSetState({
         status: ENTERED
@@ -1118,14 +1001,13 @@ var Transition = function (_React$Component) {
       });
       return;
     }
-
     this.props.onEnter(node, appearing);
     this.safeSetState({
       status: ENTERING
     }, function () {
-      _this2.props.onEntering(node, appearing); // FIXME: appear timeout?
+      _this2.props.onEntering(node, appearing);
 
-
+      // FIXME: appear timeout?
       _this2.onTransitionEnd(node, timeouts.enter, function () {
         _this2.safeSetState({
           status: ENTERED
@@ -1135,13 +1017,12 @@ var Transition = function (_React$Component) {
       });
     });
   };
-
   Transition.prototype.performExit = function performExit(node) {
     var _this3 = this;
-
     var exit = this.props.exit;
-    var timeouts = this.getTimeouts(); // no exit animation skip right to EXITED
+    var timeouts = this.getTimeouts();
 
+    // no exit animation skip right to EXITED
     if (!exit) {
       this.safeSetState({
         status: EXITED
@@ -1150,13 +1031,11 @@ var Transition = function (_React$Component) {
       });
       return;
     }
-
     this.props.onExit(node);
     this.safeSetState({
       status: EXITING
     }, function () {
       _this3.props.onExiting(node);
-
       _this3.onTransitionEnd(node, timeouts.exit, function () {
         _this3.safeSetState({
           status: EXITED
@@ -1166,14 +1045,12 @@ var Transition = function (_React$Component) {
       });
     });
   };
-
   Transition.prototype.cancelNextCallback = function cancelNextCallback() {
     if (this.nextCallback !== null) {
       this.nextCallback.cancel();
       this.nextCallback = null;
     }
   };
-
   Transition.prototype.safeSetState = function safeSetState(nextState, callback) {
     // This shouldn't be necessary, but there are weird race conditions with
     // setState callbacks and unmounting in testing, so always make sure that
@@ -1181,12 +1058,9 @@ var Transition = function (_React$Component) {
     callback = this.setNextCallback(callback);
     this.setState(nextState, callback);
   };
-
   Transition.prototype.setNextCallback = function setNextCallback(callback) {
     var _this4 = this;
-
     var active = true;
-
     this.nextCallback = function (event) {
       if (active) {
         active = false;
@@ -1194,22 +1068,17 @@ var Transition = function (_React$Component) {
         callback(event);
       }
     };
-
     this.nextCallback.cancel = function () {
       active = false;
     };
-
     return this.nextCallback;
   };
-
   Transition.prototype.onTransitionEnd = function onTransitionEnd(node, timeout, handler) {
     this.setNextCallback(handler);
-
     if (node) {
       if (this.props.addEndListener) {
         this.props.addEndListener(node, this.nextCallback);
       }
-
       if (timeout != null) {
         setTimeout(this.nextCallback, timeout);
       }
@@ -1217,18 +1086,15 @@ var Transition = function (_React$Component) {
       setTimeout(this.nextCallback, 0);
     }
   };
-
   Transition.prototype.render = function render() {
     var status = this.state.status;
-
     if (status === UNMOUNTED) {
       return null;
     }
-
     var _props = this.props,
-        children = _props.children,
-        childProps = _objectWithoutProperties(_props, ['children']); // filter props for Transtition
-
+      children = _props.children,
+      childProps = _objectWithoutProperties(_props, ['children']);
+    // filter props for Transtition
 
     delete childProps.in;
     delete childProps.mountOnEnter;
@@ -1244,19 +1110,14 @@ var Transition = function (_React$Component) {
     delete childProps.onExit;
     delete childProps.onExiting;
     delete childProps.onExited;
-
     if (typeof children === 'function') {
       return children(status, childProps);
     }
-
     var child = _react2.default.Children.only(children);
-
     return _react2.default.cloneElement(child, childProps);
   };
-
   return Transition;
 }(_react2.default.Component);
-
 Transition.contextTypes = {
   transitionGroup: PropTypes.object
 };
@@ -1264,9 +1125,7 @@ Transition.childContextTypes = {
   transitionGroup: function transitionGroup() {}
 };
 Transition.propTypes =  false ? undefined : {};
-
 function noop() {}
-
 Transition.defaultProps = {
   in: false,
   mountOnEnter: false,
@@ -1298,17 +1157,13 @@ exports.default = (0, _reactLifecyclesCompat.polyfill)(Transition);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 exports.default = function () {
   // HTML DOM and SVG DOM may have different support levels,
   // so we need to check on context instead of a document root element.
@@ -1322,14 +1177,12 @@ exports.default = function () {
     }
   } : fallback;
 }();
-
 function fallback(context, node) {
   if (node) do {
     if (node === context) return true;
   } while (node = node.parentNode);
   return false;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1343,45 +1196,35 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = all;
-
 var _createChainableTypeChecker = __webpack_require__(22);
-
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function all() {
   for (var _len = arguments.length, validators = Array(_len), _key = 0; _key < _len; _key++) {
     validators[_key] = arguments[_key];
   }
-
   function allPropTypes() {
     for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
     }
-
     var error = null;
     validators.forEach(function (validator) {
       if (error != null) {
         return;
       }
-
       var result = validator.apply(undefined, args);
-
       if (result != null) {
         error = result;
       }
     });
     return error;
   }
-
   return (0, _createChainableTypeChecker2.default)(allPropTypes);
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1395,24 +1238,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = isRequiredForA11y;
-
 function isRequiredForA11y(validator) {
   return function validate(props, propName, componentName, location, propFullName) {
     var componentNameSafe = componentName || '<<anonymous>>';
     var propFullNameSafe = propFullName || propName;
-
     if (props[propName] == null) {
       return new Error('The ' + location + ' `' + propFullNameSafe + '` is required to make ' + ('`' + componentNameSafe + '` accessible for users of assistive ') + 'technologies such as screen readers.');
     }
-
     for (var _len = arguments.length, args = Array(_len > 5 ? _len - 5 : 0), _key = 5; _key < _len; _key++) {
       args[_key - 5] = arguments[_key];
     }
-
     return validator.apply(undefined, [props, propName, componentName, location, propFullName].concat(args));
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1420,17 +1258,12 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(60)('wks');
-
 var uid = __webpack_require__(62);
-
 var Symbol = __webpack_require__(19).Symbol;
-
 var USE_SYMBOL = typeof Symbol == 'function';
-
 var $exports = module.exports = function (name) {
   return store[name] || (store[name] = USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
 };
-
 $exports.store = store;
 
 /***/ }),
@@ -1444,11 +1277,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = ownerDocument;
-
 function ownerDocument(node) {
   return node && node.ownerDocument || document;
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -1462,40 +1293,26 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = style;
-
 var _camelizeStyle = __webpack_require__(67);
-
 var _camelizeStyle2 = _interopRequireDefault(_camelizeStyle);
-
 var _hyphenateStyle = __webpack_require__(108);
-
 var _hyphenateStyle2 = _interopRequireDefault(_hyphenateStyle);
-
 var _getComputedStyle2 = __webpack_require__(110);
-
 var _getComputedStyle3 = _interopRequireDefault(_getComputedStyle2);
-
 var _removeStyle = __webpack_require__(111);
-
 var _removeStyle2 = _interopRequireDefault(_removeStyle);
-
 var _properties = __webpack_require__(46);
-
 var _isTransform = __webpack_require__(112);
-
 var _isTransform2 = _interopRequireDefault(_isTransform);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function style(node, property, value) {
   var css = '';
   var transforms = '';
   var props = property;
-
   if (typeof property === 'string') {
     if (value === undefined) {
       return node.style[(0, _camelizeStyle2.default)(property)] || (0, _getComputedStyle3.default)(node).getPropertyValue((0, _hyphenateStyle2.default)(property));
@@ -1503,10 +1320,8 @@ function style(node, property, value) {
       (props = {})[property] = value;
     }
   }
-
   Object.keys(props).forEach(function (key) {
     var value = props[key];
-
     if (!value && value !== 0) {
       (0, _removeStyle2.default)(node, (0, _hyphenateStyle2.default)(key));
     } else if ((0, _isTransform2.default)(key)) {
@@ -1515,14 +1330,11 @@ function style(node, property, value) {
       css += (0, _hyphenateStyle2.default)(key) + ': ' + value + ';';
     }
   });
-
   if (transforms) {
     css += _properties.transform + ': ' + transforms + ';';
   }
-
   node.style.cssText += ';' + css;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1530,7 +1342,8 @@ module.exports = exports['default'];
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self // eslint-disable-next-line no-new-func
+var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self
+// eslint-disable-next-line no-new-func
 : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
@@ -1542,25 +1355,18 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 exports.__esModule = true;
-
 exports.default = function (componentOrElement) {
   return (0, _ownerDocument2.default)(_reactDom2.default.findDOMNode(componentOrElement));
 };
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _ownerDocument = __webpack_require__(17);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1575,6 +1381,8 @@ module.exports = exports['default'];
  * LICENSE file in the root directory of this source tree.
  */
 
+
+
 /**
  * Use invariant() to assert state which your program assumes to be true.
  *
@@ -1585,13 +1393,10 @@ module.exports = exports['default'];
  * The invariant message will be stripped in production, but the invariant
  * will remain to ensure logic does not differ in production.
  */
-
 var invariant = function (condition, format, a, b, c, d, e, f) {
   if (false) {}
-
   if (!condition) {
     var error;
-
     if (format === undefined) {
       error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
     } else {
@@ -1602,13 +1407,10 @@ var invariant = function (condition, format, a, b, c, d, e, f) {
       }));
       error.name = 'Invariant Violation';
     }
-
     error.framesToPop = 1; // we don't care about invariant's own frame
-
     throw error;
   }
 };
-
 module.exports = invariant;
 
 /***/ }),
@@ -1630,33 +1432,28 @@ exports.default = createChainableTypeChecker;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+
 // Mostly taken from ReactPropTypes.
 
 function createChainableTypeChecker(validate) {
   function checkType(isRequired, props, propName, componentName, location, propFullName) {
     var componentNameSafe = componentName || '<<anonymous>>';
     var propFullNameSafe = propFullName || propName;
-
     if (props[propName] == null) {
       if (isRequired) {
         return new Error('Required ' + location + ' `' + propFullNameSafe + '` was not specified ' + ('in `' + componentNameSafe + '`.'));
       }
-
       return null;
     }
-
     for (var _len = arguments.length, args = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
       args[_key - 6] = arguments[_key];
     }
-
     return validate.apply(undefined, [props, propName, componentNameSafe, location, propFullNameSafe].concat(args));
   }
-
   var chainedCheckType = checkType.bind(null, false);
   chainedCheckType.isRequired = checkType.bind(null, true);
   return chainedCheckType;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -1667,42 +1464,31 @@ module.exports = exports['default'];
 
 
 exports.__esModule = true;
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
   return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
 };
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _createChainableTypeChecker = __webpack_require__(153);
-
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function elementType(props, propName, componentName, location, propFullName) {
   var propValue = props[propName];
   var propType = typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue);
-
   if (_react2.default.isValidElement(propValue)) {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of type ReactElement ' + ('supplied to `' + componentName + '`, expected an element type (a string ') + 'or a ReactClass).');
   }
-
   if (propType !== 'function' && propType !== 'string') {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected an element type (a string ') + 'or a ReactClass).');
   }
-
   return null;
 }
-
 exports.default = (0, _createChainableTypeChecker2.default)(elementType);
 
 /***/ }),
@@ -1713,114 +1499,71 @@ exports.default = (0, _createChainableTypeChecker2.default)(elementType);
 
 
 exports.__esModule = true;
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
-
     for (var key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
         target[key] = source[key];
       }
     }
   }
-
   return target;
 };
-
 var _activeElement = __webpack_require__(50);
-
 var _activeElement2 = _interopRequireDefault(_activeElement);
-
 var _contains = __webpack_require__(13);
-
 var _contains2 = _interopRequireDefault(_contains);
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _componentOrElement = __webpack_require__(35);
-
 var _componentOrElement2 = _interopRequireDefault(_componentOrElement);
-
 var _deprecated = __webpack_require__(136);
-
 var _deprecated2 = _interopRequireDefault(_deprecated);
-
 var _elementType = __webpack_require__(3);
-
 var _elementType2 = _interopRequireDefault(_elementType);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _warning = __webpack_require__(7);
-
 var _warning2 = _interopRequireDefault(_warning);
-
 var _ModalManager = __webpack_require__(137);
-
 var _ModalManager2 = _interopRequireDefault(_ModalManager);
-
 var _Portal = __webpack_require__(72);
-
 var _Portal2 = _interopRequireDefault(_Portal);
-
 var _RefHolder = __webpack_require__(143);
-
 var _RefHolder2 = _interopRequireDefault(_RefHolder);
-
 var _addEventListener = __webpack_require__(70);
-
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
-
 var _addFocusListener = __webpack_require__(144);
-
 var _addFocusListener2 = _interopRequireDefault(_addFocusListener);
-
 var _getContainer = __webpack_require__(37);
-
 var _getContainer2 = _interopRequireDefault(_getContainer);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -1830,11 +1573,10 @@ function _inherits(subClass, superClass) {
     }
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
-/* eslint-disable react/prop-types */
-
+} /* eslint-disable react/prop-types */
 
 var modalManager = new _ModalManager2.default();
+
 /**
  * Love them or hate them, `<Modal/>` provides a solid foundation for creating dialogs, lightboxes, or whatever else.
  * The Modal component renders its `children` node in front of a backdrop component.
@@ -1858,19 +1600,14 @@ var modalManager = new _ModalManager2.default();
 
 var Modal = function (_React$Component) {
   _inherits(Modal, _React$Component);
-
   function Modal() {
     var _temp, _this, _ret;
-
     _classCallCheck(this, Modal);
-
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _initialiseProps.call(_this), _temp), _possibleConstructorReturn(_this, _ret);
   }
-
   Modal.prototype.omitProps = function omitProps(props, propTypes) {
     var keys = Object.keys(props);
     var newProps = {};
@@ -1881,42 +1618,35 @@ var Modal = function (_React$Component) {
     });
     return newProps;
   };
-
   Modal.prototype.render = function render() {
     var _props = this.props,
-        show = _props.show,
-        container = _props.container,
-        children = _props.children,
-        Transition = _props.transition,
-        backdrop = _props.backdrop,
-        className = _props.className,
-        style = _props.style,
-        onExit = _props.onExit,
-        onExiting = _props.onExiting,
-        onEnter = _props.onEnter,
-        onEntering = _props.onEntering,
-        onEntered = _props.onEntered;
-
+      show = _props.show,
+      container = _props.container,
+      children = _props.children,
+      Transition = _props.transition,
+      backdrop = _props.backdrop,
+      className = _props.className,
+      style = _props.style,
+      onExit = _props.onExit,
+      onExiting = _props.onExiting,
+      onEnter = _props.onEnter,
+      onEntering = _props.onEntering,
+      onEntered = _props.onEntered;
     var dialog = _react2.default.Children.only(children);
-
     var filteredProps = this.omitProps(this.props, Modal.propTypes);
     var mountModal = show || Transition && !this.state.exited;
-
     if (!mountModal) {
       return null;
     }
-
     var _dialog$props = dialog.props,
-        role = _dialog$props.role,
-        tabIndex = _dialog$props.tabIndex;
-
+      role = _dialog$props.role,
+      tabIndex = _dialog$props.tabIndex;
     if (role === undefined || tabIndex === undefined) {
       dialog = (0, _react.cloneElement)(dialog, {
         role: role === undefined ? 'document' : role,
         tabIndex: tabIndex == null ? '-1' : tabIndex
       });
     }
-
     if (Transition) {
       dialog = _react2.default.createElement(Transition, {
         appear: true,
@@ -1930,7 +1660,6 @@ var Modal = function (_React$Component) {
         onEntered: onEntered
       }, dialog);
     }
-
     return _react2.default.createElement(_Portal2.default, {
       ref: this.setMountNode,
       container: container,
@@ -1945,7 +1674,6 @@ var Modal = function (_React$Component) {
       ref: this.setDialogRef
     }, dialog)));
   };
-
   Modal.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.show) {
       this.setState({
@@ -1958,24 +1686,19 @@ var Modal = function (_React$Component) {
       });
     }
   };
-
   Modal.prototype.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!this.props.show && nextProps.show) {
       this.checkForFocus();
     }
   };
-
   Modal.prototype.componentDidMount = function componentDidMount() {
     this._isMounted = true;
-
     if (this.props.show) {
       this.onShow();
     }
   };
-
   Modal.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
     var transition = this.props.transition;
-
     if (prevProps.show && !this.props.show && !transition) {
       // Otherwise handleHidden will call this.
       this.onHide();
@@ -1983,38 +1706,30 @@ var Modal = function (_React$Component) {
       this.onShow();
     }
   };
-
   Modal.prototype.componentWillUnmount = function componentWillUnmount() {
     var _props2 = this.props,
-        show = _props2.show,
-        transition = _props2.transition;
+      show = _props2.show,
+      transition = _props2.transition;
     this._isMounted = false;
-
     if (show || transition && !this.state.exited) {
       this.onHide();
     }
   };
-
   Modal.prototype.autoFocus = function autoFocus() {
     if (!this.props.autoFocus) {
       return;
     }
-
     var dialogElement = this.getDialogElement();
     var currentActiveElement = (0, _activeElement2.default)((0, _ownerDocument2.default)(this));
-
     if (dialogElement && !(0, _contains2.default)(dialogElement, currentActiveElement)) {
       this.lastFocus = currentActiveElement;
-
       if (!dialogElement.hasAttribute('tabIndex')) {
         (0, _warning2.default)(false, 'The modal content node does not accept focus. For the benefit of ' + 'assistive technologies, the tabIndex of the node is being set ' + 'to "-1".');
         dialogElement.setAttribute('tabIndex', -1);
       }
-
       dialogElement.focus();
     }
   };
-
   Modal.prototype.restoreLastFocus = function restoreLastFocus() {
     // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
     if (this.lastFocus && this.lastFocus.focus) {
@@ -2022,24 +1737,19 @@ var Modal = function (_React$Component) {
       this.lastFocus = null;
     }
   };
-
   Modal.prototype.getDialogElement = function getDialogElement() {
     return _reactDom2.default.findDOMNode(this.dialog);
   };
-
   Modal.prototype.isTopModal = function isTopModal() {
     return this.props.manager.isTopModal(this);
   };
-
   return Modal;
 }(_react2.default.Component);
-
 Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
   /**
    * Set the visibility of the Modal
    */
   show: _propTypes2.default.bool,
-
   /**
    * A Node, Component instance, or function that returns either. The Modal is appended to it's container element.
    *
@@ -2047,12 +1757,10 @@ Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
    * page content can be placed behind a virtual backdrop as well as a visual one.
    */
   container: _propTypes2.default.oneOfType([_componentOrElement2.default, _propTypes2.default.func]),
-
   /**
    * A callback fired when the Modal is opening.
    */
   onShow: _propTypes2.default.func,
-
   /**
    * A callback fired when either the backdrop is clicked, or the escape key is pressed.
    *
@@ -2060,12 +1768,10 @@ Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
    * you must actually set the `show` prop to `false` for the Modal to close.
    */
   onHide: _propTypes2.default.func,
-
   /**
    * Include a backdrop component.
    */
   backdrop: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.oneOf(['static'])]),
-
   /**
    * A function that returns a backdrop component. Useful for custom
    * backdrop rendering.
@@ -2075,57 +1781,47 @@ Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
    * ```
    */
   renderBackdrop: _propTypes2.default.func,
-
   /**
    * A callback fired when the escape key, if specified in `keyboard`, is pressed.
    */
   onEscapeKeyDown: _propTypes2.default.func,
-
   /**
    * Support for this function will be deprecated. Please use `onEscapeKeyDown` instead
    * A callback fired when the escape key, if specified in `keyboard`, is pressed.
    * @deprecated
    */
   onEscapeKeyUp: (0, _deprecated2.default)(_propTypes2.default.func, 'Please use onEscapeKeyDown instead for consistency'),
-
   /**
    * A callback fired when the backdrop, if specified, is clicked.
    */
   onBackdropClick: _propTypes2.default.func,
-
   /**
    * A style object for the backdrop component.
    */
   backdropStyle: _propTypes2.default.object,
-
   /**
    * A css class or classes for the backdrop component.
    */
   backdropClassName: _propTypes2.default.string,
-
   /**
    * A css class or set of classes applied to the modal container when the modal is open,
    * and removed when it is closed.
    */
   containerClassName: _propTypes2.default.string,
-
   /**
    * Close the modal when escape key is pressed
    */
   keyboard: _propTypes2.default.bool,
-
   /**
    * A `react-transition-group@2.0.0` `<Transition/>` component used
    * to control animations for the dialog component.
    */
   transition: _elementType2.default,
-
   /**
    * A `react-transition-group@2.0.0` `<Transition/>` component used
    * to control animations for the backdrop components.
    */
   backdropTransition: _elementType2.default,
-
   /**
    * When `true` The modal will automatically shift focus to itself when it opens, and
    * replace it to the last focused element when it closes. This also
@@ -2135,7 +1831,6 @@ Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
    * accessible to assistive technologies, like screen readers.
    */
   autoFocus: _propTypes2.default.bool,
-
   /**
    * When `true` The modal will prevent focus from leaving the Modal while open.
    *
@@ -2143,43 +1838,35 @@ Modal.propTypes = _extends({}, _Portal2.default.propTypes, {
    * accessible to assistive technologies, like screen readers.
    */
   enforceFocus: _propTypes2.default.bool,
-
   /**
    * When `true` The modal will restore focus to previously focused element once
    * modal is hidden
    */
   restoreFocus: _propTypes2.default.bool,
-
   /**
    * Callback fired before the Modal transitions in
    */
   onEnter: _propTypes2.default.func,
-
   /**
    * Callback fired as the Modal begins to transition in
    */
   onEntering: _propTypes2.default.func,
-
   /**
    * Callback fired after the Modal finishes transitioning in
    */
   onEntered: _propTypes2.default.func,
-
   /**
    * Callback fired right before the Modal transitions out
    */
   onExit: _propTypes2.default.func,
-
   /**
    * Callback fired as the Modal begins to transition out
    */
   onExiting: _propTypes2.default.func,
-
   /**
    * Callback fired after the Modal finishes transitioning out
    */
   onExited: _propTypes2.default.func,
-
   /**
    * A ModalManager instance used to track and manage the state of open
    * Modals. Useful when customizing how modals interact within a container
@@ -2199,125 +1886,95 @@ Modal.defaultProps = {
     return _react2.default.createElement('div', props);
   }
 };
-
 var _initialiseProps = function _initialiseProps() {
   var _this2 = this;
-
   this.state = {
     exited: !this.props.show
   };
-
   this.renderBackdrop = function () {
     var _props3 = _this2.props,
-        backdropStyle = _props3.backdropStyle,
-        backdropClassName = _props3.backdropClassName,
-        renderBackdrop = _props3.renderBackdrop,
-        Transition = _props3.backdropTransition;
-
+      backdropStyle = _props3.backdropStyle,
+      backdropClassName = _props3.backdropClassName,
+      renderBackdrop = _props3.renderBackdrop,
+      Transition = _props3.backdropTransition;
     var backdropRef = function backdropRef(ref) {
       return _this2.backdrop = ref;
     };
-
     var backdrop = renderBackdrop({
       ref: backdropRef,
       style: backdropStyle,
       className: backdropClassName,
       onClick: _this2.handleBackdropClick
     });
-
     if (Transition) {
       backdrop = _react2.default.createElement(Transition, {
         appear: true,
         'in': _this2.props.show
       }, backdrop);
     }
-
     return backdrop;
   };
-
   this.onPortalRendered = function () {
     _this2.autoFocus();
-
     if (_this2.props.onShow) {
       _this2.props.onShow();
     }
   };
-
   this.onShow = function () {
     var doc = (0, _ownerDocument2.default)(_this2);
     var container = (0, _getContainer2.default)(_this2.props.container, doc.body);
-
     _this2.props.manager.add(_this2, container, _this2.props.containerClassName);
-
     _this2._onDocumentKeydownListener = (0, _addEventListener2.default)(doc, 'keydown', _this2.handleDocumentKeyDown);
     _this2._onDocumentKeyupListener = (0, _addEventListener2.default)(doc, 'keyup', _this2.handleDocumentKeyUp);
     _this2._onFocusinListener = (0, _addFocusListener2.default)(_this2.enforceFocus);
   };
-
   this.onHide = function () {
     _this2.props.manager.remove(_this2);
-
     _this2._onDocumentKeydownListener.remove();
-
     _this2._onDocumentKeyupListener.remove();
-
     _this2._onFocusinListener.remove();
-
     if (_this2.props.restoreFocus) {
       _this2.restoreLastFocus();
     }
   };
-
   this.setMountNode = function (ref) {
     _this2.mountNode = ref ? ref.getMountNode() : ref;
   };
-
   this.setModalNodeRef = function (ref) {
     _this2.modalNode = ref;
   };
-
   this.setDialogRef = function (ref) {
     _this2.dialog = ref;
   };
-
   this.handleHidden = function () {
     _this2.setState({
       exited: true
     });
-
     _this2.onHide();
-
     if (_this2.props.onExited) {
       var _props4;
-
       (_props4 = _this2.props).onExited.apply(_props4, arguments);
     }
   };
-
   this.handleBackdropClick = function (e) {
     if (e.target !== e.currentTarget) {
       return;
     }
-
     if (_this2.props.onBackdropClick) {
       _this2.props.onBackdropClick(e);
     }
-
     if (_this2.props.backdrop === true) {
       _this2.props.onHide();
     }
   };
-
   this.handleDocumentKeyDown = function (e) {
     if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
       if (_this2.props.onEscapeKeyDown) {
         _this2.props.onEscapeKeyDown(e);
       }
-
       _this2.props.onHide();
     }
   };
-
   this.handleDocumentKeyUp = function (e) {
     if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
       if (_this2.props.onEscapeKeyUp) {
@@ -2325,28 +1982,22 @@ var _initialiseProps = function _initialiseProps() {
       }
     }
   };
-
   this.checkForFocus = function () {
     if (_inDOM2.default) {
       _this2.lastFocus = (0, _activeElement2.default)();
     }
   };
-
   this.enforceFocus = function () {
     if (!_this2.props.enforceFocus || !_this2._isMounted || !_this2.isTopModal()) {
       return;
     }
-
     var dialogElement = _this2.getDialogElement();
-
     var currentActiveElement = (0, _activeElement2.default)((0, _ownerDocument2.default)(_this2));
-
     if (dialogElement && !(0, _contains2.default)(dialogElement, currentActiveElement)) {
       dialogElement.focus();
     }
   };
 };
-
 Modal.Manager = _ModalManager2.default;
 exports.default = Modal;
 module.exports = exports['default'];
@@ -2374,9 +2025,7 @@ module.exports = __webpack_require__(100);
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(28);
-
 var createDesc = __webpack_require__(41);
-
 module.exports = __webpack_require__(30) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -2389,11 +2038,8 @@ module.exports = __webpack_require__(30) ? function (object, key, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(29);
-
 var IE8_DOM_DEFINE = __webpack_require__(83);
-
 var toPrimitive = __webpack_require__(84);
-
 var dP = Object.defineProperty;
 exports.f = __webpack_require__(30) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
@@ -2401,9 +2047,7 @@ exports.f = __webpack_require__(30) ? Object.defineProperty : function definePro
   anObject(Attributes);
   if (IE8_DOM_DEFINE) try {
     return dP(O, P, Attributes);
-  } catch (e) {
-    /* empty */
-  }
+  } catch (e) {/* empty */}
   if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
   if ('value' in Attributes) O[P] = Attributes.value;
   return O;
@@ -2414,7 +2058,6 @@ exports.f = __webpack_require__(30) ? Object.defineProperty : function definePro
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(40);
-
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -2438,7 +2081,6 @@ module.exports = !__webpack_require__(25)(function () {
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
-
 module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
@@ -2449,9 +2091,7 @@ module.exports = function (it, key) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys = __webpack_require__(86);
-
 var enumBugKeys = __webpack_require__(63);
-
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
@@ -2472,7 +2112,6 @@ module.exports = function (it) {
 
 // 7.1.13 ToObject(argument)
 var defined = __webpack_require__(33);
-
 module.exports = function (it) {
   return Object(defined(it));
 };
@@ -2487,42 +2126,31 @@ module.exports = function (it) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _createChainableTypeChecker = __webpack_require__(22);
-
 var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function validate(props, propName, componentName, location, propFullName) {
   var propValue = props[propName];
   var propType = typeof propValue === 'undefined' ? 'undefined' : _typeof(propValue);
-
   if (_react2.default.isValidElement(propValue)) {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of type ReactElement ' + ('supplied to `' + componentName + '`, expected a ReactComponent or a ') + 'DOMElement. You can usually obtain a ReactComponent or DOMElement ' + 'from a ReactElement by attaching a ref to it.');
   }
-
   if ((propType !== 'object' || typeof propValue.render !== 'function') && propValue.nodeType !== 1) {
     return new Error('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected a ReactComponent or a ') + 'DOMElement.');
   }
-
   return null;
 }
-
 exports.default = (0, _createChainableTypeChecker2.default)(validate);
 module.exports = exports['default'];
 
@@ -2537,11 +2165,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = getWindow;
-
 function getWindow(node) {
   return node === node.window ? node : node.nodeType === 9 ? node.defaultView || node.parentWindow : false;
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -2553,22 +2179,17 @@ module.exports = exports["default"];
 
 exports.__esModule = true;
 exports.default = getContainer;
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function getContainer(container, defaultContainer) {
   container = typeof container === 'function' ? container() : container;
   return _reactDom2.default.findDOMNode(container) || defaultContainer;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -2587,7 +2208,6 @@ module.exports = __webpack_require__(80);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 exports.default = function (recalc) {
   if (!size && size !== 0 || recalc) {
     if (_inDOM2.default) {
@@ -2602,20 +2222,15 @@ exports.default = function (recalc) {
       document.body.removeChild(scrollDiv);
     }
   }
-
   return size;
 };
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var size = void 0;
 module.exports = exports['default'];
 
@@ -2646,9 +2261,7 @@ module.exports = function (bitmap, value) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = __webpack_require__(58);
-
 var defined = __webpack_require__(33);
-
 module.exports = function (it) {
   return IObject(defined(it));
 };
@@ -2658,7 +2271,6 @@ module.exports = function (it) {
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
-
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
@@ -2670,7 +2282,6 @@ module.exports = function (it) {
 // 7.1.4 ToInteger
 var ceil = Math.ceil;
 var floor = Math.floor;
-
 module.exports = function (it) {
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
@@ -2680,9 +2291,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(60)('keys');
-
 var uid = __webpack_require__(62);
-
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -2698,33 +2307,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var transform = 'transform';
 var prefix = void 0,
-    transitionEnd = void 0,
-    animationEnd = void 0;
+  transitionEnd = void 0,
+  animationEnd = void 0;
 var transitionProperty = void 0,
-    transitionDuration = void 0,
-    transitionTiming = void 0,
-    transitionDelay = void 0;
+  transitionDuration = void 0,
+  transitionTiming = void 0,
+  transitionDelay = void 0;
 var animationName = void 0,
-    animationDuration = void 0,
-    animationTiming = void 0,
-    animationDelay = void 0;
-
+  animationDuration = void 0,
+  animationTiming = void 0,
+  animationDelay = void 0;
 if (_inDOM2.default) {
   var _getTransitionPropert = getTransitionProperties();
-
   prefix = _getTransitionPropert.prefix;
   exports.transitionEnd = transitionEnd = _getTransitionPropert.transitionEnd;
   exports.animationEnd = animationEnd = _getTransitionPropert.animationEnd;
@@ -2738,7 +2341,6 @@ if (_inDOM2.default) {
   exports.animationTiming = animationTiming = prefix + '-animation-delay';
   exports.animationDelay = animationDelay = prefix + '-animation-timing-function';
 }
-
 exports.transform = transform;
 exports.transitionProperty = transitionProperty;
 exports.transitionTiming = transitionTiming;
@@ -2758,7 +2360,6 @@ exports.default = {
   delay: transitionDelay,
   duration: transitionDuration
 };
-
 function getTransitionProperties() {
   var style = document.createElement('div').style;
   var vendorMap = {
@@ -2777,12 +2378,10 @@ function getTransitionProperties() {
   };
   var vendors = Object.keys(vendorMap);
   var transitionEnd = void 0,
-      animationEnd = void 0;
+    animationEnd = void 0;
   var prefix = '';
-
   for (var i = 0; i < vendors.length; i++) {
     var vendor = vendors[i];
-
     if (vendor + 'TransitionProperty' in style) {
       prefix = '-' + vendor.toLowerCase();
       transitionEnd = vendorMap[vendor]('TransitionEnd');
@@ -2790,7 +2389,6 @@ function getTransitionProperties() {
       break;
     }
   }
-
   if (!transitionEnd && 'transitionProperty' in style) transitionEnd = 'transitionend';
   if (!animationEnd && 'animationName' in style) animationEnd = 'animationend';
   style = null;
@@ -2817,19 +2415,14 @@ module.exports = {};
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var on = function on() {};
-
 if (_inDOM2.default) {
   on = function () {
     if (document.addEventListener) return function (node, eventName, handler, capture) {
@@ -2844,7 +2437,6 @@ if (_inDOM2.default) {
     };
   }();
 }
-
 exports.default = on;
 module.exports = exports['default'];
 
@@ -2858,19 +2450,14 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var off = function off() {};
-
 if (_inDOM2.default) {
   off = function () {
     if (document.addEventListener) return function (node, eventName, handler, capture) {
@@ -2880,7 +2467,6 @@ if (_inDOM2.default) {
     };
   }();
 }
-
 exports.default = off;
 module.exports = exports['default'];
 
@@ -2895,27 +2481,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = activeElement;
-
 var _ownerDocument = __webpack_require__(17);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function activeElement() {
   var doc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _ownerDocument2.default)();
-
   try {
     return doc.activeElement;
-  } catch (e) {
-    /* ie throws if no active element */
-  }
+  } catch (e) {/* ie throws if no active element */}
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -2926,56 +2504,38 @@ module.exports = exports['default'];
 
 
 exports.__esModule = true;
-
 var _contains = __webpack_require__(13);
-
 var _contains2 = _interopRequireDefault(_contains);
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _addEventListener = __webpack_require__(70);
-
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -2986,16 +2546,14 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-
 var escapeKeyCode = 27;
-
 function isLeftClickEvent(event) {
   return event.button === 0;
 }
-
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
+
 /**
  * The `<RootCloseWrapper/>` component registers your callback on the document
  * when rendered. Powers the `<Overlay/>` component. This is used achieve modal
@@ -3003,81 +2561,67 @@ function isModifiedEvent(event) {
  * interact with the rest of the document or hits the `esc` key.
  */
 
-
 var RootCloseWrapper = function (_React$Component) {
   _inherits(RootCloseWrapper, _React$Component);
-
   function RootCloseWrapper(props, context) {
     _classCallCheck(this, RootCloseWrapper);
-
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
     _this.addEventListeners = function () {
       // Store the current event to avoid triggering handlers immediately
       // https://github.com/facebook/react/issues/20074
       _this.currentEvent = window.event;
       var event = _this.props.event;
-      var doc = (0, _ownerDocument2.default)(_this); // Use capture for this listener so it fires before React's listener, to
+      var doc = (0, _ownerDocument2.default)(_this);
+
+      // Use capture for this listener so it fires before React's listener, to
       // avoid false positives in the contains() check below if the target DOM
       // element is removed in the React mouse callback.
-
       _this.documentMouseCaptureListener = (0, _addEventListener2.default)(doc, event, _this.handleMouseCapture, true);
       _this.documentMouseListener = (0, _addEventListener2.default)(doc, event, _this.handleMouse);
       _this.documentKeyupListener = (0, _addEventListener2.default)(doc, 'keyup', _this.handleKeyUp);
     };
-
     _this.removeEventListeners = function () {
       if (_this.documentMouseCaptureListener) {
         _this.documentMouseCaptureListener.remove();
       }
-
       if (_this.documentMouseListener) {
         _this.documentMouseListener.remove();
       }
-
       if (_this.documentKeyupListener) {
         _this.documentKeyupListener.remove();
       }
     };
-
     _this.handleMouseCapture = function (e) {
       _this.preventMouseRootClose = isModifiedEvent(e) || !isLeftClickEvent(e) || (0, _contains2.default)(_reactDom2.default.findDOMNode(_this), e.target);
     };
-
     _this.handleMouse = function (e) {
       // skip if this event is the same as the one running when we added the handlers
       if (e === _this.currentEvent) {
         _this.currentEvent = undefined;
         return;
       }
-
       if (!_this.preventMouseRootClose && _this.props.onRootClose) {
         _this.props.onRootClose(e);
       }
     };
-
     _this.handleKeyUp = function (e) {
       // skip if this event is the same as the one running when we added the handlers
       if (e === _this.currentEvent) {
         _this.currentEvent = undefined;
         return;
       }
-
       if (e.keyCode === escapeKeyCode && _this.props.onRootClose) {
         _this.props.onRootClose(e);
       }
     };
-
     _this.preventMouseRootClose = false;
     return _this;
   }
-
   RootCloseWrapper.prototype.componentDidMount = function componentDidMount() {
     if (!this.props.disabled) {
       this.addEventListeners();
     }
   };
-
   RootCloseWrapper.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
     if (!this.props.disabled && prevProps.disabled) {
       this.addEventListeners();
@@ -3085,37 +2629,30 @@ var RootCloseWrapper = function (_React$Component) {
       this.removeEventListeners();
     }
   };
-
   RootCloseWrapper.prototype.componentWillUnmount = function componentWillUnmount() {
     if (!this.props.disabled) {
       this.removeEventListeners();
     }
   };
-
   RootCloseWrapper.prototype.render = function render() {
     return this.props.children;
   };
-
   return RootCloseWrapper;
 }(_react2.default.Component);
-
 RootCloseWrapper.displayName = 'RootCloseWrapper';
 RootCloseWrapper.propTypes = {
   /**
    * Callback fired after click or mousedown. Also triggers when user hits `esc`.
    */
   onRootClose: _propTypes2.default.func,
-
   /**
    * Children to render.
    */
   children: _propTypes2.default.element,
-
   /**
    * Disable the the RootCloseWrapper, preventing it from triggering `onRootClose`.
    */
   disabled: _propTypes2.default.bool,
-
   /**
    * Choose which document mouse event to bind to.
    */
@@ -3136,43 +2673,34 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 exports.default = isOverflowing;
-
 var _isWindow = __webpack_require__(36);
-
 var _isWindow2 = _interopRequireDefault(_isWindow);
-
 var _ownerDocument = __webpack_require__(17);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function isBody(node) {
   return node && node.tagName.toLowerCase() === 'body';
 }
-
 function bodyIsOverflowing(node) {
   var doc = (0, _ownerDocument2.default)(node);
   var win = (0, _isWindow2.default)(doc);
-  var fullWidth = win.innerWidth; // Support: ie8, no innerWidth
+  var fullWidth = win.innerWidth;
 
+  // Support: ie8, no innerWidth
   if (!fullWidth) {
     var documentElementRect = doc.documentElement.getBoundingClientRect();
     fullWidth = documentElementRect.right - Math.abs(documentElementRect.left);
   }
-
   return doc.body.clientWidth < fullWidth;
 }
-
 function isOverflowing(container) {
   var win = (0, _isWindow2.default)(container);
   return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -3192,29 +2720,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.listen = exports.filter = exports.off = exports.on = undefined;
-
 var _on = __webpack_require__(48);
-
 var _on2 = _interopRequireDefault(_on);
-
 var _off = __webpack_require__(49);
-
 var _off2 = _interopRequireDefault(_off);
-
 var _filter = __webpack_require__(133);
-
 var _filter2 = _interopRequireDefault(_filter);
-
 var _listen = __webpack_require__(135);
-
 var _listen2 = _interopRequireDefault(_listen);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 exports.on = _on2.default;
 exports.off = _off2.default;
 exports.filter = _filter2.default;
@@ -3234,82 +2752,58 @@ exports.default = {
 
 
 exports.__esModule = true;
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
-
     for (var key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
         target[key] = source[key];
       }
     }
   }
-
   return target;
 };
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _elementType = __webpack_require__(3);
-
 var _elementType2 = _interopRequireDefault(_elementType);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _Portal = __webpack_require__(72);
-
 var _Portal2 = _interopRequireDefault(_Portal);
-
 var _Position = __webpack_require__(145);
-
 var _Position2 = _interopRequireDefault(_Position);
-
 var _RootCloseWrapper = __webpack_require__(51);
-
 var _RootCloseWrapper2 = _interopRequireDefault(_RootCloseWrapper);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _objectWithoutProperties(obj, keys) {
   var target = {};
-
   for (var i in obj) {
     if (keys.indexOf(i) >= 0) continue;
     if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
     target[i] = obj[i];
   }
-
   return target;
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -3320,38 +2814,30 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
+
 /**
  * Built on top of `<Position/>` and `<Portal/>`, the overlay component is great for custom tooltip overlays.
  */
-
-
 var Overlay = function (_React$Component) {
   _inherits(Overlay, _React$Component);
-
   function Overlay(props, context) {
     _classCallCheck(this, Overlay);
-
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
     _this.handleHidden = function () {
       _this.setState({
         exited: true
       });
-
       if (_this.props.onExited) {
         var _this$props;
-
         (_this$props = _this.props).onExited.apply(_this$props, arguments);
       }
     };
-
     _this.state = {
       exited: !props.show
     };
     _this.onHiddenListener = _this.handleHidden.bind(_this);
     return _this;
   }
-
   Overlay.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.show) {
       this.setState({
@@ -3364,30 +2850,29 @@ var Overlay = function (_React$Component) {
       });
     }
   };
-
   Overlay.prototype.render = function render() {
     var _props = this.props,
-        container = _props.container,
-        containerPadding = _props.containerPadding,
-        target = _props.target,
-        placement = _props.placement,
-        shouldUpdatePosition = _props.shouldUpdatePosition,
-        rootClose = _props.rootClose,
-        children = _props.children,
-        Transition = _props.transition,
-        props = _objectWithoutProperties(_props, ['container', 'containerPadding', 'target', 'placement', 'shouldUpdatePosition', 'rootClose', 'children', 'transition']); // Don't un-render the overlay while it's transitioning out.
+      container = _props.container,
+      containerPadding = _props.containerPadding,
+      target = _props.target,
+      placement = _props.placement,
+      shouldUpdatePosition = _props.shouldUpdatePosition,
+      rootClose = _props.rootClose,
+      children = _props.children,
+      Transition = _props.transition,
+      props = _objectWithoutProperties(_props, ['container', 'containerPadding', 'target', 'placement', 'shouldUpdatePosition', 'rootClose', 'children', 'transition']);
 
+    // Don't un-render the overlay while it's transitioning out.
 
     var mountOverlay = props.show || Transition && !this.state.exited;
-
     if (!mountOverlay) {
       // Don't bother showing anything if we don't have to.
       return null;
     }
+    var child = children;
 
-    var child = children; // Position is be inner-most because it adds inline styles into the child,
+    // Position is be inner-most because it adds inline styles into the child,
     // which the other wrappers don't forward correctly.
-
     child = _react2.default.createElement(_Position2.default, {
       container: container,
       containerPadding: containerPadding,
@@ -3395,13 +2880,14 @@ var Overlay = function (_React$Component) {
       placement: placement,
       shouldUpdatePosition: shouldUpdatePosition
     }, child);
-
     if (Transition) {
       var onExit = props.onExit,
-          onExiting = props.onExiting,
-          onEnter = props.onEnter,
-          onEntering = props.onEntering,
-          onEntered = props.onEntered; // This animates the child node by injecting props, so it must precede
+        onExiting = props.onExiting,
+        onEnter = props.onEnter,
+        onEntering = props.onEntering,
+        onEntered = props.onEntered;
+
+      // This animates the child node by injecting props, so it must precede
       // anything that adds a wrapping div.
 
       child = _react2.default.createElement(Transition, {
@@ -3414,40 +2900,34 @@ var Overlay = function (_React$Component) {
         onEntering: onEntering,
         onEntered: onEntered
       }, child);
-    } // This goes after everything else because it adds a wrapping div.
+    }
 
-
+    // This goes after everything else because it adds a wrapping div.
     if (rootClose) {
       child = _react2.default.createElement(_RootCloseWrapper2.default, {
         onRootClose: props.onHide,
         event: props.rootCloseEvent
       }, child);
     }
-
     return _react2.default.createElement(_Portal2.default, {
       container: container
     }, child);
   };
-
   return Overlay;
 }(_react2.default.Component);
-
 Overlay.propTypes = _extends({}, _Portal2.default.propTypes, _Position2.default.propTypes, {
   /**
    * Set the visibility of the Overlay
    */
   show: _propTypes2.default.bool,
-
   /**
    * Specify whether the overlay should trigger `onHide` when the user clicks outside the overlay
    */
   rootClose: _propTypes2.default.bool,
-
   /**
    * Specify event for toggling overlay
    */
   rootCloseEvent: _RootCloseWrapper2.default.propTypes.event,
-
   /**
    * A Callback fired by the Overlay when it wishes to be hidden.
    *
@@ -3457,49 +2937,39 @@ Overlay.propTypes = _extends({}, _Portal2.default.propTypes, _Position2.default.
    */
   onHide: function onHide(props) {
     var propType = _propTypes2.default.func;
-
     if (props.rootClose) {
       propType = propType.isRequired;
     }
-
     for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
     }
-
     return propType.apply(undefined, [props].concat(args));
   },
-
   /**
    * A `react-transition-group@2.0.0` `<Transition/>` component
    * used to animate the overlay as it changes visibility.
    */
   transition: _elementType2.default,
-
   /**
    * Callback fired before the Overlay transitions in
    */
   onEnter: _propTypes2.default.func,
-
   /**
    * Callback fired as the Overlay begins to transition in
    */
   onEntering: _propTypes2.default.func,
-
   /**
    * Callback fired after the Overlay finishes transitioning in
    */
   onEntered: _propTypes2.default.func,
-
   /**
    * Callback fired right before the Overlay transitions out
    */
   onExit: _propTypes2.default.func,
-
   /**
    * Callback fired as the Overlay begins to transition out
    */
   onExiting: _propTypes2.default.func,
-
   /**
    * Callback fired after the Overlay finishes transitioning out
    */
@@ -3514,31 +2984,25 @@ module.exports = exports['default'];
 
 // optional / simple context binding
 var aFunction = __webpack_require__(82);
-
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
-
   switch (length) {
     case 1:
       return function (a) {
         return fn.call(that, a);
       };
-
     case 2:
       return function (a, b) {
         return fn.call(that, a, b);
       };
-
     case 3:
       return function (a, b, c) {
         return fn.call(that, a, b, c);
       };
   }
-
-  return function ()
-  /* ...args */
-  {
+  return function /* ...args */
+  () {
     return fn.apply(that, arguments);
   };
 };
@@ -3548,12 +3012,9 @@ module.exports = function (fn, that, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(40);
-
-var document = __webpack_require__(19).document; // typeof document.createElement is 'object' in old IE
-
-
+var document = __webpack_require__(19).document;
+// typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
-
 module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
@@ -3563,9 +3024,8 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(43); // eslint-disable-next-line no-prototype-builtins
-
-
+var cof = __webpack_require__(43);
+// eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
@@ -3576,9 +3036,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 // 7.1.15 ToLength
 var toInteger = __webpack_require__(44);
-
 var min = Math.min;
-
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
@@ -3588,9 +3046,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var core = __webpack_require__(8);
-
 var global = __webpack_require__(19);
-
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 (module.exports = function (key, value) {
@@ -3613,7 +3069,6 @@ module.exports = true;
 
 var id = 0;
 var px = Math.random();
-
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
@@ -3637,57 +3092,42 @@ exports.f = {}.propertyIsEnumerable;
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(29);
-
 var dPs = __webpack_require__(92);
-
 var enumBugKeys = __webpack_require__(63);
-
 var IE_PROTO = __webpack_require__(45)('IE_PROTO');
+var Empty = function () {/* empty */};
+var PROTOTYPE = 'prototype';
 
-var Empty = function () {
-  /* empty */
-};
-
-var PROTOTYPE = 'prototype'; // Create object with fake `null` prototype: use iframe Object with cleared prototype
-
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
   var iframe = __webpack_require__(57)('iframe');
-
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-
   __webpack_require__(93).appendChild(iframe);
-
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
-
   iframeDocument = iframe.contentWindow.document;
   iframeDocument.open();
   iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
   iframeDocument.close();
   createDict = iframeDocument.F;
-
   while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-
   return createDict();
 };
-
 module.exports = Object.create || function create(O, Properties) {
   var result;
-
   if (O !== null) {
     Empty[PROTOTYPE] = anObject(O);
     result = new Empty();
-    Empty[PROTOTYPE] = null; // add "__proto__" for Object.getPrototypeOf polyfill
-
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
     result[IE_PROTO] = O;
   } else result = createDict();
-
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
@@ -3696,11 +3136,8 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var getKeys = __webpack_require__(32);
-
 var toIObject = __webpack_require__(42);
-
 var isEnum = __webpack_require__(64).f;
-
 module.exports = function (isEntries) {
   return function (it) {
     var O = toIObject(it);
@@ -3709,11 +3146,9 @@ module.exports = function (isEntries) {
     var i = 0;
     var result = [];
     var key;
-
     while (length > i) if (isEnum.call(O, key = keys[i++])) {
       result.push(isEntries ? [key, O[key]] : O[key]);
     }
-
     return result;
   };
 };
@@ -3729,28 +3164,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = camelizeStyleName;
-
 var _camelize = __webpack_require__(107);
-
 var _camelize2 = _interopRequireDefault(_camelize);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
-var msPattern = /^-ms-/;
-/**
- * Copyright 2014-2015, Facebook, Inc.
- * All rights reserved.
- * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/camelizeStyleName.js
- */
-
+var msPattern = /^-ms-/; /**
+                          * Copyright 2014-2015, Facebook, Inc.
+                          * All rights reserved.
+                          * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/camelizeStyleName.js
+                          */
 function camelizeStyleName(string) {
   return (0, _camelize2.default)(string.replace(msPattern, 'ms-'));
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -3764,11 +3192,8 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(28).f;
-
 var has = __webpack_require__(31);
-
 var TAG = __webpack_require__(16)('toStringTag');
-
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, {
     configurable: true,
@@ -3784,7 +3209,6 @@ module.exports = function (it, tag, stat) {
 
 
 exports.__esModule = true;
-
 exports.default = function (node, event, handler, capture) {
   (0, _on2.default)(node, event, handler, capture);
   return {
@@ -3793,21 +3217,15 @@ exports.default = function (node, event, handler, capture) {
     }
   };
 };
-
 var _on = __webpack_require__(48);
-
 var _on2 = _interopRequireDefault(_on);
-
 var _off = __webpack_require__(49);
-
 var _off2 = _interopRequireDefault(_off);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -3821,11 +3239,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = hasClass;
-
 function hasClass(element, className) {
   if (element.classList) return !!className && element.classList.contains(className);else return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -3836,64 +3252,42 @@ module.exports = exports["default"];
 
 
 exports.__esModule = true;
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _componentOrElement = __webpack_require__(35);
-
 var _componentOrElement2 = _interopRequireDefault(_componentOrElement);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _getContainer = __webpack_require__(37);
-
 var _getContainer2 = _interopRequireDefault(_getContainer);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 var _LegacyPortal = __webpack_require__(142);
-
 var _LegacyPortal2 = _interopRequireDefault(_LegacyPortal);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -3904,50 +3298,39 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
+
 /**
  * The `<Portal/>` component renders its children into a new "subtree" outside of current component hierarchy.
  * You can think of it as a declarative `appendChild()`, or jQuery's `$.fn.appendTo()`.
  * The children of `<Portal/>` component will be appended to the `container` specified.
  */
-
-
 var Portal = function (_React$Component) {
   _inherits(Portal, _React$Component);
-
   function Portal() {
     var _temp, _this, _ret;
-
     _classCallCheck(this, Portal);
-
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.getMountNode = function () {
       return _this._portalContainerNode;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
-
   Portal.prototype.UNSAFE_componentWillMount = function UNSAFE_componentWillMount() {
     if (!_inDOM2.default) {
       return;
     }
-
     var container = this.props.container;
-
     if (typeof container === 'function') {
       container = container();
     }
-
     if (container && !_reactDom2.default.findDOMNode(container)) {
       // The container is a React component that has not yet been rendered.
       // Don't set the container node yet.
       return;
     }
-
     this.setContainer(container);
   };
-
   Portal.prototype.componentDidMount = function componentDidMount() {
     if (!this._portalContainerNode) {
       this.setContainer(this.props.container);
@@ -3956,28 +3339,22 @@ var Portal = function (_React$Component) {
       this.props.onRendered();
     }
   };
-
   Portal.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.container !== this.props.container) {
       this.setContainer(nextProps.container);
     }
   };
-
   Portal.prototype.componentWillUnmount = function componentWillUnmount() {
     this._portalContainerNode = null;
   };
-
   Portal.prototype.setContainer = function setContainer(container) {
     this._portalContainerNode = (0, _getContainer2.default)(container, (0, _ownerDocument2.default)(this).body);
   };
-
   Portal.prototype.render = function render() {
     return this.props.children && this._portalContainerNode ? _reactDom2.default.createPortal(this.props.children, this._portalContainerNode) : null;
   };
-
   return Portal;
 }(_react2.default.Component);
-
 Portal.displayName = 'Portal';
 Portal.propTypes = {
   /**
@@ -4001,40 +3378,34 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = offset;
-
 var _contains = __webpack_require__(13);
-
 var _contains2 = _interopRequireDefault(_contains);
-
 var _isWindow = __webpack_require__(36);
-
 var _isWindow2 = _interopRequireDefault(_isWindow);
-
 var _ownerDocument = __webpack_require__(17);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function offset(node) {
   var doc = (0, _ownerDocument2.default)(node),
-      win = (0, _isWindow2.default)(doc),
-      docElem = doc && doc.documentElement,
-      box = {
-    top: 0,
-    left: 0,
-    height: 0,
-    width: 0
-  };
-  if (!doc) return; // Make sure it's not a disconnected DOM node
+    win = (0, _isWindow2.default)(doc),
+    docElem = doc && doc.documentElement,
+    box = {
+      top: 0,
+      left: 0,
+      height: 0,
+      width: 0
+    };
+  if (!doc) return;
 
+  // Make sure it's not a disconnected DOM node
   if (!(0, _contains2.default)(docElem, node)) return box;
-  if (node.getBoundingClientRect !== undefined) box = node.getBoundingClientRect(); // IE8 getBoundingClientRect doesn't support width & height
+  if (node.getBoundingClientRect !== undefined) box = node.getBoundingClientRect();
 
+  // IE8 getBoundingClientRect doesn't support width & height
   box = {
     top: box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0),
     left: box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0),
@@ -4043,7 +3414,6 @@ function offset(node) {
   };
   return box;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4057,23 +3427,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = scrollTop;
-
 var _isWindow = __webpack_require__(36);
-
 var _isWindow2 = _interopRequireDefault(_isWindow);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function scrollTop(node, val) {
   var win = (0, _isWindow2.default)(node);
   if (val === undefined) return win ? 'pageYOffset' in win ? win.pageYOffset : win.document.documentElement.scrollTop : node.scrollTop;
   if (win) win.scrollTo('pageXOffset' in win ? win.pageXOffset : win.document.documentElement.scrollLeft, val);else node.scrollTop = val;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4099,21 +3464,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.properties = exports.end = undefined;
-
 var _end = __webpack_require__(106);
-
 var _end2 = _interopRequireDefault(_end);
-
 var _properties = __webpack_require__(46);
-
 var _properties2 = _interopRequireDefault(_properties);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 exports.end = _end2.default;
 exports.properties = _properties2.default;
 exports.default = {
@@ -4138,7 +3497,6 @@ module.exports = __webpack_require__(150);
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(81);
-
 module.exports = __webpack_require__(8).Object.assign;
 
 /***/ }),
@@ -4147,7 +3505,6 @@ module.exports = __webpack_require__(8).Object.assign;
 
 // 19.1.3.1 Object.assign(target, source)
 var $export = __webpack_require__(10);
-
 $export($export.S + $export.F, 'Object', {
   assign: __webpack_require__(85)
 });
@@ -4178,10 +3535,9 @@ module.exports = !__webpack_require__(30) && !__webpack_require__(25)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(40); // instead of the ES6 spec version, we didn't implement @@toPrimitive case
+var isObject = __webpack_require__(40);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
-
-
 module.exports = function (it, S) {
   if (!isObject(it)) return it;
   var fn, val;
@@ -4196,24 +3552,21 @@ module.exports = function (it, S) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
- // 19.1.2.1 Object.assign(target, source, ...)
 
+
+// 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = __webpack_require__(32);
-
 var gOPS = __webpack_require__(89);
-
 var pIE = __webpack_require__(64);
-
 var toObject = __webpack_require__(34);
-
 var IObject = __webpack_require__(58);
+var $assign = Object.assign;
 
-var $assign = Object.assign; // should work with symbols and should have deterministic property order (V8 bug)
-
+// should work with symbols and should have deterministic property order (V8 bug)
 module.exports = !$assign || __webpack_require__(25)(function () {
   var A = {};
-  var B = {}; // eslint-disable-next-line no-undef
-
+  var B = {};
+  // eslint-disable-next-line no-undef
   var S = Symbol();
   var K = 'abcdefghijklmnopqrst';
   A[S] = 7;
@@ -4228,17 +3581,14 @@ module.exports = !$assign || __webpack_require__(25)(function () {
   var index = 1;
   var getSymbols = gOPS.f;
   var isEnum = pIE.f;
-
   while (aLen > index) {
     var S = IObject(arguments[index++]);
     var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
     var length = keys.length;
     var j = 0;
     var key;
-
     while (length > j) if (isEnum.call(S, key = keys[j++])) T[key] = S[key];
   }
-
   return T;
 } : $assign;
 
@@ -4247,26 +3597,19 @@ module.exports = !$assign || __webpack_require__(25)(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(31);
-
 var toIObject = __webpack_require__(42);
-
 var arrayIndexOf = __webpack_require__(87)(false);
-
 var IE_PROTO = __webpack_require__(45)('IE_PROTO');
-
 module.exports = function (object, names) {
   var O = toIObject(object);
   var i = 0;
   var result = [];
   var key;
-
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key); // Don't enum bug & hidden keys
-
-
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
   while (names.length > i) if (has(O, key = names[i++])) {
     ~arrayIndexOf(result, key) || result.push(key);
   }
-
   return result;
 };
 
@@ -4277,23 +3620,21 @@ module.exports = function (object, names) {
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(42);
-
 var toLength = __webpack_require__(59);
-
 var toAbsoluteIndex = __webpack_require__(88);
-
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
     var length = toLength(O.length);
     var index = toAbsoluteIndex(fromIndex, length);
-    var value; // Array#includes uses SameValueZero equality algorithm
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
     // eslint-disable-next-line no-self-compare
-
     if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++]; // eslint-disable-next-line no-self-compare
-
-      if (value != value) return true; // Array#indexOf ignores holes, Array#includes - not
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+      // Array#indexOf ignores holes, Array#includes - not
     } else for (; length > index; index++) if (IS_INCLUDES || index in O) {
       if (O[index] === el) return IS_INCLUDES || index || 0;
     }
@@ -4306,10 +3647,8 @@ module.exports = function (IS_INCLUDES) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(44);
-
 var max = Math.max;
 var min = Math.min;
-
 module.exports = function (index, length) {
   index = toInteger(index);
   return index < 0 ? max(index + length, 0) : min(index, length);
@@ -4326,9 +3665,7 @@ exports.f = Object.getOwnPropertySymbols;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(91);
-
 var $Object = __webpack_require__(8).Object;
-
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
@@ -4337,9 +3674,8 @@ module.exports = function create(P, D) {
 /* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(10); // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-
-
+var $export = __webpack_require__(10);
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', {
   create: __webpack_require__(65)
 });
@@ -4349,20 +3685,15 @@ $export($export.S, 'Object', {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(28);
-
 var anObject = __webpack_require__(29);
-
 var getKeys = __webpack_require__(32);
-
 module.exports = __webpack_require__(30) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
   var i = 0;
   var P;
-
   while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-
   return O;
 };
 
@@ -4371,7 +3702,6 @@ module.exports = __webpack_require__(30) ? Object.defineProperties : function de
 /***/ (function(module, exports, __webpack_require__) {
 
 var document = __webpack_require__(19).document;
-
 module.exports = document && document.documentElement;
 
 /***/ }),
@@ -4379,7 +3709,6 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(95);
-
 module.exports = __webpack_require__(8).Object.keys;
 
 /***/ }),
@@ -4388,9 +3717,7 @@ module.exports = __webpack_require__(8).Object.keys;
 
 // 19.1.2.14 Object.keys(O)
 var toObject = __webpack_require__(34);
-
 var $keys = __webpack_require__(32);
-
 __webpack_require__(96)('keys', function () {
   return function keys(it) {
     return $keys(toObject(it));
@@ -4403,11 +3730,8 @@ __webpack_require__(96)('keys', function () {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(10);
-
 var core = __webpack_require__(8);
-
 var fails = __webpack_require__(25);
-
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -4430,32 +3754,27 @@ module.exports = function (KEY, exec) {
  */
 
 
+
 var ReactPropTypesSecret = __webpack_require__(98);
-
 function emptyFunction() {}
-
 module.exports = function () {
   function shim(props, propName, componentName, location, propFullName, secret) {
     if (secret === ReactPropTypesSecret) {
       // It is still safe when called from React.
       return;
     }
-
     var err = new Error('Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use PropTypes.checkPropTypes() to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
     err.name = 'Invariant Violation';
     throw err;
   }
-
   ;
   shim.isRequired = shim;
-
   function getShim() {
     return shim;
   }
-
-  ; // Important!
+  ;
+  // Important!
   // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-
   var ReactPropTypes = {
     array: shim,
     bool: shim,
@@ -4493,6 +3812,7 @@ module.exports = function () {
  */
 
 
+
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
@@ -4508,17 +3828,13 @@ exports.uncontrolledPropTypes = uncontrolledPropTypes;
 exports.isProp = isProp;
 exports.defaultKey = defaultKey;
 exports.isReactComponent = isReactComponent;
-
 var _invariant = _interopRequireDefault(__webpack_require__(21));
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var noop = function noop() {};
-
 function readOnlyPropType(handler, name) {
   return function (props, propName) {
     if (props[propName] !== undefined) {
@@ -4528,22 +3844,18 @@ function readOnlyPropType(handler, name) {
     }
   };
 }
-
 function uncontrolledPropTypes(controlledValues, displayName) {
   var propTypes = {};
   Object.keys(controlledValues).forEach(function (prop) {
     // add default propTypes for folks that use runtime checks
     propTypes[defaultKey(prop)] = noop;
-
     if (false) { var handler; }
   });
   return propTypes;
 }
-
 function isProp(props, prop) {
   return props[prop] !== undefined;
 }
-
 function defaultKey(key) {
   return 'default' + key.charAt(0).toUpperCase() + key.substr(1);
 }
@@ -4556,7 +3868,6 @@ function defaultKey(key) {
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-
 function isReactComponent(component) {
   return !!(component && component.prototype && component.prototype.isReactComponent);
 }
@@ -4566,7 +3877,6 @@ function isReactComponent(component) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(101);
-
 module.exports = __webpack_require__(8).Object.entries;
 
 /***/ }),
@@ -4575,9 +3885,7 @@ module.exports = __webpack_require__(8).Object.entries;
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(10);
-
 var $entries = __webpack_require__(66)(true);
-
 $export($export.S, 'Object', {
   entries: function entries(it) {
     return $entries(it);
@@ -4589,7 +3897,6 @@ $export($export.S, 'Object', {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(103);
-
 module.exports = __webpack_require__(8).Object.values;
 
 /***/ }),
@@ -4598,9 +3905,7 @@ module.exports = __webpack_require__(8).Object.values;
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(10);
-
 var $values = __webpack_require__(66)(false);
-
 $export($export.S, 'Object', {
   values: function values(it) {
     return $values(it);
@@ -4633,25 +3938,24 @@ if (true) {
  */
 
 
+
 Object.defineProperty(exports, "__esModule", {
   value: !0
 });
 var b = "function" === typeof Symbol && Symbol.for,
-    c = b ? Symbol.for("react.element") : 60103,
-    d = b ? Symbol.for("react.portal") : 60106,
-    e = b ? Symbol.for("react.fragment") : 60107,
-    f = b ? Symbol.for("react.strict_mode") : 60108,
-    g = b ? Symbol.for("react.profiler") : 60114,
-    h = b ? Symbol.for("react.provider") : 60109,
-    k = b ? Symbol.for("react.context") : 60110,
-    l = b ? Symbol.for("react.async_mode") : 60111,
-    m = b ? Symbol.for("react.forward_ref") : 60112,
-    n = b ? Symbol.for("react.timeout") : 60113;
-
+  c = b ? Symbol.for("react.element") : 60103,
+  d = b ? Symbol.for("react.portal") : 60106,
+  e = b ? Symbol.for("react.fragment") : 60107,
+  f = b ? Symbol.for("react.strict_mode") : 60108,
+  g = b ? Symbol.for("react.profiler") : 60114,
+  h = b ? Symbol.for("react.provider") : 60109,
+  k = b ? Symbol.for("react.context") : 60110,
+  l = b ? Symbol.for("react.async_mode") : 60111,
+  m = b ? Symbol.for("react.forward_ref") : 60112,
+  n = b ? Symbol.for("react.timeout") : 60113;
 function q(a) {
   if ("object" === typeof a && null !== a) {
     var p = a.$$typeof;
-
     switch (p) {
       case c:
         switch (a = a.type, a) {
@@ -4660,26 +3964,21 @@ function q(a) {
           case g:
           case f:
             return a;
-
           default:
             switch (a = a && a.$$typeof, a) {
               case k:
               case m:
               case h:
                 return a;
-
               default:
                 return p;
             }
-
         }
-
       case d:
         return p;
     }
   }
 }
-
 exports.typeOf = q;
 exports.AsyncMode = l;
 exports.ContextConsumer = k;
@@ -4690,43 +3989,33 @@ exports.Fragment = e;
 exports.Profiler = g;
 exports.Portal = d;
 exports.StrictMode = f;
-
 exports.isValidElementType = function (a) {
   return "string" === typeof a || "function" === typeof a || a === e || a === l || a === g || a === f || a === n || "object" === typeof a && null !== a && (a.$$typeof === h || a.$$typeof === k || a.$$typeof === m);
 };
-
 exports.isAsyncMode = function (a) {
   return q(a) === l;
 };
-
 exports.isContextConsumer = function (a) {
   return q(a) === k;
 };
-
 exports.isContextProvider = function (a) {
   return q(a) === h;
 };
-
 exports.isElement = function (a) {
   return "object" === typeof a && null !== a && a.$$typeof === c;
 };
-
 exports.isForwardRef = function (a) {
   return q(a) === m;
 };
-
 exports.isFragment = function (a) {
   return q(a) === e;
 };
-
 exports.isProfiler = function (a) {
   return q(a) === g;
 };
-
 exports.isPortal = function (a) {
   return q(a) === d;
 };
-
 exports.isStrictMode = function (a) {
   return q(a) === f;
 };
@@ -4741,36 +4030,28 @@ exports.isStrictMode = function (a) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _properties = __webpack_require__(46);
-
 var _properties2 = _interopRequireDefault(_properties);
-
 var _style = __webpack_require__(18);
-
 var _style2 = _interopRequireDefault(_style);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function onEnd(node, handler, duration) {
   var fakeEvent = {
-    target: node,
-    currentTarget: node
-  },
-      backup;
+      target: node,
+      currentTarget: node
+    },
+    backup;
   if (!_properties2.default.end) duration = 0;else if (duration == null) duration = parseDuration(node) || 0;
-
   if (_properties2.default.end) {
     node.addEventListener(_properties2.default.end, done, false);
     backup = setTimeout(function () {
       return done(fakeEvent);
     }, (duration || 100) * 1.5);
   } else setTimeout(done.bind(null, fakeEvent), 0);
-
   function done(event) {
     if (event.target !== event.currentTarget) return;
     clearTimeout(backup);
@@ -4778,16 +4059,13 @@ function onEnd(node, handler, duration) {
     handler.call(this);
   }
 }
-
 onEnd._parseDuration = parseDuration;
 exports.default = onEnd;
-
 function parseDuration(node) {
   var str = (0, _style2.default)(node, _properties2.default.duration),
-      mult = str.indexOf('ms') === -1 ? 1000 : 1;
+    mult = str.indexOf('ms') === -1 ? 1000 : 1;
   return parseFloat(str) * mult;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4802,13 +4080,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = camelize;
 var rHyphen = /-(.)/g;
-
 function camelize(string) {
   return string.replace(rHyphen, function (_, chr) {
     return chr.toUpperCase();
   });
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -4822,28 +4098,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = hyphenateStyleName;
-
 var _hyphenate = __webpack_require__(109);
-
 var _hyphenate2 = _interopRequireDefault(_hyphenate);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
-var msPattern = /^ms-/;
-/**
- * Copyright 2013-2014, Facebook, Inc.
- * All rights reserved.
- * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
- */
+var msPattern = /^ms-/; /**
+                         * Copyright 2013-2014, Facebook, Inc.
+                         * All rights reserved.
+                         * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
+                         */
 
 function hyphenateStyleName(string) {
   return (0, _hyphenate2.default)(string).replace(msPattern, '-ms-');
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4858,11 +4128,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = hyphenate;
 var rUpper = /([A-Z])/g;
-
 function hyphenate(string) {
   return string.replace(rUpper, '-$1').toLowerCase();
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4876,20 +4144,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _getComputedStyle;
-
 var _camelizeStyle = __webpack_require__(67);
-
 var _camelizeStyle2 = _interopRequireDefault(_camelizeStyle);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var rposition = /^(top|right|bottom|left)$/;
 var rnumnonpx = /^([+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|))(?!px)[a-z%]+$/i;
-
 function _getComputedStyle(node) {
   if (!node) throw new TypeError('No Element passed to `getComputedStyle()`');
   var doc = node.ownerDocument;
@@ -4901,26 +4164,25 @@ function _getComputedStyle(node) {
       if (prop == 'float') prop = 'styleFloat';
       var current = node.currentStyle[prop] || null;
       if (current == null && style && style[prop]) current = style[prop];
-
       if (rnumnonpx.test(current) && !rposition.test(prop)) {
         // Remember the original values
         var left = style.left;
         var runStyle = node.runtimeStyle;
-        var rsLeft = runStyle && runStyle.left; // Put in the new values to get a computed value out
+        var rsLeft = runStyle && runStyle.left;
 
+        // Put in the new values to get a computed value out
         if (rsLeft) runStyle.left = node.currentStyle.left;
         style.left = prop === 'fontSize' ? '1em' : current;
-        current = style.pixelLeft + 'px'; // Revert the changed values
+        current = style.pixelLeft + 'px';
 
+        // Revert the changed values
         style.left = left;
         if (rsLeft) runStyle.left = rsLeft;
       }
-
       return current;
     }
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4934,11 +4196,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = removeStyle;
-
 function removeStyle(node, key) {
   return 'removeProperty' in node.style ? node.style.removeProperty(key) : node.style.removeAttribute(key);
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -4953,11 +4213,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isTransform;
 var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
-
 function isTransform(property) {
   return !!(property && supportedTransforms.test(property));
 }
-
 module.exports = exports["default"];
 
 /***/ }),
@@ -4965,7 +4223,6 @@ module.exports = exports["default"];
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(114);
-
 module.exports = __webpack_require__(8).parseInt;
 
 /***/ }),
@@ -4973,10 +4230,8 @@ module.exports = __webpack_require__(8).parseInt;
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(10);
-
-var $parseInt = __webpack_require__(115); // 18.2.5 parseInt(string, radix)
-
-
+var $parseInt = __webpack_require__(115);
+// 18.2.5 parseInt(string, radix)
 $export($export.G + $export.F * (parseInt != $parseInt), {
   parseInt: $parseInt
 });
@@ -4986,11 +4241,8 @@ $export($export.G + $export.F * (parseInt != $parseInt), {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseInt = __webpack_require__(19).parseInt;
-
 var $trim = __webpack_require__(116).trim;
-
 var ws = __webpack_require__(68);
-
 var hex = /^[-+]?0[xX]/;
 module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix) {
   var string = $trim(String(str), 3);
@@ -5002,18 +4254,13 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(10);
-
 var defined = __webpack_require__(33);
-
 var fails = __webpack_require__(25);
-
 var spaces = __webpack_require__(68);
-
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
 var ltrim = RegExp('^' + space + space + '*');
 var rtrim = RegExp(space + space + '*$');
-
 var exporter = function (KEY, exec, ALIAS) {
   var exp = {};
   var FORCE = fails(function () {
@@ -5022,18 +4269,17 @@ var exporter = function (KEY, exec, ALIAS) {
   var fn = exp[KEY] = FORCE ? exec(trim) : spaces[KEY];
   if (ALIAS) exp[ALIAS] = fn;
   $export($export.P + $export.F * FORCE, 'String', exp);
-}; // 1 -> String#trimLeft
+};
+
+// 1 -> String#trimLeft
 // 2 -> String#trimRight
 // 3 -> String#trim
-
-
 var trim = exporter.trim = function (string, TYPE) {
   string = String(defined(string));
   if (TYPE & 1) string = string.replace(ltrim, '');
   if (TYPE & 2) string = string.replace(rtrim, '');
   return string;
 };
-
 module.exports = exporter;
 
 /***/ }),
@@ -5049,27 +4295,24 @@ __webpack_require__.r(__webpack_exports__);
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 function componentWillMount() {
   // Call this.constructor.gDSFP to support sub-classes.
   var state = this.constructor.getDerivedStateFromProps(this.props, this.state);
-
   if (state !== null && state !== undefined) {
     this.setState(state);
   }
 }
-
 function componentWillReceiveProps(nextProps) {
   // Call this.constructor.gDSFP to support sub-classes.
   // Use the setState() updater to ensure state isn't stale in certain edge cases.
   function updater(prevState) {
     var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
     return state !== null && state !== undefined ? state : null;
-  } // Binding "this" is important for shallow renderer support.
-
-
+  }
+  // Binding "this" is important for shallow renderer support.
   this.setState(updater.bind(this));
 }
-
 function componentWillUpdate(nextProps, nextState) {
   try {
     var prevProps = this.props;
@@ -5082,75 +4325,66 @@ function componentWillUpdate(nextProps, nextState) {
     this.props = prevProps;
     this.state = prevState;
   }
-} // React may warn about cWM/cWRP/cWU methods being deprecated.
+}
+
+// React may warn about cWM/cWRP/cWU methods being deprecated.
 // Add a flag to suppress these warnings for this special case.
-
-
 componentWillMount.__suppressDeprecationWarning = true;
 componentWillReceiveProps.__suppressDeprecationWarning = true;
 componentWillUpdate.__suppressDeprecationWarning = true;
-
 function polyfill(Component) {
   var prototype = Component.prototype;
-
   if (!prototype || !prototype.isReactComponent) {
     throw new Error('Can only polyfill class components');
   }
-
   if (typeof Component.getDerivedStateFromProps !== 'function' && typeof prototype.getSnapshotBeforeUpdate !== 'function') {
     return Component;
-  } // If new component APIs are defined, "unsafe" lifecycles won't be called.
+  }
+
+  // If new component APIs are defined, "unsafe" lifecycles won't be called.
   // Error if any of these lifecycles are present,
   // Because they would work differently between older and newer (16.3+) versions of React.
-
-
   var foundWillMountName = null;
   var foundWillReceivePropsName = null;
   var foundWillUpdateName = null;
-
   if (typeof prototype.componentWillMount === 'function') {
     foundWillMountName = 'componentWillMount';
   } else if (typeof prototype.UNSAFE_componentWillMount === 'function') {
     foundWillMountName = 'UNSAFE_componentWillMount';
   }
-
   if (typeof prototype.componentWillReceiveProps === 'function') {
     foundWillReceivePropsName = 'componentWillReceiveProps';
   } else if (typeof prototype.UNSAFE_componentWillReceiveProps === 'function') {
     foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
   }
-
   if (typeof prototype.componentWillUpdate === 'function') {
     foundWillUpdateName = 'componentWillUpdate';
   } else if (typeof prototype.UNSAFE_componentWillUpdate === 'function') {
     foundWillUpdateName = 'UNSAFE_componentWillUpdate';
   }
-
   if (foundWillMountName !== null || foundWillReceivePropsName !== null || foundWillUpdateName !== null) {
     var componentName = Component.displayName || Component.name;
     var newApiName = typeof Component.getDerivedStateFromProps === 'function' ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
     throw Error('Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' + componentName + ' uses ' + newApiName + ' but also contains the following legacy lifecycles:' + (foundWillMountName !== null ? '\n  ' + foundWillMountName : '') + (foundWillReceivePropsName !== null ? '\n  ' + foundWillReceivePropsName : '') + (foundWillUpdateName !== null ? '\n  ' + foundWillUpdateName : '') + '\n\nThe above lifecycles should be removed. Learn more about this warning here:\n' + 'https://fb.me/react-async-component-lifecycle-hooks');
-  } // React <= 16.2 does not support static getDerivedStateFromProps.
+  }
+
+  // React <= 16.2 does not support static getDerivedStateFromProps.
   // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
   // Newer versions of React will ignore these lifecycles if gDSFP exists.
-
-
   if (typeof Component.getDerivedStateFromProps === 'function') {
     prototype.componentWillMount = componentWillMount;
     prototype.componentWillReceiveProps = componentWillReceiveProps;
-  } // React <= 16.2 does not support getSnapshotBeforeUpdate.
+  }
+
+  // React <= 16.2 does not support getSnapshotBeforeUpdate.
   // As a workaround, use cWU to invoke the new lifecycle.
   // Newer versions of React will ignore that lifecycle if gSBU exists.
-
-
   if (typeof prototype.getSnapshotBeforeUpdate === 'function') {
     if (typeof prototype.componentDidUpdate !== 'function') {
       throw new Error('Cannot polyfill getSnapshotBeforeUpdate() for components that do not define componentDidUpdate() on the prototype');
     }
-
     prototype.componentWillUpdate = componentWillUpdate;
     var componentDidUpdate = prototype.componentDidUpdate;
-
     prototype.componentDidUpdate = function componentDidUpdatePolyfill(prevProps, prevState, maybeSnapshot) {
       // 16.3+ will not execute our will-update method;
       // It will pass a snapshot value to did-update though.
@@ -5164,10 +4398,8 @@ function polyfill(Component) {
       componentDidUpdate.call(this, prevProps, prevState, snapshot);
     };
   }
-
   return Component;
 }
-
 
 
 /***/ }),
@@ -5180,17 +4412,13 @@ function polyfill(Component) {
 exports.__esModule = true;
 exports.classNamesShape = exports.timeoutsShape = undefined;
 exports.transitionTimeout = transitionTimeout;
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function transitionTimeout(transitionType) {
   var timeoutPropName = 'transition' + transitionType + 'Timeout';
   var enabledPropName = 'transition' + transitionType;
@@ -5199,21 +4427,20 @@ function transitionTimeout(transitionType) {
     if (props[enabledPropName]) {
       // If no timeout duration is provided
       if (props[timeoutPropName] == null) {
-        return new Error(timeoutPropName + ' wasn\'t supplied to CSSTransitionGroup: ' + 'this can cause unreliable animations and won\'t be supported in ' + 'a future version of React. See ' + 'https://fb.me/react-animation-transition-group-timeout for more ' + 'information.'); // If the duration isn't a number
+        return new Error(timeoutPropName + ' wasn\'t supplied to CSSTransitionGroup: ' + 'this can cause unreliable animations and won\'t be supported in ' + 'a future version of React. See ' + 'https://fb.me/react-animation-transition-group-timeout for more ' + 'information.');
+
+        // If the duration isn't a number
       } else if (typeof props[timeoutPropName] !== 'number') {
         return new Error(timeoutPropName + ' must be a number (in milliseconds)');
       }
     }
-
     return null;
   };
 }
-
 var timeoutsShape = exports.timeoutsShape = _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.shape({
   enter: _propTypes2.default.number,
   exit: _propTypes2.default.number
 }).isRequired]);
-
 var classNamesShape = exports.classNamesShape = _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.shape({
   enter: _propTypes2.default.string,
   exit: _propTypes2.default.string,
@@ -5232,9 +4459,7 @@ var classNamesShape = exports.classNamesShape = _propTypes2.default.oneOfType([_
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(120);
-
 __webpack_require__(126);
-
 module.exports = __webpack_require__(8).Array.from;
 
 /***/ }),
@@ -5244,12 +4469,11 @@ module.exports = __webpack_require__(8).Array.from;
 "use strict";
 
 
-var $at = __webpack_require__(121)(true); // 21.1.3.27 String.prototype[@@iterator]()
+var $at = __webpack_require__(121)(true);
 
-
+// 21.1.3.27 String.prototype[@@iterator]()
 __webpack_require__(122)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
-
   this._i = 0; // next index
   // 21.1.5.2.1 %StringIteratorPrototype%.next()
 }, function () {
@@ -5273,11 +4497,9 @@ __webpack_require__(122)(String, 'String', function (iterated) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(44);
-
-var defined = __webpack_require__(33); // true  -> String#at
+var defined = __webpack_require__(33);
+// true  -> String#at
 // false -> String#codePointAt
-
-
 module.exports = function (TO_STRING) {
   return function (that, pos) {
     var s = String(defined(that));
@@ -5298,56 +4520,39 @@ module.exports = function (TO_STRING) {
 
 
 var LIBRARY = __webpack_require__(61);
-
 var $export = __webpack_require__(10);
-
 var redefine = __webpack_require__(123);
-
 var hide = __webpack_require__(27);
-
 var Iterators = __webpack_require__(47);
-
 var $iterCreate = __webpack_require__(124);
-
 var setToStringTag = __webpack_require__(69);
-
 var getPrototypeOf = __webpack_require__(125);
-
 var ITERATOR = __webpack_require__(16)('iterator');
-
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
 var VALUES = 'values';
-
 var returnThis = function () {
   return this;
 };
-
 module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
   $iterCreate(Constructor, NAME, next);
-
   var getMethod = function (kind) {
     if (!BUGGY && kind in proto) return proto[kind];
-
     switch (kind) {
       case KEYS:
         return function keys() {
           return new Constructor(this, kind);
         };
-
       case VALUES:
         return function values() {
           return new Constructor(this, kind);
         };
     }
-
     return function entries() {
       return new Constructor(this, kind);
     };
   };
-
   var TAG = NAME + ' Iterator';
   var DEF_VALUES = DEFAULT == VALUES;
   var VALUES_BUG = false;
@@ -5356,37 +4561,31 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   var $default = $native || getMethod(DEFAULT);
   var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
   var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype; // Fix native
-
+  var methods, key, IteratorPrototype;
+  // Fix native
   if ($anyNative) {
     IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-
     if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
       // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true); // fix for some old engines
-
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
       if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
     }
-  } // fix Array#{values, @@iterator}.name in V8 / FF
-
-
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
   if (DEF_VALUES && $native && $native.name !== VALUES) {
     VALUES_BUG = true;
-
     $default = function values() {
       return $native.call(this);
     };
-  } // Define iterator
-
-
+  }
+  // Define iterator
   if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
     hide(proto, ITERATOR, $default);
-  } // Plug for library
-
-
+  }
+  // Plug for library
   Iterators[NAME] = $default;
   Iterators[TAG] = returnThis;
-
   if (DEFAULT) {
     methods = {
       values: DEF_VALUES ? $default : getMethod(VALUES),
@@ -5397,7 +4596,6 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
       if (!(key in proto)) redefine(proto, key, methods[key]);
     } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
   }
-
   return methods;
 };
 
@@ -5415,17 +4613,14 @@ module.exports = __webpack_require__(27);
 
 
 var create = __webpack_require__(65);
-
 var descriptor = __webpack_require__(41);
-
 var setToStringTag = __webpack_require__(69);
+var IteratorPrototype = {};
 
-var IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 __webpack_require__(27)(IteratorPrototype, __webpack_require__(16)('iterator'), function () {
   return this;
 });
-
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, {
     next: descriptor(1, next)
@@ -5439,21 +4634,15 @@ module.exports = function (Constructor, NAME, next) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(31);
-
 var toObject = __webpack_require__(34);
-
 var IE_PROTO = __webpack_require__(45)('IE_PROTO');
-
 var ObjectProto = Object.prototype;
-
 module.exports = Object.getPrototypeOf || function (O) {
   O = toObject(O);
   if (has(O, IE_PROTO)) return O[IE_PROTO];
-
   if (typeof O.constructor == 'function' && O instanceof O.constructor) {
     return O.constructor.prototype;
   }
-
   return O instanceof Object ? ObjectProto : null;
 };
 
@@ -5465,28 +4654,18 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 var ctx = __webpack_require__(56);
-
 var $export = __webpack_require__(10);
-
 var toObject = __webpack_require__(34);
-
 var call = __webpack_require__(127);
-
 var isArrayIter = __webpack_require__(128);
-
 var toLength = __webpack_require__(59);
-
 var createProperty = __webpack_require__(129);
-
 var getIterFn = __webpack_require__(130);
-
 $export($export.S + $export.F * !__webpack_require__(132)(function (iter) {
   Array.from(iter);
 }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike
-  /* , mapfn = undefined, thisArg = undefined */
-  ) {
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
     var O = toObject(arrayLike);
     var C = typeof this == 'function' ? this : Array;
     var aLen = arguments.length;
@@ -5495,20 +4674,18 @@ $export($export.S + $export.F * !__webpack_require__(132)(function (iter) {
     var index = 0;
     var iterFn = getIterFn(O);
     var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2); // if object isn't iterable or it's array with default iterator - use simple case
-
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
     if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
       for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
         createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
       }
     } else {
       length = toLength(O.length);
-
       for (result = new C(length); length > index; index++) {
         createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
       }
     }
-
     result.length = index;
     return result;
   }
@@ -5520,10 +4697,10 @@ $export($export.S + $export.F * !__webpack_require__(132)(function (iter) {
 
 // call something on iterator step with safe closing on error
 var anObject = __webpack_require__(29);
-
 module.exports = function (iterator, fn, value, entries) {
   try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value); // 7.4.6 IteratorClose(iterator, completion)
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+    // 7.4.6 IteratorClose(iterator, completion)
   } catch (e) {
     var ret = iterator['return'];
     if (ret !== undefined) anObject(ret.call(iterator));
@@ -5537,11 +4714,8 @@ module.exports = function (iterator, fn, value, entries) {
 
 // check on default Array iterator
 var Iterators = __webpack_require__(47);
-
 var ITERATOR = __webpack_require__(16)('iterator');
-
 var ArrayProto = Array.prototype;
-
 module.exports = function (it) {
   return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
@@ -5554,9 +4728,7 @@ module.exports = function (it) {
 
 
 var $defineProperty = __webpack_require__(28);
-
 var createDesc = __webpack_require__(41);
-
 module.exports = function (object, index, value) {
   if (index in object) $defineProperty.f(object, index, createDesc(0, value));else object[index] = value;
 };
@@ -5566,11 +4738,8 @@ module.exports = function (object, index, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(131);
-
 var ITERATOR = __webpack_require__(16)('iterator');
-
 var Iterators = __webpack_require__(47);
-
 module.exports = __webpack_require__(8).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
 };
@@ -5581,27 +4750,26 @@ module.exports = __webpack_require__(8).getIteratorMethod = function (it) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(43);
-
-var TAG = __webpack_require__(16)('toStringTag'); // ES3 wrong here
-
-
+var TAG = __webpack_require__(16)('toStringTag');
+// ES3 wrong here
 var ARG = cof(function () {
   return arguments;
-}()) == 'Arguments'; // fallback for IE11 Script Access Denied error
+}()) == 'Arguments';
 
+// fallback for IE11 Script Access Denied error
 var tryGet = function (it, key) {
   try {
     return it[key];
-  } catch (e) {
-    /* empty */
-  }
+  } catch (e) {/* empty */}
 };
-
 module.exports = function (it) {
   var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null' // @@toStringTag case
-  : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T // builtinTag case
-  : ARG ? cof(O) // ES3 arguments fallback
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+  // @@toStringTag case
+  : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+  // builtinTag case
+  : ARG ? cof(O)
+  // ES3 arguments fallback
   : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
@@ -5610,47 +4778,33 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(16)('iterator');
-
 var SAFE_CLOSING = false;
-
 try {
   var riter = [7][ITERATOR]();
-
   riter['return'] = function () {
     SAFE_CLOSING = true;
-  }; // eslint-disable-next-line no-throw-literal
-
-
+  };
+  // eslint-disable-next-line no-throw-literal
   Array.from(riter, function () {
     throw 2;
   });
-} catch (e) {
-  /* empty */
-}
-
+} catch (e) {/* empty */}
 module.exports = function (exec, skipClosing) {
   if (!skipClosing && !SAFE_CLOSING) return false;
   var safe = false;
-
   try {
     var arr = [7];
     var iter = arr[ITERATOR]();
-
     iter.next = function () {
       return {
         done: safe = true
       };
     };
-
     arr[ITERATOR] = function () {
       return iter;
     };
-
     exec(arr);
-  } catch (e) {
-    /* empty */
-  }
-
+  } catch (e) {/* empty */}
   return safe;
 };
 
@@ -5665,32 +4819,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = filterEvents;
-
 var _contains = __webpack_require__(13);
-
 var _contains2 = _interopRequireDefault(_contains);
-
 var _querySelectorAll = __webpack_require__(134);
-
 var _querySelectorAll2 = _interopRequireDefault(_querySelectorAll);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function filterEvents(selector, handler) {
   return function filterHandler(e) {
     var top = e.currentTarget,
-        target = e.target,
-        matches = (0, _querySelectorAll2.default)(top, selector);
+      target = e.target,
+      matches = (0, _querySelectorAll2.default)(top, selector);
     if (matches.some(function (match) {
       return (0, _contains2.default)(match, target);
     })) handler.call(this, e);
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -5703,33 +4850,28 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = qsa; // Zepto.js
+exports.default = qsa;
+// Zepto.js
 // (c) 2010-2015 Thomas Fuchs
 // Zepto.js may be freely distributed under the MIT license.
-
 var simpleSelectorRE = /^[\w-]*$/;
 var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
-
 function qsa(element, selector) {
   var maybeID = selector[0] === '#',
-      maybeClass = selector[0] === '.',
-      nameOnly = maybeID || maybeClass ? selector.slice(1) : selector,
-      isSimple = simpleSelectorRE.test(nameOnly),
-      found;
-
+    maybeClass = selector[0] === '.',
+    nameOnly = maybeID || maybeClass ? selector.slice(1) : selector,
+    isSimple = simpleSelectorRE.test(nameOnly),
+    found;
   if (isSimple) {
     if (maybeID) {
       element = element.getElementById ? element : document;
       return (found = element.getElementById(nameOnly)) ? [found] : [];
     }
-
     if (element.getElementsByClassName && maybeClass) return toArray(element.getElementsByClassName(nameOnly));
     return toArray(element.getElementsByTagName(selector));
   }
-
   return toArray(element.querySelectorAll(selector));
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -5742,27 +4884,18 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _inDOM = __webpack_require__(11);
-
 var _inDOM2 = _interopRequireDefault(_inDOM);
-
 var _on = __webpack_require__(48);
-
 var _on2 = _interopRequireDefault(_on);
-
 var _off = __webpack_require__(49);
-
 var _off2 = _interopRequireDefault(_off);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var listen = function listen() {};
-
 if (_inDOM2.default) {
   listen = function listen(node, eventName, handler, capture) {
     (0, _on2.default)(node, eventName, handler, capture);
@@ -5771,7 +4904,6 @@ if (_inDOM2.default) {
     };
   };
 }
-
 exports.default = listen;
 module.exports = exports['default'];
 
@@ -5786,44 +4918,34 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = deprecated;
-
 var _warning = __webpack_require__(7);
-
 var _warning2 = _interopRequireDefault(_warning);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 var warned = {};
-
 function deprecated(validator, reason) {
   return function validate(props, propName, componentName, location, propFullName) {
     var componentNameSafe = componentName || '<<anonymous>>';
     var propFullNameSafe = propFullName || propName;
-
     if (props[propName] != null) {
       var messageKey = componentName + '.' + propName;
       (0, _warning2.default)(warned[messageKey], 'The ' + location + ' `' + propFullNameSafe + '` of ' + ('`' + componentNameSafe + '` is deprecated. ' + reason + '.'));
       warned[messageKey] = true;
     }
-
     for (var _len = arguments.length, args = Array(_len > 5 ? _len - 5 : 0), _key = 5; _key < _len; _key++) {
       args[_key - 5] = arguments[_key];
     }
-
     return validator.apply(undefined, [props, propName, componentName, location, propFullName].concat(args));
   };
 }
+
 /* eslint-disable no-underscore-dangle */
-
-
 function _resetWarned() {
   warned = {};
 }
-
 deprecated._resetWarned = _resetWarned;
 /* eslint-enable no-underscore-dangle */
 
@@ -5837,37 +4959,25 @@ module.exports = exports['default'];
 
 
 exports.__esModule = true;
-
 var _class = __webpack_require__(138);
-
 var _class2 = _interopRequireDefault(_class);
-
 var _style = __webpack_require__(18);
-
 var _style2 = _interopRequireDefault(_style);
-
 var _scrollbarSize = __webpack_require__(39);
-
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
-
 var _isOverflowing = __webpack_require__(52);
-
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
-
 var _manageAriaHidden = __webpack_require__(141);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function findIndexOf(arr, cb) {
   var idx = -1;
   arr.some(function (d, i) {
@@ -5878,33 +4988,29 @@ function findIndexOf(arr, cb) {
   });
   return idx;
 }
-
 function findContainer(data, modal) {
   return findIndexOf(data, function (d) {
     return d.modals.indexOf(modal) !== -1;
   });
 }
-
 function setContainerStyle(state, container) {
   var style = {
     overflow: 'hidden'
-  }; // we are only interested in the actual `style` here
-  // becasue we will override it
+  };
 
+  // we are only interested in the actual `style` here
+  // becasue we will override it
   state.style = {
     overflow: container.style.overflow,
     paddingRight: container.style.paddingRight
   };
-
   if (state.overflowing) {
     // use computed style, here to get the real padding
     // to add our scrollbar width
     style.paddingRight = parseInt((0, _style2.default)(container, 'paddingRight') || 0, 10) + (0, _scrollbarSize2.default)() + 'px';
   }
-
   (0, _style2.default)(container, style);
 }
-
 function removeContainerStyle(_ref, container) {
   var style = _ref.style;
   Object.keys(style).forEach(function (key) {
@@ -5917,108 +5023,80 @@ function removeContainerStyle(_ref, container) {
  * @internal Used by the Modal to ensure proper styling of containers.
  */
 
-
 var ModalManager = function ModalManager() {
   var _this = this;
-
   var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$hideSiblingNode = _ref2.hideSiblingNodes,
-      hideSiblingNodes = _ref2$hideSiblingNode === undefined ? true : _ref2$hideSiblingNode,
-      _ref2$handleContainer = _ref2.handleContainerOverflow,
-      handleContainerOverflow = _ref2$handleContainer === undefined ? true : _ref2$handleContainer;
-
+    _ref2$hideSiblingNode = _ref2.hideSiblingNodes,
+    hideSiblingNodes = _ref2$hideSiblingNode === undefined ? true : _ref2$hideSiblingNode,
+    _ref2$handleContainer = _ref2.handleContainerOverflow,
+    handleContainerOverflow = _ref2$handleContainer === undefined ? true : _ref2$handleContainer;
   _classCallCheck(this, ModalManager);
-
   this.add = function (modal, container, className) {
     var modalIdx = _this.modals.indexOf(modal);
-
     var containerIdx = _this.containers.indexOf(container);
-
     if (modalIdx !== -1) {
       return modalIdx;
     }
-
     modalIdx = _this.modals.length;
-
     _this.modals.push(modal);
-
     if (_this.hideSiblingNodes) {
       (0, _manageAriaHidden.hideSiblings)(container, modal.modalNode);
     }
-
     if (containerIdx !== -1) {
       _this.data[containerIdx].modals.push(modal);
-
       return modalIdx;
     }
-
     var data = {
       modals: [modal],
       //right now only the first modal of a container will have its classes applied
       classes: className ? className.split(/\s+/) : [],
       overflowing: (0, _isOverflowing2.default)(container)
     };
-
     if (_this.handleContainerOverflow) {
       setContainerStyle(data, container);
     }
-
     data.classes.forEach(_class2.default.addClass.bind(null, container));
-
     _this.containers.push(container);
-
     _this.data.push(data);
-
     return modalIdx;
   };
-
   this.remove = function (modal) {
     var modalIdx = _this.modals.indexOf(modal);
-
     if (modalIdx === -1) {
       return;
     }
-
     var containerIdx = findContainer(_this.data, modal);
     var data = _this.data[containerIdx];
     var container = _this.containers[containerIdx];
     data.modals.splice(data.modals.indexOf(modal), 1);
+    _this.modals.splice(modalIdx, 1);
 
-    _this.modals.splice(modalIdx, 1); // if that was the last modal in a container,
+    // if that was the last modal in a container,
     // clean up the container
-
-
     if (data.modals.length === 0) {
       data.classes.forEach(_class2.default.removeClass.bind(null, container));
-
       if (_this.handleContainerOverflow) {
         removeContainerStyle(data, container);
       }
-
       if (_this.hideSiblingNodes) {
         (0, _manageAriaHidden.showSiblings)(container, modal.modalNode);
       }
-
       _this.containers.splice(containerIdx, 1);
-
       _this.data.splice(containerIdx, 1);
     } else if (_this.hideSiblingNodes) {
       //otherwise make sure the next top modal is visible to a SR
       (0, _manageAriaHidden.ariaHidden)(false, data.modals[data.modals.length - 1].modalNode);
     }
   };
-
   this.isTopModal = function (modal) {
     return !!_this.modals.length && _this.modals[_this.modals.length - 1] === modal;
   };
-
   this.hideSiblingNodes = hideSiblingNodes;
   this.handleContainerOverflow = handleContainerOverflow;
   this.modals = [];
   this.containers = [];
   this.data = [];
 };
-
 exports.default = ModalManager;
 module.exports = exports['default'];
 
@@ -6033,25 +5111,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.hasClass = exports.removeClass = exports.addClass = undefined;
-
 var _addClass = __webpack_require__(139);
-
 var _addClass2 = _interopRequireDefault(_addClass);
-
 var _removeClass = __webpack_require__(140);
-
 var _removeClass2 = _interopRequireDefault(_removeClass);
-
 var _hasClass = __webpack_require__(71);
-
 var _hasClass2 = _interopRequireDefault(_hasClass);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 exports.addClass = _addClass2.default;
 exports.removeClass = _removeClass2.default;
 exports.hasClass = _hasClass2.default;
@@ -6072,21 +5142,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = addClass;
-
 var _hasClass = __webpack_require__(71);
-
 var _hasClass2 = _interopRequireDefault(_hasClass);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function addClass(element, className) {
   if (element.classList) element.classList.add(className);else if (!(0, _hasClass2.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + ' ' + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + ' ' + className);
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -6099,7 +5164,6 @@ module.exports = exports['default'];
 function replaceClassName(origClass, classToRemove) {
   return origClass.replace(new RegExp('(^|\\s)' + classToRemove + '(?:\\s|$)', 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
 }
-
 module.exports = function removeClass(element, className) {
   if (element.classList) element.classList.remove(className);else if (typeof element.className === 'string') element.className = replaceClassName(element.className, className);else element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
 };
@@ -6116,13 +5180,11 @@ exports.ariaHidden = ariaHidden;
 exports.hideSiblings = hideSiblings;
 exports.showSiblings = showSiblings;
 var BLACKLIST = ['template', 'script', 'style'];
-
 var isHidable = function isHidable(_ref) {
   var nodeType = _ref.nodeType,
-      tagName = _ref.tagName;
+    tagName = _ref.tagName;
   return nodeType === 1 && BLACKLIST.indexOf(tagName.toLowerCase()) === -1;
 };
-
 var siblings = function siblings(container, mount, cb) {
   mount = [].concat(mount);
   [].forEach.call(container.children, function (node) {
@@ -6131,25 +5193,21 @@ var siblings = function siblings(container, mount, cb) {
     }
   });
 };
-
 function ariaHidden(show, node) {
   if (!node) {
     return;
   }
-
   if (show) {
     node.setAttribute('aria-hidden', 'true');
   } else {
     node.removeAttribute('aria-hidden');
   }
 }
-
 function hideSiblings(container, mountNode) {
   siblings(container, mountNode, function (node) {
     return ariaHidden(true, node);
   });
 }
-
 function showSiblings(container, mountNode) {
   siblings(container, mountNode, function (node) {
     return ariaHidden(false, node);
@@ -6164,56 +5222,38 @@ function showSiblings(container, mountNode) {
 
 
 exports.__esModule = true;
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _componentOrElement = __webpack_require__(35);
-
 var _componentOrElement2 = _interopRequireDefault(_componentOrElement);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _getContainer = __webpack_require__(37);
-
 var _getContainer2 = _interopRequireDefault(_getContainer);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -6224,46 +5264,38 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
+
 /**
  * The `<Portal/>` component renders its children into a new "subtree" outside of current component hierarchy.
  * You can think of it as a declarative `appendChild()`, or jQuery's `$.fn.appendTo()`.
  * The children of `<Portal/>` component will be appended to the `container` specified.
  */
-
-
 var Portal = function (_React$Component) {
   _inherits(Portal, _React$Component);
-
   function Portal() {
     var _temp, _this, _ret;
-
     _classCallCheck(this, Portal);
-
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this._mountOverlayTarget = function () {
       if (!_this._overlayTarget) {
         _this._overlayTarget = document.createElement('div');
         _this._portalContainerNode = (0, _getContainer2.default)(_this.props.container, (0, _ownerDocument2.default)(_this).body);
-
         _this._portalContainerNode.appendChild(_this._overlayTarget);
       }
     }, _this._unmountOverlayTarget = function () {
       if (_this._overlayTarget) {
         _this._portalContainerNode.removeChild(_this._overlayTarget);
-
         _this._overlayTarget = null;
       }
-
       _this._portalContainerNode = null;
     }, _this._renderOverlay = function () {
-      var overlay = !_this.props.children ? null : _react2.default.Children.only(_this.props.children); // Save reference for future access.
+      var overlay = !_this.props.children ? null : _react2.default.Children.only(_this.props.children);
 
+      // Save reference for future access.
       if (overlay !== null) {
         _this._mountOverlayTarget();
-
         var initialRender = !_this._overlayInstance;
         _this._overlayInstance = _reactDom2.default.unstable_renderSubtreeIntoContainer(_this, overlay, _this._overlayTarget, function () {
           if (initialRender && _this.props.onRendered) {
@@ -6273,55 +5305,41 @@ var Portal = function (_React$Component) {
       } else {
         // Unrender if the component is null for transitions to null
         _this._unrenderOverlay();
-
         _this._unmountOverlayTarget();
       }
     }, _this._unrenderOverlay = function () {
       if (_this._overlayTarget) {
         _reactDom2.default.unmountComponentAtNode(_this._overlayTarget);
-
         _this._overlayInstance = null;
       }
     }, _this.getMountNode = function () {
       return _this._overlayTarget;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
-
   Portal.prototype.componentDidMount = function componentDidMount() {
     this._isMounted = true;
-
     this._renderOverlay();
   };
-
   Portal.prototype.componentDidUpdate = function componentDidUpdate() {
     this._renderOverlay();
   };
-
   Portal.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (this._overlayTarget && nextProps.container !== this.props.container) {
       this._portalContainerNode.removeChild(this._overlayTarget);
-
       this._portalContainerNode = (0, _getContainer2.default)(nextProps.container, (0, _ownerDocument2.default)(this).body);
-
       this._portalContainerNode.appendChild(this._overlayTarget);
     }
   };
-
   Portal.prototype.componentWillUnmount = function componentWillUnmount() {
     this._isMounted = false;
-
     this._unrenderOverlay();
-
     this._unmountOverlayTarget();
   };
-
   Portal.prototype.render = function render() {
     return null;
   };
-
   return Portal;
 }(_react2.default.Component);
-
 Portal.displayName = 'Portal';
 Portal.propTypes = {
   /**
@@ -6342,40 +5360,30 @@ module.exports = exports['default'];
 
 
 exports.__esModule = true;
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -6386,10 +5394,10 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
-
 var propTypes = {
   children: _propTypes2.default.node
 };
+
 /**
  * Internal helper component to allow attaching a non-conflicting ref to a
  * child element that may not accept refs.
@@ -6397,20 +5405,15 @@ var propTypes = {
 
 var RefHolder = function (_React$Component) {
   _inherits(RefHolder, _React$Component);
-
   function RefHolder() {
     _classCallCheck(this, RefHolder);
-
     return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
   }
-
   RefHolder.prototype.render = function render() {
     return this.props.children;
   };
-
   return RefHolder;
 }(_react2.default.Component);
-
 RefHolder.propTypes = propTypes;
 exports.default = RefHolder;
 module.exports = exports['default'];
@@ -6430,30 +5433,24 @@ exports.default = addFocusListener;
  *
  * We only allow one Listener at a time to avoid stack overflows
  */
-
 function addFocusListener(handler) {
   var useFocusin = !document.addEventListener;
   var remove = void 0;
-
   if (useFocusin) {
     document.attachEvent('onfocusin', handler);
-
     remove = function remove() {
       return document.detachEvent('onfocusin', handler);
     };
   } else {
     document.addEventListener('focus', handler, true);
-
     remove = function remove() {
       return document.removeEventListener('focus', handler, true);
     };
   }
-
   return {
     remove: remove
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -6464,90 +5461,62 @@ module.exports = exports['default'];
 
 
 exports.__esModule = true;
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
-
     for (var key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
         target[key] = source[key];
       }
     }
   }
-
   return target;
 };
-
 var _classnames = __webpack_require__(2);
-
 var _classnames2 = _interopRequireDefault(_classnames);
-
 var _propTypes = __webpack_require__(0);
-
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _componentOrElement = __webpack_require__(35);
-
 var _componentOrElement2 = _interopRequireDefault(_componentOrElement);
-
 var _react = __webpack_require__(1);
-
 var _react2 = _interopRequireDefault(_react);
-
 var _reactDom = __webpack_require__(4);
-
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _calculatePosition = __webpack_require__(146);
-
 var _calculatePosition2 = _interopRequireDefault(_calculatePosition);
-
 var _getContainer = __webpack_require__(37);
-
 var _getContainer2 = _interopRequireDefault(_getContainer);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function _objectWithoutProperties(obj, keys) {
   var target = {};
-
   for (var i in obj) {
     if (keys.indexOf(i) >= 0) continue;
     if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
     target[i] = obj[i];
   }
-
   return target;
 }
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-
 function _possibleConstructorReturn(self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 }
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
-
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -6558,6 +5527,7 @@ function _inherits(subClass, superClass) {
   });
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
+
 /**
  * The Position component calculates the coordinates for its child, to position
  * it relative to a `target` component or node. Useful for creating callouts
@@ -6567,32 +5537,23 @@ function _inherits(subClass, superClass) {
  * It also injects "arrow" `left`, and `top` values for styling callout arrows
  * for giving your components a sense of directionality.
  */
-
-
 var Position = function (_React$Component) {
   _inherits(Position, _React$Component);
-
   function Position(props, context) {
     _classCallCheck(this, Position);
-
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
-
     _this.getTarget = function () {
       var target = _this.props.target;
       var targetElement = typeof target === 'function' ? target() : target;
       return targetElement && _reactDom2.default.findDOMNode(targetElement) || null;
     };
-
     _this.maybeUpdatePosition = function (placementChanged) {
       var target = _this.getTarget();
-
       if (!_this.props.shouldUpdatePosition && target === _this._lastTarget && !placementChanged) {
         return;
       }
-
       _this.updatePosition(target);
     };
-
     _this.state = {
       positionLeft: 0,
       positionTop: 0,
@@ -6603,41 +5564,35 @@ var Position = function (_React$Component) {
     _this._lastTarget = null;
     return _this;
   }
-
   Position.prototype.componentDidMount = function componentDidMount() {
     this.updatePosition(this.getTarget());
   };
-
   Position.prototype.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps() {
     this._needsFlush = true;
   };
-
   Position.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
     if (this._needsFlush) {
       this._needsFlush = false;
       this.maybeUpdatePosition(this.props.placement !== prevProps.placement);
     }
   };
-
   Position.prototype.render = function render() {
     var _props = this.props,
-        children = _props.children,
-        className = _props.className,
-        props = _objectWithoutProperties(_props, ['children', 'className']);
-
+      children = _props.children,
+      className = _props.className,
+      props = _objectWithoutProperties(_props, ['children', 'className']);
     var _state = this.state,
-        positionLeft = _state.positionLeft,
-        positionTop = _state.positionTop,
-        arrowPosition = _objectWithoutProperties(_state, ['positionLeft', 'positionTop']); // These should not be forwarded to the child.
+      positionLeft = _state.positionLeft,
+      positionTop = _state.positionTop,
+      arrowPosition = _objectWithoutProperties(_state, ['positionLeft', 'positionTop']);
 
+    // These should not be forwarded to the child.
 
     delete props.target;
     delete props.container;
     delete props.containerPadding;
     delete props.shouldUpdatePosition;
-
     var child = _react2.default.Children.only(children);
-
     return (0, _react.cloneElement)(child, _extends({}, props, arrowPosition, {
       // FIXME: Don't forward `positionLeft` and `positionTop` via both props
       // and `props.style`.
@@ -6650,10 +5605,8 @@ var Position = function (_React$Component) {
       })
     }));
   };
-
   Position.prototype.updatePosition = function updatePosition(target) {
     this._lastTarget = target;
-
     if (!target) {
       this.setState({
         positionLeft: 0,
@@ -6663,38 +5616,30 @@ var Position = function (_React$Component) {
       });
       return;
     }
-
     var overlay = _reactDom2.default.findDOMNode(this);
-
     var container = (0, _getContainer2.default)(this.props.container, (0, _ownerDocument2.default)(this).body);
     this.setState((0, _calculatePosition2.default)(this.props.placement, overlay, target, container, this.props.containerPadding));
   };
-
   return Position;
 }(_react2.default.Component);
-
 Position.propTypes = {
   /**
    * A node, element, or function that returns either. The child will be
    * be positioned next to the `target` specified.
    */
   target: _propTypes2.default.oneOfType([_componentOrElement2.default, _propTypes2.default.func]),
-
   /**
    * "offsetParent" of the component
    */
   container: _propTypes2.default.oneOfType([_componentOrElement2.default, _propTypes2.default.func]),
-
   /**
    * Minimum spacing in pixels between container border and component border
    */
   containerPadding: _propTypes2.default.number,
-
   /**
    * How to position the component relative to the target
    */
   placement: _propTypes2.default.oneOf(['top', 'right', 'bottom', 'left']),
-
   /**
    * Whether the position should be changed on each update
    */
@@ -6718,60 +5663,45 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 exports.default = calculatePosition;
-
 var _offset = __webpack_require__(73);
-
 var _offset2 = _interopRequireDefault(_offset);
-
 var _position = __webpack_require__(147);
-
 var _position2 = _interopRequireDefault(_position);
-
 var _scrollTop = __webpack_require__(74);
-
 var _scrollTop2 = _interopRequireDefault(_scrollTop);
-
 var _ownerDocument = __webpack_require__(20);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function getContainerDimensions(containerNode) {
   var width = void 0,
-      height = void 0,
-      scroll = void 0;
-
+    height = void 0,
+    scroll = void 0;
   if (containerNode.tagName === 'BODY') {
     width = window.innerWidth;
     height = window.innerHeight;
     scroll = (0, _scrollTop2.default)((0, _ownerDocument2.default)(containerNode).documentElement) || (0, _scrollTop2.default)(containerNode);
   } else {
     var _getOffset = (0, _offset2.default)(containerNode);
-
     width = _getOffset.width;
     height = _getOffset.height;
     scroll = (0, _scrollTop2.default)(containerNode);
   }
-
   return {
     width: width,
     height: height,
     scroll: scroll
   };
 }
-
 function getTopDelta(top, overlayHeight, container, padding) {
   var containerDimensions = getContainerDimensions(container);
   var containerScroll = containerDimensions.scroll;
   var containerHeight = containerDimensions.height;
   var topEdgeOffset = top - padding - containerScroll;
   var bottomEdgeOffset = top + padding - containerScroll + overlayHeight;
-
   if (topEdgeOffset < 0) {
     return -topEdgeOffset;
   } else if (bottomEdgeOffset > containerHeight) {
@@ -6780,56 +5710,45 @@ function getTopDelta(top, overlayHeight, container, padding) {
     return 0;
   }
 }
-
 function getLeftDelta(left, overlayWidth, container, padding) {
   var containerDimensions = getContainerDimensions(container);
   var containerWidth = containerDimensions.width;
   var leftEdgeOffset = left - padding;
   var rightEdgeOffset = left + padding + overlayWidth;
-
   if (leftEdgeOffset < 0) {
     return -leftEdgeOffset;
   } else if (rightEdgeOffset > containerWidth) {
     return containerWidth - rightEdgeOffset;
   }
-
   return 0;
 }
-
 function calculatePosition(placement, overlayNode, target, container, padding) {
   var childOffset = container.tagName === 'BODY' ? (0, _offset2.default)(target) : (0, _position2.default)(target, container);
-
   var _getOffset2 = (0, _offset2.default)(overlayNode),
-      overlayHeight = _getOffset2.height,
-      overlayWidth = _getOffset2.width;
-
+    overlayHeight = _getOffset2.height,
+    overlayWidth = _getOffset2.width;
   var positionLeft = void 0,
-      positionTop = void 0,
-      arrowOffsetLeft = void 0,
-      arrowOffsetTop = void 0;
-
+    positionTop = void 0,
+    arrowOffsetLeft = void 0,
+    arrowOffsetTop = void 0;
   if (placement === 'left' || placement === 'right') {
     positionTop = childOffset.top + (childOffset.height - overlayHeight) / 2;
-
     if (placement === 'left') {
       positionLeft = childOffset.left - overlayWidth;
     } else {
       positionLeft = childOffset.left + childOffset.width;
     }
-
     var topDelta = getTopDelta(positionTop, overlayHeight, container, padding);
     positionTop += topDelta;
     arrowOffsetTop = 50 * (1 - 2 * topDelta / overlayHeight) + '%';
     arrowOffsetLeft = void 0;
   } else if (placement === 'top' || placement === 'bottom') {
     positionLeft = childOffset.left + (childOffset.width - overlayWidth) / 2;
-
     if (placement === 'top') {
       positionTop = childOffset.top - overlayHeight;
     } else {
       positionTop = childOffset.top + childOffset.height;
     }
-
     var leftDelta = getLeftDelta(positionLeft, overlayWidth, container, padding);
     positionLeft += leftDelta;
     arrowOffsetLeft = 50 * (1 - 2 * leftDelta / overlayWidth) + '%';
@@ -6837,7 +5756,6 @@ function calculatePosition(placement, overlayNode, target, container, padding) {
   } else {
     throw new Error('calcOverlayPosition(): No such placement of "' + placement + '" found.');
   }
-
   return {
     positionLeft: positionLeft,
     positionTop: positionTop,
@@ -6845,7 +5763,6 @@ function calculatePosition(placement, overlayNode, target, container, padding) {
     arrowOffsetTop: arrowOffsetTop
   };
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -6858,61 +5775,45 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
-
     for (var key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
         target[key] = source[key];
       }
     }
   }
-
   return target;
 };
-
 exports.default = position;
-
 var _offset = __webpack_require__(73);
-
 var _offset2 = _interopRequireDefault(_offset);
-
 var _offsetParent = __webpack_require__(148);
-
 var _offsetParent2 = _interopRequireDefault(_offsetParent);
-
 var _scrollTop = __webpack_require__(74);
-
 var _scrollTop2 = _interopRequireDefault(_scrollTop);
-
 var _scrollLeft = __webpack_require__(149);
-
 var _scrollLeft2 = _interopRequireDefault(_scrollLeft);
-
 var _style = __webpack_require__(18);
-
 var _style2 = _interopRequireDefault(_style);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function nodeName(node) {
   return node.nodeName && node.nodeName.toLowerCase();
 }
-
 function position(node, offsetParent) {
   var parentOffset = {
-    top: 0,
-    left: 0
-  },
-      offset; // Fixed elements are offset from window (parentOffset = {top:0, left: 0},
-  // because it is its only offset parent
+      top: 0,
+      left: 0
+    },
+    offset;
 
+  // Fixed elements are offset from window (parentOffset = {top:0, left: 0},
+  // because it is its only offset parent
   if ((0, _style2.default)(node, 'position') === 'fixed') {
     offset = node.getBoundingClientRect();
   } else {
@@ -6921,15 +5822,14 @@ function position(node, offsetParent) {
     if (nodeName(offsetParent) !== 'html') parentOffset = (0, _offset2.default)(offsetParent);
     parentOffset.top += parseInt((0, _style2.default)(offsetParent, 'borderTopWidth'), 10) - (0, _scrollTop2.default)(offsetParent) || 0;
     parentOffset.left += parseInt((0, _style2.default)(offsetParent, 'borderLeftWidth'), 10) - (0, _scrollLeft2.default)(offsetParent) || 0;
-  } // Subtract parent offsets and node margins
+  }
 
-
+  // Subtract parent offsets and node margins
   return _extends({}, offset, {
     top: offset.top - parentOffset.top - (parseInt((0, _style2.default)(node, 'marginTop'), 10) || 0),
     left: offset.left - parentOffset.left - (parseInt((0, _style2.default)(node, 'marginLeft'), 10) || 0)
   });
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -6943,36 +5843,26 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = offsetParent;
-
 var _ownerDocument = __webpack_require__(17);
-
 var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
-
 var _style = __webpack_require__(18);
-
 var _style2 = _interopRequireDefault(_style);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function nodeName(node) {
   return node.nodeName && node.nodeName.toLowerCase();
 }
-
 function offsetParent(node) {
   var doc = (0, _ownerDocument2.default)(node),
-      offsetParent = node && node.offsetParent;
-
+    offsetParent = node && node.offsetParent;
   while (offsetParent && nodeName(node) !== 'html' && (0, _style2.default)(offsetParent, 'position') === 'static') {
     offsetParent = offsetParent.offsetParent;
   }
-
   return offsetParent || doc.documentElement;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -6986,23 +5876,18 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = scrollTop;
-
 var _isWindow = __webpack_require__(36);
-
 var _isWindow2 = _interopRequireDefault(_isWindow);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     default: obj
   };
 }
-
 function scrollTop(node, val) {
   var win = (0, _isWindow2.default)(node);
   if (val === undefined) return win ? 'pageXOffset' in win ? win.pageXOffset : win.document.documentElement.scrollLeft : node.scrollLeft;
   if (win) win.scrollTo(val, 'pageYOffset' in win ? win.pageYOffset : win.document.documentElement.scrollTop);else node.scrollLeft = val;
 }
-
 module.exports = exports['default'];
 
 /***/ }),
@@ -7010,7 +5895,6 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(151);
-
 module.exports = __webpack_require__(8).Array.isArray;
 
 /***/ }),
@@ -7019,7 +5903,6 @@ module.exports = __webpack_require__(8).Array.isArray;
 
 // 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
 var $export = __webpack_require__(10);
-
 $export($export.S, 'Array', {
   isArray: __webpack_require__(152)
 });
@@ -7030,7 +5913,6 @@ $export($export.S, 'Array', {
 
 // 7.2.2 IsArray(argument)
 var cof = __webpack_require__(43);
-
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
@@ -7052,28 +5934,24 @@ exports.default = createChainableTypeChecker;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+
 // Mostly taken from ReactPropTypes.
 
 function createChainableTypeChecker(validate) {
   function checkType(isRequired, props, propName, componentName, location, propFullName) {
     var componentNameSafe = componentName || '<<anonymous>>';
     var propFullNameSafe = propFullName || propName;
-
     if (props[propName] == null) {
       if (isRequired) {
         return new Error('Required ' + location + ' `' + propFullNameSafe + '` was not specified ' + ('in `' + componentNameSafe + '`.'));
       }
-
       return null;
     }
-
     for (var _len = arguments.length, args = Array(_len > 6 ? _len - 6 : 0), _key = 6; _key < _len; _key++) {
       args[_key - 6] = arguments[_key];
     }
-
     return validate.apply(undefined, [props, propName, componentNameSafe, location, propFullNameSafe].concat(args));
   }
-
   var chainedCheckType = checkType.bind(null, false);
   chainedCheckType.isRequired = checkType.bind(null, true);
   return chainedCheckType;
@@ -7112,17 +5990,14 @@ function _extends() {
   _extends = assign_default.a || function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
-
   return _extends.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/create.js
@@ -7149,17 +6024,13 @@ var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
-
   var sourceKeys = keys_default()(source);
-
   var key, i;
-
   for (i = 0; i < sourceKeys.length; i++) {
     key = sourceKeys[i];
     if (excluded.indexOf(key) >= 0) continue;
     target[key] = source[key];
   }
-
   return target;
 }
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
@@ -7224,19 +6095,15 @@ function curry(fn) {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     var last = args[args.length - 1];
-
     if (typeof last === 'function') {
       return fn.apply(void 0, args);
     }
-
     return function (Component) {
       return fn.apply(void 0, args.concat([Component]));
     };
   };
 }
-
 function prefix(props, variant) {
   var bsClass = (props.bsClass || '').trim();
   !(bsClass != null) ?  false ? undefined : browser_default()(false) : void 0;
@@ -7254,7 +6121,6 @@ var bsStyles = curry(function (styles, defaultStyle, Component) {
     Component = defaultStyle;
     defaultStyle = undefined;
   }
-
   var existing = Component.STYLES || [];
   var propTypes = Component.propTypes || {};
   styles.forEach(function (style) {
@@ -7262,19 +6128,18 @@ var bsStyles = curry(function (styles, defaultStyle, Component) {
       existing.push(style);
     }
   });
-  var propType = prop_types_default.a.oneOf(existing); // expose the values on the propType function for documentation
+  var propType = prop_types_default.a.oneOf(existing);
 
+  // expose the values on the propType function for documentation
   Component.STYLES = existing;
   propType._values = existing;
   Component.propTypes = _extends({}, propTypes, {
     bsStyle: propType
   });
-
   if (defaultStyle !== undefined) {
     var defaultProps = Component.defaultProps || (Component.defaultProps = {});
     defaultProps.bsStyle = defaultStyle;
   }
-
   return Component;
 });
 var bsSizes = curry(function (sizes, defaultSize, Component) {
@@ -7282,7 +6147,6 @@ var bsSizes = curry(function (sizes, defaultSize, Component) {
     Component = defaultSize;
     defaultSize = undefined;
   }
-
   var existing = Component.SIZES || [];
   var propTypes = Component.propTypes || {};
   sizes.forEach(function (size) {
@@ -7293,48 +6157,39 @@ var bsSizes = curry(function (sizes, defaultSize, Component) {
   var values = [];
   existing.forEach(function (size) {
     var mappedSize = SIZE_MAP[size];
-
     if (mappedSize && mappedSize !== size) {
       values.push(mappedSize);
     }
-
     values.push(size);
   });
   var propType = prop_types_default.a.oneOf(values);
-  propType._values = values; // expose the values on the propType function for documentation
+  propType._values = values;
 
+  // expose the values on the propType function for documentation
   Component.SIZES = existing;
   Component.propTypes = _extends({}, propTypes, {
     bsSize: propType
   });
-
   if (defaultSize !== undefined) {
     if (!Component.defaultProps) {
       Component.defaultProps = {};
     }
-
     Component.defaultProps.bsSize = defaultSize;
   }
-
   return Component;
 });
 function getClassSet(props) {
   var _classes;
-
   var classes = (_classes = {}, _classes[prefix(props)] = true, _classes);
-
   if (props.bsSize) {
     var bsSize = SIZE_MAP[props.bsSize] || props.bsSize;
     classes[prefix(props, bsSize)] = true;
   }
-
   if (props.bsStyle) {
     classes[prefix(props, props.bsStyle)] = true;
   }
-
   return classes;
 }
-
 function getBsProps(props) {
   return {
     bsClass: props.bsClass,
@@ -7343,23 +6198,18 @@ function getBsProps(props) {
     bsRole: props.bsRole
   };
 }
-
 function isBsProp(propName) {
   return propName === 'bsClass' || propName === 'bsSize' || propName === 'bsStyle' || propName === 'bsRole';
 }
-
 function splitBsProps(props) {
   var elementProps = {};
-
   entries_default()(props).forEach(function (_ref) {
     var propName = _ref[0],
-        propValue = _ref[1];
-
+      propValue = _ref[1];
     if (!isBsProp(propName)) {
       elementProps[propName] = propValue;
     }
   });
-
   return [getBsProps(props), elementProps];
 }
 function splitBsPropsAndOmit(props, omittedPropNames) {
@@ -7368,33 +6218,31 @@ function splitBsPropsAndOmit(props, omittedPropNames) {
     isOmittedProp[propName] = true;
   });
   var elementProps = {};
-
   entries_default()(props).forEach(function (_ref2) {
     var propName = _ref2[0],
-        propValue = _ref2[1];
-
+      propValue = _ref2[1];
     if (!isBsProp(propName) && !isOmittedProp[propName]) {
       elementProps[propName] = propValue;
     }
   });
-
   return [getBsProps(props), elementProps];
 }
+
 /**
  * Add a style variant to a Component. Mutates the propTypes of the component
  * in order to validate the new variant.
  */
-
 function addStyle(Component) {
   for (var _len2 = arguments.length, styleVariant = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
     styleVariant[_key2 - 1] = arguments[_key2];
   }
-
   bsStyles(styleVariant, Component);
 }
 var _curry = curry;
 // CONCATENATED MODULE: ./src/utils/ValidComponentChildren.js
 // TODO: This module should be ElementChildren, and should use named exports.
+
+
 
 /**
  * Iterates through children that are typically specified as `props.children`,
@@ -7408,17 +6256,16 @@ var _curry = curry;
  * @param {*} context Context for func.
  * @return {object} Object containing the ordered map of results.
  */
-
 function map(children, func, context) {
   var index = 0;
   return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.map(children, function (child) {
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return child;
     }
-
     return func.call(context, child, index++);
   });
 }
+
 /**
  * Iterates through children that are "valid components".
  *
@@ -7429,37 +6276,33 @@ function map(children, func, context) {
  * @param {function(*, int)} func.
  * @param {*} context Context for context.
  */
-
-
 function forEach(children, func, context) {
   var index = 0;
   external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     func.call(context, child, index++);
   });
 }
+
 /**
  * Count the number of "valid components" in the Children container.
  *
  * @param {?*} children Children tree container.
  * @returns {number}
  */
-
-
 function ValidComponentChildren_count(children) {
   var result = 0;
   external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     ++result;
   });
   return result;
 }
+
 /**
  * Finds children that are typically specified as `props.children`,
  * but only iterates over children that are "valid components".
@@ -7472,8 +6315,6 @@ function ValidComponentChildren_count(children) {
  * @param {*} context Context for func.
  * @returns {array} of children that meet the func return statement
  */
-
-
 function filter(children, func, context) {
   var index = 0;
   var result = [];
@@ -7481,14 +6322,12 @@ function filter(children, func, context) {
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     if (func.call(context, child, index++)) {
       result.push(child);
     }
   });
   return result;
 }
-
 function find(children, func, context) {
   var index = 0;
   var result;
@@ -7496,18 +6335,15 @@ function find(children, func, context) {
     if (result) {
       return;
     }
-
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     if (func.call(context, child, index++)) {
       result = child;
     }
   });
   return result;
 }
-
 function every(children, func, context) {
   var index = 0;
   var result = true;
@@ -7515,18 +6351,15 @@ function every(children, func, context) {
     if (!result) {
       return;
     }
-
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     if (!func.call(context, child, index++)) {
       result = false;
     }
   });
   return result;
 }
-
 function some(children, func, context) {
   var index = 0;
   var result = false;
@@ -7534,30 +6367,25 @@ function some(children, func, context) {
     if (result) {
       return;
     }
-
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     if (func.call(context, child, index++)) {
       result = true;
     }
   });
   return result;
 }
-
 function toArray(children) {
   var result = [];
   external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
     if (!external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(child)) {
       return;
     }
-
     result.push(child);
   });
   return result;
 }
-
 /* harmony default export */ var ValidComponentChildren = ({
   map: map,
   forEach: forEach,
@@ -7580,19 +6408,15 @@ var idPropType = prop_types_default.a.oneOfType([prop_types_default.a.string, pr
 function generatedId(name) {
   return function (props) {
     var error = null;
-
     if (!props.generateChildId) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
-
       error = idPropType.apply(void 0, [props].concat(args));
-
       if (!error && !props.id) {
         error = new Error("In order to properly initialize the " + name + " in a way that is accessible to assistive technologies " + ("(such as screen readers) an `id` or a `generateChildId` prop to " + name + " is required"));
       }
     }
-
     return error;
   };
 }
@@ -7600,7 +6424,6 @@ function requiredRoles() {
   for (var _len2 = arguments.length, roles = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     roles[_key2] = arguments[_key2];
   }
-
   return createChainableTypeChecker_default()(function (props, propName, component) {
     var missing;
     roles.every(function (role) {
@@ -7610,14 +6433,11 @@ function requiredRoles() {
         missing = role;
         return false;
       }
-
       return true;
     });
-
     if (missing) {
       return new Error("(children) " + component + " - Missing a required child with bsRole: " + (missing + ". " + component + " must have at least one child of each of ") + ("the following bsRoles: " + roles.join(', ')));
     }
-
     return null;
   });
 }
@@ -7625,26 +6445,21 @@ function exclusiveRoles() {
   for (var _len3 = arguments.length, roles = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
     roles[_key3] = arguments[_key3];
   }
-
   return createChainableTypeChecker_default()(function (props, propName, component) {
     var duplicate;
     roles.every(function (role) {
       var childrenWithRole = ValidComponentChildren.filter(props.children, function (child) {
         return child.props.bsRole === role;
       });
-
       if (childrenWithRole.length > 1) {
         duplicate = role;
         return false;
       }
-
       return true;
     });
-
     if (duplicate) {
       return new Error("(children) " + component + " - Duplicate children detected of bsRole: " + (duplicate + ". Only one child each allowed with the following ") + ("bsRoles: " + roles.join(', ')));
     }
-
     return null;
   });
 }
@@ -7653,6 +6468,7 @@ function exclusiveRoles() {
 
 
 var _jsxFileName = "/Users/harrison/react-bootstrap/src/PanelGroup.js";
+var _excluded = ["accordion", "className", "children"];
 
 
 
@@ -7662,7 +6478,6 @@ var _jsxFileName = "/Users/harrison/react-bootstrap/src/PanelGroup.js";
 
 var PanelGroup_propTypes = {
   accordion: prop_types_default.a.bool,
-
   /**
    * When `accordion` is enabled, `activeKey` controls the which child `Panel` is expanded. `activeKey` should
    * match a child Panel `eventKey` prop exactly.
@@ -7670,19 +6485,16 @@ var PanelGroup_propTypes = {
    * @controllable onSelect
    */
   activeKey: prop_types_default.a.any,
-
   /**
    * A callback fired when a child Panel collapse state changes. It's called with the next expanded `activeKey`
    *
    * @controllable activeKey
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * An HTML role attribute
    */
   role: prop_types_default.a.string,
-
   /**
    * A function that takes an eventKey and type and returns a
    * unique id for each Panel heading and Panel Collapse. The function _must_ be a pure function,
@@ -7694,7 +6506,6 @@ var PanelGroup_propTypes = {
    * @defaultValue (eventKey, type) => `${this.props.id}-${type}-${key}`
    */
   generateChildId: prop_types_default.a.func,
-
   /**
    * HTML id attribute, required if no `generateChildId` prop
    * is specified.
@@ -7713,21 +6524,13 @@ var childContextTypes = {
     onToggle: prop_types_default.a.func
   })
 };
-
-var PanelGroup_PanelGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelGroup, _React$Component);
-
+var PanelGroup_PanelGroup = /*#__PURE__*/function (_React$Component) {
   function PanelGroup() {
     var _this;
-
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
     _this.handleSelect = function (key, expanded, e) {
       if (expanded) {
         _this.props.onSelect(key, e);
@@ -7735,26 +6538,22 @@ function (_React$Component) {
         _this.props.onSelect(null, e);
       }
     };
-
     return _this;
   }
-
+  _inheritsLoose(PanelGroup, _React$Component);
   var _proto = PanelGroup.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        accordion = _this$props.accordion,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
+      activeKey = _this$props.activeKey,
+      accordion = _this$props.accordion,
+      generateChildId = _this$props.generateChildId,
+      id = _this$props.id;
     var getId = null;
-
     if (accordion) {
       getId = generateChildId || function (key, type) {
         return id ? id + "-" + type + "-" + key : null;
       };
     }
-
     return {
       $bs_panelGroup: _extends({
         getId: getId,
@@ -7766,22 +6565,18 @@ function (_React$Component) {
       })
     };
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        accordion = _this$props2.accordion,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["accordion", "className", "children"]);
-
+      accordion = _this$props2.accordion,
+      className = _this$props2.className,
+      children = _this$props2.children,
+      props = _objectWithoutPropertiesLoose(_this$props2, _excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['onSelect', 'activeKey']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     if (accordion) {
       elementProps.role = elementProps.role || 'tablist';
     }
-
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -7796,10 +6591,8 @@ function (_React$Component) {
       });
     }));
   };
-
   return PanelGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelGroup_PanelGroup.propTypes = PanelGroup_propTypes;
 PanelGroup_PanelGroup.defaultProps = PanelGroup_defaultProps;
 PanelGroup_PanelGroup.childContextTypes = childContextTypes;
@@ -7812,18 +6605,12 @@ PanelGroup_PanelGroup.childContextTypes = childContextTypes;
 var Accordion_jsxFileName = "/Users/harrison/react-bootstrap/src/Accordion.js";
 
 
-
-var Accordion_Accordion =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Accordion, _React$Component);
-
+var Accordion_Accordion = /*#__PURE__*/function (_React$Component) {
   function Accordion() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Accordion, _React$Component);
   var _proto = Accordion.prototype;
-
   _proto.render = function render() {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_PanelGroup, _extends({}, this.props, {
       accordion: true,
@@ -7834,10 +6621,8 @@ function (_React$Component) {
       __self: this
     }), this.props.children);
   };
-
   return Accordion;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_Accordion = (Accordion_Accordion);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/values.js
 var object_values = __webpack_require__(9);
@@ -7855,22 +6640,16 @@ var CloseButton_propTypes = {
 var CloseButton_defaultProps = {
   label: 'Close'
 };
-
-var CloseButton_CloseButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(CloseButton, _React$Component);
-
+var CloseButton_CloseButton = /*#__PURE__*/function (_React$Component) {
   function CloseButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(CloseButton, _React$Component);
   var _proto = CloseButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        label = _this$props.label,
-        onClick = _this$props.onClick;
+      label = _this$props.label,
+      onClick = _this$props.onClick;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("button", {
       type: "button",
       className: "close",
@@ -7897,10 +6676,8 @@ function (_React$Component) {
       __self: this
     }, label));
   };
-
   return CloseButton;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 CloseButton_CloseButton.propTypes = CloseButton_propTypes;
 CloseButton_CloseButton.defaultProps = CloseButton_defaultProps;
 /* harmony default export */ var src_CloseButton = (CloseButton_CloseButton);
@@ -7910,6 +6687,7 @@ CloseButton_CloseButton.defaultProps = CloseButton_defaultProps;
 
 
 var Alert_jsxFileName = "/Users/harrison/react-bootstrap/src/Alert.js";
+var Alert_excluded = ["onDismiss", "closeLabel", "className", "children"];
 
 
 
@@ -7923,36 +6701,25 @@ var Alert_propTypes = {
 var Alert_defaultProps = {
   closeLabel: 'Close alert'
 };
-
-var Alert_Alert =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Alert, _React$Component);
-
+var Alert_Alert = /*#__PURE__*/function (_React$Component) {
   function Alert() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Alert, _React$Component);
   var _proto = Alert.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        onDismiss = _this$props.onDismiss,
-        closeLabel = _this$props.closeLabel,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onDismiss", "closeLabel", "className", "children"]);
-
+      onDismiss = _this$props.onDismiss,
+      closeLabel = _this$props.closeLabel,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Alert_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var dismissable = !!onDismiss;
-
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'dismissable')] = dismissable, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       role: "alert",
       className: classnames_default()(className, classes),
@@ -7971,10 +6738,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return Alert;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Alert_Alert.propTypes = Alert_propTypes;
 Alert_Alert.defaultProps = Alert_defaultProps;
 /* harmony default export */ var src_Alert = (bsStyles(values_default()(State), State.INFO, bootstrapUtils_bsClass('alert', Alert_Alert)));
@@ -7983,10 +6748,13 @@ Alert_Alert.defaultProps = Alert_defaultProps;
 
 
 var Badge_jsxFileName = "/Users/harrison/react-bootstrap/src/Badge.js";
+var Badge_excluded = ["pullRight", "className", "children"];
 
 
 
- // TODO: `pullRight` doesn't belong here. There's no special handling here.
+
+
+// TODO: `pullRight` doesn't belong here. There's no special handling here.
 
 var Badge_propTypes = {
   pullRight: prop_types_default.a.bool
@@ -7994,49 +6762,38 @@ var Badge_propTypes = {
 var Badge_defaultProps = {
   pullRight: false
 };
-
-var Badge_Badge =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Badge, _React$Component);
-
+var Badge_Badge = /*#__PURE__*/function (_React$Component) {
   function Badge() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Badge, _React$Component);
   var _proto = Badge.prototype;
-
   _proto.hasContent = function hasContent(children) {
     var result = false;
     external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
       if (result) {
         return;
       }
-
       if (child || child === 0) {
         result = true;
       }
     });
     return result;
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        pullRight = _this$props.pullRight,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["pullRight", "className", "children"]);
-
+      pullRight = _this$props.pullRight,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Badge_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), {
       'pull-right': pullRight,
       // Hack for collapsing on IE8.
       hidden: !this.hasContent(children)
     });
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -8046,21 +6803,11 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return Badge;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Badge_Badge.propTypes = Badge_propTypes;
 Badge_Badge.defaultProps = Badge_defaultProps;
 /* harmony default export */ var src_Badge = (bootstrapUtils_bsClass('badge', Badge_Badge));
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
 // EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/elementType.js
 var elementType = __webpack_require__(3);
 var elementType_default = /*#__PURE__*/__webpack_require__.n(elementType);
@@ -8079,36 +6826,31 @@ function createChainedFunction() {
   for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
     funcs[_key] = arguments[_key];
   }
-
   return funcs.filter(function (f) {
     return f != null;
   }).reduce(function (acc, f) {
     if (typeof f !== 'function') {
       throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
     }
-
     if (acc === null) {
       return f;
     }
-
     return function chainedFunction() {
       for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
         args[_key2] = arguments[_key2];
       }
-
       acc.apply(this, args);
       f.apply(this, args);
     };
   }, null);
 }
-
 /* harmony default export */ var utils_createChainedFunction = (createChainedFunction);
 // CONCATENATED MODULE: ./src/SafeAnchor.js
 
 
 
-
 var SafeAnchor_jsxFileName = "/Users/harrison/react-bootstrap/src/SafeAnchor.js";
+var SafeAnchor_excluded = ["componentClass", "disabled", "onKeyDown"];
 
 
 
@@ -8120,7 +6862,6 @@ var SafeAnchor_propTypes = {
   disabled: prop_types_default.a.bool,
   role: prop_types_default.a.string,
   tabIndex: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * this is sort of silly but needed for Button
    */
@@ -8129,10 +6870,10 @@ var SafeAnchor_propTypes = {
 var SafeAnchor_defaultProps = {
   componentClass: 'a'
 };
-
 function isTrivialHref(href) {
   return !href || href.trim() === '#';
 }
+
 /**
  * There are situations due to browser quirks or Bootstrap CSS where
  * an anchor tag is needed, when semantically a button tag is the
@@ -8140,72 +6881,56 @@ function isTrivialHref(href) {
  * button its accessible. It also emulates input `disabled` behavior for
  * links, which is usually desirable for Buttons, NavItems, MenuItems, etc.
  */
-
-
-var SafeAnchor_SafeAnchor =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(SafeAnchor, _React$Component);
-
+var SafeAnchor_SafeAnchor = /*#__PURE__*/function (_React$Component) {
   function SafeAnchor(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleKeyDown = _this.handleKeyDown.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(SafeAnchor, _React$Component);
   var _proto = SafeAnchor.prototype;
-
   _proto.handleClick = function handleClick(event) {
     var _this$props = this.props,
-        disabled = _this$props.disabled,
-        href = _this$props.href,
-        onClick = _this$props.onClick;
-
+      disabled = _this$props.disabled,
+      href = _this$props.href,
+      onClick = _this$props.onClick;
     if (disabled || isTrivialHref(href)) {
       event.preventDefault();
     }
-
     if (disabled) {
       event.stopPropagation();
       return;
     }
-
     if (onClick) {
       onClick(event);
     }
   };
-
   _proto.handleKeyDown = function handleKeyDown(event) {
     if (event.key === ' ') {
       event.preventDefault();
       this.handleClick(event);
     }
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        Component = _this$props2.componentClass,
-        disabled = _this$props2.disabled,
-        onKeyDown = _this$props2.onKeyDown,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["componentClass", "disabled", "onKeyDown"]);
-
+      Component = _this$props2.componentClass,
+      disabled = _this$props2.disabled,
+      onKeyDown = _this$props2.onKeyDown,
+      props = _objectWithoutPropertiesLoose(_this$props2, SafeAnchor_excluded);
     if (isTrivialHref(props.href)) {
-      props.role = props.role || 'button'; // we want to make sure there is a href attribute on the node
+      props.role = props.role || 'button';
+      // we want to make sure there is a href attribute on the node
       // otherwise, the cursor incorrectly styled (except with role='button')
-
       props.href = props.href || '#';
     }
-
     if (disabled) {
       props.tabIndex = -1;
       props.style = _extends({
         pointerEvents: 'none'
       }, props.style);
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, props, {
       onClick: this.handleClick,
       onKeyDown: utils_createChainedFunction(this.handleKeyDown, onKeyDown),
@@ -8216,10 +6941,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return SafeAnchor;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 SafeAnchor_SafeAnchor.propTypes = SafeAnchor_propTypes;
 SafeAnchor_SafeAnchor.defaultProps = SafeAnchor_defaultProps;
 /* harmony default export */ var src_SafeAnchor = (SafeAnchor_SafeAnchor);
@@ -8228,6 +6951,7 @@ SafeAnchor_SafeAnchor.defaultProps = SafeAnchor_defaultProps;
 
 
 var BreadcrumbItem_jsxFileName = "/Users/harrison/react-bootstrap/src/BreadcrumbItem.js";
+var BreadcrumbItem_excluded = ["active", "href", "title", "target", "className"];
 
 
 
@@ -8237,17 +6961,14 @@ var BreadcrumbItem_propTypes = {
    * If set to true, renders `span` instead of `a`
    */
   active: prop_types_default.a.bool,
-
   /**
    * `href` attribute for the inner `a` element
    */
   href: prop_types_default.a.string,
-
   /**
    * `title` attribute for the inner `a` element
    */
   title: prop_types_default.a.node,
-
   /**
    * `target` attribute for the inner `a` element
    */
@@ -8256,28 +6977,22 @@ var BreadcrumbItem_propTypes = {
 var BreadcrumbItem_defaultProps = {
   active: false
 };
-
-var BreadcrumbItem_BreadcrumbItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(BreadcrumbItem, _React$Component);
-
+var BreadcrumbItem_BreadcrumbItem = /*#__PURE__*/function (_React$Component) {
   function BreadcrumbItem() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(BreadcrumbItem, _React$Component);
   var _proto = BreadcrumbItem.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        active = _this$props.active,
-        href = _this$props.href,
-        title = _this$props.title,
-        target = _this$props.target,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["active", "href", "title", "target", "className"]); // Don't try to render these props on non-active <span>.
+      active = _this$props.active,
+      href = _this$props.href,
+      title = _this$props.title,
+      target = _this$props.target,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, BreadcrumbItem_excluded);
 
-
+    // Don't try to render these props on non-active <span>.
     var linkProps = {
       href: href,
       title: title,
@@ -8306,10 +7021,8 @@ function (_React$Component) {
       __self: this
     })));
   };
-
   return BreadcrumbItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 BreadcrumbItem_BreadcrumbItem.propTypes = BreadcrumbItem_propTypes;
 BreadcrumbItem_BreadcrumbItem.defaultProps = BreadcrumbItem_defaultProps;
 /* harmony default export */ var src_BreadcrumbItem = (BreadcrumbItem_BreadcrumbItem);
@@ -8318,31 +7031,24 @@ BreadcrumbItem_BreadcrumbItem.defaultProps = BreadcrumbItem_defaultProps;
 
 
 var Breadcrumb_jsxFileName = "/Users/harrison/react-bootstrap/src/Breadcrumb.js";
+var Breadcrumb_excluded = ["className"];
 
 
 
 
-
-var Breadcrumb_Breadcrumb =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Breadcrumb, _React$Component);
-
+var Breadcrumb_Breadcrumb = /*#__PURE__*/function (_React$Component) {
   function Breadcrumb() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Breadcrumb, _React$Component);
   var _proto = Breadcrumb.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Breadcrumb_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("ol", _extends({}, elementProps, {
       role: "navigation",
@@ -8355,10 +7061,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Breadcrumb;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Breadcrumb_Breadcrumb.Item = src_BreadcrumbItem;
 /* harmony default export */ var src_Breadcrumb = (bootstrapUtils_bsClass('breadcrumb', Breadcrumb_Breadcrumb));
 // CONCATENATED MODULE: ./src/Button.js
@@ -8366,6 +7070,8 @@ Breadcrumb_Breadcrumb.Item = src_BreadcrumbItem;
 
 
 
+var Button_excluded = ["componentClass"],
+  _excluded2 = ["active", "block", "className"];
 var Button_jsxFileName = "/Users/harrison/react-bootstrap/src/Button.js";
 
 
@@ -8381,7 +7087,6 @@ var Button_propTypes = {
   onClick: prop_types_default.a.func,
   componentClass: elementType_default.a,
   href: prop_types_default.a.string,
-
   /**
    * Defines HTML button type attribute
    * @defaultValue 'button'
@@ -8393,18 +7098,12 @@ var Button_defaultProps = {
   block: false,
   disabled: false
 };
-
-var Button_Button =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Button, _React$Component);
-
+var Button_Button = /*#__PURE__*/function (_React$Component) {
   function Button() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Button, _React$Component);
   var _proto = Button.prototype;
-
   _proto.renderAnchor = function renderAnchor(elementProps, className) {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_SafeAnchor, _extends({}, elementProps, {
       className: classnames_default()(className, elementProps.disabled && 'disabled'),
@@ -8415,11 +7114,9 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   _proto.renderButton = function renderButton(_ref, className) {
     var componentClass = _ref.componentClass,
-        elementProps = _objectWithoutPropertiesLoose(_ref, ["componentClass"]);
-
+      elementProps = _objectWithoutPropertiesLoose(_ref, Button_excluded);
     var Component = componentClass || 'button';
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       type: elementProps.type || 'button',
@@ -8431,39 +7128,30 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        active = _this$props.active,
-        block = _this$props.block,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["active", "block", "className"]);
-
+      active = _this$props.active,
+      block = _this$props.block,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, _excluded2);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {
       active: active
     }, _extends2[prefix(bsProps, 'block')] = block, _extends2));
-
     var fullClassName = classnames_default()(className, classes);
-
     if (elementProps.href) {
       return this.renderAnchor(elementProps, fullClassName);
     }
-
     return this.renderButton(elementProps, fullClassName);
   };
-
   return Button;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Button_Button.propTypes = Button_propTypes;
 Button_Button.defaultProps = Button_defaultProps;
-/* harmony default export */ var src_Button = (bootstrapUtils_bsClass('btn', bsSizes([Size.LARGE, Size.SMALL, Size.XSMALL], bsStyles(values_default()(State).concat([Style.DEFAULT, Style.PRIMARY, Style.LINK]), Style.DEFAULT, Button_Button))));
+/* harmony default export */ var src_Button = (bootstrapUtils_bsClass('btn', bsSizes([Size.LARGE, Size.SMALL, Size.XSMALL], bsStyles([].concat(values_default()(State), [Style.DEFAULT, Style.PRIMARY, Style.LINK]), Style.DEFAULT, Button_Button))));
 // EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/all.js
 var lib_all = __webpack_require__(14);
 var all_default = /*#__PURE__*/__webpack_require__.n(lib_all);
@@ -8473,6 +7161,7 @@ var all_default = /*#__PURE__*/__webpack_require__.n(lib_all);
 
 
 var ButtonGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ButtonGroup.js";
+var ButtonGroup_excluded = ["block", "justified", "vertical", "className"];
 
 
 
@@ -8482,14 +7171,13 @@ var ButtonGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ButtonGroup.j
 var ButtonGroup_propTypes = {
   vertical: prop_types_default.a.bool,
   justified: prop_types_default.a.bool,
-
   /**
    * Display block buttons; only useful when used with the "vertical" prop.
    * @type {bool}
    */
   block: all_default()(prop_types_default.a.bool, function (_ref) {
     var block = _ref.block,
-        vertical = _ref.vertical;
+      vertical = _ref.vertical;
     return block && !vertical ? new Error('`block` requires `vertical` to be set to have any effect') : null;
   })
 };
@@ -8498,34 +7186,24 @@ var ButtonGroup_defaultProps = {
   justified: false,
   vertical: false
 };
-
-var ButtonGroup_ButtonGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ButtonGroup, _React$Component);
-
+var ButtonGroup_ButtonGroup = /*#__PURE__*/function (_React$Component) {
   function ButtonGroup() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ButtonGroup, _React$Component);
   var _proto = ButtonGroup.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        block = _this$props.block,
-        justified = _this$props.justified,
-        vertical = _this$props.vertical,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["block", "justified", "vertical", "className"]);
-
+      block = _this$props.block,
+      justified = _this$props.justified,
+      vertical = _this$props.vertical,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ButtonGroup_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps)] = !vertical, _extends2[prefix(bsProps, 'vertical')] = vertical, _extends2[prefix(bsProps, 'justified')] = justified, _extends2[prefix(src_Button.defaultProps, 'block')] = block, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -8535,10 +7213,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ButtonGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ButtonGroup_ButtonGroup.propTypes = ButtonGroup_propTypes;
 ButtonGroup_ButtonGroup.defaultProps = ButtonGroup_defaultProps;
 /* harmony default export */ var src_ButtonGroup = (bootstrapUtils_bsClass('btn-group', ButtonGroup_ButtonGroup));
@@ -8547,30 +7223,23 @@ ButtonGroup_ButtonGroup.defaultProps = ButtonGroup_defaultProps;
 
 
 var ButtonToolbar_jsxFileName = "/Users/harrison/react-bootstrap/src/ButtonToolbar.js";
+var ButtonToolbar_excluded = ["className"];
 
 
 
-
-var ButtonToolbar_ButtonToolbar =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ButtonToolbar, _React$Component);
-
+var ButtonToolbar_ButtonToolbar = /*#__PURE__*/function (_React$Component) {
   function ButtonToolbar() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ButtonToolbar, _React$Component);
   var _proto = ButtonToolbar.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ButtonToolbar_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       role: "toolbar",
@@ -8582,16 +7251,15 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ButtonToolbar;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_ButtonToolbar = (bootstrapUtils_bsClass('btn-toolbar', ButtonToolbar_ButtonToolbar));
 // CONCATENATED MODULE: ./src/CarouselCaption.js
 
 
 
 var CarouselCaption_jsxFileName = "/Users/harrison/react-bootstrap/src/CarouselCaption.js";
+var CarouselCaption_excluded = ["componentClass", "className"];
 
 
 
@@ -8602,28 +7270,20 @@ var CarouselCaption_propTypes = {
 var CarouselCaption_defaultProps = {
   componentClass: 'div'
 };
-
-var CarouselCaption_CarouselCaption =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(CarouselCaption, _React$Component);
-
+var CarouselCaption_CarouselCaption = /*#__PURE__*/function (_React$Component) {
   function CarouselCaption() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(CarouselCaption, _React$Component);
   var _proto = CarouselCaption.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, CarouselCaption_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -8634,10 +7294,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return CarouselCaption;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 CarouselCaption_CarouselCaption.propTypes = CarouselCaption_propTypes;
 CarouselCaption_CarouselCaption.defaultProps = CarouselCaption_defaultProps;
 /* harmony default export */ var src_CarouselCaption = (bootstrapUtils_bsClass('carousel-caption', CarouselCaption_CarouselCaption));
@@ -8653,8 +7311,8 @@ var transition_default = /*#__PURE__*/__webpack_require__.n(dom_helpers_transiti
 
 
 
-
 var CarouselItem_jsxFileName = "/Users/harrison/react-bootstrap/src/CarouselItem.js";
+var CarouselItem_excluded = ["direction", "active", "animateIn", "animateOut", "className"];
 
 
 
@@ -8673,26 +7331,19 @@ var CarouselItem_defaultProps = {
   animateIn: false,
   animateOut: false
 };
-
-var CarouselItem_CarouselItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(CarouselItem, _React$Component);
-
+var CarouselItem_CarouselItem = /*#__PURE__*/function (_React$Component) {
   function CarouselItem(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleAnimateOutEnd = _this.handleAnimateOutEnd.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleAnimateOutEnd = _this.handleAnimateOutEnd.bind(_this);
     _this.state = {
       direction: null
     };
     _this.isUnmounted = false;
     return _this;
   }
-
+  _inheritsLoose(CarouselItem, _React$Component);
   var _proto = CarouselItem.prototype;
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
       this.setState({
@@ -8700,72 +7351,58 @@ function (_React$Component) {
       });
     }
   };
-
   _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
     var _this2 = this;
-
     var active = this.props.active;
     var prevActive = prevProps.active;
-
     if (!active && prevActive) {
       transition_default.a.end(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this), this.handleAnimateOutEnd);
     }
-
     if (active !== prevActive) {
       setTimeout(function () {
         return _this2.startAnimation();
       }, 20);
     }
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.isUnmounted = true;
   };
-
   _proto.handleAnimateOutEnd = function handleAnimateOutEnd() {
     if (this.isUnmounted) {
       return;
     }
-
     if (this.props.onAnimateOutEnd) {
       this.props.onAnimateOutEnd(this.props.index);
     }
   };
-
   _proto.startAnimation = function startAnimation() {
     if (this.isUnmounted) {
       return;
     }
-
     this.setState({
       direction: this.props.direction === 'prev' ? 'right' : 'left'
     });
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        direction = _this$props.direction,
-        active = _this$props.active,
-        animateIn = _this$props.animateIn,
-        animateOut = _this$props.animateOut,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["direction", "active", "animateIn", "animateOut", "className"]);
-
+      direction = _this$props.direction,
+      active = _this$props.active,
+      animateIn = _this$props.animateIn,
+      animateOut = _this$props.animateOut,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, CarouselItem_excluded);
     delete props.onAnimateOutEnd;
     delete props.index;
     var classes = {
       item: true,
       active: active && !animateIn || animateOut
     };
-
     if (direction && active && animateIn) {
       classes[direction] = true;
     }
-
     if (this.state.direction && (animateIn || animateOut)) {
       classes[this.state.direction] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, props, {
       className: classnames_default()(className, classes),
       __source: {
@@ -8775,10 +7412,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return CarouselItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 CarouselItem_CarouselItem.propTypes = CarouselItem_propTypes;
 CarouselItem_CarouselItem.defaultProps = CarouselItem_defaultProps;
 /* harmony default export */ var src_CarouselItem = (CarouselItem_CarouselItem);
@@ -8787,6 +7422,7 @@ CarouselItem_CarouselItem.defaultProps = CarouselItem_defaultProps;
 
 
 var Glyphicon_jsxFileName = "/Users/harrison/react-bootstrap/src/Glyphicon.js";
+var Glyphicon_excluded = ["glyph", "className"];
 
 
 
@@ -8797,32 +7433,22 @@ var Glyphicon_propTypes = {
    */
   glyph: prop_types_default.a.string.isRequired
 };
-
-var Glyphicon_Glyphicon =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Glyphicon, _React$Component);
-
+var Glyphicon_Glyphicon = /*#__PURE__*/function (_React$Component) {
   function Glyphicon() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Glyphicon, _React$Component);
   var _proto = Glyphicon.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        glyph = _this$props.glyph,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["glyph", "className"]);
-
+      glyph = _this$props.glyph,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Glyphicon_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, glyph)] = true, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -8832,17 +7458,15 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Glyphicon;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Glyphicon_Glyphicon.propTypes = Glyphicon_propTypes;
 /* harmony default export */ var src_Glyphicon = (bootstrapUtils_bsClass('glyphicon', Glyphicon_Glyphicon));
 // CONCATENATED MODULE: ./src/Carousel.js
 
 
 
-
+var Carousel_excluded = ["slide", "indicators", "controls", "wrap", "prevIcon", "prevLabel", "nextIcon", "nextLabel", "className", "children"];
 var Carousel_jsxFileName = "/Users/harrison/react-bootstrap/src/Carousel.js";
 
 
@@ -8852,13 +7476,15 @@ var Carousel_jsxFileName = "/Users/harrison/react-bootstrap/src/Carousel.js";
 
 
 
- // TODO: `slide` should be `animate`.
+
+
+// TODO: `slide` should be `animate`.
+
 // TODO: Use uncontrollable.
 
 var Carousel_propTypes = {
   slide: prop_types_default.a.bool,
   indicators: prop_types_default.a.bool,
-
   /**
    * The amount of time to delay between automatically cycling an item.
    * If `null`, carousel will not automatically cycle.
@@ -8867,7 +7493,6 @@ var Carousel_propTypes = {
   controls: prop_types_default.a.bool,
   pauseOnHover: prop_types_default.a.bool,
   wrap: prop_types_default.a.bool,
-
   /**
    * Callback fired when the active item changes.
    *
@@ -8885,7 +7510,6 @@ var Carousel_propTypes = {
   defaultActiveIndex: prop_types_default.a.number,
   direction: prop_types_default.a.oneOf(['prev', 'next']),
   prevIcon: prop_types_default.a.node,
-
   /**
    * Label shown to screen readers only, can be used to show the previous element
    * in the carousel.
@@ -8893,7 +7517,6 @@ var Carousel_propTypes = {
    */
   prevLabel: prop_types_default.a.string,
   nextIcon: prop_types_default.a.node,
-
   /**
    * Label shown to screen readers only, can be used to show the next element
    * in the carousel.
@@ -8927,21 +7550,15 @@ var Carousel_defaultProps = {
   }),
   nextLabel: 'Next'
 };
-
-var Carousel_Carousel =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Carousel, _React$Component);
-
+var Carousel_Carousel = /*#__PURE__*/function (_React$Component) {
   function Carousel(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handlePrev = _this.handlePrev.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleItemAnimateOutEnd = _this.handleItemAnimateOutEnd.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleMouseOver = _this.handleMouseOver.bind(_this);
+    _this.handleMouseOut = _this.handleMouseOut.bind(_this);
+    _this.handlePrev = _this.handlePrev.bind(_this);
+    _this.handleNext = _this.handleNext.bind(_this);
+    _this.handleItemAnimateOutEnd = _this.handleItemAnimateOutEnd.bind(_this);
     var defaultActiveIndex = props.defaultActiveIndex;
     _this.state = {
       activeIndex: defaultActiveIndex != null ? defaultActiveIndex : 0,
@@ -8951,16 +7568,13 @@ function (_React$Component) {
     _this.isUnmounted = false;
     return _this;
   }
-
+  _inheritsLoose(Carousel, _React$Component);
   var _proto = Carousel.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     this.waitForNext();
   };
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var activeIndex = this.getActiveIndex();
-
     if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
       clearTimeout(this.timeout);
       this.setState({
@@ -8968,7 +7582,6 @@ function (_React$Component) {
         direction: nextProps.direction != null ? nextProps.direction : this.getDirection(activeIndex, nextProps.activeIndex)
       });
     }
-
     if (nextProps.activeIndex == null && this.state.activeIndex >= nextProps.children.length) {
       this.setState({
         activeIndex: 0,
@@ -8977,105 +7590,88 @@ function (_React$Component) {
       });
     }
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     clearTimeout(this.timeout);
     this.isUnmounted = true;
   };
-
   _proto.getActiveIndex = function getActiveIndex() {
     var activeIndexProp = this.props.activeIndex;
     return activeIndexProp != null ? activeIndexProp : this.state.activeIndex;
   };
-
   _proto.getDirection = function getDirection(prevIndex, index) {
     if (prevIndex === index) {
       return null;
     }
-
     return prevIndex > index ? 'prev' : 'next';
   };
-
   _proto.handleItemAnimateOutEnd = function handleItemAnimateOutEnd() {
     var _this2 = this;
-
     this.setState({
       previousActiveIndex: null,
       direction: null
     }, function () {
       _this2.waitForNext();
-
       if (_this2.props.onSlideEnd) {
         _this2.props.onSlideEnd();
       }
     });
   };
-
   _proto.handleMouseOut = function handleMouseOut() {
     if (this.isPaused) {
       this.play();
     }
   };
-
   _proto.handleMouseOver = function handleMouseOver() {
     if (this.props.pauseOnHover) {
       this.pause();
     }
   };
-
   _proto.handleNext = function handleNext(e) {
     var index = this.getActiveIndex() + 1;
     var count = ValidComponentChildren.count(this.props.children);
-
     if (index > count - 1) {
       if (!this.props.wrap) {
         return;
       }
-
       index = 0;
     }
-
     this.select(index, e, 'next');
   };
-
   _proto.handlePrev = function handlePrev(e) {
     var index = this.getActiveIndex() - 1;
-
     if (index < 0) {
       if (!this.props.wrap) {
         return;
       }
-
       index = ValidComponentChildren.count(this.props.children) - 1;
     }
-
     this.select(index, e, 'prev');
-  }; // This might be a public API.
+  }
 
-
+  // This might be a public API.
+  ;
   _proto.pause = function pause() {
     this.isPaused = true;
     clearTimeout(this.timeout);
-  }; // This might be a public API.
+  }
 
-
+  // This might be a public API.
+  ;
   _proto.play = function play() {
     this.isPaused = false;
     this.waitForNext();
   };
-
   _proto.select = function select(index, e, direction) {
-    clearTimeout(this.timeout); // TODO: Is this necessary? Seems like the only risk is if the component
-    // unmounts while handleItemAnimateOutEnd fires.
+    clearTimeout(this.timeout);
 
+    // TODO: Is this necessary? Seems like the only risk is if the component
+    // unmounts while handleItemAnimateOutEnd fires.
     if (this.isUnmounted) {
       return;
     }
-
     var previousActiveIndex = this.props.slide ? this.getActiveIndex() : null;
     direction = direction || this.getDirection(previousActiveIndex, index);
     var onSelect = this.props.onSelect;
-
     if (onSelect) {
       if (onSelect.length > 1) {
         // React SyntheticEvents are pooled, so we need to remove this event
@@ -9090,13 +7686,11 @@ function (_React$Component) {
             direction: direction
           };
         }
-
         onSelect(index, e);
       } else {
         onSelect(index);
       }
     }
-
     if (this.props.activeIndex == null && index !== previousActiveIndex) {
       if (this.state.previousActiveIndex != null) {
         // If currently animating don't activate the new index.
@@ -9104,7 +7698,6 @@ function (_React$Component) {
         // animating after the current animation has ended.
         return;
       }
-
       this.setState({
         activeIndex: index,
         previousActiveIndex: previousActiveIndex,
@@ -9112,27 +7705,24 @@ function (_React$Component) {
       });
     }
   };
-
   _proto.waitForNext = function waitForNext() {
     var _this$props = this.props,
-        slide = _this$props.slide,
-        interval = _this$props.interval,
-        activeIndexProp = _this$props.activeIndex;
-
+      slide = _this$props.slide,
+      interval = _this$props.interval,
+      activeIndexProp = _this$props.activeIndex;
     if (!this.isPaused && slide && interval && activeIndexProp == null) {
       this.timeout = setTimeout(this.handleNext, interval);
     }
   };
-
   _proto.renderControls = function renderControls(properties) {
     var wrap = properties.wrap,
-        children = properties.children,
-        activeIndex = properties.activeIndex,
-        prevIcon = properties.prevIcon,
-        nextIcon = properties.nextIcon,
-        bsProps = properties.bsProps,
-        prevLabel = properties.prevLabel,
-        nextLabel = properties.nextLabel;
+      children = properties.children,
+      activeIndex = properties.activeIndex,
+      prevIcon = properties.prevIcon,
+      nextIcon = properties.nextIcon,
+      bsProps = properties.bsProps,
+      prevLabel = properties.prevLabel,
+      nextLabel = properties.nextLabel;
     var controlClassName = prefix(bsProps, 'control');
     var count = ValidComponentChildren.count(children);
     return [(wrap || activeIndex !== 0) && external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_SafeAnchor, {
@@ -9169,10 +7759,8 @@ function (_React$Component) {
       __self: this
     }, nextLabel))];
   };
-
   _proto.renderIndicators = function renderIndicators(children, activeIndex, bsProps) {
     var _this3 = this;
-
     var indicators = [];
     ValidComponentChildren.forEach(children, function (child, index) {
       indicators.push(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", {
@@ -9186,7 +7774,8 @@ function (_React$Component) {
           lineNumber: 318
         },
         __self: this
-      }), // Force whitespace between indicator elements. Bootstrap requires
+      }),
+      // Force whitespace between indicator elements. Bootstrap requires
       // this for correct spacing of elements.
       ' ');
     });
@@ -9199,38 +7788,32 @@ function (_React$Component) {
       __self: this
     }, indicators);
   };
-
   _proto.render = function render() {
     var _this4 = this;
-
     var _this$props2 = this.props,
-        slide = _this$props2.slide,
-        indicators = _this$props2.indicators,
-        controls = _this$props2.controls,
-        wrap = _this$props2.wrap,
-        prevIcon = _this$props2.prevIcon,
-        prevLabel = _this$props2.prevLabel,
-        nextIcon = _this$props2.nextIcon,
-        nextLabel = _this$props2.nextLabel,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["slide", "indicators", "controls", "wrap", "prevIcon", "prevLabel", "nextIcon", "nextLabel", "className", "children"]);
-
+      slide = _this$props2.slide,
+      indicators = _this$props2.indicators,
+      controls = _this$props2.controls,
+      wrap = _this$props2.wrap,
+      prevIcon = _this$props2.prevIcon,
+      prevLabel = _this$props2.prevLabel,
+      nextIcon = _this$props2.nextIcon,
+      nextLabel = _this$props2.nextLabel,
+      className = _this$props2.className,
+      children = _this$props2.children,
+      props = _objectWithoutPropertiesLoose(_this$props2, Carousel_excluded);
     var _this$state = this.state,
-        previousActiveIndex = _this$state.previousActiveIndex,
-        direction = _this$state.direction;
-
-    var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['interval', 'pauseOnHover', 'onSelect', 'onSlideEnd', 'activeIndex', // Accessed via this.getActiveIndex().
-    'defaultActiveIndex', 'direction']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      previousActiveIndex = _this$state.previousActiveIndex,
+      direction = _this$state.direction;
+    var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['interval', 'pauseOnHover', 'onSelect', 'onSlideEnd', 'activeIndex',
+      // Accessed via this.getActiveIndex().
+      'defaultActiveIndex', 'direction']),
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     var activeIndex = this.getActiveIndex();
-
     var classes = _extends({}, getClassSet(bsProps), {
       slide: slide
     });
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       onMouseOver: this.handleMouseOver,
@@ -9269,10 +7852,8 @@ function (_React$Component) {
       bsProps: bsProps
     }));
   };
-
   return Carousel;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Carousel_Carousel.propTypes = Carousel_propTypes;
 Carousel_Carousel.defaultProps = Carousel_defaultProps;
 Carousel_Carousel.Caption = src_CarouselCaption;
@@ -9286,8 +7867,9 @@ var warning_browser = __webpack_require__(7);
 
 
 var Checkbox_jsxFileName = "/Users/harrison/react-bootstrap/src/Checkbox.js";
-
+var Checkbox_excluded = ["inline", "disabled", "validationState", "inputRef", "className", "style", "title", "children"];
 /* eslint-disable jsx-a11y/label-has-for */
+
 
 
 
@@ -9297,12 +7879,10 @@ var Checkbox_propTypes = {
   inline: prop_types_default.a.bool,
   disabled: prop_types_default.a.bool,
   title: prop_types_default.a.string,
-
   /**
    * Only valid if `inline` is not set.
    */
   validationState: prop_types_default.a.oneOf(['success', 'warning', 'error', null]),
-
   /**
    * Attaches a ref to the `<input>` element. Only functions can be used here.
    *
@@ -9317,34 +7897,26 @@ var Checkbox_defaultProps = {
   disabled: false,
   title: ''
 };
-
-var Checkbox_Checkbox =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Checkbox, _React$Component);
-
+var Checkbox_Checkbox = /*#__PURE__*/function (_React$Component) {
   function Checkbox() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Checkbox, _React$Component);
   var _proto = Checkbox.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        inline = _this$props.inline,
-        disabled = _this$props.disabled,
-        validationState = _this$props.validationState,
-        inputRef = _this$props.inputRef,
-        className = _this$props.className,
-        style = _this$props.style,
-        title = _this$props.title,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["inline", "disabled", "validationState", "inputRef", "className", "style", "title", "children"]);
-
+      inline = _this$props.inline,
+      disabled = _this$props.disabled,
+      validationState = _this$props.validationState,
+      inputRef = _this$props.inputRef,
+      className = _this$props.className,
+      style = _this$props.style,
+      title = _this$props.title,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Checkbox_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var input = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("input", _extends({}, elementProps, {
       ref: inputRef,
       type: "checkbox",
@@ -9355,14 +7927,12 @@ function (_React$Component) {
       },
       __self: this
     }));
-
     if (inline) {
       var _classes2;
+      var _classes = (_classes2 = {}, _classes2[prefix(bsProps, 'inline')] = true, _classes2.disabled = disabled, _classes2);
 
-      var _classes = (_classes2 = {}, _classes2[prefix(bsProps, 'inline')] = true, _classes2.disabled = disabled, _classes2); // Use a warning here instead of in propTypes to get better-looking
+      // Use a warning here instead of in propTypes to get better-looking
       // generated documentation.
-
-
        false ? undefined : void 0;
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("label", {
         className: classnames_default()(className, _classes),
@@ -9375,15 +7945,12 @@ function (_React$Component) {
         __self: this
       }, input, children);
     }
-
     var classes = _extends({}, getClassSet(bsProps), {
       disabled: disabled
     });
-
     if (validationState) {
       classes["has-" + validationState] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
       className: classnames_default()(className, classes),
       style: style,
@@ -9401,10 +7968,8 @@ function (_React$Component) {
       __self: this
     }, input, children));
   };
-
   return Checkbox;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Checkbox_Checkbox.propTypes = Checkbox_propTypes;
 Checkbox_Checkbox.defaultProps = Checkbox_defaultProps;
 /* harmony default export */ var src_Checkbox = (bootstrapUtils_bsClass('checkbox', Checkbox_Checkbox));
@@ -9417,6 +7982,7 @@ function capitalize(string) {
 
 
 var Clearfix_jsxFileName = "/Users/harrison/react-bootstrap/src/Clearfix.js";
+var Clearfix_excluded = ["componentClass", "className"];
 
 
 
@@ -9426,7 +7992,6 @@ var Clearfix_jsxFileName = "/Users/harrison/react-bootstrap/src/Clearfix.js";
 
 var Clearfix_propTypes = {
   componentClass: elementType_default.a,
-
   /**
    * Apply clearfix
    *
@@ -9435,7 +8000,6 @@ var Clearfix_propTypes = {
    * adds class `visible-xs-block`
    */
   visibleXsBlock: prop_types_default.a.bool,
-
   /**
    * Apply clearfix
    *
@@ -9444,7 +8008,6 @@ var Clearfix_propTypes = {
    * adds class `visible-sm-block`
    */
   visibleSmBlock: prop_types_default.a.bool,
-
   /**
    * Apply clearfix
    *
@@ -9453,7 +8016,6 @@ var Clearfix_propTypes = {
    * adds class `visible-md-block`
    */
   visibleMdBlock: prop_types_default.a.bool,
-
   /**
    * Apply clearfix
    *
@@ -9466,36 +8028,26 @@ var Clearfix_propTypes = {
 var Clearfix_defaultProps = {
   componentClass: 'div'
 };
-
-var Clearfix_Clearfix =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Clearfix, _React$Component);
-
+var Clearfix_Clearfix = /*#__PURE__*/function (_React$Component) {
   function Clearfix() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Clearfix, _React$Component);
   var _proto = Clearfix.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Clearfix_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     DEVICE_SIZES.forEach(function (size) {
       var propName = "visible" + capitalize(size) + "Block";
-
       if (elementProps[propName]) {
         classes["visible-" + size + "-block"] = true;
       }
-
       delete elementProps[propName];
     });
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
@@ -9507,10 +8059,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Clearfix;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Clearfix_Clearfix.propTypes = Clearfix_propTypes;
 Clearfix_Clearfix.defaultProps = Clearfix_defaultProps;
 /* harmony default export */ var src_Clearfix = (bootstrapUtils_bsClass('clearfix', Clearfix_Clearfix));
@@ -9519,6 +8069,7 @@ Clearfix_Clearfix.defaultProps = Clearfix_defaultProps;
 
 
 var ControlLabel_jsxFileName = "/Users/harrison/react-bootstrap/src/ControlLabel.js";
+var ControlLabel_excluded = ["htmlFor", "srOnly", "className"];
 
 
 
@@ -9537,39 +8088,28 @@ var ControlLabel_defaultProps = {
 var contextTypes = {
   $bs_formGroup: prop_types_default.a.object
 };
-
-var ControlLabel_ControlLabel =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ControlLabel, _React$Component);
-
+var ControlLabel_ControlLabel = /*#__PURE__*/function (_React$Component) {
   function ControlLabel() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ControlLabel, _React$Component);
   var _proto = ControlLabel.prototype;
-
   _proto.render = function render() {
     var formGroup = this.context.$bs_formGroup;
     var controlId = formGroup && formGroup.controlId;
-
     var _this$props = this.props,
-        _this$props$htmlFor = _this$props.htmlFor,
-        htmlFor = _this$props$htmlFor === void 0 ? controlId : _this$props$htmlFor,
-        srOnly = _this$props.srOnly,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["htmlFor", "srOnly", "className"]);
-
+      _this$props$htmlFor = _this$props.htmlFor,
+      htmlFor = _this$props$htmlFor === void 0 ? controlId : _this$props$htmlFor,
+      srOnly = _this$props.srOnly,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ControlLabel_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
      false ? undefined : void 0;
-
     var classes = _extends({}, getClassSet(bsProps), {
       'sr-only': srOnly
     });
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("label", _extends({}, elementProps, {
       htmlFor: htmlFor,
       className: classnames_default()(className, classes),
@@ -9580,10 +8120,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ControlLabel;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ControlLabel_ControlLabel.propTypes = ControlLabel_propTypes;
 ControlLabel_ControlLabel.defaultProps = ControlLabel_defaultProps;
 ControlLabel_ControlLabel.contextTypes = contextTypes;
@@ -9593,6 +8131,7 @@ ControlLabel_ControlLabel.contextTypes = contextTypes;
 
 
 var Col_jsxFileName = "/Users/harrison/react-bootstrap/src/Col.js";
+var Col_excluded = ["componentClass", "className"];
 
 
 
@@ -9601,7 +8140,6 @@ var Col_jsxFileName = "/Users/harrison/react-bootstrap/src/Col.js";
 
 var Col_propTypes = {
   componentClass: elementType_default.a,
-
   /**
    * The number of columns you wish to span
    *
@@ -9610,7 +8148,6 @@ var Col_propTypes = {
    * class-prefix `col-xs-`
    */
   xs: prop_types_default.a.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -9619,7 +8156,6 @@ var Col_propTypes = {
    * class-prefix `col-sm-`
    */
   sm: prop_types_default.a.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -9628,7 +8164,6 @@ var Col_propTypes = {
    * class-prefix `col-md-`
    */
   md: prop_types_default.a.number,
-
   /**
    * The number of columns you wish to span
    *
@@ -9637,7 +8172,6 @@ var Col_propTypes = {
    * class-prefix `col-lg-`
    */
   lg: prop_types_default.a.number,
-
   /**
    * Hide column
    *
@@ -9646,7 +8180,6 @@ var Col_propTypes = {
    * adds class `hidden-xs`
    */
   xsHidden: prop_types_default.a.bool,
-
   /**
    * Hide column
    *
@@ -9655,7 +8188,6 @@ var Col_propTypes = {
    * adds class `hidden-sm`
    */
   smHidden: prop_types_default.a.bool,
-
   /**
    * Hide column
    *
@@ -9664,7 +8196,6 @@ var Col_propTypes = {
    * adds class `hidden-md`
    */
   mdHidden: prop_types_default.a.bool,
-
   /**
    * Hide column
    *
@@ -9673,7 +8204,6 @@ var Col_propTypes = {
    * adds class `hidden-lg`
    */
   lgHidden: prop_types_default.a.bool,
-
   /**
    * Move columns to the right
    *
@@ -9682,7 +8212,6 @@ var Col_propTypes = {
    * class-prefix `col-xs-offset-`
    */
   xsOffset: prop_types_default.a.number,
-
   /**
    * Move columns to the right
    *
@@ -9691,7 +8220,6 @@ var Col_propTypes = {
    * class-prefix `col-sm-offset-`
    */
   smOffset: prop_types_default.a.number,
-
   /**
    * Move columns to the right
    *
@@ -9700,7 +8228,6 @@ var Col_propTypes = {
    * class-prefix `col-md-offset-`
    */
   mdOffset: prop_types_default.a.number,
-
   /**
    * Move columns to the right
    *
@@ -9709,7 +8236,6 @@ var Col_propTypes = {
    * class-prefix `col-lg-offset-`
    */
   lgOffset: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -9718,7 +8244,6 @@ var Col_propTypes = {
    * class-prefix `col-xs-push-`
    */
   xsPush: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -9727,7 +8252,6 @@ var Col_propTypes = {
    * class-prefix `col-sm-push-`
    */
   smPush: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -9736,7 +8260,6 @@ var Col_propTypes = {
    * class-prefix `col-md-push-`
    */
   mdPush: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the right
    *
@@ -9745,7 +8268,6 @@ var Col_propTypes = {
    * class-prefix `col-lg-push-`
    */
   lgPush: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -9754,7 +8276,6 @@ var Col_propTypes = {
    * class-prefix `col-xs-pull-`
    */
   xsPull: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -9763,7 +8284,6 @@ var Col_propTypes = {
    * class-prefix `col-sm-pull-`
    */
   smPull: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -9772,7 +8292,6 @@ var Col_propTypes = {
    * class-prefix `col-md-pull-`
    */
   mdPull: prop_types_default.a.number,
-
   /**
    * Change the order of grid columns to the left
    *
@@ -9785,51 +8304,38 @@ var Col_propTypes = {
 var Col_defaultProps = {
   componentClass: 'div'
 };
-
-var Col_Col =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Col, _React$Component);
-
+var Col_Col = /*#__PURE__*/function (_React$Component) {
   function Col() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Col, _React$Component);
   var _proto = Col.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Col_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = [];
     DEVICE_SIZES.forEach(function (size) {
       function popProp(propSuffix, modifier) {
         var propName = "" + size + propSuffix;
         var propValue = elementProps[propName];
-
         if (propValue != null) {
           classes.push(prefix(bsProps, "" + size + modifier + "-" + propValue));
         }
-
         delete elementProps[propName];
       }
-
       popProp('', '');
       popProp('Offset', '-offset');
       popProp('Push', '-push');
       popProp('Pull', '-pull');
       var hiddenPropName = size + "Hidden";
-
       if (elementProps[hiddenPropName]) {
         classes.push("hidden-" + size);
       }
-
       delete elementProps[hiddenPropName];
     });
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
@@ -9841,10 +8347,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Col;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Col_Col.propTypes = Col_propTypes;
 Col_Col.defaultProps = Col_defaultProps;
 /* harmony default export */ var src_Col = (bootstrapUtils_bsClass('col', Col_Col));
@@ -9865,10 +8369,9 @@ var Transition_default = /*#__PURE__*/__webpack_require__.n(react_transition_gro
 
 
 
-
+var Collapse_excluded = ["onEnter", "onEntering", "onEntered", "onExit", "onExiting", "className", "children"];
 var _collapseStyles,
-    Collapse_jsxFileName = "/Users/harrison/react-bootstrap/src/Collapse.js";
-
+  Collapse_jsxFileName = "/Users/harrison/react-bootstrap/src/Collapse.js";
 
 
 
@@ -9879,79 +8382,67 @@ var _collapseStyles,
 var MARGINS = {
   height: ['marginTop', 'marginBottom'],
   width: ['marginLeft', 'marginRight']
-}; // reading a dimension prop will cause the browser to recalculate,
-// which will let our animations work
+};
 
+// reading a dimension prop will cause the browser to recalculate,
+// which will let our animations work
 function triggerBrowserReflow(node) {
   node.offsetHeight; // eslint-disable-line no-unused-expressions
 }
-
 function getDimensionValue(dimension, elem) {
   var value = elem["offset" + capitalize(dimension)];
   var margins = MARGINS[dimension];
   return value + parse_int_default()(style_default()(elem, margins[0]), 10) + parse_int_default()(style_default()(elem, margins[1]), 10);
 }
-
 var collapseStyles = (_collapseStyles = {}, _collapseStyles[react_transition_group_Transition["EXITED"]] = 'collapse', _collapseStyles[react_transition_group_Transition["EXITING"]] = 'collapsing', _collapseStyles[react_transition_group_Transition["ENTERING"]] = 'collapsing', _collapseStyles[react_transition_group_Transition["ENTERED"]] = 'collapse in', _collapseStyles);
 var Collapse_propTypes = {
   /**
    * Show the component; triggers the expand or collapse animation
    */
-  in: prop_types_default.a.bool,
-
+  "in": prop_types_default.a.bool,
   /**
    * Wait until the first "enter" transition to mount the component (add it to the DOM)
    */
   mountOnEnter: prop_types_default.a.bool,
-
   /**
    * Unmount the component (remove it from the DOM) when it is collapsed
    */
   unmountOnExit: prop_types_default.a.bool,
-
   /**
    * Run the expand animation when the component mounts, if it is initially
    * shown
    */
   appear: prop_types_default.a.bool,
-
   /**
    * Duration of the collapse animation in milliseconds, to ensure that
    * finishing callbacks are fired even if the original browser transition end
    * events are canceled
    */
   timeout: prop_types_default.a.number,
-
   /**
    * Callback fired before the component expands
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to expand
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Callback fired after the component has expanded
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Callback fired before the component collapses
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to collapse
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Callback fired after the component has collapsed
    */
   onExited: prop_types_default.a.func,
-
   /**
    * The dimension used when collapsing, or a function that returns the
    * dimension
@@ -9960,7 +8451,6 @@ var Collapse_propTypes = {
    * You will need to supply your own CSS animation for the `.width` CSS class._
    */
   dimension: prop_types_default.a.oneOfType([prop_types_default.a.oneOf(['height', 'width']), prop_types_default.a.func]),
-
   /**
    * Function that returns the height or width of the animating DOM node
    *
@@ -9969,14 +8459,13 @@ var Collapse_propTypes = {
    * dimension prop value and the DOM node.
    */
   getDimensionValue: prop_types_default.a.func,
-
   /**
    * ARIA role of collapsible element
    */
   role: prop_types_default.a.string
 };
 var Collapse_defaultProps = {
-  in: false,
+  "in": false,
   timeout: 300,
   mountOnEnter: false,
   unmountOnExit: false,
@@ -9984,75 +8473,57 @@ var Collapse_defaultProps = {
   dimension: 'height',
   getDimensionValue: getDimensionValue
 };
-
-var Collapse_Collapse =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Collapse, _React$Component);
-
+var Collapse_Collapse = /*#__PURE__*/function (_React$Component) {
   function Collapse() {
     var _this;
-
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
+    /* -- Expanding -- */
     _this.handleEnter = function (elem) {
       elem.style[_this.getDimension()] = '0';
     };
-
     _this.handleEntering = function (elem) {
       var dimension = _this.getDimension();
-
       elem.style[dimension] = _this._getScrollDimensionValue(elem, dimension);
     };
-
     _this.handleEntered = function (elem) {
       elem.style[_this.getDimension()] = null;
     };
-
+    /* -- Collapsing -- */
     _this.handleExit = function (elem) {
       var dimension = _this.getDimension();
-
       elem.style[dimension] = _this.props.getDimensionValue(dimension, elem) + "px";
       triggerBrowserReflow(elem);
     };
-
     _this.handleExiting = function (elem) {
       elem.style[_this.getDimension()] = '0';
     };
-
     return _this;
   }
-
+  _inheritsLoose(Collapse, _React$Component);
   var _proto = Collapse.prototype;
-
   _proto.getDimension = function getDimension() {
     return typeof this.props.dimension === 'function' ? this.props.dimension() : this.props.dimension;
-  }; // for testing
+  }
 
-
+  // for testing
+  ;
   _proto._getScrollDimensionValue = function _getScrollDimensionValue(elem, dimension) {
     return elem["scroll" + capitalize(dimension)] + "px";
   };
-  /* -- Expanding -- */
-
-
   _proto.render = function render() {
     var _this2 = this;
-
     var _this$props = this.props,
-        onEnter = _this$props.onEnter,
-        onEntering = _this$props.onEntering,
-        onEntered = _this$props.onEntered,
-        onExit = _this$props.onExit,
-        onExiting = _this$props.onExiting,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onEnter", "onEntering", "onEntered", "onExit", "onExiting", "className", "children"]);
-
+      onEnter = _this$props.onEnter,
+      onEntering = _this$props.onEntering,
+      onEntered = _this$props.onEntered,
+      onExit = _this$props.onExit,
+      onExiting = _this$props.onExiting,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Collapse_excluded);
     delete props.dimension;
     delete props.getDimensionValue;
     var handleEnter = utils_createChainedFunction(this.handleEnter, onEnter);
@@ -10061,7 +8532,7 @@ function (_React$Component) {
     var handleExit = utils_createChainedFunction(this.handleExit, onExit);
     var handleExiting = utils_createChainedFunction(this.handleExiting, onExiting);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Transition_default.a, _extends({}, props, {
-      "aria-expanded": props.role ? props.in : null,
+      "aria-expanded": props.role ? props["in"] : null,
       onEnter: handleEnter,
       onEntering: handleEntering,
       onEntered: handleEntered,
@@ -10078,10 +8549,8 @@ function (_React$Component) {
       }));
     });
   };
-
   return Collapse;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Collapse_Collapse.propTypes = Collapse_propTypes;
 Collapse_Collapse.defaultProps = Collapse_defaultProps;
 /* harmony default export */ var src_Collapse = (Collapse_Collapse);
@@ -10114,8 +8583,8 @@ var RootCloseWrapper_default = /*#__PURE__*/__webpack_require__.n(RootCloseWrapp
 
 
 
-
 var DropdownMenu_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownMenu.js";
+var DropdownMenu_excluded = ["open", "pullRight", "labelledBy", "onSelect", "className", "rootCloseEvent", "children"];
 
 
 
@@ -10137,33 +8606,23 @@ var DropdownMenu_defaultProps = {
   bsRole: 'menu',
   pullRight: false
 };
-
-var DropdownMenu_DropdownMenu =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(DropdownMenu, _React$Component);
-
+var DropdownMenu_DropdownMenu = /*#__PURE__*/function (_React$Component) {
   function DropdownMenu(props) {
     var _this;
-
     _this = _React$Component.call(this, props) || this;
-    _this.handleRootClose = _this.handleRootClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleRootClose = _this.handleRootClose.bind(_this);
+    _this.handleKeyDown = _this.handleKeyDown.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(DropdownMenu, _React$Component);
   var _proto = DropdownMenu.prototype;
-
   _proto.getFocusableMenuItems = function getFocusableMenuItems() {
     var node = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this);
-
     if (!node) {
       return [];
     }
-
     return from_default()(node.querySelectorAll('[tabIndex="-1"]'));
   };
-
   _proto.getItemsAndActiveIndex = function getItemsAndActiveIndex() {
     var items = this.getFocusableMenuItems();
     var activeIndex = items.indexOf(document.activeElement);
@@ -10172,82 +8631,66 @@ function (_React$Component) {
       activeIndex: activeIndex
     };
   };
-
   _proto.focusNext = function focusNext() {
     var _this$getItemsAndActi = this.getItemsAndActiveIndex(),
-        items = _this$getItemsAndActi.items,
-        activeIndex = _this$getItemsAndActi.activeIndex;
-
+      items = _this$getItemsAndActi.items,
+      activeIndex = _this$getItemsAndActi.activeIndex;
     if (items.length === 0) {
       return;
     }
-
     var nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
     items[nextIndex].focus();
   };
-
   _proto.focusPrevious = function focusPrevious() {
     var _this$getItemsAndActi2 = this.getItemsAndActiveIndex(),
-        items = _this$getItemsAndActi2.items,
-        activeIndex = _this$getItemsAndActi2.activeIndex;
-
+      items = _this$getItemsAndActi2.items,
+      activeIndex = _this$getItemsAndActi2.activeIndex;
     if (items.length === 0) {
       return;
     }
-
     var prevIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
     items[prevIndex].focus();
   };
-
   _proto.handleKeyDown = function handleKeyDown(event) {
     switch (event.keyCode) {
       case keycode_default.a.codes.down:
         this.focusNext();
         event.preventDefault();
         break;
-
       case keycode_default.a.codes.up:
         this.focusPrevious();
         event.preventDefault();
         break;
-
       case keycode_default.a.codes.esc:
       case keycode_default.a.codes.tab:
         this.props.onClose(event, {
           source: 'keydown'
         });
         break;
-
       default:
     }
   };
-
   _proto.handleRootClose = function handleRootClose(event) {
     this.props.onClose(event, {
       source: 'rootClose'
     });
   };
-
   _proto.render = function render() {
     var _extends2,
-        _this2 = this;
-
+      _this2 = this;
     var _this$props = this.props,
-        open = _this$props.open,
-        pullRight = _this$props.pullRight,
-        labelledBy = _this$props.labelledBy,
-        onSelect = _this$props.onSelect,
-        className = _this$props.className,
-        rootCloseEvent = _this$props.rootCloseEvent,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["open", "pullRight", "labelledBy", "onSelect", "className", "rootCloseEvent", "children"]);
-
+      open = _this$props.open,
+      pullRight = _this$props.pullRight,
+      labelledBy = _this$props.labelledBy,
+      onSelect = _this$props.onSelect,
+      className = _this$props.className,
+      rootCloseEvent = _this$props.rootCloseEvent,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, DropdownMenu_excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['onClose']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'right')] = pullRight, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(RootCloseWrapper_default.a, {
       disabled: !open,
       onRootClose: this.handleRootClose,
@@ -10273,10 +8716,8 @@ function (_React$Component) {
       });
     })));
   };
-
   return DropdownMenu;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 DropdownMenu_DropdownMenu.propTypes = DropdownMenu_propTypes;
 DropdownMenu_DropdownMenu.defaultProps = DropdownMenu_defaultProps;
 /* harmony default export */ var src_DropdownMenu = (bootstrapUtils_bsClass('dropdown-menu', DropdownMenu_DropdownMenu));
@@ -10285,6 +8726,7 @@ DropdownMenu_DropdownMenu.defaultProps = DropdownMenu_defaultProps;
 
 
 var DropdownToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownToggle.js";
+var DropdownToggle_excluded = ["noCaret", "open", "useAnchor", "bsClass", "className", "children"];
 
 
 
@@ -10302,32 +8744,28 @@ var DropdownToggle_defaultProps = {
   useAnchor: false,
   bsRole: 'toggle'
 };
-
-var DropdownToggle_DropdownToggle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(DropdownToggle, _React$Component);
-
+var DropdownToggle_DropdownToggle = /*#__PURE__*/function (_React$Component) {
   function DropdownToggle() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(DropdownToggle, _React$Component);
   var _proto = DropdownToggle.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        noCaret = _this$props.noCaret,
-        open = _this$props.open,
-        useAnchor = _this$props.useAnchor,
-        bsClass = _this$props.bsClass,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["noCaret", "open", "useAnchor", "bsClass", "className", "children"]);
-
+      noCaret = _this$props.noCaret,
+      open = _this$props.open,
+      useAnchor = _this$props.useAnchor,
+      bsClass = _this$props.bsClass,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, DropdownToggle_excluded);
     delete props.bsRole;
     var Component = useAnchor ? src_SafeAnchor : src_Button;
-    var useCaret = !noCaret; // This intentionally forwards bsSize and bsStyle (if set) to the
+    var useCaret = !noCaret;
+
+    // This intentionally forwards bsSize and bsStyle (if set) to the
     // underlying component, to allow it to render size and style variants.
+
     // FIXME: Should this really fall back to `title` as children?
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, props, {
@@ -10349,10 +8787,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return DropdownToggle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 DropdownToggle_DropdownToggle.propTypes = DropdownToggle_propTypes;
 DropdownToggle_DropdownToggle.defaultProps = DropdownToggle_defaultProps;
 /* harmony default export */ var src_DropdownToggle = (bootstrapUtils_bsClass('dropdown-toggle', DropdownToggle_DropdownToggle));
@@ -10360,8 +8796,9 @@ DropdownToggle_DropdownToggle.defaultProps = DropdownToggle_defaultProps;
 
 
 
-
 var Dropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/Dropdown.js";
+var Dropdown_excluded = ["id", "onSelect", "rootCloseEvent"],
+  Dropdown_excluded2 = ["componentClass", "id", "dropup", "disabled", "pullRight", "open", "onSelect", "role", "bsClass", "className", "rootCloseEvent", "children"];
 
 
 
@@ -10388,7 +8825,6 @@ var Dropdown_propTypes = {
    * The menu will open above the dropdown button, instead of below it.
    */
   dropup: prop_types_default.a.bool,
-
   /**
    * An html id attribute, necessary for assistive technologies, such as screen readers.
    * @type {string|number}
@@ -10396,23 +8832,19 @@ var Dropdown_propTypes = {
    */
   id: isRequiredForA11y_default()(prop_types_default.a.oneOfType([prop_types_default.a.string, prop_types_default.a.number])),
   componentClass: elementType_default.a,
-
   /**
    * The children of a Dropdown may be a `<Dropdown.Toggle>` or a `<Dropdown.Menu>`.
    * @type {node}
    */
   children: all_default()(requiredRoles(TOGGLE_ROLE, MENU_ROLE), exclusiveRoles(MENU_ROLE)),
-
   /**
    * Whether or not component is disabled.
    */
   disabled: prop_types_default.a.bool,
-
   /**
    * Align the menu to the right side of the Dropdown toggle
    */
   pullRight: prop_types_default.a.bool,
-
   /**
    * Whether or not the Dropdown is visible.
    *
@@ -10420,7 +8852,6 @@ var Dropdown_propTypes = {
    */
   open: prop_types_default.a.bool,
   defaultOpen: prop_types_default.a.bool,
-
   /**
    * A callback fired when the Dropdown wishes to change visibility. Called with the requested
    * `open` value, the DOM event, and the source that fired it: `'click'`,`'keydown'`,`'rootClose'`, or `'select'`.
@@ -10431,7 +8862,6 @@ var Dropdown_propTypes = {
    * @controllable open
    */
   onToggle: prop_types_default.a.func,
-
   /**
    * A callback fired when a menu item is selected.
    *
@@ -10440,13 +8870,11 @@ var Dropdown_propTypes = {
    * ```
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * If `'menuitem'`, causes the dropdown to behave like a menu item rather than
    * a menu button.
    */
   role: prop_types_default.a.string,
-
   /**
    * Which event when fired outside the component will cause it to be closed
    *
@@ -10455,12 +8883,10 @@ var Dropdown_propTypes = {
    * component ([similarly to how it is implemented in `<Dropdown.Menu>`](https://github.com/react-bootstrap/react-bootstrap/blob/v0.31.5/src/DropdownMenu.js#L115-L119)).*
    */
   rootCloseEvent: prop_types_default.a.oneOf(['click', 'mousedown']),
-
   /**
    * @private
    */
   onMouseEnter: prop_types_default.a.func,
-
   /**
    * @private
    */
@@ -10469,44 +8895,33 @@ var Dropdown_propTypes = {
 var Dropdown_defaultProps = {
   componentClass: src_ButtonGroup
 };
-
-var Dropdown_Dropdown =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Dropdown, _React$Component);
-
+var Dropdown_Dropdown = /*#__PURE__*/function (_React$Component) {
   function Dropdown(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleKeyDown = _this.handleKeyDown.bind(_this);
+    _this.handleClose = _this.handleClose.bind(_this);
     _this._focusInDropdown = false;
     _this.lastOpenEventType = null;
     return _this;
   }
-
+  _inheritsLoose(Dropdown, _React$Component);
   var _proto = Dropdown.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     this.focusNextOnOpen();
   };
-
   _proto.componentWillUpdate = function componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains_default()(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this.menu), activeElement_default()(document));
     }
   };
-
   _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
     var open = this.props.open;
     var prevOpen = prevProps.open;
-
     if (open && !prevOpen) {
       this.focusNextOnOpen();
     }
-
     if (!open && prevOpen) {
       // if focus hasn't already moved from the menu let's return it
       // to the toggle
@@ -10516,50 +8931,39 @@ function (_React$Component) {
       }
     }
   };
-
   _proto.focus = function focus() {
     var toggle = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this.toggle);
-
     if (toggle && toggle.focus) {
       toggle.focus();
     }
   };
-
   _proto.focusNextOnOpen = function focusNextOnOpen() {
     var menu = this.menu;
-
     if (!menu || !menu.focusNext) {
       return;
     }
-
     if (this.lastOpenEventType === 'keydown' || this.props.role === 'menuitem') {
       menu.focusNext();
     }
   };
-
   _proto.handleClick = function handleClick(event) {
     if (this.props.disabled) {
       return;
     }
-
     this.toggleOpen(event, {
       source: 'click'
     });
   };
-
   _proto.handleClose = function handleClose(event, eventDetails) {
     if (!this.props.open) {
       return;
     }
-
     this.toggleOpen(event, eventDetails);
   };
-
   _proto.handleKeyDown = function handleKeyDown(event) {
     if (this.props.disabled) {
       return;
     }
-
     switch (event.keyCode) {
       case keycode_default.a.codes.down:
         if (!this.props.open) {
@@ -10569,51 +8973,40 @@ function (_React$Component) {
         } else if (this.menu.focusNext) {
           this.menu.focusNext();
         }
-
         event.preventDefault();
         break;
-
       case keycode_default.a.codes.esc:
       case keycode_default.a.codes.tab:
         this.handleClose(event, {
           source: 'keydown'
         });
         break;
-
       default:
     }
   };
-
   _proto.toggleOpen = function toggleOpen(event, eventDetails) {
     var open = !this.props.open;
-
     if (open) {
       this.lastOpenEventType = eventDetails.source;
     }
-
     if (this.props.onToggle) {
       this.props.onToggle(open, event, eventDetails);
     }
   };
-
   _proto.renderMenu = function renderMenu(child, _ref) {
     var _this2 = this;
-
     var id = _ref.id,
-        onSelect = _ref.onSelect,
-        rootCloseEvent = _ref.rootCloseEvent,
-        props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
-
+      onSelect = _ref.onSelect,
+      rootCloseEvent = _ref.rootCloseEvent,
+      props = _objectWithoutPropertiesLoose(_ref, Dropdown_excluded);
     var ref = function ref(c) {
       _this2.menu = c;
     };
-
     if (typeof child.ref === 'string') {
        false ? undefined : void 0;
     } else {
       ref = utils_createChainedFunction(child.ref, ref);
     }
-
     return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,
@@ -10627,20 +9020,16 @@ function (_React$Component) {
       rootCloseEvent: rootCloseEvent
     }));
   };
-
   _proto.renderToggle = function renderToggle(child, props) {
     var _this3 = this;
-
     var ref = function ref(c) {
       _this3.toggle = c;
     };
-
     if (typeof child.ref === 'string') {
        false ? undefined : void 0;
     } else {
       ref = utils_createChainedFunction(child.ref, ref);
     }
-
     return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, _extends({}, props, {
       ref: ref,
       bsClass: prefix(props, 'toggle'),
@@ -10648,35 +9037,32 @@ function (_React$Component) {
       onKeyDown: utils_createChainedFunction(child.props.onKeyDown, this.handleKeyDown)
     }));
   };
-
   _proto.render = function render() {
     var _classes,
-        _this4 = this;
-
+      _this4 = this;
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        id = _this$props.id,
-        dropup = _this$props.dropup,
-        disabled = _this$props.disabled,
-        pullRight = _this$props.pullRight,
-        open = _this$props.open,
-        onSelect = _this$props.onSelect,
-        role = _this$props.role,
-        bsClass = _this$props.bsClass,
-        className = _this$props.className,
-        rootCloseEvent = _this$props.rootCloseEvent,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "id", "dropup", "disabled", "pullRight", "open", "onSelect", "role", "bsClass", "className", "rootCloseEvent", "children"]);
-
+      Component = _this$props.componentClass,
+      id = _this$props.id,
+      dropup = _this$props.dropup,
+      disabled = _this$props.disabled,
+      pullRight = _this$props.pullRight,
+      open = _this$props.open,
+      onSelect = _this$props.onSelect,
+      role = _this$props.role,
+      bsClass = _this$props.bsClass,
+      className = _this$props.className,
+      rootCloseEvent = _this$props.rootCloseEvent,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Dropdown_excluded2);
     delete props.onToggle;
     var classes = (_classes = {}, _classes[bsClass] = true, _classes.open = open, _classes.disabled = disabled, _classes);
-
     if (dropup) {
       classes[bsClass] = false;
       classes.dropup = true;
-    } // This intentionally forwards bsSize and bsStyle (if set) to the
-    // underlying component, to allow it to render size and style variants.
+    }
 
+    // This intentionally forwards bsSize and bsStyle (if set) to the
+    // underlying component, to allow it to render size and style variants.
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, props, {
       className: classnames_default()(className, classes),
@@ -10695,7 +9081,6 @@ function (_React$Component) {
             role: role,
             bsClass: bsClass
           });
-
         case MENU_ROLE:
           return _this4.renderMenu(child, {
             id: id,
@@ -10705,16 +9090,13 @@ function (_React$Component) {
             onSelect: onSelect,
             rootCloseEvent: rootCloseEvent
           });
-
         default:
           return child;
       }
     }));
   };
-
   return Dropdown;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Dropdown_Dropdown.propTypes = Dropdown_propTypes;
 Dropdown_Dropdown.defaultProps = Dropdown_defaultProps;
 bootstrapUtils_bsClass('dropdown', Dropdown_Dropdown);
@@ -10730,18 +9112,15 @@ function splitComponentProps(props, Component) {
   var componentPropTypes = Component.propTypes;
   var parentProps = {};
   var childProps = {};
-
   entries_default()(props).forEach(function (_ref) {
     var propName = _ref[0],
-        propValue = _ref[1];
-
+      propValue = _ref[1];
     if (componentPropTypes[propName]) {
       parentProps[propName] = propValue;
     } else {
       childProps[propName] = propValue;
     }
   });
-
   return [parentProps, childProps];
 }
 // CONCATENATED MODULE: ./src/DropdownButton.js
@@ -10749,7 +9128,7 @@ function splitComponentProps(props, Component) {
 
 
 var DropdownButton_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownButton.js";
-
+var DropdownButton_excluded = ["bsSize", "bsStyle", "title", "children"];
 
 
 
@@ -10761,36 +9140,27 @@ var DropdownButton_propTypes = _extends({}, src_Dropdown.propTypes, {
   title: prop_types_default.a.node.isRequired,
   noCaret: prop_types_default.a.bool,
   // Override generated docs from <Dropdown>.
-
   /**
    * @private
    */
   children: prop_types_default.a.node
 });
-
-var DropdownButton_DropdownButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(DropdownButton, _React$Component);
-
+var DropdownButton_DropdownButton = /*#__PURE__*/function (_React$Component) {
   function DropdownButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(DropdownButton, _React$Component);
   var _proto = DropdownButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        bsSize = _this$props.bsSize,
-        bsStyle = _this$props.bsStyle,
-        title = _this$props.title,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["bsSize", "bsStyle", "title", "children"]);
-
+      bsSize = _this$props.bsSize,
+      bsStyle = _this$props.bsStyle,
+      title = _this$props.title,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, DropdownButton_excluded);
     var _splitComponentProps = splitComponentProps(props, src_Dropdown.ControlledComponent),
-        dropdownProps = _splitComponentProps[0],
-        toggleProps = _splitComponentProps[1];
-
+      dropdownProps = _splitComponentProps[0],
+      toggleProps = _splitComponentProps[1];
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Dropdown, _extends({}, dropdownProps, {
       bsSize: bsSize,
       bsStyle: bsStyle,
@@ -10815,20 +9185,17 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return DropdownButton;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 DropdownButton_DropdownButton.propTypes = DropdownButton_propTypes;
 /* harmony default export */ var src_DropdownButton = (DropdownButton_DropdownButton);
 // CONCATENATED MODULE: ./src/Fade.js
 
 
 
-
+var Fade_excluded = ["className", "children"];
 var _fadeStyles,
-    Fade_jsxFileName = "/Users/harrison/react-bootstrap/src/Fade.js";
-
+  Fade_jsxFileName = "/Users/harrison/react-bootstrap/src/Fade.js";
 
 
 
@@ -10837,87 +9204,70 @@ var Fade_propTypes = {
   /**
    * Show the component; triggers the fade in or fade out animation
    */
-  in: prop_types_default.a.bool,
-
+  "in": prop_types_default.a.bool,
   /**
    * Wait until the first "enter" transition to mount the component (add it to the DOM)
    */
   mountOnEnter: prop_types_default.a.bool,
-
   /**
    * Unmount the component (remove it from the DOM) when it is faded out
    */
   unmountOnExit: prop_types_default.a.bool,
-
   /**
    * Run the fade in animation when the component mounts, if it is initially
    * shown
    */
   appear: prop_types_default.a.bool,
-
   /**
    * Duration of the fade animation in milliseconds, to ensure that finishing
    * callbacks are fired even if the original browser transition end events are
    * canceled
    */
   timeout: prop_types_default.a.number,
-
   /**
    * Callback fired before the component fades in
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to fade in
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Callback fired after the has component faded in
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Callback fired before the component fades out
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to fade out
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Callback fired after the component has faded out
    */
   onExited: prop_types_default.a.func
 };
 var Fade_defaultProps = {
-  in: false,
+  "in": false,
   timeout: 300,
   mountOnEnter: false,
   unmountOnExit: false,
   appear: false
 };
 var fadeStyles = (_fadeStyles = {}, _fadeStyles[react_transition_group_Transition["ENTERING"]] = 'in', _fadeStyles[react_transition_group_Transition["ENTERED"]] = 'in', _fadeStyles);
-
-var Fade_Fade =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Fade, _React$Component);
-
+var Fade_Fade = /*#__PURE__*/function (_React$Component) {
   function Fade() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Fade, _React$Component);
   var _proto = Fade.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Fade_excluded);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Transition_default.a, _extends({}, props, {
       __source: {
         fileName: Fade_jsxFileName,
@@ -10930,10 +9280,8 @@ function (_React$Component) {
       }));
     });
   };
-
   return Fade;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Fade_Fade.propTypes = Fade_propTypes;
 Fade_Fade.defaultProps = Fade_defaultProps;
 /* harmony default export */ var src_Fade = (Fade_Fade);
@@ -10942,6 +9290,7 @@ Fade_Fade.defaultProps = Fade_defaultProps;
 
 
 var Form_jsxFileName = "/Users/harrison/react-bootstrap/src/Form.js";
+var Form_excluded = ["horizontal", "inline", "componentClass", "className"];
 
 
 
@@ -10957,40 +9306,29 @@ var Form_defaultProps = {
   inline: false,
   componentClass: 'form'
 };
-
-var Form_Form =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Form, _React$Component);
-
+var Form_Form = /*#__PURE__*/function (_React$Component) {
   function Form() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Form, _React$Component);
   var _proto = Form.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        horizontal = _this$props.horizontal,
-        inline = _this$props.inline,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["horizontal", "inline", "componentClass", "className"]);
-
+      horizontal = _this$props.horizontal,
+      inline = _this$props.inline,
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Form_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = [];
-
     if (horizontal) {
       classes.push(prefix(bsProps, 'horizontal'));
     }
-
     if (inline) {
       classes.push(prefix(bsProps, 'inline'));
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -11000,10 +9338,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Form;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Form_Form.propTypes = Form_propTypes;
 Form_Form.defaultProps = Form_defaultProps;
 /* harmony default export */ var src_Form = (bootstrapUtils_bsClass('form', Form_Form));
@@ -11011,6 +9347,7 @@ Form_Form.defaultProps = Form_defaultProps;
 
 
 
+var FormControlFeedback_excluded = ["className", "children"];
 var FormControlFeedback_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControlFeedback.js";
 
 
@@ -11023,41 +9360,29 @@ var FormControlFeedback_defaultProps = {
 var FormControlFeedback_contextTypes = {
   $bs_formGroup: prop_types_default.a.object
 };
-
-var FormControlFeedback_FormControlFeedback =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(FormControlFeedback, _React$Component);
-
+var FormControlFeedback_FormControlFeedback = /*#__PURE__*/function (_React$Component) {
   function FormControlFeedback() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(FormControlFeedback, _React$Component);
   var _proto = FormControlFeedback.prototype;
-
   _proto.getGlyph = function getGlyph(validationState) {
     switch (validationState) {
       case 'success':
         return 'ok';
-
       case 'warning':
         return 'warning-sign';
-
       case 'error':
         return 'remove';
-
       default:
         return null;
     }
   };
-
   _proto.renderDefaultFeedback = function renderDefaultFeedback(formGroup, className, classes, elementProps) {
     var glyph = this.getGlyph(formGroup && formGroup.validationState);
-
     if (!glyph) {
       return null;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Glyphicon, _extends({}, elementProps, {
       glyph: glyph,
       className: classnames_default()(className, classes),
@@ -11068,32 +9393,25 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, FormControlFeedback_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (!children) {
       return this.renderDefaultFeedback(this.context.$bs_formGroup, className, classes, elementProps);
     }
-
     var child = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.only(children);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.cloneElement(child, _extends({}, elementProps, {
       className: classnames_default()(child.props.className, className, classes)
     }));
   };
-
   return FormControlFeedback;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 FormControlFeedback_FormControlFeedback.defaultProps = FormControlFeedback_defaultProps;
 FormControlFeedback_FormControlFeedback.contextTypes = FormControlFeedback_contextTypes;
 /* harmony default export */ var src_FormControlFeedback = (bootstrapUtils_bsClass('form-control-feedback', FormControlFeedback_FormControlFeedback));
@@ -11102,6 +9420,7 @@ FormControlFeedback_FormControlFeedback.contextTypes = FormControlFeedback_conte
 
 
 var FormControlStatic_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControlStatic.js";
+var FormControlStatic_excluded = ["componentClass", "className"];
 
 
 
@@ -11112,28 +9431,20 @@ var FormControlStatic_propTypes = {
 var FormControlStatic_defaultProps = {
   componentClass: 'p'
 };
-
-var FormControlStatic_FormControlStatic =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(FormControlStatic, _React$Component);
-
+var FormControlStatic_FormControlStatic = /*#__PURE__*/function (_React$Component) {
   function FormControlStatic() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(FormControlStatic, _React$Component);
   var _proto = FormControlStatic.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, FormControlStatic_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11144,10 +9455,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return FormControlStatic;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 FormControlStatic_FormControlStatic.propTypes = FormControlStatic_propTypes;
 FormControlStatic_FormControlStatic.defaultProps = FormControlStatic_defaultProps;
 /* harmony default export */ var src_FormControlStatic = (bootstrapUtils_bsClass('form-control-static', FormControlStatic_FormControlStatic));
@@ -11156,6 +9465,7 @@ FormControlStatic_FormControlStatic.defaultProps = FormControlStatic_defaultProp
 
 
 var FormControl_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControl.js";
+var FormControl_excluded = ["componentClass", "type", "id", "inputRef", "className", "bsSize"];
 
 
 
@@ -11167,17 +9477,14 @@ var FormControl_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControl.j
 
 var FormControl_propTypes = {
   componentClass: elementType_default.a,
-
   /**
    * Only relevant if `componentClass` is `'input'`.
    */
   type: prop_types_default.a.string,
-
   /**
    * Uses `controlId` from `<FormGroup>` if not explicitly specified.
    */
   id: prop_types_default.a.string,
-
   /**
    * Attaches a ref to the `<input>` element. Only functions can be used here.
    *
@@ -11193,53 +9500,43 @@ var FormControl_defaultProps = {
 var FormControl_contextTypes = {
   $bs_formGroup: prop_types_default.a.object
 };
-
-var FormControl_FormControl =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(FormControl, _React$Component);
-
+var FormControl_FormControl = /*#__PURE__*/function (_React$Component) {
   function FormControl() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(FormControl, _React$Component);
   var _proto = FormControl.prototype;
-
   _proto.render = function render() {
     var formGroup = this.context.$bs_formGroup;
     var controlId = formGroup && formGroup.controlId;
-
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        type = _this$props.type,
-        _this$props$id = _this$props.id,
-        id = _this$props$id === void 0 ? controlId : _this$props$id,
-        inputRef = _this$props.inputRef,
-        className = _this$props.className,
-        bsSize = _this$props.bsSize,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "type", "id", "inputRef", "className", "bsSize"]);
-
+      Component = _this$props.componentClass,
+      type = _this$props.type,
+      _this$props$id = _this$props.id,
+      id = _this$props$id === void 0 ? controlId : _this$props$id,
+      inputRef = _this$props.inputRef,
+      className = _this$props.className,
+      bsSize = _this$props.bsSize,
+      props = _objectWithoutPropertiesLoose(_this$props, FormControl_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
+     false ? undefined : void 0;
 
-     false ? undefined : void 0; // input[type="file"] should not have .form-control.
-
+    // input[type="file"] should not have .form-control.
     var classes;
-
     if (type !== 'file') {
       classes = getClassSet(bsProps);
-    } // If user provides a size, make sure to append it to classes as input-
+    }
+
+    // If user provides a size, make sure to append it to classes as input-
     // e.g. if bsSize is small, it will append input-sm
-
-
     if (bsSize) {
       var size = SIZE_MAP[bsSize] || bsSize;
       classes[prefix({
         bsClass: 'input'
       }, size)] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       type: type,
       id: id,
@@ -11252,10 +9549,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return FormControl;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 FormControl_FormControl.propTypes = FormControl_propTypes;
 FormControl_FormControl.defaultProps = FormControl_defaultProps;
 FormControl_FormControl.contextTypes = FormControl_contextTypes;
@@ -11267,6 +9562,7 @@ FormControl_FormControl.Static = src_FormControlStatic;
 
 
 var FormGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/FormGroup.js";
+var FormGroup_excluded = ["validationState", "className", "children"];
 
 
 
@@ -11283,22 +9579,16 @@ var FormGroup_propTypes = {
 var FormGroup_childContextTypes = {
   $bs_formGroup: prop_types_default.a.object.isRequired
 };
-
-var FormGroup_FormGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(FormGroup, _React$Component);
-
+var FormGroup_FormGroup = /*#__PURE__*/function (_React$Component) {
   function FormGroup() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(FormGroup, _React$Component);
   var _proto = FormGroup.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        controlId = _this$props.controlId,
-        validationState = _this$props.validationState;
+      controlId = _this$props.controlId,
+      validationState = _this$props.validationState;
     return {
       $bs_formGroup: {
         controlId: controlId,
@@ -11306,34 +9596,27 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.hasFeedback = function hasFeedback(children) {
     var _this = this;
-
     return ValidComponentChildren.some(children, function (child) {
       return child.props.bsRole === 'feedback' || child.props.children && _this.hasFeedback(child.props.children);
     });
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        validationState = _this$props2.validationState,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["validationState", "className", "children"]);
-
+      validationState = _this$props2.validationState,
+      className = _this$props2.className,
+      children = _this$props2.children,
+      props = _objectWithoutPropertiesLoose(_this$props2, FormGroup_excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['controlId']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     var classes = _extends({}, getClassSet(bsProps), {
       'has-feedback': this.hasFeedback(children)
     });
-
     if (validationState) {
       classes["has-" + validationState] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -11343,10 +9626,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return FormGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 FormGroup_FormGroup.propTypes = FormGroup_propTypes;
 FormGroup_FormGroup.childContextTypes = FormGroup_childContextTypes;
 /* harmony default export */ var src_FormGroup = (bootstrapUtils_bsClass('form-group', bsSizes([Size.LARGE, Size.SMALL], FormGroup_FormGroup)));
@@ -11355,6 +9636,7 @@ FormGroup_FormGroup.childContextTypes = FormGroup_childContextTypes;
 
 
 var Grid_jsxFileName = "/Users/harrison/react-bootstrap/src/Grid.js";
+var Grid_excluded = ["fluid", "componentClass", "className"];
 
 
 
@@ -11367,7 +9649,6 @@ var Grid_propTypes = {
    * Adds `container-fluid` class.
    */
   fluid: prop_types_default.a.bool,
-
   /**
    * You can use a custom element for this component
    */
@@ -11377,29 +9658,21 @@ var Grid_defaultProps = {
   componentClass: 'div',
   fluid: false
 };
-
-var Grid_Grid =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Grid, _React$Component);
-
+var Grid_Grid = /*#__PURE__*/function (_React$Component) {
   function Grid() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Grid, _React$Component);
   var _proto = Grid.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        fluid = _this$props.fluid,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["fluid", "componentClass", "className"]);
-
+      fluid = _this$props.fluid,
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Grid_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = prefix(bsProps, fluid && 'fluid');
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11410,10 +9683,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Grid;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Grid_Grid.propTypes = Grid_propTypes;
 Grid_Grid.defaultProps = Grid_defaultProps;
 /* harmony default export */ var src_Grid = (bootstrapUtils_bsClass('container', Grid_Grid));
@@ -11422,30 +9693,23 @@ Grid_Grid.defaultProps = Grid_defaultProps;
 
 
 var HelpBlock_jsxFileName = "/Users/harrison/react-bootstrap/src/HelpBlock.js";
+var HelpBlock_excluded = ["className"];
 
 
 
-
-var HelpBlock_HelpBlock =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(HelpBlock, _React$Component);
-
+var HelpBlock_HelpBlock = /*#__PURE__*/function (_React$Component) {
   function HelpBlock() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(HelpBlock, _React$Component);
   var _proto = HelpBlock.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, HelpBlock_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11456,16 +9720,15 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return HelpBlock;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_HelpBlock = (bootstrapUtils_bsClass('help-block', HelpBlock_HelpBlock));
 // CONCATENATED MODULE: ./src/Image.js
 
 
 
 var Image_jsxFileName = "/Users/harrison/react-bootstrap/src/Image.js";
+var Image_excluded = ["responsive", "rounded", "circle", "thumbnail", "className"];
 
 
 
@@ -11475,17 +9738,14 @@ var Image_propTypes = {
    * Sets image as responsive image
    */
   responsive: prop_types_default.a.bool,
-
   /**
    * Sets image shape as rounded
    */
   rounded: prop_types_default.a.bool,
-
   /**
    * Sets image shape as circle
    */
   circle: prop_types_default.a.bool,
-
   /**
    * Sets image shape as thumbnail
    */
@@ -11497,33 +9757,24 @@ var Image_defaultProps = {
   circle: false,
   thumbnail: false
 };
-
-var Image_Image =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Image, _React$Component);
-
+var Image_Image = /*#__PURE__*/function (_React$Component) {
   function Image() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Image, _React$Component);
   var _proto = Image.prototype;
-
   _proto.render = function render() {
     var _classes;
-
     var _this$props = this.props,
-        responsive = _this$props.responsive,
-        rounded = _this$props.rounded,
-        circle = _this$props.circle,
-        thumbnail = _this$props.thumbnail,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["responsive", "rounded", "circle", "thumbnail", "className"]);
-
+      responsive = _this$props.responsive,
+      rounded = _this$props.rounded,
+      circle = _this$props.circle,
+      thumbnail = _this$props.thumbnail,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Image_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = (_classes = {}, _classes[prefix(bsProps, 'responsive')] = responsive, _classes[prefix(bsProps, 'rounded')] = rounded, _classes[prefix(bsProps, 'circle')] = circle, _classes[prefix(bsProps, 'thumbnail')] = thumbnail, _classes);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("img", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11534,10 +9785,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Image;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Image_Image.propTypes = Image_propTypes;
 Image_Image.defaultProps = Image_defaultProps;
 /* harmony default export */ var src_Image = (bootstrapUtils_bsClass('img', Image_Image));
@@ -11546,30 +9795,23 @@ Image_Image.defaultProps = Image_defaultProps;
 
 
 var InputGroupAddon_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroupAddon.js";
+var InputGroupAddon_excluded = ["className"];
 
 
 
-
-var InputGroupAddon_InputGroupAddon =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(InputGroupAddon, _React$Component);
-
+var InputGroupAddon_InputGroupAddon = /*#__PURE__*/function (_React$Component) {
   function InputGroupAddon() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(InputGroupAddon, _React$Component);
   var _proto = InputGroupAddon.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, InputGroupAddon_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11580,40 +9822,31 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return InputGroupAddon;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_InputGroupAddon = (bootstrapUtils_bsClass('input-group-addon', InputGroupAddon_InputGroupAddon));
 // CONCATENATED MODULE: ./src/InputGroupButton.js
 
 
 
 var InputGroupButton_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroupButton.js";
+var InputGroupButton_excluded = ["className"];
 
 
 
-
-var InputGroupButton_InputGroupButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(InputGroupButton, _React$Component);
-
+var InputGroupButton_InputGroupButton = /*#__PURE__*/function (_React$Component) {
   function InputGroupButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(InputGroupButton, _React$Component);
   var _proto = InputGroupButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, InputGroupButton_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11624,43 +9857,34 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return InputGroupButton;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_InputGroupButton = (bootstrapUtils_bsClass('input-group-btn', InputGroupButton_InputGroupButton));
 // CONCATENATED MODULE: ./src/InputGroup.js
 
 
 
 var InputGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroup.js";
+var InputGroup_excluded = ["className"];
 
 
 
 
 
 
-
-var InputGroup_InputGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(InputGroup, _React$Component);
-
+var InputGroup_InputGroup = /*#__PURE__*/function (_React$Component) {
   function InputGroup() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(InputGroup, _React$Component);
   var _proto = InputGroup.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, InputGroup_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11671,10 +9895,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return InputGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 InputGroup_InputGroup.Addon = src_InputGroupAddon;
 InputGroup_InputGroup.Button = src_InputGroupButton;
 /* harmony default export */ var src_InputGroup = (bootstrapUtils_bsClass('input-group', bsSizes([Size.LARGE, Size.SMALL], InputGroup_InputGroup)));
@@ -11683,6 +9905,7 @@ InputGroup_InputGroup.Button = src_InputGroupButton;
 
 
 var Jumbotron_jsxFileName = "/Users/harrison/react-bootstrap/src/Jumbotron.js";
+var Jumbotron_excluded = ["componentClass", "className"];
 
 
 
@@ -11693,28 +9916,20 @@ var Jumbotron_propTypes = {
 var Jumbotron_defaultProps = {
   componentClass: 'div'
 };
-
-var Jumbotron_Jumbotron =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Jumbotron, _React$Component);
-
+var Jumbotron_Jumbotron = /*#__PURE__*/function (_React$Component) {
   function Jumbotron() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Jumbotron, _React$Component);
   var _proto = Jumbotron.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Jumbotron_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -11725,10 +9940,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Jumbotron;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Jumbotron_Jumbotron.propTypes = Jumbotron_propTypes;
 Jumbotron_Jumbotron.defaultProps = Jumbotron_defaultProps;
 /* harmony default export */ var src_Jumbotron = (bootstrapUtils_bsClass('jumbotron', Jumbotron_Jumbotron));
@@ -11738,51 +9951,41 @@ Jumbotron_Jumbotron.defaultProps = Jumbotron_defaultProps;
 
 
 var Label_jsxFileName = "/Users/harrison/react-bootstrap/src/Label.js";
+var Label_excluded = ["className", "children"];
 
 
 
 
-
-var Label_Label =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Label, _React$Component);
-
+var Label_Label = /*#__PURE__*/function (_React$Component) {
   function Label() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Label, _React$Component);
   var _proto = Label.prototype;
-
   _proto.hasContent = function hasContent(children) {
     var result = false;
     external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
       if (result) {
         return;
       }
-
       if (child || child === 0) {
         result = true;
       }
     });
     return result;
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Label_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), {
       // Hack for collapsing on IE8.
       hidden: !this.hasContent(children)
     });
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -11792,16 +9995,15 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return Label;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
-/* harmony default export */ var src_Label = (bootstrapUtils_bsClass('label', bsStyles(values_default()(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Label_Label)));
+/* harmony default export */ var src_Label = (bootstrapUtils_bsClass('label', bsStyles([].concat(values_default()(State), [Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Label_Label)));
 // CONCATENATED MODULE: ./src/ListGroupItem.js
 
 
 
 
+var ListGroupItem_excluded = ["active", "disabled", "className", "header", "listItem", "children"];
 var ListGroupItem_jsxFileName = "/Users/harrison/react-bootstrap/src/ListGroupItem.js";
 
 
@@ -11820,25 +10022,18 @@ var ListGroupItem_propTypes = {
 var ListGroupItem_defaultProps = {
   listItem: false
 };
-
-var ListGroupItem_ListGroupItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ListGroupItem, _React$Component);
-
+var ListGroupItem_ListGroupItem = /*#__PURE__*/function (_React$Component) {
   function ListGroupItem() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ListGroupItem, _React$Component);
   var _proto = ListGroupItem.prototype;
-
   _proto.renderHeader = function renderHeader(header, headingClassName) {
     if (external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(header)) {
       return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(header, {
         className: classnames_default()(header.props.className, headingClassName)
       });
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("h4", {
       className: headingClassName,
       __source: {
@@ -11848,28 +10043,23 @@ function (_React$Component) {
       __self: this
     }, header);
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        active = _this$props.active,
-        disabled = _this$props.disabled,
-        className = _this$props.className,
-        header = _this$props.header,
-        listItem = _this$props.listItem,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["active", "disabled", "className", "header", "listItem", "children"]);
-
+      active = _this$props.active,
+      disabled = _this$props.disabled,
+      className = _this$props.className,
+      header = _this$props.header,
+      listItem = _this$props.listItem,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, ListGroupItem_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), {
       active: active,
       disabled: disabled
     });
-
     var Component;
-
     if (elementProps.href) {
       Component = 'a';
     } else if (elementProps.onClick) {
@@ -11880,9 +10070,9 @@ function (_React$Component) {
     } else {
       Component = 'span';
     }
+    elementProps.className = classnames_default()(className, classes);
 
-    elementProps.className = classnames_default()(className, classes); // TODO: Deprecate `header` prop.
-
+    // TODO: Deprecate `header` prop.
     if (header) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
         __source: {
@@ -11899,7 +10089,6 @@ function (_React$Component) {
         __self: this
       }, children));
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       __source: {
         fileName: ListGroupItem_jsxFileName,
@@ -11908,10 +10097,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return ListGroupItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ListGroupItem_ListGroupItem.propTypes = ListGroupItem_propTypes;
 ListGroupItem_ListGroupItem.defaultProps = ListGroupItem_defaultProps;
 /* harmony default export */ var src_ListGroupItem = (bootstrapUtils_bsClass('list-group-item', bsStyles(values_default()(State), ListGroupItem_ListGroupItem)));
@@ -11920,6 +10107,7 @@ ListGroupItem_ListGroupItem.defaultProps = ListGroupItem_defaultProps;
 
 
 var ListGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ListGroup.js";
+var ListGroup_excluded = ["children", "componentClass", "className"];
 
 
 
@@ -11935,45 +10123,34 @@ var ListGroup_propTypes = {
    */
   componentClass: elementType_default.a
 };
-
 function getDefaultComponent(children) {
   if (!children) {
     // FIXME: This is the old behavior. Is this right?
     return 'div';
   }
-
   if (ValidComponentChildren.some(children, function (child) {
     return child.type !== src_ListGroupItem || child.props.href || child.props.onClick;
   })) {
     return 'div';
   }
-
   return 'ul';
 }
-
-var ListGroup_ListGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ListGroup, _React$Component);
-
+var ListGroup_ListGroup = /*#__PURE__*/function (_React$Component) {
   function ListGroup() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ListGroup, _React$Component);
   var _proto = ListGroup.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        _this$props$component = _this$props.componentClass,
-        Component = _this$props$component === void 0 ? getDefaultComponent(children) : _this$props$component,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children", "componentClass", "className"]);
-
+      children = _this$props.children,
+      _this$props$component = _this$props.componentClass,
+      Component = _this$props$component === void 0 ? getDefaultComponent(children) : _this$props$component,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ListGroup_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     var useListItem = Component === 'ul' && ValidComponentChildren.every(children, function (child) {
       return child.type === src_ListGroupItem;
@@ -11991,10 +10168,8 @@ function (_React$Component) {
       });
     }) : children);
   };
-
   return ListGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ListGroup_ListGroup.propTypes = ListGroup_propTypes;
 /* harmony default export */ var src_ListGroup = (bootstrapUtils_bsClass('list-group', ListGroup_ListGroup));
 // CONCATENATED MODULE: ./src/MediaBody.js
@@ -12002,6 +10177,7 @@ ListGroup_ListGroup.propTypes = ListGroup_propTypes;
 
 
 var MediaBody_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaBody.js";
+var MediaBody_excluded = ["componentClass", "align", "className"];
 
 
 
@@ -12018,36 +10194,26 @@ var MediaBody_propTypes = {
 var MediaBody_defaultProps = {
   componentClass: 'div'
 };
-
-var MediaBody_MediaBody =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaBody, _React$Component);
-
+var MediaBody_MediaBody = /*#__PURE__*/function (_React$Component) {
   function MediaBody() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaBody, _React$Component);
   var _proto = MediaBody.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        align = _this$props.align,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "align", "className"]);
-
+      Component = _this$props.componentClass,
+      align = _this$props.align,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaBody_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (align) {
       // The class is e.g. `media-top`, not `media-left-top`.
       classes[prefix(src_Media.defaultProps, align)] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -12057,10 +10223,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaBody;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 MediaBody_MediaBody.propTypes = MediaBody_propTypes;
 MediaBody_MediaBody.defaultProps = MediaBody_defaultProps;
 /* harmony default export */ var src_MediaBody = (bootstrapUtils_bsClass('media-body', MediaBody_MediaBody));
@@ -12069,6 +10233,7 @@ MediaBody_MediaBody.defaultProps = MediaBody_defaultProps;
 
 
 var MediaHeading_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaHeading.js";
+var MediaHeading_excluded = ["componentClass", "className"];
 
 
 
@@ -12079,28 +10244,20 @@ var MediaHeading_propTypes = {
 var MediaHeading_defaultProps = {
   componentClass: 'h4'
 };
-
-var MediaHeading_MediaHeading =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaHeading, _React$Component);
-
+var MediaHeading_MediaHeading = /*#__PURE__*/function (_React$Component) {
   function MediaHeading() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaHeading, _React$Component);
   var _proto = MediaHeading.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaHeading_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12111,10 +10268,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaHeading;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 MediaHeading_MediaHeading.propTypes = MediaHeading_propTypes;
 MediaHeading_MediaHeading.defaultProps = MediaHeading_defaultProps;
 /* harmony default export */ var src_MediaHeading = (bootstrapUtils_bsClass('media-heading', MediaHeading_MediaHeading));
@@ -12123,6 +10278,7 @@ MediaHeading_MediaHeading.defaultProps = MediaHeading_defaultProps;
 
 
 var MediaLeft_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaLeft.js";
+var MediaLeft_excluded = ["align", "className"];
 
 
 
@@ -12134,35 +10290,25 @@ var MediaLeft_propTypes = {
    */
   align: prop_types_default.a.oneOf(['top', 'middle', 'bottom'])
 };
-
-var MediaLeft_MediaLeft =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaLeft, _React$Component);
-
+var MediaLeft_MediaLeft = /*#__PURE__*/function (_React$Component) {
   function MediaLeft() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaLeft, _React$Component);
   var _proto = MediaLeft.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        align = _this$props.align,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["align", "className"]);
-
+      align = _this$props.align,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaLeft_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (align) {
       // The class is e.g. `media-top`, not `media-left-top`.
       classes[prefix(src_Media.defaultProps, align)] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -12172,10 +10318,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaLeft;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 MediaLeft_MediaLeft.propTypes = MediaLeft_propTypes;
 /* harmony default export */ var src_MediaLeft = (bootstrapUtils_bsClass('media-left', MediaLeft_MediaLeft));
 // CONCATENATED MODULE: ./src/MediaList.js
@@ -12183,30 +10327,23 @@ MediaLeft_MediaLeft.propTypes = MediaLeft_propTypes;
 
 
 var MediaList_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaList.js";
+var MediaList_excluded = ["className"];
 
 
 
-
-var MediaList_MediaList =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaList, _React$Component);
-
+var MediaList_MediaList = /*#__PURE__*/function (_React$Component) {
   function MediaList() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaList, _React$Component);
   var _proto = MediaList.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaList_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("ul", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12217,40 +10354,31 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaList;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_MediaList = (bootstrapUtils_bsClass('media-list', MediaList_MediaList));
 // CONCATENATED MODULE: ./src/MediaListItem.js
 
 
 
 var MediaListItem_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaListItem.js";
+var MediaListItem_excluded = ["className"];
 
 
 
-
-var MediaListItem_MediaListItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaListItem, _React$Component);
-
+var MediaListItem_MediaListItem = /*#__PURE__*/function (_React$Component) {
   function MediaListItem() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaListItem, _React$Component);
   var _proto = MediaListItem.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaListItem_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12261,16 +10389,15 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaListItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_MediaListItem = (bootstrapUtils_bsClass('media', MediaListItem_MediaListItem));
 // CONCATENATED MODULE: ./src/MediaRight.js
 
 
 
 var MediaRight_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaRight.js";
+var MediaRight_excluded = ["align", "className"];
 
 
 
@@ -12282,35 +10409,25 @@ var MediaRight_propTypes = {
    */
   align: prop_types_default.a.oneOf(['top', 'middle', 'bottom'])
 };
-
-var MediaRight_MediaRight =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MediaRight, _React$Component);
-
+var MediaRight_MediaRight = /*#__PURE__*/function (_React$Component) {
   function MediaRight() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(MediaRight, _React$Component);
   var _proto = MediaRight.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        align = _this$props.align,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["align", "className"]);
-
+      align = _this$props.align,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, MediaRight_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
-
     if (align) {
       // The class is e.g. `media-top`, not `media-right-top`.
       classes[prefix(src_Media.defaultProps, align)] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -12320,10 +10437,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return MediaRight;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 MediaRight_MediaRight.propTypes = MediaRight_propTypes;
 /* harmony default export */ var src_MediaRight = (bootstrapUtils_bsClass('media-right', MediaRight_MediaRight));
 // CONCATENATED MODULE: ./src/Media.js
@@ -12331,6 +10446,7 @@ MediaRight_MediaRight.propTypes = MediaRight_propTypes;
 
 
 var Media_jsxFileName = "/Users/harrison/react-bootstrap/src/Media.js";
+var Media_excluded = ["componentClass", "className"];
 
 
 
@@ -12347,28 +10463,20 @@ var Media_propTypes = {
 var Media_defaultProps = {
   componentClass: 'div'
 };
-
-var Media_Media =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Media, _React$Component);
-
+var Media_Media = /*#__PURE__*/function (_React$Component) {
   function Media() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Media, _React$Component);
   var _proto = Media.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Media_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12379,10 +10487,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Media;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Media_Media.propTypes = Media_propTypes;
 Media_Media.defaultProps = Media_defaultProps;
 Media_Media.Heading = src_MediaHeading;
@@ -12396,8 +10502,8 @@ Media_Media.ListItem = src_MediaListItem;
 
 
 
-
 var MenuItem_jsxFileName = "/Users/harrison/react-bootstrap/src/MenuItem.js";
+var MenuItem_excluded = ["active", "disabled", "divider", "header", "onClick", "className", "style"];
 
 
 
@@ -12410,42 +10516,35 @@ var MenuItem_propTypes = {
    * Highlight the menu item as active.
    */
   active: prop_types_default.a.bool,
-
   /**
    * Disable the menu item, making it unselectable.
    */
   disabled: prop_types_default.a.bool,
-
   /**
    * Styles the menu item as a horizontal rule, providing visual separation between
    * groups of menu items.
    */
   divider: all_default()(prop_types_default.a.bool, function (_ref) {
     var divider = _ref.divider,
-        children = _ref.children;
+      children = _ref.children;
     return divider && children ? new Error('Children will not be rendered for dividers') : null;
   }),
-
   /**
    * Value passed to the `onSelect` handler, useful for identifying the selected menu item.
    */
   eventKey: prop_types_default.a.any,
-
   /**
    * Styles the menu item as a header label, useful for describing a group of menu items.
    */
   header: prop_types_default.a.bool,
-
   /**
    * HTML `href` attribute corresponding to `a.href`.
    */
   href: prop_types_default.a.string,
-
   /**
    * Callback fired when the menu item is clicked.
    */
   onClick: prop_types_default.a.func,
-
   /**
    * Callback fired when the menu item is selected.
    *
@@ -12460,57 +10559,44 @@ var MenuItem_defaultProps = {
   disabled: false,
   header: false
 };
-
-var MenuItem_MenuItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(MenuItem, _React$Component);
-
+var MenuItem_MenuItem = /*#__PURE__*/function (_React$Component) {
   function MenuItem(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(MenuItem, _React$Component);
   var _proto = MenuItem.prototype;
-
   _proto.handleClick = function handleClick(event) {
     var _this$props = this.props,
-        href = _this$props.href,
-        disabled = _this$props.disabled,
-        onSelect = _this$props.onSelect,
-        eventKey = _this$props.eventKey;
-
+      href = _this$props.href,
+      disabled = _this$props.disabled,
+      onSelect = _this$props.onSelect,
+      eventKey = _this$props.eventKey;
     if (!href || disabled) {
       event.preventDefault();
     }
-
     if (disabled) {
       return;
     }
-
     if (onSelect) {
       onSelect(eventKey, event);
     }
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        active = _this$props2.active,
-        disabled = _this$props2.disabled,
-        divider = _this$props2.divider,
-        header = _this$props2.header,
-        onClick = _this$props2.onClick,
-        className = _this$props2.className,
-        style = _this$props2.style,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["active", "disabled", "divider", "header", "onClick", "className", "style"]);
-
+      active = _this$props2.active,
+      disabled = _this$props2.disabled,
+      divider = _this$props2.divider,
+      header = _this$props2.header,
+      onClick = _this$props2.onClick,
+      className = _this$props2.className,
+      style = _this$props2.style,
+      props = _objectWithoutPropertiesLoose(_this$props2, MenuItem_excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['eventKey', 'onSelect']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     if (divider) {
       // Forcibly blank out the children; separators shouldn't render any.
       elementProps.children = undefined;
@@ -12525,7 +10611,6 @@ function (_React$Component) {
         __self: this
       }));
     }
-
     if (header) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", _extends({}, elementProps, {
         role: "heading",
@@ -12538,7 +10623,6 @@ function (_React$Component) {
         __self: this
       }));
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", {
       role: "presentation",
       className: classnames_default()(className, {
@@ -12562,10 +10646,8 @@ function (_React$Component) {
       __self: this
     })));
   };
-
   return MenuItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 MenuItem_MenuItem.propTypes = MenuItem_propTypes;
 MenuItem_MenuItem.defaultProps = MenuItem_defaultProps;
 /* harmony default export */ var src_MenuItem = (bootstrapUtils_bsClass('dropdown', MenuItem_MenuItem));
@@ -12598,6 +10680,7 @@ var isOverflowing_default = /*#__PURE__*/__webpack_require__.n(isOverflowing);
 
 
 var ModalBody_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalBody.js";
+var ModalBody_excluded = ["componentClass", "className"];
 
 
 
@@ -12608,28 +10691,20 @@ var ModalBody_propTypes = {
 var ModalBody_defaultProps = {
   componentClass: 'div'
 };
-
-var ModalBody_ModalBody =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalBody, _React$Component);
-
+var ModalBody_ModalBody = /*#__PURE__*/function (_React$Component) {
   function ModalBody() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ModalBody, _React$Component);
   var _proto = ModalBody.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ModalBody_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12640,10 +10715,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ModalBody;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ModalBody_ModalBody.propTypes = ModalBody_propTypes;
 ModalBody_ModalBody.defaultProps = ModalBody_defaultProps;
 /* harmony default export */ var src_ModalBody = (bootstrapUtils_bsClass('modal-body', ModalBody_ModalBody));
@@ -12652,6 +10725,7 @@ ModalBody_ModalBody.defaultProps = ModalBody_defaultProps;
 
 
 var ModalDialog_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalDialog.js";
+var ModalDialog_excluded = ["dialogClassName", "className", "style", "children", "handleDialogMouseDown"];
 
 
 
@@ -12662,47 +10736,34 @@ var ModalDialog_propTypes = {
    * A css class to apply to the Modal dialog DOM node.
    */
   dialogClassName: prop_types_default.a.string,
-
   /**
    * A method to run for the mousedown event on the dialog.
    */
   handleDialogMouseDown: prop_types_default.a.func
 };
-
-var ModalDialog_ModalDialog =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalDialog, _React$Component);
-
+var ModalDialog_ModalDialog = /*#__PURE__*/function (_React$Component) {
   function ModalDialog() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ModalDialog, _React$Component);
   var _proto = ModalDialog.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        dialogClassName = _this$props.dialogClassName,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        handleDialogMouseDown = _this$props.handleDialogMouseDown,
-        props = _objectWithoutPropertiesLoose(_this$props, ["dialogClassName", "className", "style", "children", "handleDialogMouseDown"]);
-
+      dialogClassName = _this$props.dialogClassName,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      handleDialogMouseDown = _this$props.handleDialogMouseDown,
+      props = _objectWithoutPropertiesLoose(_this$props, ModalDialog_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var bsClassName = prefix(bsProps);
-
     var modalStyle = _extends({
       display: 'block'
     }, style);
-
     var dialogClasses = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[bsClassName] = false, _extends2[prefix(bsProps, 'dialog')] = true, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       tabIndex: "-1",
       role: "dialog",
@@ -12731,10 +10792,8 @@ function (_React$Component) {
       __self: this
     }, children)));
   };
-
   return ModalDialog;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ModalDialog_ModalDialog.propTypes = ModalDialog_propTypes;
 /* harmony default export */ var src_ModalDialog = (bootstrapUtils_bsClass('modal', bsSizes([Size.LARGE, Size.SMALL], ModalDialog_ModalDialog)));
 // CONCATENATED MODULE: ./src/ModalFooter.js
@@ -12742,6 +10801,7 @@ ModalDialog_ModalDialog.propTypes = ModalDialog_propTypes;
 
 
 var ModalFooter_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalFooter.js";
+var ModalFooter_excluded = ["componentClass", "className"];
 
 
 
@@ -12752,28 +10812,20 @@ var ModalFooter_propTypes = {
 var ModalFooter_defaultProps = {
   componentClass: 'div'
 };
-
-var ModalFooter_ModalFooter =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalFooter, _React$Component);
-
+var ModalFooter_ModalFooter = /*#__PURE__*/function (_React$Component) {
   function ModalFooter() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ModalFooter, _React$Component);
   var _proto = ModalFooter.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ModalFooter_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12784,10 +10836,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ModalFooter;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ModalFooter_ModalFooter.propTypes = ModalFooter_propTypes;
 ModalFooter_ModalFooter.defaultProps = ModalFooter_defaultProps;
 /* harmony default export */ var src_ModalFooter = (bootstrapUtils_bsClass('modal-footer', ModalFooter_ModalFooter));
@@ -12796,12 +10846,15 @@ ModalFooter_ModalFooter.defaultProps = ModalFooter_defaultProps;
 
 
 var ModalHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalHeader.js";
+var ModalHeader_excluded = ["closeLabel", "closeButton", "onHide", "className", "children"];
 
 
 
 
 
- // TODO: `aria-label` should be `closeLabel`.
+
+
+// TODO: `aria-label` should be `closeLabel`.
 
 var ModalHeader_propTypes = {
   /**
@@ -12810,12 +10863,10 @@ var ModalHeader_propTypes = {
    * readable.
    */
   closeLabel: prop_types_default.a.string,
-
   /**
    * Specify whether the Component should contain a close button
    */
   closeButton: prop_types_default.a.bool,
-
   /**
    * A Callback fired when the close button is clicked. If used directly inside
    * a Modal component, the onHide will automatically be propagated up to the
@@ -12832,33 +10883,24 @@ var ModalHeader_contextTypes = {
     onHide: prop_types_default.a.func
   })
 };
-
-var ModalHeader_ModalHeader =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalHeader, _React$Component);
-
+var ModalHeader_ModalHeader = /*#__PURE__*/function (_React$Component) {
   function ModalHeader() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ModalHeader, _React$Component);
   var _proto = ModalHeader.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        closeLabel = _this$props.closeLabel,
-        closeButton = _this$props.closeButton,
-        onHide = _this$props.onHide,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["closeLabel", "closeButton", "onHide", "className", "children"]);
-
+      closeLabel = _this$props.closeLabel,
+      closeButton = _this$props.closeButton,
+      onHide = _this$props.onHide,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, ModalHeader_excluded);
     var modal = this.context.$bs_modal;
-
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12877,10 +10919,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return ModalHeader;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ModalHeader_ModalHeader.propTypes = ModalHeader_propTypes;
 ModalHeader_ModalHeader.defaultProps = ModalHeader_defaultProps;
 ModalHeader_ModalHeader.contextTypes = ModalHeader_contextTypes;
@@ -12890,6 +10930,7 @@ ModalHeader_ModalHeader.contextTypes = ModalHeader_contextTypes;
 
 
 var ModalTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalTitle.js";
+var ModalTitle_excluded = ["componentClass", "className"];
 
 
 
@@ -12900,28 +10941,20 @@ var ModalTitle_propTypes = {
 var ModalTitle_defaultProps = {
   componentClass: 'h4'
 };
-
-var ModalTitle_ModalTitle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalTitle, _React$Component);
-
+var ModalTitle_ModalTitle = /*#__PURE__*/function (_React$Component) {
   function ModalTitle() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ModalTitle, _React$Component);
   var _proto = ModalTitle.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, ModalTitle_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -12932,10 +10965,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return ModalTitle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ModalTitle_ModalTitle.propTypes = ModalTitle_propTypes;
 ModalTitle_ModalTitle.defaultProps = ModalTitle_defaultProps;
 /* harmony default export */ var src_ModalTitle = (bootstrapUtils_bsClass('modal-title', ModalTitle_ModalTitle));
@@ -12943,9 +10974,8 @@ ModalTitle_ModalTitle.defaultProps = ModalTitle_defaultProps;
 
 
 
-
+var Modal_excluded = ["backdrop", "backdropClassName", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"];
 var Modal_jsxFileName = "/Users/harrison/react-bootstrap/src/Modal.js";
-
 
 
 
@@ -12973,30 +11003,25 @@ var Modal_propTypes = _extends({}, Modal_default.a.propTypes, src_ModalDialog.pr
    * trigger an "onHide" when clicked.
    */
   backdrop: prop_types_default.a.oneOf(['static', true, false]),
-
   /**
    * Add an optional extra class name to .modal-backdrop
    * It could end up looking like class="modal-backdrop foo-modal-backdrop in".
    */
   backdropClassName: prop_types_default.a.string,
-
   /**
    * Close the modal when escape key is pressed
    */
   keyboard: prop_types_default.a.bool,
-
   /**
    * Open and close the Modal with a slide and fade animation.
    */
   animation: prop_types_default.a.bool,
-
   /**
    * A Component type that provides the modal content Markup. This is a useful
    * prop when you want to use your own styles and markup to create a custom
    * modal component.
    */
   dialogComponentClass: elementType_default.a,
-
   /**
    * When `true` The modal will automatically shift focus to itself when it
    * opens, and replace it to the last focused element when it closes.
@@ -13004,79 +11029,66 @@ var Modal_propTypes = _extends({}, Modal_default.a.propTypes, src_ModalDialog.pr
    * accessible to assistive technologies, like screen-readers.
    */
   autoFocus: prop_types_default.a.bool,
-
   /**
    * When `true` The modal will prevent focus from leaving the Modal while
    * open. Consider leaving the default value here, as it is necessary to make
    * the Modal work well with assistive technologies, such as screen readers.
    */
   enforceFocus: prop_types_default.a.bool,
-
   /**
    * When `true` The modal will restore focus to previously focused element once
    * modal is hidden
    */
   restoreFocus: prop_types_default.a.bool,
-
   /**
    * When `true` The modal will show itself.
    */
   show: prop_types_default.a.bool,
-
   /**
    * A callback fired when the header closeButton or non-static backdrop is
    * clicked. Required if either are specified.
    */
   onHide: prop_types_default.a.func,
-
   /**
    * Callback fired before the Modal transitions in
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Callback fired as the Modal begins to transition in
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Callback fired after the Modal finishes transitioning in
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Callback fired right before the Modal transitions out
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Callback fired as the Modal begins to transition out
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Callback fired after the Modal finishes transitioning out
    */
   onExited: prop_types_default.a.func,
-
   /**
    * @private
    */
   container: Modal_default.a.propTypes.container
 });
-
 var Modal_defaultProps = _extends({}, Modal_default.a.defaultProps, {
   animation: true,
   dialogComponentClass: src_ModalDialog
 });
-
 var Modal_childContextTypes = {
   $bs_modal: prop_types_default.a.shape({
     onHide: prop_types_default.a.func
   })
 };
-/* eslint-disable no-use-before-define, react/no-multi-comp */
 
+/* eslint-disable no-use-before-define, react/no-multi-comp */
 function DialogTransition(props) {
   return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Fade, _extends({}, props, {
     timeout: Modal_Modal.TRANSITION_DURATION,
@@ -13087,7 +11099,6 @@ function DialogTransition(props) {
     __self: this
   }));
 }
-
 function BackdropTransition(props) {
   return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Fade, _extends({}, props, {
     timeout: Modal_Modal.BACKDROP_TRANSITION_DURATION,
@@ -13098,36 +11109,30 @@ function BackdropTransition(props) {
     __self: this
   }));
 }
+
 /* eslint-enable no-use-before-define */
-
-
-var Modal_Modal =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Modal, _React$Component);
-
+var Modal_Modal = /*#__PURE__*/function (_React$Component) {
   function Modal(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-
+    // We prevent the modal from closing during a drag by detecting where the
+    // the click originates from. If it starts in the modal and then ends outside
+    // don't close.
     _this.handleDialogMouseDown = function () {
       _this._ignoreBackdropClick = true;
     };
-
-    _this.handleEntering = _this.handleEntering.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleExited = _this.handleExited.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleWindowResize = _this.handleWindowResize.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleDialogClick = _this.handleDialogClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.setModalRef = _this.setModalRef.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleEntering = _this.handleEntering.bind(_this);
+    _this.handleExited = _this.handleExited.bind(_this);
+    _this.handleWindowResize = _this.handleWindowResize.bind(_this);
+    _this.handleDialogClick = _this.handleDialogClick.bind(_this);
+    _this.setModalRef = _this.setModalRef.bind(_this);
     _this.state = {
       style: {}
     };
     return _this;
   }
-
+  _inheritsLoose(Modal, _React$Component);
   var _proto = Modal.prototype;
-
   _proto.getChildContext = function getChildContext() {
     return {
       $bs_modal: {
@@ -13135,50 +11140,37 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     // Clean up the listener if we need to.
     this.handleExited();
   };
-
   _proto.setModalRef = function setModalRef(ref) {
     this._modal = ref;
-  }; // We prevent the modal from closing during a drag by detecting where the
-  // the click originates from. If it starts in the modal and then ends outside
-  // don't close.
-
-
+  };
   _proto.handleDialogClick = function handleDialogClick(e) {
     if (e.target !== e.currentTarget || this._ignoreBackdropClick) {
       this._ignoreBackdropClick = false;
       return;
     }
-
     this.props.onHide();
   };
-
   _proto.handleEntering = function handleEntering() {
     // FIXME: This should work even when animation is disabled.
     events_default.a.on(window, 'resize', this.handleWindowResize);
     this.updateStyle();
   };
-
   _proto.handleExited = function handleExited() {
     // FIXME: This should work even when animation is disabled.
     events_default.a.off(window, 'resize', this.handleWindowResize);
   };
-
   _proto.handleWindowResize = function handleWindowResize() {
     this.updateStyle();
   };
-
   _proto.updateStyle = function updateStyle() {
     if (!inDOM_default.a) {
       return;
     }
-
     var dialogNode = this._modal.getDialogElement();
-
     var dialogHeight = dialogNode.scrollHeight;
     var document = ownerDocument_default()(dialogNode);
     var bodyIsOverflowing = isOverflowing_default()(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this.props.container || document.body));
@@ -13190,25 +11182,22 @@ function (_React$Component) {
       }
     });
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        backdrop = _this$props.backdrop,
-        backdropClassName = _this$props.backdropClassName,
-        animation = _this$props.animation,
-        show = _this$props.show,
-        Dialog = _this$props.dialogComponentClass,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        onEntering = _this$props.onEntering,
-        onExited = _this$props.onExited,
-        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
-
+      backdrop = _this$props.backdrop,
+      backdropClassName = _this$props.backdropClassName,
+      animation = _this$props.animation,
+      show = _this$props.show,
+      Dialog = _this$props.dialogComponentClass,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      onEntering = _this$props.onEntering,
+      onExited = _this$props.onExited,
+      props = _objectWithoutPropertiesLoose(_this$props, Modal_excluded);
     var _splitComponentProps = splitComponentProps(props, Modal_default.a),
-        baseModalProps = _splitComponentProps[0],
-        dialogProps = _splitComponentProps[1];
-
+      baseModalProps = _splitComponentProps[0],
+      dialogProps = _splitComponentProps[1];
     var inClassName = show && !animation && 'in';
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Modal_default.a, _extends({}, baseModalProps, {
       ref: this.setModalRef,
@@ -13237,10 +11226,8 @@ function (_React$Component) {
       __self: this
     }), children));
   };
-
   return Modal;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Modal_Modal.propTypes = Modal_propTypes;
 Modal_Modal.defaultProps = Modal_defaultProps;
 Modal_Modal.childContextTypes = Modal_childContextTypes;
@@ -13257,6 +11244,7 @@ Modal_Modal.BACKDROP_TRANSITION_DURATION = 150;
 
 
 var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
+var Nav_excluded = ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children"];
 
 
 
@@ -13266,8 +11254,12 @@ var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
 
 
 
- // TODO: Should we expose `<NavItem>` as `<Nav.Item>`?
+
+
+// TODO: Should we expose `<NavItem>` as `<Nav.Item>`?
+
 // TODO: This `bsStyle` is very unlike the others. Should we rename it?
+
 // TODO: `pullRight` and `pullLeft` don't render right outside of `navbar`.
 // Consider renaming or replacing them.
 
@@ -13277,22 +11269,19 @@ var Nav_propTypes = {
    * higher precedence over `activeHref`.
    */
   activeKey: prop_types_default.a.any,
-
   /**
    * Marks the child NavItem with a matching `href` prop as active.
    */
   activeHref: prop_types_default.a.string,
-
   /**
    * NavItems are be positioned vertically.
    */
   stacked: prop_types_default.a.bool,
   justified: all_default()(prop_types_default.a.bool, function (_ref) {
     var justified = _ref.justified,
-        navbar = _ref.navbar;
+      navbar = _ref.navbar;
     return justified && navbar ? Error('justified navbar `Nav`s are not supported') : null;
   }),
-
   /**
    * A callback fired when a NavItem is selected.
    *
@@ -13304,7 +11293,6 @@ var Nav_propTypes = {
    * ```
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * ARIA role for the Nav, in the context of a TabContainer, the default will
    * be set to "tablist", but can be overridden by the Nav when set explicitly.
@@ -13314,19 +11302,16 @@ var Nav_propTypes = {
    * https://www.w3.org/TR/2013/WD-wai-aria-practices-20130307/#tabpanel
    */
   role: prop_types_default.a.string,
-
   /**
    * Apply styling an alignment for use in a Navbar. This prop will be set
    * automatically when the Nav is used inside a Navbar.
    */
   navbar: prop_types_default.a.bool,
-
   /**
    * Float the Nav to the right. When `navbar` is `true` the appropriate
    * contextual classes are added as well.
    */
   pullRight: prop_types_default.a.bool,
-
   /**
    * Float the Nav to the left. When `navbar` is `true` the appropriate
    * contextual classes are added as well.
@@ -13351,32 +11336,22 @@ var Nav_contextTypes = {
     getPaneId: prop_types_default.a.func.isRequired
   })
 };
-
-var Nav_Nav =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Nav, _React$Component);
-
+var Nav_Nav = /*#__PURE__*/function (_React$Component) {
   function Nav() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Nav, _React$Component);
   var _proto = Nav.prototype;
-
   _proto.componentDidUpdate = function componentDidUpdate() {
     var _this = this;
-
     if (!this._needsRefocus) {
       return;
     }
-
     this._needsRefocus = false;
     var children = this.props.children;
-
     var _this$getActiveProps = this.getActiveProps(),
-        activeKey = _this$getActiveProps.activeKey,
-        activeHref = _this$getActiveProps.activeHref;
-
+      activeKey = _this$getActiveProps.activeKey,
+      activeHref = _this$getActiveProps.activeHref;
     var activeChild = ValidComponentChildren.find(children, function (child) {
       return _this.isActive(child, activeKey, activeHref);
     });
@@ -13384,82 +11359,65 @@ function (_React$Component) {
     var activeChildIndex = childrenArray.indexOf(activeChild);
     var childNodes = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this).children;
     var activeNode = childNodes && childNodes[activeChildIndex];
-
     if (!activeNode || !activeNode.firstChild) {
       return;
     }
-
     activeNode.firstChild.focus();
   };
-
   _proto.getActiveProps = function getActiveProps() {
     var tabContainer = this.context.$bs_tabContainer;
-
     if (tabContainer) {
        false ? undefined : void 0;
       return tabContainer;
     }
-
     return this.props;
   };
-
   _proto.getNextActiveChild = function getNextActiveChild(offset) {
     var _this2 = this;
-
     var children = this.props.children;
     var validChildren = children.filter(function (child) {
       return child.props.eventKey != null && !child.props.disabled;
     });
-
     var _this$getActiveProps2 = this.getActiveProps(),
-        activeKey = _this$getActiveProps2.activeKey,
-        activeHref = _this$getActiveProps2.activeHref;
-
+      activeKey = _this$getActiveProps2.activeKey,
+      activeHref = _this$getActiveProps2.activeHref;
     var activeChild = ValidComponentChildren.find(children, function (child) {
       return _this2.isActive(child, activeKey, activeHref);
-    }); // This assumes the active child is not disabled.
+    });
 
+    // This assumes the active child is not disabled.
     var activeChildIndex = validChildren.indexOf(activeChild);
-
     if (activeChildIndex === -1) {
       // Something has gone wrong. Select the first valid child we can find.
       return validChildren[0];
     }
-
     var nextIndex = activeChildIndex + offset;
     var numValidChildren = validChildren.length;
-
     if (nextIndex >= numValidChildren) {
       nextIndex = 0;
     } else if (nextIndex < 0) {
       nextIndex = numValidChildren - 1;
     }
-
     return validChildren[nextIndex];
   };
-
   _proto.getTabProps = function getTabProps(child, tabContainer, navRole, active, onSelect) {
     var _this3 = this;
-
     if (!tabContainer && navRole !== 'tablist') {
       // No tab props here.
       return null;
     }
-
     var _child$props = child.props,
-        id = _child$props.id,
-        controls = _child$props['aria-controls'],
-        eventKey = _child$props.eventKey,
-        role = _child$props.role,
-        onKeyDown = _child$props.onKeyDown,
-        tabIndex = _child$props.tabIndex;
-
+      id = _child$props.id,
+      controls = _child$props['aria-controls'],
+      eventKey = _child$props.eventKey,
+      role = _child$props.role,
+      onKeyDown = _child$props.onKeyDown,
+      tabIndex = _child$props.tabIndex;
     if (tabContainer) {
        false ? undefined : void 0;
       id = tabContainer.getTabId(eventKey);
       controls = tabContainer.getPaneId(eventKey);
     }
-
     if (navRole === 'tablist') {
       role = role || 'tab';
       onKeyDown = utils_createChainedFunction(function (event) {
@@ -13467,7 +11425,6 @@ function (_React$Component) {
       }, onKeyDown);
       tabIndex = active ? tabIndex : -1;
     }
-
     return {
       id: id,
       role: role,
@@ -13476,82 +11433,63 @@ function (_React$Component) {
       tabIndex: tabIndex
     };
   };
-
   _proto.handleTabKeyDown = function handleTabKeyDown(onSelect, event) {
     var nextActiveChild;
-
     switch (event.keyCode) {
       case keycode_default.a.codes.left:
       case keycode_default.a.codes.up:
         nextActiveChild = this.getNextActiveChild(-1);
         break;
-
       case keycode_default.a.codes.right:
       case keycode_default.a.codes.down:
         nextActiveChild = this.getNextActiveChild(1);
         break;
-
       default:
         // It was a different key; don't handle this keypress.
         return;
     }
-
     event.preventDefault();
-
     if (onSelect && nextActiveChild && nextActiveChild.props.eventKey != null) {
       onSelect(nextActiveChild.props.eventKey);
     }
-
     this._needsRefocus = true;
   };
-
   _proto.isActive = function isActive(_ref2, activeKey, activeHref) {
     var props = _ref2.props;
-
     if (props.active || activeKey != null && props.eventKey === activeKey || activeHref && props.href === activeHref) {
       return true;
     }
-
     return props.active;
   };
-
   _proto.render = function render() {
     var _extends2,
-        _this4 = this;
-
+      _this4 = this;
     var _this$props = this.props,
-        stacked = _this$props.stacked,
-        justified = _this$props.justified,
-        onSelect = _this$props.onSelect,
-        propsRole = _this$props.role,
-        propsNavbar = _this$props.navbar,
-        pullRight = _this$props.pullRight,
-        pullLeft = _this$props.pullLeft,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children"]);
-
+      stacked = _this$props.stacked,
+      justified = _this$props.justified,
+      onSelect = _this$props.onSelect,
+      propsRole = _this$props.role,
+      propsNavbar = _this$props.navbar,
+      pullRight = _this$props.pullRight,
+      pullLeft = _this$props.pullLeft,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Nav_excluded);
     var tabContainer = this.context.$bs_tabContainer;
     var role = propsRole || (tabContainer ? 'tablist' : null);
-
     var _this$getActiveProps3 = this.getActiveProps(),
-        activeKey = _this$getActiveProps3.activeKey,
-        activeHref = _this$getActiveProps3.activeHref;
-
+      activeKey = _this$getActiveProps3.activeKey,
+      activeHref = _this$getActiveProps3.activeHref;
     delete props.activeKey; // Accessed via this.getActiveProps().
-
     delete props.activeHref; // Accessed via this.getActiveProps().
 
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
-
     var navbar = propsNavbar != null ? propsNavbar : this.context.$bs_navbar;
     var pullLeftClassName;
     var pullRightClassName;
-
     if (navbar) {
       var navbarProps = this.context.$bs_navbar || {
         bsClass: 'navbar'
@@ -13563,7 +11501,6 @@ function (_React$Component) {
       pullRightClassName = 'pull-right';
       pullLeftClassName = 'pull-left';
     }
-
     classes[pullRightClassName] = pullRight;
     classes[pullLeftClassName] = pullLeft;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("ul", _extends({}, elementProps, {
@@ -13576,7 +11513,6 @@ function (_React$Component) {
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
       var active = _this4.isActive(child, activeKey, activeHref);
-
       var childOnSelect = utils_createChainedFunction(child.props.onSelect, onSelect, navbar && navbar.onSelect, tabContainer && tabContainer.onSelect);
       return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, _extends({}, _this4.getTabProps(child, tabContainer, role, active, childOnSelect), {
         active: active,
@@ -13586,10 +11522,8 @@ function (_React$Component) {
       }));
     }));
   };
-
   return Nav;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Nav_Nav.propTypes = Nav_propTypes;
 Nav_Nav.defaultProps = Nav_defaultProps;
 Nav_Nav.contextTypes = Nav_contextTypes;
@@ -13599,6 +11533,7 @@ Nav_Nav.contextTypes = Nav_contextTypes;
 
 
 var NavbarBrand_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarBrand.js";
+var NavbarBrand_excluded = ["className", "children"];
 
 
 
@@ -13608,35 +11543,26 @@ var NavbarBrand_contextTypes = {
     bsClass: prop_types_default.a.string
   })
 };
-
-var NavbarBrand_NavbarBrand =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavbarBrand, _React$Component);
-
+var NavbarBrand_NavbarBrand = /*#__PURE__*/function (_React$Component) {
   function NavbarBrand() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavbarBrand, _React$Component);
   var _proto = NavbarBrand.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, NavbarBrand_excluded);
     var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'brand');
-
     if (external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.isValidElement(children)) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.cloneElement(children, {
         className: classnames_default()(children.props.className, className, bsClassName)
       });
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("span", _extends({}, props, {
       className: classnames_default()(className, bsClassName),
       __source: {
@@ -13646,10 +11572,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return NavbarBrand;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavbarBrand_NavbarBrand.contextTypes = NavbarBrand_contextTypes;
 /* harmony default export */ var src_NavbarBrand = (NavbarBrand_NavbarBrand);
 // CONCATENATED MODULE: ./src/NavbarCollapse.js
@@ -13657,6 +11581,7 @@ NavbarBrand_NavbarBrand.contextTypes = NavbarBrand_contextTypes;
 
 
 var NavbarCollapse_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarCollapse.js";
+var NavbarCollapse_excluded = ["children"];
 
 
 
@@ -13667,29 +11592,22 @@ var NavbarCollapse_contextTypes = {
     expanded: prop_types_default.a.bool
   })
 };
-
-var NavbarCollapse_NavbarCollapse =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavbarCollapse, _React$Component);
-
+var NavbarCollapse_NavbarCollapse = /*#__PURE__*/function (_React$Component) {
   function NavbarCollapse() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavbarCollapse, _React$Component);
   var _proto = NavbarCollapse.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children"]);
-
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, NavbarCollapse_excluded);
     var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'collapse');
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Collapse, _extends({
-      in: navbarProps.expanded
+      "in": navbarProps.expanded
     }, props, {
       __source: {
         fileName: NavbarCollapse_jsxFileName,
@@ -13705,10 +11623,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return NavbarCollapse;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavbarCollapse_NavbarCollapse.contextTypes = NavbarCollapse_contextTypes;
 /* harmony default export */ var src_NavbarCollapse = (NavbarCollapse_NavbarCollapse);
 // CONCATENATED MODULE: ./src/NavbarHeader.js
@@ -13716,6 +11632,7 @@ NavbarCollapse_NavbarCollapse.contextTypes = NavbarCollapse_contextTypes;
 
 
 var NavbarHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarHeader.js";
+var NavbarHeader_excluded = ["className"];
 
 
 
@@ -13725,23 +11642,16 @@ var NavbarHeader_contextTypes = {
     bsClass: prop_types_default.a.string
   })
 };
-
-var NavbarHeader_NavbarHeader =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavbarHeader, _React$Component);
-
+var NavbarHeader_NavbarHeader = /*#__PURE__*/function (_React$Component) {
   function NavbarHeader() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavbarHeader, _React$Component);
   var _proto = NavbarHeader.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, NavbarHeader_excluded);
     var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
@@ -13755,10 +11665,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return NavbarHeader;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavbarHeader_NavbarHeader.contextTypes = NavbarHeader_contextTypes;
 /* harmony default export */ var src_NavbarHeader = (NavbarHeader_NavbarHeader);
 // CONCATENATED MODULE: ./src/NavbarToggle.js
@@ -13766,6 +11674,7 @@ NavbarHeader_NavbarHeader.contextTypes = NavbarHeader_contextTypes;
 
 
 var NavbarToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarToggle.js";
+var NavbarToggle_excluded = ["onClick", "className", "children"];
 
 
 
@@ -13773,7 +11682,6 @@ var NavbarToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarToggle
 
 var NavbarToggle_propTypes = {
   onClick: prop_types_default.a.func,
-
   /**
    * The toggle content, if left empty it will render the default toggle (seen above).
    */
@@ -13786,36 +11694,27 @@ var NavbarToggle_contextTypes = {
     onToggle: prop_types_default.a.func.isRequired
   })
 };
-
-var NavbarToggle_NavbarToggle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavbarToggle, _React$Component);
-
+var NavbarToggle_NavbarToggle = /*#__PURE__*/function (_React$Component) {
   function NavbarToggle() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavbarToggle, _React$Component);
   var _proto = NavbarToggle.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        onClick = _this$props.onClick,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "children"]);
-
+      onClick = _this$props.onClick,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, NavbarToggle_excluded);
     var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
-
     var buttonProps = _extends({
       type: 'button'
     }, props, {
       onClick: utils_createChainedFunction(onClick, navbarProps.onToggle),
       className: classnames_default()(className, prefix(navbarProps, 'toggle'), !navbarProps.expanded && 'collapsed')
     });
-
     if (children) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("button", _extends({}, buttonProps, {
         __source: {
@@ -13825,7 +11724,6 @@ function (_React$Component) {
         __self: this
       }), children);
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("button", _extends({}, buttonProps, {
       __source: {
         fileName: NavbarToggle_jsxFileName,
@@ -13862,10 +11760,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return NavbarToggle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavbarToggle_NavbarToggle.propTypes = NavbarToggle_propTypes;
 NavbarToggle_NavbarToggle.contextTypes = NavbarToggle_contextTypes;
 /* harmony default export */ var src_NavbarToggle = (NavbarToggle_NavbarToggle);
@@ -13873,11 +11769,12 @@ NavbarToggle_NavbarToggle.contextTypes = NavbarToggle_contextTypes;
 
 
 
-
 var Navbar_jsxFileName = "/Users/harrison/react-bootstrap/src/Navbar.js";
+var Navbar_excluded = ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"],
+  Navbar_excluded2 = ["componentClass", "className", "pullRight", "pullLeft"];
 // TODO: Remove this pragma once we upgrade eslint-config-airbnb.
-
 /* eslint-disable react/no-multi-comp */
+
 
 
 
@@ -13897,34 +11794,28 @@ var Navbar_propTypes = {
    * page
    */
   fixedTop: prop_types_default.a.bool,
-
   /**
    * Create a fixed navbar along the bottom of the screen, that scrolls with
    * the page
    */
   fixedBottom: prop_types_default.a.bool,
-
   /**
    * Create a full-width navbar that scrolls away with the page
    */
   staticTop: prop_types_default.a.bool,
-
   /**
    * An alternative dark visual style for the Navbar
    */
   inverse: prop_types_default.a.bool,
-
   /**
    * Allow the Navbar to fluidly adjust to the page or container width, instead
    * of at the predefined screen breakpoints
    */
   fluid: prop_types_default.a.bool,
-
   /**
    * Set a custom element for this component.
    */
   componentClass: elementType_default.a,
-
   /**
    * A callback fired when the `<Navbar>` body collapses or expands. Fired when
    * a `<Navbar.Toggle>` is clicked and called with the new `expanded`
@@ -13933,7 +11824,6 @@ var Navbar_propTypes = {
    * @controllable expanded
    */
   onToggle: prop_types_default.a.func,
-
   /**
    * A callback fired when a descendant of a child `<Nav>` is selected. Should
    * be used to execute complex closing or other miscellaneous actions desired
@@ -13956,7 +11846,6 @@ var Navbar_propTypes = {
    * true and false.
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * Sets `expanded` to `false` after the onSelect event of a descendant of a
    * child `<Nav>`. Does nothing if no `<Nav>` or `<Nav>` descendants exist.
@@ -13965,7 +11854,6 @@ var Navbar_propTypes = {
    * that need to be executed after the `select` event of `<Nav>` descendants.
    */
   collapseOnSelect: prop_types_default.a.bool,
-
   /**
    * Explicitly set the visiblity of the navbar body
    *
@@ -13991,29 +11879,22 @@ var Navbar_childContextTypes = {
     onSelect: prop_types_default.a.func
   })
 };
-
-var Navbar_Navbar =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Navbar, _React$Component);
-
+var Navbar_Navbar = /*#__PURE__*/function (_React$Component) {
   function Navbar(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleCollapse = _this.handleCollapse.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleToggle = _this.handleToggle.bind(_this);
+    _this.handleCollapse = _this.handleCollapse.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(Navbar, _React$Component);
   var _proto = Navbar.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        bsClass = _this$props.bsClass,
-        expanded = _this$props.expanded,
-        onSelect = _this$props.onSelect,
-        collapseOnSelect = _this$props.collapseOnSelect;
+      bsClass = _this$props.bsClass,
+      expanded = _this$props.expanded,
+      onSelect = _this$props.onSelect,
+      collapseOnSelect = _this$props.collapseOnSelect;
     return {
       $bs_navbar: {
         bsClass: bsClass,
@@ -14023,55 +11904,46 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.handleCollapse = function handleCollapse() {
     var _this$props2 = this.props,
-        onToggle = _this$props2.onToggle,
-        expanded = _this$props2.expanded;
-
+      onToggle = _this$props2.onToggle,
+      expanded = _this$props2.expanded;
     if (expanded) {
       onToggle(false);
     }
   };
-
   _proto.handleToggle = function handleToggle() {
     var _this$props3 = this.props,
-        onToggle = _this$props3.onToggle,
-        expanded = _this$props3.expanded;
+      onToggle = _this$props3.onToggle,
+      expanded = _this$props3.expanded;
     onToggle(!expanded);
   };
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props4 = this.props,
-        Component = _this$props4.componentClass,
-        fixedTop = _this$props4.fixedTop,
-        fixedBottom = _this$props4.fixedBottom,
-        staticTop = _this$props4.staticTop,
-        inverse = _this$props4.inverse,
-        fluid = _this$props4.fluid,
-        className = _this$props4.className,
-        children = _this$props4.children,
-        props = _objectWithoutPropertiesLoose(_this$props4, ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"]);
-
+      Component = _this$props4.componentClass,
+      fixedTop = _this$props4.fixedTop,
+      fixedBottom = _this$props4.fixedBottom,
+      staticTop = _this$props4.staticTop,
+      inverse = _this$props4.inverse,
+      fluid = _this$props4.fluid,
+      className = _this$props4.className,
+      children = _this$props4.children,
+      props = _objectWithoutPropertiesLoose(_this$props4, Navbar_excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['expanded', 'onToggle', 'onSelect', 'collapseOnSelect']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1]; // will result in some false positives but that seems better
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
+
+    // will result in some false positives but that seems better
     // than false negatives. strict `undefined` check allows explicit
     // "nulling" of the role if the user really doesn't want one
-
-
     if (elementProps.role === undefined && Component !== 'nav') {
       elementProps.role = 'navigation';
     }
-
     if (inverse) {
       bsProps.bsStyle = Style.INVERSE;
     }
-
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'fixed-top')] = fixedTop, _extends2[prefix(bsProps, 'fixed-bottom')] = fixedBottom, _extends2[prefix(bsProps, 'static-top')] = staticTop, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -14088,10 +11960,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return Navbar;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Navbar_Navbar.propTypes = Navbar_propTypes;
 Navbar_Navbar.defaultProps = Navbar_defaultProps;
 Navbar_Navbar.childContextTypes = Navbar_childContextTypes;
@@ -14099,19 +11969,17 @@ bootstrapUtils_bsClass('navbar', Navbar_Navbar);
 var UncontrollableNavbar = uncontrollable_default()(Navbar_Navbar, {
   expanded: 'onToggle'
 });
-
 function createSimpleWrapper(tag, suffix, displayName) {
   var Wrapper = function Wrapper(_ref, _ref2) {
     var Component = _ref.componentClass,
-        className = _ref.className,
-        pullRight = _ref.pullRight,
-        pullLeft = _ref.pullLeft,
-        props = _objectWithoutPropertiesLoose(_ref, ["componentClass", "className", "pullRight", "pullLeft"]);
-
+      className = _ref.className,
+      pullRight = _ref.pullRight,
+      pullLeft = _ref.pullLeft,
+      props = _objectWithoutPropertiesLoose(_ref, Navbar_excluded2);
     var _ref2$$bs_navbar = _ref2.$bs_navbar,
-        navbarProps = _ref2$$bs_navbar === void 0 ? {
-      bsClass: 'navbar'
-    } : _ref2$$bs_navbar;
+      navbarProps = _ref2$$bs_navbar === void 0 ? {
+        bsClass: 'navbar'
+      } : _ref2$$bs_navbar;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, props, {
       className: classnames_default()(className, prefix(navbarProps, suffix), pullRight && prefix(navbarProps, 'right'), pullLeft && prefix(navbarProps, 'left')),
       __source: {
@@ -14121,7 +11989,6 @@ function createSimpleWrapper(tag, suffix, displayName) {
       __self: this
     }));
   };
-
   Wrapper.displayName = displayName;
   Wrapper.propTypes = {
     componentClass: elementType_default.a,
@@ -14140,22 +12007,22 @@ function createSimpleWrapper(tag, suffix, displayName) {
   };
   return Wrapper;
 }
-
 UncontrollableNavbar.Brand = src_NavbarBrand;
 UncontrollableNavbar.Header = src_NavbarHeader;
 UncontrollableNavbar.Toggle = src_NavbarToggle;
 UncontrollableNavbar.Collapse = src_NavbarCollapse;
 UncontrollableNavbar.Form = createSimpleWrapper('div', 'form', 'NavbarForm');
 UncontrollableNavbar.Text = createSimpleWrapper('p', 'text', 'NavbarText');
-UncontrollableNavbar.Link = createSimpleWrapper('a', 'link', 'NavbarLink'); // Set bsStyles here so they can be overridden.
+UncontrollableNavbar.Link = createSimpleWrapper('a', 'link', 'NavbarLink');
 
+// Set bsStyles here so they can be overridden.
 /* harmony default export */ var src_Navbar = (bsStyles([Style.DEFAULT, Style.INVERSE], Style.DEFAULT, UncontrollableNavbar));
 // CONCATENATED MODULE: ./src/NavDropdown.js
 
 
 
 var NavDropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/NavDropdown.js";
-
+var NavDropdown_excluded = ["title", "activeKey", "activeHref", "className", "style", "children"];
 
 
 
@@ -14170,64 +12037,50 @@ var NavDropdown_propTypes = _extends({}, src_Dropdown.propTypes, {
   activeKey: prop_types_default.a.any,
   activeHref: prop_types_default.a.string,
   // Override generated docs from <Dropdown>.
-
   /**
    * @private
    */
   children: prop_types_default.a.node
 });
-
-var NavDropdown_NavDropdown =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavDropdown, _React$Component);
-
+var NavDropdown_NavDropdown = /*#__PURE__*/function (_React$Component) {
   function NavDropdown() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(NavDropdown, _React$Component);
   var _proto = NavDropdown.prototype;
-
   _proto.isActive = function isActive(_ref, activeKey, activeHref) {
     var _this = this;
-
     var props = _ref.props;
-
     if (props.active || activeKey != null && props.eventKey === activeKey || activeHref && props.href === activeHref) {
       return true;
     }
-
     if (ValidComponentChildren.some(props.children, function (child) {
       return _this.isActive(child, activeKey, activeHref);
     })) {
       return true;
     }
-
     return props.active;
   };
-
   _proto.render = function render() {
     var _this2 = this;
-
     var _this$props = this.props,
-        title = _this$props.title,
-        activeKey = _this$props.activeKey,
-        activeHref = _this$props.activeHref,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["title", "activeKey", "activeHref", "className", "style", "children"]);
-
+      title = _this$props.title,
+      activeKey = _this$props.activeKey,
+      activeHref = _this$props.activeHref,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, NavDropdown_excluded);
     var active = this.isActive(this, activeKey, activeHref);
     delete props.active; // Accessed via this.isActive().
-
     delete props.eventKey; // Accessed via this.isActive().
 
     var _splitComponentProps = splitComponentProps(props, src_Dropdown.ControlledComponent),
-        dropdownProps = _splitComponentProps[0],
-        toggleProps = _splitComponentProps[1]; // Unlike for the other dropdowns, styling needs to go to the `<Dropdown>`
-    // rather than the `<Dropdown.Toggle>`.
+      dropdownProps = _splitComponentProps[0],
+      toggleProps = _splitComponentProps[1];
 
+    // Unlike for the other dropdowns, styling needs to go to the `<Dropdown>`
+    // rather than the `<Dropdown.Toggle>`.
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Dropdown, _extends({}, dropdownProps, {
       componentClass: "li",
@@ -14259,18 +12112,16 @@ function (_React$Component) {
       });
     })));
   };
-
   return NavDropdown;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavDropdown_NavDropdown.propTypes = NavDropdown_propTypes;
 /* harmony default export */ var src_NavDropdown = (NavDropdown_NavDropdown);
 // CONCATENATED MODULE: ./src/NavItem.js
 
 
 
-
 var NavItem_jsxFileName = "/Users/harrison/react-bootstrap/src/NavItem.js";
+var NavItem_excluded = ["active", "disabled", "onClick", "className", "style"];
 
 
 
@@ -14289,48 +12140,38 @@ var NavItem_defaultProps = {
   active: false,
   disabled: false
 };
-
-var NavItem_NavItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(NavItem, _React$Component);
-
+var NavItem_NavItem = /*#__PURE__*/function (_React$Component) {
   function NavItem(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(NavItem, _React$Component);
   var _proto = NavItem.prototype;
-
   _proto.handleClick = function handleClick(e) {
     if (this.props.disabled) {
       e.preventDefault();
       return;
     }
-
     if (this.props.onSelect) {
       this.props.onSelect(this.props.eventKey, e);
     }
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        active = _this$props.active,
-        disabled = _this$props.disabled,
-        onClick = _this$props.onClick,
-        className = _this$props.className,
-        style = _this$props.style,
-        props = _objectWithoutPropertiesLoose(_this$props, ["active", "disabled", "onClick", "className", "style"]);
-
+      active = _this$props.active,
+      disabled = _this$props.disabled,
+      onClick = _this$props.onClick,
+      className = _this$props.className,
+      style = _this$props.style,
+      props = _objectWithoutPropertiesLoose(_this$props, NavItem_excluded);
     delete props.onSelect;
-    delete props.eventKey; // These are injected down by `<Nav>` for building `<SubNav>`s.
+    delete props.eventKey;
 
+    // These are injected down by `<Nav>` for building `<SubNav>`s.
     delete props.activeKey;
     delete props.activeHref;
-
     if (!props.role) {
       if (props.href === '#') {
         props.role = 'button';
@@ -14338,7 +12179,6 @@ function (_React$Component) {
     } else if (props.role === 'tab') {
       props['aria-selected'] = active;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", {
       role: "presentation",
       className: classnames_default()(className, {
@@ -14361,10 +12201,8 @@ function (_React$Component) {
       __self: this
     })));
   };
-
   return NavItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 NavItem_NavItem.propTypes = NavItem_propTypes;
 NavItem_NavItem.defaultProps = NavItem_defaultProps;
 /* harmony default export */ var src_NavItem = (NavItem_NavItem);
@@ -14377,7 +12215,7 @@ var Overlay_default = /*#__PURE__*/__webpack_require__.n(lib_Overlay);
 
 
 var Overlay_jsxFileName = "/Users/harrison/react-bootstrap/src/Overlay.js";
-
+var Overlay_excluded = ["animation", "children"];
 
 
 
@@ -14389,86 +12227,67 @@ var Overlay_propTypes = _extends({}, Overlay_default.a.propTypes, {
    * Set the visibility of the Overlay
    */
   show: prop_types_default.a.bool,
-
   /**
    * Specify whether the overlay should trigger onHide when the user clicks outside the overlay
    */
   rootClose: prop_types_default.a.bool,
-
   /**
    * A callback invoked by the overlay when it wishes to be hidden. Required if
    * `rootClose` is specified.
    */
   onHide: prop_types_default.a.func,
-
   /**
    * Use animation
    */
   animation: prop_types_default.a.oneOfType([prop_types_default.a.bool, elementType_default.a]),
-
   /**
    * Callback fired before the Overlay transitions in
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Callback fired as the Overlay begins to transition in
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Callback fired after the Overlay finishes transitioning in
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Callback fired right before the Overlay transitions out
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Callback fired as the Overlay begins to transition out
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Callback fired after the Overlay finishes transitioning out
    */
   onExited: prop_types_default.a.func,
-
   /**
    * Sets the direction of the Overlay.
    */
   placement: prop_types_default.a.oneOf(['top', 'right', 'bottom', 'left'])
 });
-
 var Overlay_defaultProps = {
   animation: src_Fade,
   rootClose: false,
   show: false,
   placement: 'right'
 };
-
-var Overlay_Overlay =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Overlay, _React$Component);
-
+var Overlay_Overlay = /*#__PURE__*/function (_React$Component) {
   function Overlay() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Overlay, _React$Component);
   var _proto = Overlay.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        animation = _this$props.animation,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["animation", "children"]);
-
+      animation = _this$props.animation,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Overlay_excluded);
     var transition = animation === true ? src_Fade : animation || null;
     var child;
-
     if (!transition) {
       child = Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(children, {
         className: classnames_default()(children.props.className, 'in')
@@ -14476,7 +12295,6 @@ function (_React$Component) {
     } else {
       child = children;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Overlay_default.a, _extends({}, props, {
       transition: transition,
       __source: {
@@ -14486,10 +12304,8 @@ function (_React$Component) {
       __self: this
     }), child);
   };
-
   return Overlay;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Overlay_Overlay.propTypes = Overlay_propTypes;
 Overlay_Overlay.defaultProps = Overlay_defaultProps;
 /* harmony default export */ var src_Overlay = (Overlay_Overlay);
@@ -14502,8 +12318,9 @@ var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
 
 
 
-
+var OverlayTrigger_excluded = ["trigger", "overlay", "children", "onBlur", "onClick", "onFocus", "onMouseOut", "onMouseOver"];
 var OverlayTrigger_jsxFileName = "/Users/harrison/react-bootstrap/src/OverlayTrigger.js";
+
 
 
 
@@ -14518,215 +12335,169 @@ var OverlayTrigger_jsxFileName = "/Users/harrison/react-bootstrap/src/OverlayTri
  * @param {string|array} of
  * @returns {boolean}
  */
-
 function isOneOf(one, of) {
   if (is_array_default()(of)) {
     return of.indexOf(one) >= 0;
   }
-
   return one === of;
 }
-
 var triggerType = prop_types_default.a.oneOf(['click', 'hover', 'focus']);
-
 var OverlayTrigger_propTypes = _extends({}, src_Overlay.propTypes, {
   /**
    * Specify which action or actions trigger Overlay visibility
    */
   trigger: prop_types_default.a.oneOfType([triggerType, prop_types_default.a.arrayOf(triggerType)]),
-
   /**
    * A millisecond delay amount to show and hide the Overlay once triggered
    */
   delay: prop_types_default.a.number,
-
   /**
    * A millisecond delay amount before showing the Overlay once triggered.
    */
   delayShow: prop_types_default.a.number,
-
   /**
    * A millisecond delay amount before hiding the Overlay once triggered.
    */
   delayHide: prop_types_default.a.number,
   // FIXME: This should be `defaultShow`.
-
   /**
    * The initial visibility state of the Overlay. For more nuanced visibility
    * control, consider using the Overlay component directly.
    */
   defaultOverlayShown: prop_types_default.a.bool,
-
   /**
    * An element or text to overlay next to the target.
    */
   overlay: prop_types_default.a.node.isRequired,
-
   /**
    * @private
    */
   onBlur: prop_types_default.a.func,
-
   /**
    * @private
    */
   onClick: prop_types_default.a.func,
-
   /**
    * @private
    */
   onFocus: prop_types_default.a.func,
-
   /**
    * @private
    */
   onMouseOut: prop_types_default.a.func,
-
   /**
    * @private
    */
   onMouseOver: prop_types_default.a.func,
   // Overridden props from `<Overlay>`.
-
   /**
    * @private
    */
   target: prop_types_default.a.oneOf([null]),
-
   /**
    * @private
    */
   onHide: prop_types_default.a.oneOf([null]),
-
   /**
    * @private
    */
   show: prop_types_default.a.oneOf([null])
 });
-
 var OverlayTrigger_defaultProps = {
   defaultOverlayShown: false,
   trigger: ['hover', 'focus']
 };
-
-var OverlayTrigger_OverlayTrigger =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(OverlayTrigger, _React$Component);
-
+var OverlayTrigger_OverlayTrigger = /*#__PURE__*/function (_React$Component) {
   function OverlayTrigger(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleDelayedShow = _this.handleDelayedShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleDelayedHide = _this.handleDelayedHide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleHide = _this.handleHide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-
+    _this.handleToggle = _this.handleToggle.bind(_this);
+    _this.handleDelayedShow = _this.handleDelayedShow.bind(_this);
+    _this.handleDelayedHide = _this.handleDelayedHide.bind(_this);
+    _this.handleHide = _this.handleHide.bind(_this);
     _this.handleMouseOver = function (e) {
       return _this.handleMouseOverOut(_this.handleDelayedShow, e, 'fromElement');
     };
-
     _this.handleMouseOut = function (e) {
       return _this.handleMouseOverOut(_this.handleDelayedHide, e, 'toElement');
     };
-
     _this._mountNode = null;
     _this.state = {
       show: props.defaultOverlayShown
     };
     return _this;
   }
-
+  _inheritsLoose(OverlayTrigger, _React$Component);
   var _proto = OverlayTrigger.prototype;
-
   _proto.componentDidMount = function componentDidMount() {
     this._mountNode = document.createElement('div');
     this.renderOverlay();
   };
-
   _proto.componentDidUpdate = function componentDidUpdate() {
     this.renderOverlay();
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.unmountComponentAtNode(this._mountNode);
     this._mountNode = null;
     clearTimeout(this._hoverShowDelay);
     clearTimeout(this._hoverHideDelay);
   };
-
   _proto.handleDelayedHide = function handleDelayedHide() {
     var _this2 = this;
-
     if (this._hoverShowDelay != null) {
       clearTimeout(this._hoverShowDelay);
       this._hoverShowDelay = null;
       return;
     }
-
     if (!this.state.show || this._hoverHideDelay != null) {
       return;
     }
-
     var delay = this.props.delayHide != null ? this.props.delayHide : this.props.delay;
-
     if (!delay) {
       this.hide();
       return;
     }
-
     this._hoverHideDelay = setTimeout(function () {
       _this2._hoverHideDelay = null;
-
       _this2.hide();
     }, delay);
   };
-
   _proto.handleDelayedShow = function handleDelayedShow() {
     var _this3 = this;
-
     if (this._hoverHideDelay != null) {
       clearTimeout(this._hoverHideDelay);
       this._hoverHideDelay = null;
       return;
     }
-
     if (this.state.show || this._hoverShowDelay != null) {
       return;
     }
-
     var delay = this.props.delayShow != null ? this.props.delayShow : this.props.delay;
-
     if (!delay) {
       this.show();
       return;
     }
-
     this._hoverShowDelay = setTimeout(function () {
       _this3._hoverShowDelay = null;
-
       _this3.show();
     }, delay);
   };
-
   _proto.handleHide = function handleHide() {
     this.hide();
-  }; // Simple implementation of mouseEnter and mouseLeave.
+  }
+
+  // Simple implementation of mouseEnter and mouseLeave.
   // React's built version is broken: https://github.com/facebook/react/issues/4251
   // for cases when the trigger is disabled and mouseOut/Over can cause flicker
   // moving from one child element to another.
-
-
+  ;
   _proto.handleMouseOverOut = function handleMouseOverOut(handler, e, relatedNative) {
     var target = e.currentTarget;
     var related = e.relatedTarget || e.nativeEvent[relatedNative];
-
     if ((!related || related !== target) && !contains_default()(target, related)) {
       handler(e);
     }
   };
-
   _proto.handleToggle = function handleToggle() {
     if (this.state.show) {
       this.hide();
@@ -14734,13 +12505,11 @@ function (_React$Component) {
       this.show();
     }
   };
-
   _proto.hide = function hide() {
     this.setState({
       show: false
     });
   };
-
   _proto.makeOverlay = function makeOverlay(overlay, props) {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Overlay, _extends({}, props, {
       show: this.state.show,
@@ -14753,29 +12522,25 @@ function (_React$Component) {
       __self: this
     }), overlay);
   };
-
   _proto.show = function show() {
     this.setState({
       show: true
     });
   };
-
   _proto.renderOverlay = function renderOverlay() {
     external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.unstable_renderSubtreeIntoContainer(this, this._overlay, this._mountNode);
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        trigger = _this$props.trigger,
-        overlay = _this$props.overlay,
-        children = _this$props.children,
-        onBlur = _this$props.onBlur,
-        onClick = _this$props.onClick,
-        onFocus = _this$props.onFocus,
-        onMouseOut = _this$props.onMouseOut,
-        onMouseOver = _this$props.onMouseOver,
-        props = _objectWithoutPropertiesLoose(_this$props, ["trigger", "overlay", "children", "onBlur", "onClick", "onFocus", "onMouseOut", "onMouseOver"]);
-
+      trigger = _this$props.trigger,
+      overlay = _this$props.overlay,
+      children = _this$props.children,
+      onBlur = _this$props.onBlur,
+      onClick = _this$props.onClick,
+      onFocus = _this$props.onFocus,
+      onMouseOut = _this$props.onMouseOut,
+      onMouseOver = _this$props.onMouseOver,
+      props = _objectWithoutPropertiesLoose(_this$props, OverlayTrigger_excluded);
     delete props.delay;
     delete props.delayShow;
     delete props.delayHide;
@@ -14783,37 +12548,31 @@ function (_React$Component) {
     var child = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.only(children);
     var childProps = child.props;
     var triggerProps = {};
-
     if (this.state.show) {
       triggerProps['aria-describedby'] = overlay.props.id;
-    } // FIXME: The logic here for passing through handlers on this component is
+    }
+
+    // FIXME: The logic here for passing through handlers on this component is
     // inconsistent. We shouldn't be passing any of these props through.
 
-
     triggerProps.onClick = utils_createChainedFunction(childProps.onClick, onClick);
-
     if (isOneOf('click', trigger)) {
       triggerProps.onClick = utils_createChainedFunction(triggerProps.onClick, this.handleToggle);
     }
-
     if (isOneOf('hover', trigger)) {
        false ? undefined : void 0;
       triggerProps.onMouseOver = utils_createChainedFunction(childProps.onMouseOver, onMouseOver, this.handleMouseOver);
       triggerProps.onMouseOut = utils_createChainedFunction(childProps.onMouseOut, onMouseOut, this.handleMouseOut);
     }
-
     if (isOneOf('focus', trigger)) {
       triggerProps.onFocus = utils_createChainedFunction(childProps.onFocus, onFocus, this.handleDelayedShow);
       triggerProps.onBlur = utils_createChainedFunction(childProps.onBlur, onBlur, this.handleDelayedHide);
     }
-
     this._overlay = this.makeOverlay(overlay, props);
     return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, triggerProps);
   };
-
   return OverlayTrigger;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 OverlayTrigger_OverlayTrigger.propTypes = OverlayTrigger_propTypes;
 OverlayTrigger_OverlayTrigger.defaultProps = OverlayTrigger_defaultProps;
 /* harmony default export */ var src_OverlayTrigger = (OverlayTrigger_OverlayTrigger);
@@ -14822,31 +12581,24 @@ OverlayTrigger_OverlayTrigger.defaultProps = OverlayTrigger_defaultProps;
 
 
 var PageHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/PageHeader.js";
+var PageHeader_excluded = ["className", "children"];
 
 
 
-
-var PageHeader_PageHeader =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PageHeader, _React$Component);
-
+var PageHeader_PageHeader = /*#__PURE__*/function (_React$Component) {
   function PageHeader() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PageHeader, _React$Component);
   var _proto = PageHeader.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, PageHeader_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -14863,17 +12615,15 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return PageHeader;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_PageHeader = (bootstrapUtils_bsClass('page-header', PageHeader_PageHeader));
 // CONCATENATED MODULE: ./src/PagerItem.js
 
 
 
-
 var PagerItem_jsxFileName = "/Users/harrison/react-bootstrap/src/PagerItem.js";
+var PagerItem_excluded = ["disabled", "previous", "next", "onClick", "className", "style"];
 
 
 
@@ -14892,48 +12642,37 @@ var PagerItem_defaultProps = {
   previous: false,
   next: false
 };
-
-var PagerItem_PagerItem =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PagerItem, _React$Component);
-
+var PagerItem_PagerItem = /*#__PURE__*/function (_React$Component) {
   function PagerItem(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleSelect = _this.handleSelect.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSelect = _this.handleSelect.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(PagerItem, _React$Component);
   var _proto = PagerItem.prototype;
-
   _proto.handleSelect = function handleSelect(e) {
     var _this$props = this.props,
-        disabled = _this$props.disabled,
-        onSelect = _this$props.onSelect,
-        eventKey = _this$props.eventKey;
-
+      disabled = _this$props.disabled,
+      onSelect = _this$props.onSelect,
+      eventKey = _this$props.eventKey;
     if (disabled) {
       e.preventDefault();
       return;
     }
-
     if (onSelect) {
       onSelect(eventKey, e);
     }
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        disabled = _this$props2.disabled,
-        previous = _this$props2.previous,
-        next = _this$props2.next,
-        onClick = _this$props2.onClick,
-        className = _this$props2.className,
-        style = _this$props2.style,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["disabled", "previous", "next", "onClick", "className", "style"]);
-
+      disabled = _this$props2.disabled,
+      previous = _this$props2.previous,
+      next = _this$props2.next,
+      onClick = _this$props2.onClick,
+      className = _this$props2.className,
+      style = _this$props2.style,
+      props = _objectWithoutPropertiesLoose(_this$props2, PagerItem_excluded);
     delete props.onSelect;
     delete props.eventKey;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", {
@@ -14958,10 +12697,8 @@ function (_React$Component) {
       __self: this
     })));
   };
-
   return PagerItem;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PagerItem_PagerItem.propTypes = PagerItem_propTypes;
 PagerItem_PagerItem.defaultProps = PagerItem_defaultProps;
 /* harmony default export */ var src_PagerItem = (PagerItem_PagerItem);
@@ -14969,63 +12706,45 @@ PagerItem_PagerItem.defaultProps = PagerItem_defaultProps;
 
 
 var warned = {};
-
 function deprecationWarning(oldname, newname, link) {
   var message;
-
   if (typeof oldname === 'object') {
     message = oldname.message;
   } else {
     message = oldname + " is deprecated. Use " + newname + " instead.";
-
     if (link) {
       message += "\nYou can read more about it at " + link;
     }
   }
-
   if (warned[message]) {
     return;
   }
-
    false ? undefined : void 0;
   warned[message] = true;
 }
-
 deprecationWarning.wrapper = function (Component) {
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
   }
-
-  return (
-    /*#__PURE__*/
-    function (_Component) {
-      _inheritsLoose(DeprecatedComponent, _Component);
-
-      function DeprecatedComponent() {
-        return _Component.apply(this, arguments) || this;
-      }
-
-      var _proto = DeprecatedComponent.prototype;
-
-      _proto.componentWillMount = function componentWillMount() {
-        deprecationWarning.apply(void 0, args);
-
-        if (_Component.prototype.componentWillMount) {
-          var _Component$prototype$;
-
-          for (var _len2 = arguments.length, methodArgs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-            methodArgs[_key2] = arguments[_key2];
-          }
-
-          (_Component$prototype$ = _Component.prototype.componentWillMount).call.apply(_Component$prototype$, [this].concat(methodArgs));
+  return /*#__PURE__*/function (_Component) {
+    function DeprecatedComponent() {
+      return _Component.apply(this, arguments) || this;
+    }
+    _inheritsLoose(DeprecatedComponent, _Component);
+    var _proto = DeprecatedComponent.prototype;
+    _proto.componentWillMount = function componentWillMount() {
+      deprecationWarning.apply(void 0, args);
+      if (_Component.prototype.componentWillMount) {
+        var _Component$prototype$;
+        for (var _len2 = arguments.length, methodArgs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          methodArgs[_key2] = arguments[_key2];
         }
-      };
-
-      return DeprecatedComponent;
-    }(Component)
-  );
+        (_Component$prototype$ = _Component.prototype.componentWillMount).call.apply(_Component$prototype$, [this].concat(methodArgs));
+      }
+    };
+    return DeprecatedComponent;
+  }(Component);
 };
-
 /* harmony default export */ var utils_deprecationWarning = (deprecationWarning);
 function _resetWarned() {
   warned = {};
@@ -15039,6 +12758,7 @@ function _resetWarned() {
 
 
 var Pager_jsxFileName = "/Users/harrison/react-bootstrap/src/Pager.js";
+var Pager_excluded = ["onSelect", "className", "children"];
 
 
 
@@ -15049,29 +12769,21 @@ var Pager_jsxFileName = "/Users/harrison/react-bootstrap/src/Pager.js";
 var Pager_propTypes = {
   onSelect: prop_types_default.a.func
 };
-
-var Pager_Pager =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Pager, _React$Component);
-
+var Pager_Pager = /*#__PURE__*/function (_React$Component) {
   function Pager() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Pager, _React$Component);
   var _proto = Pager.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        onSelect = _this$props.onSelect,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onSelect", "className", "children"]);
-
+      onSelect = _this$props.onSelect,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Pager_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("ul", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -15086,10 +12798,8 @@ function (_React$Component) {
       });
     }));
   };
-
   return Pager;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Pager_Pager.propTypes = Pager_propTypes;
 Pager_Pager.Item = src_PagerItem;
 /* harmony default export */ var src_Pager = (bootstrapUtils_bsClass('pager', Pager_Pager));
@@ -15098,7 +12808,8 @@ Pager_Pager.Item = src_PagerItem;
 
 
 var PaginationItem_jsxFileName = "/Users/harrison/react-bootstrap/src/PaginationItem.js";
-
+var PaginationItem_excluded = ["active", "disabled", "className", "style", "activeLabel", "children"],
+  PaginationItem_excluded2 = ["disabled", "children", "className"];
 /* eslint-disable react/no-multi-comp */
 
 
@@ -15119,13 +12830,12 @@ var PaginationItem_defaultProps = {
 };
 function PaginationItem(_ref) {
   var active = _ref.active,
-      disabled = _ref.disabled,
-      className = _ref.className,
-      style = _ref.style,
-      activeLabel = _ref.activeLabel,
-      children = _ref.children,
-      props = _objectWithoutPropertiesLoose(_ref, ["active", "disabled", "className", "style", "activeLabel", "children"]);
-
+    disabled = _ref.disabled,
+    className = _ref.className,
+    style = _ref.style,
+    activeLabel = _ref.activeLabel,
+    children = _ref.children,
+    props = _objectWithoutPropertiesLoose(_ref, PaginationItem_excluded);
   var Component = active || disabled ? 'span' : src_SafeAnchor;
   return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", {
     style: style,
@@ -15157,32 +12867,23 @@ function PaginationItem(_ref) {
 }
 PaginationItem.propTypes = PaginationItem_propTypes;
 PaginationItem.defaultProps = PaginationItem_defaultProps;
-
 function createButton(name, defaultValue, label) {
-  var _class, _temp;
-
+  var _Class, _temp;
   if (label === void 0) {
     label = name;
   }
-
-  return _temp = _class =
-  /*#__PURE__*/
-  function (_React$Component) {
-    _inheritsLoose(_class, _React$Component);
-
-    function _class() {
+  return _temp = _Class = /*#__PURE__*/function (_React$Component) {
+    function _Class() {
       return _React$Component.apply(this, arguments) || this;
     }
-
-    var _proto = _class.prototype;
-
+    _inheritsLoose(_Class, _React$Component);
+    var _proto = _Class.prototype;
     _proto.render = function render() {
       var _this$props = this.props,
-          disabled = _this$props.disabled,
-          children = _this$props.children,
-          className = _this$props.className,
-          props = _objectWithoutPropertiesLoose(_this$props, ["disabled", "children", "className"]);
-
+        disabled = _this$props.disabled,
+        children = _this$props.children,
+        className = _this$props.className,
+        props = _objectWithoutPropertiesLoose(_this$props, PaginationItem_excluded2);
       var Component = disabled ? 'span' : src_SafeAnchor;
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("li", _extends({
         "aria-label": label,
@@ -15203,13 +12904,11 @@ function createButton(name, defaultValue, label) {
         __self: this
       }, children || defaultValue));
     };
-
-    return _class;
-  }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component), _class.displayName = name, _class.propTypes = {
+    return _Class;
+  }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component), _Class.displayName = name, _Class.propTypes = {
     disabled: prop_types_default.a.bool
   }, _temp;
 }
-
 var First = createButton('First', "\xAB");
 var Prev = createButton('Prev', "\u2039");
 var Ellipsis = createButton('Ellipsis', "\u2026", 'More');
@@ -15220,32 +12919,25 @@ var Last = createButton('Last', "\xBB");
 
 
 var Pagination_jsxFileName = "/Users/harrison/react-bootstrap/src/Pagination.js";
+var Pagination_excluded = ["className", "children"];
 
 
 
 
-
-var Pagination_Pagination =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Pagination, _React$Component);
-
+var Pagination_Pagination = /*#__PURE__*/function (_React$Component) {
   function Pagination() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Pagination, _React$Component);
   var _proto = Pagination.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Pagination_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("ul", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -15256,10 +12948,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return Pagination;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 bootstrapUtils_bsClass('pagination', Pagination_Pagination);
 Pagination_Pagination.First = First;
 Pagination_Pagination.Prev = Prev;
@@ -15281,27 +12971,22 @@ var PanelCollapse_propTypes = {
    * Callback fired before the component expands
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to expand
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Callback fired after the component has expanded
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Callback fired before the component collapses
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Callback fired after the component starts to collapse
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Callback fired after the component has collapsed
    */
@@ -15315,41 +13000,30 @@ var PanelCollapse_contextTypes = {
     expanded: prop_types_default.a.bool
   })
 };
-
-var PanelCollapse_PanelCollapse =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelCollapse, _React$Component);
-
+var PanelCollapse_PanelCollapse = /*#__PURE__*/function (_React$Component) {
   function PanelCollapse() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelCollapse, _React$Component);
   var _proto = PanelCollapse.prototype;
-
   _proto.render = function render() {
     var children = this.props.children;
-
     var _ref = this.context.$bs_panel || {},
-        headingId = _ref.headingId,
-        bodyId = _ref.bodyId,
-        _bsClass = _ref.bsClass,
-        expanded = _ref.expanded;
-
+      headingId = _ref.headingId,
+      bodyId = _ref.bodyId,
+      _bsClass = _ref.bsClass,
+      expanded = _ref.expanded;
     var _splitBsProps = splitBsProps(this.props),
-        bsProps = _splitBsProps[0],
-        props = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      props = _splitBsProps[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
-
     if (headingId && bodyId) {
       props.id = bodyId;
       props.role = props.role || 'tabpanel';
       props['aria-labelledby'] = headingId;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Collapse, _extends({
-      in: expanded
+      "in": expanded
     }, props, {
       __source: {
         fileName: PanelCollapse_jsxFileName,
@@ -15365,10 +13039,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return PanelCollapse;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelCollapse_PanelCollapse.propTypes = PanelCollapse_propTypes;
 PanelCollapse_PanelCollapse.contextTypes = PanelCollapse_contextTypes;
 /* harmony default export */ var src_PanelCollapse = (bootstrapUtils_bsClass('panel', PanelCollapse_PanelCollapse));
@@ -15403,31 +13075,22 @@ var PanelBody_contextTypes = {
     bsClass: prop_types_default.a.string
   })
 };
-
-var PanelBody_PanelBody =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelBody, _React$Component);
-
+var PanelBody_PanelBody = /*#__PURE__*/function (_React$Component) {
   function PanelBody() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelBody, _React$Component);
   var _proto = PanelBody.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className,
-        collapsible = _this$props.collapsible;
-
+      children = _this$props.children,
+      className = _this$props.className,
+      collapsible = _this$props.collapsible;
     var _ref = this.context.$bs_panel || {},
-        _bsClass = _ref.bsClass;
-
+      _bsClass = _ref.bsClass;
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['collapsible']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
     var body = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'body')),
@@ -15437,7 +13100,6 @@ function (_React$Component) {
       },
       __self: this
     }), children);
-
     if (collapsible) {
       body = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_PanelCollapse, {
         __source: {
@@ -15447,13 +13109,10 @@ function (_React$Component) {
         __self: this
       }, body);
     }
-
     return body;
   };
-
   return PanelBody;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelBody_PanelBody.propTypes = PanelBody_propTypes;
 PanelBody_PanelBody.defaultProps = PanelBody_defaultProps;
 PanelBody_PanelBody.contextTypes = PanelBody_contextTypes;
@@ -15467,6 +13126,7 @@ var lib_elementType_default = /*#__PURE__*/__webpack_require__.n(lib_elementType
 
 
 var PanelHeading_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelHeading.js";
+var PanelHeading_excluded = ["children", "className", "componentClass"];
 
 
 
@@ -15484,40 +13144,29 @@ var PanelHeading_contextTypes = {
     bsClass: prop_types_default.a.string
   })
 };
-
-var PanelHeading_PanelHeading =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelHeading, _React$Component);
-
+var PanelHeading_PanelHeading = /*#__PURE__*/function (_React$Component) {
   function PanelHeading() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelHeading, _React$Component);
   var _proto = PanelHeading.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className,
-        Component = _this$props.componentClass,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "componentClass"]);
-
+      children = _this$props.children,
+      className = _this$props.className,
+      Component = _this$props.componentClass,
+      props = _objectWithoutPropertiesLoose(_this$props, PanelHeading_excluded);
     var _ref = this.context.$bs_panel || {},
-        headingId = _ref.headingId,
-        _bsClass = _ref.bsClass;
-
+      headingId = _ref.headingId,
+      _bsClass = _ref.bsClass;
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
-
     if (headingId) {
       elementProps.role = elementProps.role || 'tab';
       elementProps.id = headingId;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'heading')),
       __source: {
@@ -15527,10 +13176,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return PanelHeading;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelHeading_PanelHeading.propTypes = PanelHeading_propTypes;
 PanelHeading_PanelHeading.defaultProps = PanelHeading_defaultProps;
 PanelHeading_PanelHeading.contextTypes = PanelHeading_contextTypes;
@@ -15539,8 +13186,8 @@ PanelHeading_PanelHeading.contextTypes = PanelHeading_contextTypes;
 
 
 
-
 var PanelToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelToggle.js";
+var PanelToggle_excluded = ["onClick", "className", "componentClass"];
 
 
 
@@ -15554,7 +13201,6 @@ var PanelToggle_propTypes = {
    * @private
    */
   onClick: prop_types_default.a.func,
-
   /**
    * You can use a custom element for this component
    */
@@ -15570,55 +13216,41 @@ var PanelToggle_contextTypes = {
     expanded: prop_types_default.a.bool
   })
 };
-
-var PanelToggle_PanelToggle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelToggle, _React$Component);
-
+var PanelToggle_PanelToggle = /*#__PURE__*/function (_React$Component) {
   function PanelToggle() {
     var _this;
-
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleToggle = _this.handleToggle.bind(_this);
     return _this;
   }
-
+  _inheritsLoose(PanelToggle, _React$Component);
   var _proto = PanelToggle.prototype;
-
   _proto.handleToggle = function handleToggle(event) {
     var _ref = this.context.$bs_panel || {},
-        onToggle = _ref.onToggle;
-
+      onToggle = _ref.onToggle;
     if (onToggle) {
       onToggle(event);
     }
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        onClick = _this$props.onClick,
-        className = _this$props.className,
-        componentClass = _this$props.componentClass,
-        props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "componentClass"]);
-
+      onClick = _this$props.onClick,
+      className = _this$props.className,
+      componentClass = _this$props.componentClass,
+      props = _objectWithoutPropertiesLoose(_this$props, PanelToggle_excluded);
     var _ref2 = this.context.$bs_panel || {},
-        expanded = _ref2.expanded,
-        bodyId = _ref2.bodyId;
-
+      expanded = _ref2.expanded,
+      bodyId = _ref2.bodyId;
     var Component = componentClass;
     props.onClick = utils_createChainedFunction(onClick, this.handleToggle);
     props['aria-expanded'] = expanded;
     props.className = classnames_default()(className, !expanded && 'collapsed');
-
     if (bodyId) {
       props['aria-controls'] = bodyId;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, props, {
       __source: {
         fileName: PanelToggle_jsxFileName,
@@ -15627,10 +13259,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return PanelToggle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelToggle_PanelToggle.propTypes = PanelToggle_propTypes;
 PanelToggle_PanelToggle.defaultProps = PanelToggle_defaultProps;
 PanelToggle_PanelToggle.contextTypes = PanelToggle_contextTypes;
@@ -15640,6 +13270,7 @@ PanelToggle_PanelToggle.contextTypes = PanelToggle_contextTypes;
 
 
 var PanelTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelTitle.js";
+var PanelTitle_excluded = ["children", "className", "toggle", "componentClass"];
 
 
 
@@ -15648,7 +13279,6 @@ var PanelTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelTitle.js"
 
 var PanelTitle_propTypes = {
   componentClass: lib_elementType_default.a,
-
   /**
    * A convenience prop that renders the Panel.Title as a panel collapse toggle component
    * for the common use-case.
@@ -15663,35 +13293,25 @@ var PanelTitle_contextTypes = {
 var PanelTitle_defaultProps = {
   componentClass: 'div'
 };
-
-var PanelTitle_PanelTitle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelTitle, _React$Component);
-
+var PanelTitle_PanelTitle = /*#__PURE__*/function (_React$Component) {
   function PanelTitle() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelTitle, _React$Component);
   var _proto = PanelTitle.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className,
-        toggle = _this$props.toggle,
-        Component = _this$props.componentClass,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "toggle", "componentClass"]);
-
+      children = _this$props.children,
+      className = _this$props.className,
+      toggle = _this$props.toggle,
+      Component = _this$props.componentClass,
+      props = _objectWithoutPropertiesLoose(_this$props, PanelTitle_excluded);
     var _ref = this.context.$bs_panel || {},
-        _bsClass = _ref.bsClass;
-
+      _bsClass = _ref.bsClass;
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
-
     if (toggle) {
       children = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_PanelToggle, {
         __source: {
@@ -15701,7 +13321,6 @@ function (_React$Component) {
         __self: this
       }, children);
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'title')),
       __source: {
@@ -15711,10 +13330,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return PanelTitle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelTitle_PanelTitle.propTypes = PanelTitle_propTypes;
 PanelTitle_PanelTitle.defaultProps = PanelTitle_defaultProps;
 PanelTitle_PanelTitle.contextTypes = PanelTitle_contextTypes;
@@ -15732,30 +13349,21 @@ var PanelFooter_contextTypes = {
     bsClass: prop_types_default.a.string
   })
 };
-
-var PanelFooter_PanelFooter =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(PanelFooter, _React$Component);
-
+var PanelFooter_PanelFooter = /*#__PURE__*/function (_React$Component) {
   function PanelFooter() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(PanelFooter, _React$Component);
   var _proto = PanelFooter.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className;
-
+      children = _this$props.children,
+      className = _this$props.className;
     var _ref = this.context.$bs_panel || {},
-        _bsClass = _ref.bsClass;
-
+      _bsClass = _ref.bsClass;
     var _splitBsProps = splitBsProps(this.props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     bsProps.bsClass = _bsClass || bsProps.bsClass;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'footer')),
@@ -15766,10 +13374,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return PanelFooter;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 PanelFooter_PanelFooter.contextTypes = PanelFooter_contextTypes;
 /* harmony default export */ var src_PanelFooter = (bootstrapUtils_bsClass('panel', PanelFooter_PanelFooter));
 // CONCATENATED MODULE: ./src/Panel.js
@@ -15792,11 +13398,9 @@ var Panel_jsxFileName = "/Users/harrison/react-bootstrap/src/Panel.js";
 
 
 var has = Object.prototype.hasOwnProperty;
-
 var defaultGetId = function defaultGetId(id, type) {
   return id ? id + "--" + type : null;
 };
-
 var Panel_propTypes = {
   /**
    * Controls the collapsed/expanded state ofthe Panel. Requires
@@ -15806,7 +13410,6 @@ var Panel_propTypes = {
    * @controllable onToggle
    */
   expanded: prop_types_default.a.bool,
-
   /**
    * A callback fired when the collapse state changes.
    *
@@ -15814,7 +13417,6 @@ var Panel_propTypes = {
    */
   onToggle: prop_types_default.a.func,
   eventKey: prop_types_default.a.any,
-
   /**
    * An HTML `id` attribute uniquely identifying the Panel component.
    */
@@ -15836,44 +13438,32 @@ var Panel_childContextTypes = {
     expanded: prop_types_default.a.bool
   })
 };
-
-var Panel_Panel =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Panel, _React$Component);
-
+var Panel_Panel = /*#__PURE__*/function (_React$Component) {
   function Panel() {
     var _this;
-
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
     _this.handleToggle = function (e) {
       var panelGroup = _this.context.$bs_panelGroup;
       var expanded = !_this.getExpanded();
-
       if (panelGroup && panelGroup.onToggle) {
         panelGroup.onToggle(_this.props.eventKey, expanded, e);
       } else {
         _this.props.onToggle(expanded, e);
       }
     };
-
     return _this;
   }
-
+  _inheritsLoose(Panel, _React$Component);
   var _proto = Panel.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        eventKey = _this$props.eventKey,
-        id = _this$props.id;
+      eventKey = _this$props.eventKey,
+      id = _this$props.id;
     var idKey = eventKey == null ? id : eventKey;
     var ids;
-
     if (idKey !== null) {
       var panelGroup = this.context.$bs_panelGroup;
       var getId = panelGroup && panelGroup.getId || defaultGetId;
@@ -15882,7 +13472,6 @@ function (_React$Component) {
         bodyId: getId(idKey, 'body')
       };
     }
-
     return {
       $bs_panel: _extends({}, ids, {
         bsClass: this.props.bsClass,
@@ -15891,27 +13480,21 @@ function (_React$Component) {
       })
     };
   };
-
   _proto.getExpanded = function getExpanded() {
     var panelGroup = this.context.$bs_panelGroup;
-
     if (panelGroup && has.call(panelGroup, 'activeKey')) {
        false ? undefined : void 0;
       return panelGroup.activeKey === this.props.eventKey;
     }
-
     return !!this.props.expanded;
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        className = _this$props2.className,
-        children = _this$props2.children;
-
+      className = _this$props2.className,
+      children = _this$props2.children;
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['onToggle', 'eventKey', 'expanded']),
-        bsProps = _splitBsPropsAndOmit[0],
-        props = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      props = _splitBsPropsAndOmit[1];
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, props, {
       className: classnames_default()(className, getClassSet(bsProps)),
       __source: {
@@ -15921,17 +13504,14 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return Panel;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Panel_Panel.propTypes = Panel_propTypes;
 Panel_Panel.contextTypes = Panel_contextTypes;
 Panel_Panel.childContextTypes = Panel_childContextTypes;
-var UncontrolledPanel = uncontrollable_default()(bootstrapUtils_bsClass('panel', bsStyles(values_default()(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel_Panel)), {
+var UncontrolledPanel = uncontrollable_default()(bootstrapUtils_bsClass('panel', bsStyles([].concat(values_default()(State), [Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel_Panel)), {
   expanded: 'onToggle'
 });
-
 assign_default()(UncontrolledPanel, {
   Heading: src_PanelHeading,
   Title: src_PanelTitle,
@@ -15940,13 +13520,13 @@ assign_default()(UncontrolledPanel, {
   Toggle: src_PanelToggle,
   Collapse: src_PanelCollapse
 });
-
 /* harmony default export */ var src_Panel = (UncontrolledPanel);
 // CONCATENATED MODULE: ./src/Popover.js
 
 
 
 var Popover_jsxFileName = "/Users/harrison/react-bootstrap/src/Popover.js";
+var Popover_excluded = ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "title", "className", "style", "children"];
 
 
 
@@ -15959,32 +13539,26 @@ var Popover_propTypes = {
    * @required
    */
   id: isRequiredForA11y_default()(prop_types_default.a.oneOfType([prop_types_default.a.string, prop_types_default.a.number])),
-
   /**
    * Sets the direction the Popover is positioned towards.
    */
   placement: prop_types_default.a.oneOf(['top', 'right', 'bottom', 'left']),
-
   /**
    * The "top" position value for the Popover.
    */
   positionTop: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "left" position value for the Popover.
    */
   positionLeft: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "top" position value for the Popover arrow.
    */
   arrowOffsetTop: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "left" position value for the Popover arrow.
    */
   arrowOffsetLeft: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * Title content
    */
@@ -15993,45 +13567,34 @@ var Popover_propTypes = {
 var Popover_defaultProps = {
   placement: 'right'
 };
-
-var Popover_Popover =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Popover, _React$Component);
-
+var Popover_Popover = /*#__PURE__*/function (_React$Component) {
   function Popover() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Popover, _React$Component);
   var _proto = Popover.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        placement = _this$props.placement,
-        positionTop = _this$props.positionTop,
-        positionLeft = _this$props.positionLeft,
-        arrowOffsetTop = _this$props.arrowOffsetTop,
-        arrowOffsetLeft = _this$props.arrowOffsetLeft,
-        title = _this$props.title,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "title", "className", "style", "children"]);
-
+      placement = _this$props.placement,
+      positionTop = _this$props.positionTop,
+      positionLeft = _this$props.positionLeft,
+      arrowOffsetTop = _this$props.arrowOffsetTop,
+      arrowOffsetLeft = _this$props.arrowOffsetLeft,
+      title = _this$props.title,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Popover_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[placement] = true, _extends2));
-
     var outerStyle = _extends({
       display: 'block',
       top: positionTop,
       left: positionLeft
     }, style);
-
     var arrowStyle = {
       top: arrowOffsetTop,
       left: arrowOffsetLeft
@@ -16069,10 +13632,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return Popover;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Popover_Popover.propTypes = Popover_propTypes;
 Popover_Popover.defaultProps = Popover_defaultProps;
 /* harmony default export */ var src_Popover = (bootstrapUtils_bsClass('popover', Popover_Popover));
@@ -16081,6 +13642,9 @@ Popover_Popover.defaultProps = Popover_defaultProps;
 
 
 
+var ProgressBar_excluded = ["min", "now", "max", "label", "srOnly", "striped", "active", "className", "style"],
+  ProgressBar_excluded2 = ["isChild"],
+  _excluded3 = ["min", "now", "max", "label", "srOnly", "striped", "active", "bsClass", "bsStyle", "className", "children"];
 var ProgressBar_jsxFileName = "/Users/harrison/react-bootstrap/src/ProgressBar.js";
 
 
@@ -16089,30 +13653,27 @@ var ProgressBar_jsxFileName = "/Users/harrison/react-bootstrap/src/ProgressBar.j
 
 
 var ROUND_PRECISION = 1000;
+
 /**
  * Validate that children, if any, are instances of `<ProgressBar>`.
  */
-
 function onlyProgressBar(props, propName, componentName) {
   var children = props[propName];
-
   if (!children) {
     return null;
   }
-
   var error = null;
   external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.forEach(children, function (child) {
     if (error) {
       return;
     }
+
     /**
      * Compare types in a way that works with libraries that patch and proxy
      * components like react-hot-loader.
      *
      * see https://github.com/gaearon/react-hot-loader#checking-element-types
      */
-
-
     var element = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(ProgressBar_ProgressBar, {
       __source: {
         fileName: ProgressBar_jsxFileName,
@@ -16126,7 +13687,6 @@ function onlyProgressBar(props, propName, componentName) {
   });
   return error;
 }
-
 var ProgressBar_propTypes = {
   min: prop_types_default.a.number,
   now: prop_types_default.a.number,
@@ -16136,7 +13696,6 @@ var ProgressBar_propTypes = {
   striped: prop_types_default.a.bool,
   active: prop_types_default.a.bool,
   children: onlyProgressBar,
-
   /**
    * @private
    */
@@ -16150,45 +13709,34 @@ var ProgressBar_defaultProps = {
   srOnly: false,
   striped: false
 };
-
 function getPercentage(now, min, max) {
   var percentage = (now - min) / (max - min) * 100;
   return Math.round(percentage * ROUND_PRECISION) / ROUND_PRECISION;
 }
-
-var ProgressBar_ProgressBar =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ProgressBar, _React$Component);
-
+var ProgressBar_ProgressBar = /*#__PURE__*/function (_React$Component) {
   function ProgressBar() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ProgressBar, _React$Component);
   var _proto = ProgressBar.prototype;
-
   _proto.renderProgressBar = function renderProgressBar(_ref) {
     var _extends2;
-
     var min = _ref.min,
-        now = _ref.now,
-        max = _ref.max,
-        label = _ref.label,
-        srOnly = _ref.srOnly,
-        striped = _ref.striped,
-        active = _ref.active,
-        className = _ref.className,
-        style = _ref.style,
-        props = _objectWithoutPropertiesLoose(_ref, ["min", "now", "max", "label", "srOnly", "striped", "active", "className", "style"]);
-
+      now = _ref.now,
+      max = _ref.max,
+      label = _ref.label,
+      srOnly = _ref.srOnly,
+      striped = _ref.striped,
+      active = _ref.active,
+      className = _ref.className,
+      style = _ref.style,
+      props = _objectWithoutPropertiesLoose(_ref, ProgressBar_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {
       active: active
     }, _extends2[prefix(bsProps, 'striped')] = active || striped, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       role: "progressbar",
       className: classnames_default()(className, classes),
@@ -16212,29 +13760,25 @@ function (_React$Component) {
       __self: this
     }, label) : label);
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        isChild = _this$props.isChild,
-        props = _objectWithoutPropertiesLoose(_this$props, ["isChild"]);
-
+      isChild = _this$props.isChild,
+      props = _objectWithoutPropertiesLoose(_this$props, ProgressBar_excluded2);
     if (isChild) {
       return this.renderProgressBar(props);
     }
-
     var min = props.min,
-        now = props.now,
-        max = props.max,
-        label = props.label,
-        srOnly = props.srOnly,
-        striped = props.striped,
-        active = props.active,
-        bsClass = props.bsClass,
-        bsStyle = props.bsStyle,
-        className = props.className,
-        children = props.children,
-        wrapperProps = _objectWithoutPropertiesLoose(props, ["min", "now", "max", "label", "srOnly", "striped", "active", "bsClass", "bsStyle", "className", "children"]);
-
+      now = props.now,
+      max = props.max,
+      label = props.label,
+      srOnly = props.srOnly,
+      striped = props.striped,
+      active = props.active,
+      bsClass = props.bsClass,
+      bsStyle = props.bsStyle,
+      className = props.className,
+      children = props.children,
+      wrapperProps = _objectWithoutPropertiesLoose(props, _excluded3);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, wrapperProps, {
       className: classnames_default()(className, 'progress'),
       __source: {
@@ -16258,10 +13802,8 @@ function (_React$Component) {
       bsStyle: bsStyle
     }));
   };
-
   return ProgressBar;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ProgressBar_ProgressBar.propTypes = ProgressBar_propTypes;
 ProgressBar_ProgressBar.defaultProps = ProgressBar_defaultProps;
 /* harmony default export */ var src_ProgressBar = (bootstrapUtils_bsClass('progress-bar', bsStyles(values_default()(State), ProgressBar_ProgressBar)));
@@ -16270,8 +13812,9 @@ ProgressBar_ProgressBar.defaultProps = ProgressBar_defaultProps;
 
 
 var Radio_jsxFileName = "/Users/harrison/react-bootstrap/src/Radio.js";
-
+var Radio_excluded = ["inline", "disabled", "validationState", "inputRef", "className", "style", "title", "children"];
 /* eslint-disable jsx-a11y/label-has-for */
+
 
 
 
@@ -16281,12 +13824,10 @@ var Radio_propTypes = {
   inline: prop_types_default.a.bool,
   disabled: prop_types_default.a.bool,
   title: prop_types_default.a.string,
-
   /**
    * Only valid if `inline` is not set.
    */
   validationState: prop_types_default.a.oneOf(['success', 'warning', 'error', null]),
-
   /**
    * Attaches a ref to the `<input>` element. Only functions can be used here.
    *
@@ -16301,34 +13842,26 @@ var Radio_defaultProps = {
   disabled: false,
   title: ''
 };
-
-var Radio_Radio =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Radio, _React$Component);
-
+var Radio_Radio = /*#__PURE__*/function (_React$Component) {
   function Radio() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Radio, _React$Component);
   var _proto = Radio.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        inline = _this$props.inline,
-        disabled = _this$props.disabled,
-        validationState = _this$props.validationState,
-        inputRef = _this$props.inputRef,
-        className = _this$props.className,
-        style = _this$props.style,
-        title = _this$props.title,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["inline", "disabled", "validationState", "inputRef", "className", "style", "title", "children"]);
-
+      inline = _this$props.inline,
+      disabled = _this$props.disabled,
+      validationState = _this$props.validationState,
+      inputRef = _this$props.inputRef,
+      className = _this$props.className,
+      style = _this$props.style,
+      title = _this$props.title,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Radio_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var input = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("input", _extends({}, elementProps, {
       ref: inputRef,
       type: "radio",
@@ -16339,14 +13872,12 @@ function (_React$Component) {
       },
       __self: this
     }));
-
     if (inline) {
       var _classes2;
+      var _classes = (_classes2 = {}, _classes2[prefix(bsProps, 'inline')] = true, _classes2.disabled = disabled, _classes2);
 
-      var _classes = (_classes2 = {}, _classes2[prefix(bsProps, 'inline')] = true, _classes2.disabled = disabled, _classes2); // Use a warning here instead of in propTypes to get better-looking
+      // Use a warning here instead of in propTypes to get better-looking
       // generated documentation.
-
-
        false ? undefined : void 0;
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("label", {
         className: classnames_default()(className, _classes),
@@ -16359,15 +13890,12 @@ function (_React$Component) {
         __self: this
       }, input, children);
     }
-
     var classes = _extends({}, getClassSet(bsProps), {
       disabled: disabled
     });
-
     if (validationState) {
       classes["has-" + validationState] = true;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
       className: classnames_default()(className, classes),
       style: style,
@@ -16385,10 +13913,8 @@ function (_React$Component) {
       __self: this
     }, input, children));
   };
-
   return Radio;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Radio_Radio.propTypes = Radio_propTypes;
 Radio_Radio.defaultProps = Radio_defaultProps;
 /* harmony default export */ var src_Radio = (bootstrapUtils_bsClass('radio', Radio_Radio));
@@ -16397,23 +13923,24 @@ Radio_Radio.defaultProps = Radio_defaultProps;
 
 
 var ResponsiveEmbed_jsxFileName = "/Users/harrison/react-bootstrap/src/ResponsiveEmbed.js";
+var ResponsiveEmbed_excluded = ["a16by9", "a4by3", "className", "children"];
 
 
 
 
- // TODO: This should probably take a single `aspectRatio` prop.
+
+
+// TODO: This should probably take a single `aspectRatio` prop.
 
 var ResponsiveEmbed_propTypes = {
   /**
    * This component requires a single child element
    */
   children: prop_types_default.a.element.isRequired,
-
   /**
    * 16by9 aspect ratio
    */
   a16by9: prop_types_default.a.bool,
-
   /**
    * 4by3 aspect ratio
    */
@@ -16423,37 +13950,26 @@ var ResponsiveEmbed_defaultProps = {
   a16by9: false,
   a4by3: false
 };
-
-var ResponsiveEmbed_ResponsiveEmbed =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ResponsiveEmbed, _React$Component);
-
+var ResponsiveEmbed_ResponsiveEmbed = /*#__PURE__*/function (_React$Component) {
   function ResponsiveEmbed() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ResponsiveEmbed, _React$Component);
   var _proto = ResponsiveEmbed.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        a16by9 = _this$props.a16by9,
-        a4by3 = _this$props.a4by3,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["a16by9", "a4by3", "className", "children"]);
-
+      a16by9 = _this$props.a16by9,
+      a4by3 = _this$props.a4by3,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, ResponsiveEmbed_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
      false ? undefined : void 0;
      false ? undefined : void 0;
-
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, '16by9')] = a16by9, _extends2[prefix(bsProps, '4by3')] = a4by3, _extends2));
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
       className: classnames_default()(classes),
       __source: {
@@ -16465,10 +13981,8 @@ function (_React$Component) {
       className: classnames_default()(className, prefix(bsProps, 'item'))
     })));
   };
-
   return ResponsiveEmbed;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ResponsiveEmbed_ResponsiveEmbed.propTypes = ResponsiveEmbed_propTypes;
 ResponsiveEmbed_ResponsiveEmbed.defaultProps = ResponsiveEmbed_defaultProps;
 /* harmony default export */ var src_ResponsiveEmbed = (bootstrapUtils_bsClass('embed-responsive', ResponsiveEmbed_ResponsiveEmbed));
@@ -16477,6 +13991,7 @@ ResponsiveEmbed_ResponsiveEmbed.defaultProps = ResponsiveEmbed_defaultProps;
 
 
 var Row_jsxFileName = "/Users/harrison/react-bootstrap/src/Row.js";
+var Row_excluded = ["componentClass", "className"];
 
 
 
@@ -16487,28 +14002,20 @@ var Row_propTypes = {
 var Row_defaultProps = {
   componentClass: 'div'
 };
-
-var Row_Row =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Row, _React$Component);
-
+var Row_Row = /*#__PURE__*/function (_React$Component) {
   function Row() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Row, _React$Component);
   var _proto = Row.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
-
+      Component = _this$props.componentClass,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Row_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -16519,10 +14026,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Row;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Row_Row.propTypes = Row_propTypes;
 Row_Row.defaultProps = Row_defaultProps;
 /* harmony default export */ var src_Row = (bootstrapUtils_bsClass('row', Row_Row));
@@ -16532,18 +14037,12 @@ Row_Row.defaultProps = Row_defaultProps;
 var SplitToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/SplitToggle.js";
 
 
-
-var SplitToggle_SplitToggle =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(SplitToggle, _React$Component);
-
+var SplitToggle_SplitToggle = /*#__PURE__*/function (_React$Component) {
   function SplitToggle() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(SplitToggle, _React$Component);
   var _proto = SplitToggle.prototype;
-
   _proto.render = function render() {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_DropdownToggle, _extends({}, this.props, {
       useAnchor: false,
@@ -16555,10 +14054,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return SplitToggle;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 SplitToggle_SplitToggle.defaultProps = src_DropdownToggle.defaultProps;
 /* harmony default export */ var src_SplitToggle = (SplitToggle_SplitToggle);
 // CONCATENATED MODULE: ./src/SplitButton.js
@@ -16566,7 +14063,7 @@ SplitToggle_SplitToggle.defaultProps = src_DropdownToggle.defaultProps;
 
 
 var SplitButton_jsxFileName = "/Users/harrison/react-bootstrap/src/SplitButton.js";
-
+var SplitButton_excluded = ["bsSize", "bsStyle", "title", "toggleLabel", "children"];
 
 
 
@@ -16579,48 +14076,37 @@ var SplitButton_propTypes = _extends({}, src_Dropdown.propTypes, {
   bsSize: prop_types_default.a.string,
   href: prop_types_default.a.string,
   onClick: prop_types_default.a.func,
-
   /**
    * The content of the split button.
    */
   title: prop_types_default.a.node.isRequired,
-
   /**
    * Accessible label for the toggle; the value of `title` if not specified.
    */
   toggleLabel: prop_types_default.a.string,
   // Override generated docs from <Dropdown>.
-
   /**
    * @private
    */
   children: prop_types_default.a.node
 });
-
-var SplitButton_SplitButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(SplitButton, _React$Component);
-
+var SplitButton_SplitButton = /*#__PURE__*/function (_React$Component) {
   function SplitButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(SplitButton, _React$Component);
   var _proto = SplitButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        bsSize = _this$props.bsSize,
-        bsStyle = _this$props.bsStyle,
-        title = _this$props.title,
-        toggleLabel = _this$props.toggleLabel,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["bsSize", "bsStyle", "title", "toggleLabel", "children"]);
-
+      bsSize = _this$props.bsSize,
+      bsStyle = _this$props.bsStyle,
+      title = _this$props.title,
+      toggleLabel = _this$props.toggleLabel,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, SplitButton_excluded);
     var _splitComponentProps = splitComponentProps(props, src_Dropdown.ControlledComponent),
-        dropdownProps = _splitComponentProps[0],
-        buttonProps = _splitComponentProps[1];
-
+      dropdownProps = _splitComponentProps[0],
+      buttonProps = _splitComponentProps[1];
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Dropdown, _extends({}, dropdownProps, {
       bsSize: bsSize,
       bsStyle: bsStyle,
@@ -16655,16 +14141,15 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return SplitButton;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 SplitButton_SplitButton.propTypes = SplitButton_propTypes;
 SplitButton_SplitButton.Toggle = src_SplitToggle;
 /* harmony default export */ var src_SplitButton = (SplitButton_SplitButton);
 // CONCATENATED MODULE: ./src/TabContainer.js
 
 
+var TabContainer_excluded = ["children"];
 
 
 
@@ -16678,22 +14163,17 @@ var TabContainer_propTypes = {
    */
   id: function id(props) {
     var error = null;
-
     if (!props.generateChildId) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
-
       error = TabContainer_idPropType.apply(void 0, [props].concat(args));
-
       if (!error && !props.id) {
         error = new Error('In order to properly initialize Tabs in a way that is accessible ' + 'to assistive technologies (such as screen readers) an `id` or a ' + '`generateChildId` prop to TabContainer is required');
       }
     }
-
     return error;
   },
-
   /**
    * A function that takes an `eventKey` and `type` and returns a unique id for
    * child tab `<NavItem>`s and `<TabPane>`s. The function _must_ be a pure
@@ -16706,14 +14186,12 @@ var TabContainer_propTypes = {
    * @defaultValue (eventKey, type) => `${this.props.id}-${type}-${key}`
    */
   generateChildId: prop_types_default.a.func,
-
   /**
    * A callback fired when a tab is selected.
    *
    * @controllable activeKey
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * The `eventKey` of the currently active tab.
    *
@@ -16729,29 +14207,21 @@ var TabContainer_childContextTypes = {
     getPaneId: prop_types_default.a.func.isRequired
   })
 };
-
-var TabContainer_TabContainer =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(TabContainer, _React$Component);
-
+var TabContainer_TabContainer = /*#__PURE__*/function (_React$Component) {
   function TabContainer() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(TabContainer, _React$Component);
   var _proto = TabContainer.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        onSelect = _this$props.onSelect,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
-
+      activeKey = _this$props.activeKey,
+      onSelect = _this$props.onSelect,
+      generateChildId = _this$props.generateChildId,
+      id = _this$props.id;
     var getId = generateChildId || function (key, type) {
       return id ? id + "-" + type + "-" + key : null;
     };
-
     return {
       $bs_tabContainer: {
         activeKey: activeKey,
@@ -16765,21 +14235,17 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["children"]);
-
+      children = _this$props2.children,
+      props = _objectWithoutPropertiesLoose(_this$props2, TabContainer_excluded);
     delete props.generateChildId;
     delete props.onSelect;
     delete props.activeKey;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.cloneElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Children.only(children), props);
   };
-
   return TabContainer;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 TabContainer_TabContainer.propTypes = TabContainer_propTypes;
 TabContainer_TabContainer.childContextTypes = TabContainer_childContextTypes;
 /* harmony default export */ var src_TabContainer = (uncontrollable_default()(TabContainer_TabContainer, {
@@ -16789,8 +14255,8 @@ TabContainer_TabContainer.childContextTypes = TabContainer_childContextTypes;
 
 
 
-
 var TabContent_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContent.js";
+var TabContent_excluded = ["componentClass", "className"];
 
 
 
@@ -16798,19 +14264,16 @@ var TabContent_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContent.js"
 
 var TabContent_propTypes = {
   componentClass: elementType_default.a,
-
   /**
    * Sets a default animation strategy for all children `<TabPane>`s. Use
    * `false` to disable, `true` to enable the default `<Fade>` animation or
    * a react-transition-group v2 `<Transition/>` component.
    */
   animation: prop_types_default.a.oneOfType([prop_types_default.a.bool, elementType_default.a]),
-
   /**
    * Wait until the first "enter" transition to mount tabs (add them to the DOM)
    */
   mountOnEnter: prop_types_default.a.bool,
-
   /**
    * Unmount tabs (remove it from the DOM) when they are no longer visible
    */
@@ -16839,36 +14302,30 @@ var TabContent_childContextTypes = {
     exiting: prop_types_default.a.bool.isRequired
   })
 };
-
-var TabContent_TabContent =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(TabContent, _React$Component);
-
+var TabContent_TabContent = /*#__PURE__*/function (_React$Component) {
   function TabContent(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handlePaneEnter = _this.handlePaneEnter.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handlePaneExited = _this.handlePaneExited.bind(_assertThisInitialized(_assertThisInitialized(_this))); // Active entries in state will be `null` unless `animation` is set. Need
+    _this.handlePaneEnter = _this.handlePaneEnter.bind(_this);
+    _this.handlePaneExited = _this.handlePaneExited.bind(_this);
+
+    // Active entries in state will be `null` unless `animation` is set. Need
     // to track active child in case keys swap and the active child changes
     // but the active key does not.
-
     _this.state = {
       activeKey: null,
       activeChild: null
     };
     return _this;
   }
-
+  _inheritsLoose(TabContent, _React$Component);
   var _proto = TabContent.prototype;
-
   _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        bsClass = _this$props.bsClass,
-        animation = _this$props.animation,
-        mountOnEnter = _this$props.mountOnEnter,
-        unmountOnExit = _this$props.unmountOnExit;
+      bsClass = _this$props.bsClass,
+      animation = _this$props.animation,
+      mountOnEnter = _this$props.mountOnEnter,
+      unmountOnExit = _this$props.unmountOnExit;
     var stateActiveKey = this.state.activeKey;
     var containerActiveKey = this.getContainerActiveKey();
     var activeKey = stateActiveKey != null ? stateActiveKey : containerActiveKey;
@@ -16886,7 +14343,6 @@ function (_React$Component) {
       }
     };
   };
-
   _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     if (!nextProps.animation && this.state.activeChild) {
       this.setState({
@@ -16895,63 +14351,52 @@ function (_React$Component) {
       });
     }
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.isUnmounted = true;
   };
-
   _proto.getContainerActiveKey = function getContainerActiveKey() {
     var tabContainer = this.context.$bs_tabContainer;
     return tabContainer && tabContainer.activeKey;
   };
-
   _proto.handlePaneEnter = function handlePaneEnter(child, childKey) {
     if (!this.props.animation) {
       return false;
-    } // It's possible that this child should be transitioning out.
+    }
 
-
+    // It's possible that this child should be transitioning out.
     if (childKey !== this.getContainerActiveKey()) {
       return false;
     }
-
     this.setState({
       activeKey: childKey,
       activeChild: child
     });
     return true;
   };
-
   _proto.handlePaneExited = function handlePaneExited(child) {
     // This might happen as everything is unmounting.
     if (this.isUnmounted) {
       return;
     }
-
     this.setState(function (_ref) {
       var activeChild = _ref.activeChild;
-
       if (activeChild !== child) {
         return null;
       }
-
       return {
         activeKey: null,
         activeChild: null
       };
     });
   };
-
   _proto.render = function render() {
     var _this$props2 = this.props,
-        Component = _this$props2.componentClass,
-        className = _this$props2.className,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["componentClass", "className"]);
-
+      Component = _this$props2.componentClass,
+      className = _this$props2.className,
+      props = _objectWithoutPropertiesLoose(_this$props2, TabContent_excluded);
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation', 'mountOnEnter', 'unmountOnExit']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'content')),
       __source: {
@@ -16961,10 +14406,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return TabContent;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 TabContent_TabContent.propTypes = TabContent_propTypes;
 TabContent_TabContent.defaultProps = TabContent_defaultProps;
 TabContent_TabContent.contextTypes = TabContent_contextTypes;
@@ -16974,8 +14417,8 @@ TabContent_TabContent.childContextTypes = TabContent_childContextTypes;
 
 
 
-
 var TabPane_jsxFileName = "/Users/harrison/react-bootstrap/src/TabPane.js";
+var TabPane_excluded = ["eventKey", "className", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "mountOnEnter", "unmountOnExit"];
 
 
 
@@ -16989,62 +14432,50 @@ var TabPane_propTypes = {
    * Uniquely identify the `<TabPane>` among its siblings.
    */
   eventKey: prop_types_default.a.any,
-
   /**
    * Use animation when showing or hiding `<TabPane>`s. Use `false` to disable,
    * `true` to enable the default `<Fade>` animation or
    * a react-transition-group v2 `<Transition/>` component.
    */
   animation: prop_types_default.a.oneOfType([prop_types_default.a.bool, elementType_default.a]),
-
   /** @private * */
   id: prop_types_default.a.string,
-
   /** @private * */
   'aria-labelledby': prop_types_default.a.string,
-
   /**
    * If not explicitly specified and rendered in the context of a
    * `<TabContent>`, the `bsClass` of the `<TabContent>` suffixed by `-pane`.
    * If otherwise not explicitly specified, `tab-pane`.
    */
   bsClass: prop_types_default.a.string,
-
   /**
    * Transition onEnter callback when animation is not `false`
    */
   onEnter: prop_types_default.a.func,
-
   /**
    * Transition onEntering callback when animation is not `false`
    */
   onEntering: prop_types_default.a.func,
-
   /**
    * Transition onEntered callback when animation is not `false`
    */
   onEntered: prop_types_default.a.func,
-
   /**
    * Transition onExit callback when animation is not `false`
    */
   onExit: prop_types_default.a.func,
-
   /**
    * Transition onExiting callback when animation is not `false`
    */
   onExiting: prop_types_default.a.func,
-
   /**
    * Transition onExited callback when animation is not `false`
    */
   onExited: prop_types_default.a.func,
-
   /**
    * Wait until the first "enter" transition to mount the tab (add it to the DOM)
    */
   mountOnEnter: prop_types_default.a.bool,
-
   /**
    * Unmount the tab (remove it from the DOM) when it is no longer visible
    */
@@ -17066,47 +14497,38 @@ var TabPane_contextTypes = {
     exiting: prop_types_default.a.bool.isRequired
   })
 };
+
 /**
  * We override the `<TabContainer>` context so `<Nav>`s in `<TabPane>`s don't
  * conflict with the top level one.
  */
-
 var TabPane_childContextTypes = {
   $bs_tabContainer: prop_types_default.a.oneOf([null])
 };
-
-var TabPane_TabPane =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(TabPane, _React$Component);
-
+var TabPane_TabPane = /*#__PURE__*/function (_React$Component) {
   function TabPane(props, context) {
     var _this;
-
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleEnter = _this.handleEnter.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.handleExited = _this.handleExited.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.in = false;
+    _this.handleEnter = _this.handleEnter.bind(_this);
+    _this.handleExited = _this.handleExited.bind(_this);
+    _this["in"] = false;
     return _this;
   }
-
+  _inheritsLoose(TabPane, _React$Component);
   var _proto = TabPane.prototype;
-
   _proto.getChildContext = function getChildContext() {
     return {
       $bs_tabContainer: null
     };
   };
-
   _proto.componentDidMount = function componentDidMount() {
     if (this.shouldBeIn()) {
       // In lieu of the action event firing.
       this.handleEnter();
     }
   };
-
   _proto.componentDidUpdate = function componentDidUpdate() {
-    if (this.in) {
+    if (this["in"]) {
       if (!this.shouldBeIn()) {
         // We shouldn't be active any more. Notify the parent.
         this.handleExited();
@@ -17116,101 +14538,80 @@ function (_React$Component) {
       this.handleEnter();
     }
   };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.in) {
+    if (this["in"]) {
       // In lieu of the action event firing.
       this.handleExited();
     }
   };
-
   _proto.getAnimation = function getAnimation() {
     if (this.props.animation != null) {
       return this.props.animation;
     }
-
     var tabContent = this.context.$bs_tabContent;
     return tabContent && tabContent.animation;
   };
-
   _proto.handleEnter = function handleEnter() {
     var tabContent = this.context.$bs_tabContent;
-
     if (!tabContent) {
       return;
     }
-
-    this.in = tabContent.onPaneEnter(this, this.props.eventKey);
+    this["in"] = tabContent.onPaneEnter(this, this.props.eventKey);
   };
-
   _proto.handleExited = function handleExited() {
     var tabContent = this.context.$bs_tabContent;
-
     if (!tabContent) {
       return;
     }
-
     tabContent.onPaneExited(this);
-    this.in = false;
+    this["in"] = false;
   };
-
   _proto.isActive = function isActive() {
     var tabContent = this.context.$bs_tabContent;
     var activeKey = tabContent && tabContent.activeKey;
     return this.props.eventKey === activeKey;
   };
-
   _proto.shouldBeIn = function shouldBeIn() {
     return this.getAnimation() && this.isActive();
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        eventKey = _this$props.eventKey,
-        className = _this$props.className,
-        onEnter = _this$props.onEnter,
-        onEntering = _this$props.onEntering,
-        onEntered = _this$props.onEntered,
-        onExit = _this$props.onExit,
-        onExiting = _this$props.onExiting,
-        onExited = _this$props.onExited,
-        propsMountOnEnter = _this$props.mountOnEnter,
-        propsUnmountOnExit = _this$props.unmountOnExit,
-        props = _objectWithoutPropertiesLoose(_this$props, ["eventKey", "className", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "mountOnEnter", "unmountOnExit"]);
-
+      eventKey = _this$props.eventKey,
+      className = _this$props.className,
+      onEnter = _this$props.onEnter,
+      onEntering = _this$props.onEntering,
+      onEntered = _this$props.onEntered,
+      onExit = _this$props.onExit,
+      onExiting = _this$props.onExiting,
+      onExited = _this$props.onExited,
+      propsMountOnEnter = _this$props.mountOnEnter,
+      propsUnmountOnExit = _this$props.unmountOnExit,
+      props = _objectWithoutPropertiesLoose(_this$props, TabPane_excluded);
     var _this$context = this.context,
-        tabContent = _this$context.$bs_tabContent,
-        tabContainer = _this$context.$bs_tabContainer;
-
+      tabContent = _this$context.$bs_tabContent,
+      tabContainer = _this$context.$bs_tabContainer;
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation']),
-        bsProps = _splitBsPropsAndOmit[0],
-        elementProps = _splitBsPropsAndOmit[1];
-
+      bsProps = _splitBsPropsAndOmit[0],
+      elementProps = _splitBsPropsAndOmit[1];
     var active = this.isActive();
     var animation = this.getAnimation();
     var mountOnEnter = propsMountOnEnter != null ? propsMountOnEnter : tabContent && tabContent.mountOnEnter;
     var unmountOnExit = propsUnmountOnExit != null ? propsUnmountOnExit : tabContent && tabContent.unmountOnExit;
-
     if (!active && !animation && unmountOnExit) {
       return null;
     }
-
     var Transition = animation === true ? src_Fade : animation || null;
-
     if (tabContent) {
       bsProps.bsClass = prefix(tabContent, 'pane');
     }
-
     var classes = _extends({}, getClassSet(bsProps), {
       active: active
     });
-
     if (tabContainer) {
        false ? undefined : void 0;
       elementProps.id = tabContainer.getPaneId(eventKey);
       elementProps['aria-labelledby'] = tabContainer.getTabId(eventKey);
     }
-
     var pane = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       role: "tabpanel",
       "aria-hidden": !active,
@@ -17221,11 +14622,10 @@ function (_React$Component) {
       },
       __self: this
     }));
-
     if (Transition) {
       var exiting = tabContent && tabContent.exiting;
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Transition, {
-        in: active && !exiting,
+        "in": active && !exiting,
         onEnter: utils_createChainedFunction(this.handleEnter, onEnter),
         onEntering: onEntering,
         onEntered: onEntered,
@@ -17241,13 +14641,10 @@ function (_React$Component) {
         __self: this
       }, pane);
     }
-
     return pane;
   };
-
   return TabPane;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 TabPane_TabPane.propTypes = TabPane_propTypes;
 TabPane_TabPane.contextTypes = TabPane_contextTypes;
 TabPane_TabPane.childContextTypes = TabPane_childContextTypes;
@@ -17261,32 +14658,24 @@ var Tab_jsxFileName = "/Users/harrison/react-bootstrap/src/Tab.js";
 
 
 
-
 var Tab_propTypes = _extends({}, src_TabPane.propTypes, {
   disabled: prop_types_default.a.bool,
   title: prop_types_default.a.node,
-
   /**
    * tabClassName is used as className for the associated NavItem
    */
   tabClassName: prop_types_default.a.string
 });
-
-var Tab_Tab =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Tab, _React$Component);
-
+var Tab_Tab = /*#__PURE__*/function (_React$Component) {
   function Tab() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Tab, _React$Component);
   var _proto = Tab.prototype;
-
   _proto.render = function render() {
-    var props = _extends({}, this.props); // These props are for the parent `<Tabs>` rather than the `<TabPane>`.
+    var props = _extends({}, this.props);
 
-
+    // These props are for the parent `<Tabs>` rather than the `<TabPane>`.
     delete props.title;
     delete props.disabled;
     delete props.tabClassName;
@@ -17298,10 +14687,8 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Tab;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Tab_Tab.propTypes = Tab_propTypes;
 Tab_Tab.Container = src_TabContainer;
 Tab_Tab.Content = src_TabContent;
@@ -17312,6 +14699,7 @@ Tab_Tab.Pane = src_TabPane;
 
 
 var Table_jsxFileName = "/Users/harrison/react-bootstrap/src/Table.js";
+var Table_excluded = ["striped", "bordered", "condensed", "hover", "responsive", "className"];
 
 
 
@@ -17330,36 +14718,26 @@ var Table_defaultProps = {
   responsive: false,
   striped: false
 };
-
-var Table_Table =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Table, _React$Component);
-
+var Table_Table = /*#__PURE__*/function (_React$Component) {
   function Table() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Table, _React$Component);
   var _proto = Table.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        striped = _this$props.striped,
-        bordered = _this$props.bordered,
-        condensed = _this$props.condensed,
-        hover = _this$props.hover,
-        responsive = _this$props.responsive,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["striped", "bordered", "condensed", "hover", "responsive", "className"]);
-
+      striped = _this$props.striped,
+      bordered = _this$props.bordered,
+      condensed = _this$props.condensed,
+      hover = _this$props.hover,
+      responsive = _this$props.responsive,
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Table_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'striped')] = striped, _extends2[prefix(bsProps, 'bordered')] = bordered, _extends2[prefix(bsProps, 'condensed')] = condensed, _extends2[prefix(bsProps, 'hover')] = hover, _extends2));
-
     var table = external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("table", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
@@ -17368,7 +14746,6 @@ function (_React$Component) {
       },
       __self: this
     }));
-
     if (responsive) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", {
         className: prefix(bsProps, 'responsive'),
@@ -17379,13 +14756,10 @@ function (_React$Component) {
         __self: this
       }, table);
     }
-
     return table;
   };
-
   return Table;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Table_Table.propTypes = Table_propTypes;
 Table_Table.defaultProps = Table_defaultProps;
 /* harmony default export */ var src_Table = (bootstrapUtils_bsClass('table', Table_Table));
@@ -17393,6 +14767,7 @@ Table_Table.defaultProps = Table_defaultProps;
 
 
 
+var Tabs_excluded = ["id", "onSelect", "animation", "mountOnEnter", "unmountOnExit", "bsClass", "className", "style", "children", "activeKey"];
 var Tabs_jsxFileName = "/Users/harrison/react-bootstrap/src/Tabs.js";
 
 
@@ -17413,12 +14788,10 @@ var Tabs_propTypes = {
    * @controllable onSelect
    */
   activeKey: prop_types_default.a.any,
-
   /**
    * Navigation style
    */
   bsStyle: prop_types_default.a.oneOf(['tabs', 'pills']),
-
   /**
    * Sets a default animation strategy. Use `false` to disable, `true`
    * to enable the default `<Fade>` animation, or a react-transition-group
@@ -17426,7 +14799,6 @@ var Tabs_propTypes = {
    */
   animation: prop_types_default.a.oneOfType([prop_types_default.a.bool, elementType_default.a]),
   id: isRequiredForA11y_default()(prop_types_default.a.oneOfType([prop_types_default.a.string, prop_types_default.a.number])),
-
   /**
    * Callback fired when a Tab is selected.
    *
@@ -17440,12 +14812,10 @@ var Tabs_propTypes = {
    * @controllable activeKey
    */
   onSelect: prop_types_default.a.func,
-
   /**
    * Wait until the first "enter" transition to mount tabs (add them to the DOM)
    */
   mountOnEnter: prop_types_default.a.bool,
-
   /**
    * Unmount tabs (remove it from the DOM) when it is no longer visible
    */
@@ -17457,7 +14827,6 @@ var Tabs_defaultProps = {
   mountOnEnter: false,
   unmountOnExit: false
 };
-
 function getDefaultActiveKey(children) {
   var defaultActiveKey;
   ValidComponentChildren.forEach(children, function (child) {
@@ -17467,29 +14836,21 @@ function getDefaultActiveKey(children) {
   });
   return defaultActiveKey;
 }
-
-var Tabs_Tabs =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Tabs, _React$Component);
-
+var Tabs_Tabs = /*#__PURE__*/function (_React$Component) {
   function Tabs() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Tabs, _React$Component);
   var _proto = Tabs.prototype;
-
   _proto.renderTab = function renderTab(child) {
     var _child$props = child.props,
-        title = _child$props.title,
-        eventKey = _child$props.eventKey,
-        disabled = _child$props.disabled,
-        tabClassName = _child$props.tabClassName;
-
+      title = _child$props.title,
+      eventKey = _child$props.eventKey,
+      disabled = _child$props.disabled,
+      tabClassName = _child$props.tabClassName;
     if (title == null) {
       return null;
     }
-
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_NavItem, {
       eventKey: eventKey,
       disabled: disabled,
@@ -17501,22 +14862,20 @@ function (_React$Component) {
       __self: this
     }, title);
   };
-
   _proto.render = function render() {
     var _this$props = this.props,
-        id = _this$props.id,
-        onSelect = _this$props.onSelect,
-        animation = _this$props.animation,
-        mountOnEnter = _this$props.mountOnEnter,
-        unmountOnExit = _this$props.unmountOnExit,
-        bsClass = _this$props.bsClass,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        _this$props$activeKey = _this$props.activeKey,
-        activeKey = _this$props$activeKey === void 0 ? getDefaultActiveKey(children) : _this$props$activeKey,
-        props = _objectWithoutPropertiesLoose(_this$props, ["id", "onSelect", "animation", "mountOnEnter", "unmountOnExit", "bsClass", "className", "style", "children", "activeKey"]);
-
+      id = _this$props.id,
+      onSelect = _this$props.onSelect,
+      animation = _this$props.animation,
+      mountOnEnter = _this$props.mountOnEnter,
+      unmountOnExit = _this$props.unmountOnExit,
+      bsClass = _this$props.bsClass,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      _this$props$activeKey = _this$props.activeKey,
+      activeKey = _this$props$activeKey === void 0 ? getDefaultActiveKey(children) : _this$props$activeKey,
+      props = _objectWithoutPropertiesLoose(_this$props, Tabs_excluded);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Tabs_TabContainer, {
       id: id,
       activeKey: activeKey,
@@ -17553,10 +14912,8 @@ function (_React$Component) {
       __self: this
     }, children)));
   };
-
   return Tabs;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Tabs_Tabs.propTypes = Tabs_propTypes;
 Tabs_Tabs.defaultProps = Tabs_defaultProps;
 bootstrapUtils_bsClass('tab', Tabs_Tabs);
@@ -17568,8 +14925,9 @@ bootstrapUtils_bsClass('tab', Tabs_Tabs);
 
 
 var Thumbnail_jsxFileName = "/Users/harrison/react-bootstrap/src/Thumbnail.js";
-
+var Thumbnail_excluded = ["src", "alt", "onError", "onLoad", "className", "children"];
 /* eslint-disable jsx-a11y/alt-text */
+
 
 
 
@@ -17580,53 +14938,41 @@ var Thumbnail_propTypes = {
    * src property that is passed down to the image inside this component
    */
   src: prop_types_default.a.string,
-
   /**
    * alt property that is passed down to the image inside this component
    */
   alt: prop_types_default.a.string,
-
   /**
    * href property that is passed down to the image inside this component
    */
   href: prop_types_default.a.string,
-
   /**
    * onError callback that is passed down to the image inside this component
    */
   onError: prop_types_default.a.func,
-
   /**
    * onLoad callback that is passed down to the image inside this component
    */
   onLoad: prop_types_default.a.func
 };
-
-var Thumbnail_Thumbnail =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Thumbnail, _React$Component);
-
+var Thumbnail_Thumbnail = /*#__PURE__*/function (_React$Component) {
   function Thumbnail() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Thumbnail, _React$Component);
   var _proto = Thumbnail.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        src = _this$props.src,
-        alt = _this$props.alt,
-        onError = _this$props.onError,
-        onLoad = _this$props.onLoad,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["src", "alt", "onError", "onLoad", "className", "children"]);
-
+      src = _this$props.src,
+      alt = _this$props.alt,
+      onError = _this$props.onError,
+      onLoad = _this$props.onLoad,
+      className = _this$props.className,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Thumbnail_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var Component = elementProps.href ? src_SafeAnchor : 'div';
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(Component, _extends({}, elementProps, {
@@ -17656,10 +15002,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return Thumbnail;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Thumbnail_Thumbnail.propTypes = Thumbnail_propTypes;
 /* harmony default export */ var src_Thumbnail = (bootstrapUtils_bsClass('thumbnail', Thumbnail_Thumbnail));
 // CONCATENATED MODULE: ./src/ToggleButton.js
@@ -17667,6 +15011,7 @@ Thumbnail_Thumbnail.propTypes = Thumbnail_propTypes;
 
 
 var ToggleButton_jsxFileName = "/Users/harrison/react-bootstrap/src/ToggleButton.js";
+var ToggleButton_excluded = ["children", "name", "checked", "type", "onChange", "value"];
 
 
 
@@ -17676,55 +15021,43 @@ var ToggleButton_propTypes = {
    * @type {[type]}
    */
   type: prop_types_default.a.oneOf(['checkbox', 'radio']),
-
   /**
    * The HTML input name, used to group like checkboxes or radio buttons together
    * semantically
    */
   name: prop_types_default.a.string,
-
   /**
    * The checked state of the input, managed by `<ToggleButtonGroup>`` automatically
    */
   checked: prop_types_default.a.bool,
-
   /**
    * The disabled state of both the label and input
    */
   disabled: prop_types_default.a.bool,
-
   /**
    * [onChange description]
    */
   onChange: prop_types_default.a.func,
-
   /**
    * The value of the input, and unique identifier in the ToggleButtonGroup
    */
   value: prop_types_default.a.any.isRequired
 };
-
-var ToggleButton_ToggleButton =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ToggleButton, _React$Component);
-
+var ToggleButton_ToggleButton = /*#__PURE__*/function (_React$Component) {
   function ToggleButton() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ToggleButton, _React$Component);
   var _proto = ToggleButton.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        children = _this$props.children,
-        name = _this$props.name,
-        checked = _this$props.checked,
-        type = _this$props.type,
-        onChange = _this$props.onChange,
-        value = _this$props.value,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children", "name", "checked", "type", "onChange", "value"]);
-
+      children = _this$props.children,
+      name = _this$props.name,
+      checked = _this$props.checked,
+      type = _this$props.type,
+      onChange = _this$props.onChange,
+      value = _this$props.value,
+      props = _objectWithoutPropertiesLoose(_this$props, ToggleButton_excluded);
     var disabled = props.disabled;
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_Button, _extends({}, props, {
       active: !!checked,
@@ -17749,10 +15082,8 @@ function (_React$Component) {
       __self: this
     }), children);
   };
-
   return ToggleButton;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ToggleButton_ToggleButton.propTypes = ToggleButton_propTypes;
 /* harmony default export */ var src_ToggleButton = (ToggleButton_ToggleButton);
 // CONCATENATED MODULE: ./src/ToggleButtonGroup.js
@@ -17760,6 +15091,7 @@ ToggleButton_ToggleButton.propTypes = ToggleButton_propTypes;
 
 
 var ToggleButtonGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ToggleButtonGroup.js";
+var ToggleButtonGroup_excluded = ["children", "type", "name"];
 
 
 
@@ -17775,14 +15107,12 @@ var ToggleButtonGroup_propTypes = {
    * __Required if `type` is set to `'radio'`__
    */
   name: prop_types_default.a.string,
-
   /**
    * The value, or array of values, of the active (pressed) buttons
    *
    * @controllable onChange
    */
   value: prop_types_default.a.any,
-
   /**
    * Callback fired when a button is pressed, depending on whether the `type`
    * is `'radio'` or `'checkbox'`, `onChange` will be called with the value or
@@ -17791,7 +15121,6 @@ var ToggleButtonGroup_propTypes = {
    * @controllable values
    */
   onChange: prop_types_default.a.func,
-
   /**
    * The input `type` of the rendered buttons, determines the toggle behavior
    * of the buttons
@@ -17801,61 +15130,49 @@ var ToggleButtonGroup_propTypes = {
 var ToggleButtonGroup_defaultProps = {
   type: 'radio'
 };
-
-var ToggleButtonGroup_ToggleButtonGroup =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ToggleButtonGroup, _React$Component);
-
+var ToggleButtonGroup_ToggleButtonGroup = /*#__PURE__*/function (_React$Component) {
   function ToggleButtonGroup() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(ToggleButtonGroup, _React$Component);
   var _proto = ToggleButtonGroup.prototype;
-
   _proto.getValues = function getValues() {
     var value = this.props.value;
     return value == null ? [] : [].concat(value);
   };
-
   _proto.handleToggle = function handleToggle(value) {
     var _this$props = this.props,
-        type = _this$props.type,
-        onChange = _this$props.onChange;
+      type = _this$props.type,
+      onChange = _this$props.onChange;
     var values = this.getValues();
     var isActive = values.indexOf(value) !== -1;
-
     if (type === 'radio') {
       if (!isActive) {
         onChange(value);
       }
-
       return;
     }
-
     if (isActive) {
       onChange(values.filter(function (n) {
         return n !== value;
       }));
     } else {
-      onChange(values.concat([value]));
+      onChange([].concat(values, [value]));
     }
   };
-
   _proto.render = function render() {
     var _this = this;
-
     var _this$props2 = this.props,
-        children = _this$props2.children,
-        type = _this$props2.type,
-        name = _this$props2.name,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["children", "type", "name"]);
-
+      children = _this$props2.children,
+      type = _this$props2.type,
+      name = _this$props2.name,
+      props = _objectWithoutPropertiesLoose(_this$props2, ToggleButtonGroup_excluded);
     var values = this.getValues();
     !(type !== 'radio' || !!name) ?  false ? undefined : browser_default()(false) : void 0;
     delete props.onChange;
-    delete props.value; // the data attribute is required b/c twbs css uses it in the selector
+    delete props.value;
 
+    // the data attribute is required b/c twbs css uses it in the selector
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(src_ButtonGroup, _extends({}, props, {
       "data-toggle": "buttons",
       __source: {
@@ -17865,13 +15182,11 @@ function (_React$Component) {
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
       var _child$props = child.props,
-          value = _child$props.value,
-          onChange = _child$props.onChange;
-
+        value = _child$props.value,
+        onChange = _child$props.onChange;
       var handler = function handler() {
         return _this.handleToggle(value);
       };
-
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.cloneElement(child, {
         type: type,
         name: child.name || name,
@@ -17880,10 +15195,8 @@ function (_React$Component) {
       });
     }));
   };
-
   return ToggleButtonGroup;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 ToggleButtonGroup_ToggleButtonGroup.propTypes = ToggleButtonGroup_propTypes;
 ToggleButtonGroup_ToggleButtonGroup.defaultProps = ToggleButtonGroup_defaultProps;
 var UncontrolledToggleButtonGroup = uncontrollable_default()(ToggleButtonGroup_ToggleButtonGroup, {
@@ -17896,6 +15209,7 @@ UncontrolledToggleButtonGroup.Button = src_ToggleButton;
 
 
 var Tooltip_jsxFileName = "/Users/harrison/react-bootstrap/src/Tooltip.js";
+var Tooltip_excluded = ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "className", "style", "children"];
 
 
 
@@ -17908,27 +15222,22 @@ var Tooltip_propTypes = {
    * @required
    */
   id: isRequiredForA11y_default()(prop_types_default.a.oneOfType([prop_types_default.a.string, prop_types_default.a.number])),
-
   /**
    * Sets the direction the Tooltip is positioned towards.
    */
   placement: prop_types_default.a.oneOf(['top', 'right', 'bottom', 'left']),
-
   /**
    * The "top" position value for the Tooltip.
    */
   positionTop: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "left" position value for the Tooltip.
    */
   positionLeft: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "top" position value for the Tooltip arrow.
    */
   arrowOffsetTop: prop_types_default.a.oneOfType([prop_types_default.a.number, prop_types_default.a.string]),
-
   /**
    * The "left" position value for the Tooltip arrow.
    */
@@ -17937,43 +15246,32 @@ var Tooltip_propTypes = {
 var Tooltip_defaultProps = {
   placement: 'right'
 };
-
-var Tooltip_Tooltip =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Tooltip, _React$Component);
-
+var Tooltip_Tooltip = /*#__PURE__*/function (_React$Component) {
   function Tooltip() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Tooltip, _React$Component);
   var _proto = Tooltip.prototype;
-
   _proto.render = function render() {
     var _extends2;
-
     var _this$props = this.props,
-        placement = _this$props.placement,
-        positionTop = _this$props.positionTop,
-        positionLeft = _this$props.positionLeft,
-        arrowOffsetTop = _this$props.arrowOffsetTop,
-        arrowOffsetLeft = _this$props.arrowOffsetLeft,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "className", "style", "children"]);
-
+      placement = _this$props.placement,
+      positionTop = _this$props.positionTop,
+      positionLeft = _this$props.positionLeft,
+      arrowOffsetTop = _this$props.arrowOffsetTop,
+      arrowOffsetLeft = _this$props.arrowOffsetLeft,
+      className = _this$props.className,
+      style = _this$props.style,
+      children = _this$props.children,
+      props = _objectWithoutPropertiesLoose(_this$props, Tooltip_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[placement] = true, _extends2));
-
     var outerStyle = _extends({
       top: positionTop,
       left: positionLeft
     }, style);
-
     var arrowStyle = {
       top: arrowOffsetTop,
       left: arrowOffsetLeft
@@ -18004,10 +15302,8 @@ function (_React$Component) {
       __self: this
     }, children));
   };
-
   return Tooltip;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 Tooltip_Tooltip.propTypes = Tooltip_propTypes;
 Tooltip_Tooltip.defaultProps = Tooltip_defaultProps;
 /* harmony default export */ var src_Tooltip = (bootstrapUtils_bsClass('tooltip', Tooltip_Tooltip));
@@ -18016,31 +15312,24 @@ Tooltip_Tooltip.defaultProps = Tooltip_defaultProps;
 
 
 var Well_jsxFileName = "/Users/harrison/react-bootstrap/src/Well.js";
+var Well_excluded = ["className"];
 
 
 
 
-
-var Well_Well =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Well, _React$Component);
-
+var Well_Well = /*#__PURE__*/function (_React$Component) {
   function Well() {
     return _React$Component.apply(this, arguments) || this;
   }
-
+  _inheritsLoose(Well, _React$Component);
   var _proto = Well.prototype;
-
   _proto.render = function render() {
     var _this$props = this.props,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
-
+      className = _this$props.className,
+      props = _objectWithoutPropertiesLoose(_this$props, Well_excluded);
     var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
     var classes = getClassSet(bsProps);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
@@ -18051,14 +15340,10 @@ function (_React$Component) {
       __self: this
     }));
   };
-
   return Well;
 }(external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.Component);
-
 /* harmony default export */ var src_Well = (bootstrapUtils_bsClass('well', bsSizes([Size.LARGE, Size.SMALL], Well_Well)));
 // CONCATENATED MODULE: ./src/utils/index.js
-
-
 
 
 
@@ -18135,76 +15420,6 @@ function (_React$Component) {
 /* concated harmony reexport Tooltip */__webpack_require__.d(__webpack_exports__, "Tooltip", function() { return src_Tooltip; });
 /* concated harmony reexport Well */__webpack_require__.d(__webpack_exports__, "Well", function() { return src_Well; });
 /* concated harmony reexport utils */__webpack_require__.d(__webpack_exports__, "utils", function() { return utils_namespaceObject; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
