@@ -1,6 +1,6 @@
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
@@ -44,7 +44,7 @@ function (_React$Component) {
     }
 
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 

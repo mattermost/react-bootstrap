@@ -1,6 +1,6 @@
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import classNames from 'classnames';
 import events from 'dom-helpers/events';
@@ -162,11 +162,11 @@ function (_React$Component) {
       _this._ignoreBackdropClick = true;
     };
 
-    _this.handleEntering = _this.handleEntering.bind(_assertThisInitialized(_this));
-    _this.handleExited = _this.handleExited.bind(_assertThisInitialized(_this));
-    _this.handleWindowResize = _this.handleWindowResize.bind(_assertThisInitialized(_this));
-    _this.handleDialogClick = _this.handleDialogClick.bind(_assertThisInitialized(_this));
-    _this.setModalRef = _this.setModalRef.bind(_assertThisInitialized(_this));
+    _this.handleEntering = _this.handleEntering.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleExited = _this.handleExited.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleWindowResize = _this.handleWindowResize.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleDialogClick = _this.handleDialogClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.setModalRef = _this.setModalRef.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
       style: {}
     };
@@ -190,10 +190,10 @@ function (_React$Component) {
 
   _proto.setModalRef = function setModalRef(ref) {
     this._modal = ref;
-  } // We prevent the modal from closing during a drag by detecting where the
+  }; // We prevent the modal from closing during a drag by detecting where the
   // the click originates from. If it starts in the modal and then ends outside
   // don't close.
-  ;
+
 
   _proto.handleDialogClick = function handleDialogClick(e) {
     if (e.target !== e.currentTarget || this._ignoreBackdropClick) {

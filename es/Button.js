@@ -88,4 +88,4 @@ function (_React$Component) {
 
 Button.propTypes = propTypes;
 Button.defaultProps = defaultProps;
-export default bsClass('btn', bsSizes([Size.LARGE, Size.SMALL, Size.XSMALL], bsStyles([].concat(_Object$values(State), [Style.DEFAULT, Style.PRIMARY, Style.LINK]), Style.DEFAULT, Button)));
+export default bsClass('btn', bsSizes([Size.LARGE, Size.SMALL, Size.XSMALL], bsStyles(_Object$values(State).concat([Style.DEFAULT, Style.PRIMARY, Style.LINK]), Style.DEFAULT, Button)));

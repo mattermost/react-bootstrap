@@ -147,7 +147,7 @@ function (_React$Component) {
 Panel.propTypes = propTypes;
 Panel.contextTypes = contextTypes;
 Panel.childContextTypes = childContextTypes;
-var UncontrolledPanel = uncontrollable(bsClass('panel', bsStyles([].concat(_Object$values(State), [Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel)), {
+var UncontrolledPanel = uncontrollable(bsClass('panel', bsStyles(_Object$values(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel)), {
   expanded: 'onToggle'
 });
 

@@ -79,7 +79,7 @@ function (_React$Component) {
         return n !== value;
       }));
     } else {
-      onChange([].concat(values, [value]));
+      onChange(values.concat([value]));
     }
   };
 
