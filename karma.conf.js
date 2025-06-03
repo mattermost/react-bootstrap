@@ -1,4 +1,4 @@
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, ProvidePlugin } = require('webpack');
 
 module.exports = config => {
   const { env } = process;
@@ -30,11 +30,22 @@ module.exports = config => {
         ]
       },
       plugins: [
+        new ProvidePlugin({
+          Buffer: ['buffer', 'Buffer']
+        }),
+        new ProvidePlugin({
+          process: 'process/browser.js'
+        }),
         new DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify('test')
         })
       ],
-      devtool: 'cheap-module-inline-source-map',
+      resolve: {
+        fallback: {
+          stream: require.resolve('stream-browserify')
+        }
+      },
+      devtool: 'eval',
       stats: 'minimal'
     },
 
