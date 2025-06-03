@@ -111,7 +111,7 @@ const contextTypes = {
 };
 
 class Nav extends React.Component {
-  componentDidUpdate() {
+  UNSAFE_componentDidUpdate() {
     if (!this._needsRefocus) {
       return;
     }

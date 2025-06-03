@@ -168,7 +168,7 @@ class Modal extends React.Component {
     };
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     // Clean up the listener if we need to.
     this.handleExited();
   }

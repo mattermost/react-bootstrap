@@ -129,7 +129,7 @@ class TabPane extends React.Component {
     }
   }
 
-  componentDidUpdate() {
+  UNSAFE_componentDidUpdate() {
     if (this.in) {
       if (!this.shouldBeIn()) {
         // We shouldn't be active any more. Notify the parent.
@@ -141,7 +141,7 @@ class TabPane extends React.Component {
     }
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     if (this.in) {
       // In lieu of the action event firing.
       this.handleExited();

@@ -132,7 +132,7 @@ class Dropdown extends React.Component {
     this.focusNextOnOpen();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains(
         ReactDOM.findDOMNode(this.menu),
@@ -141,7 +141,7 @@ class Dropdown extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  UNSAFE_componentDidUpdate(prevProps) {
     const { open } = this.props;
     const prevOpen = prevProps.open;
 
