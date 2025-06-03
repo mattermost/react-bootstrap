@@ -1,3 +1,5 @@
+import * as util from 'util';
+
 import deprecated from 'prop-types-extra/lib/deprecated';
 
 import { _resetWarned } from '../src/utils/deprecationWarning';
@@ -23,7 +25,8 @@ ShallowWrapper.prototype.assertNone = assertLength(0);
 
 beforeEach(() => {
   /* eslint-disable no-console */
-  sinon.stub(console, 'error').callsFake(msg => {
+  sinon.stub(console, 'error').callsFake((msg, ...args) => {
+    msg = util.format(msg, ...args);
     let expected = false;
 
     console.error.expected.forEach(about => {
