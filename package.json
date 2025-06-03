@@ -66,6 +66,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-add-module-exports": "^0.2.1",
