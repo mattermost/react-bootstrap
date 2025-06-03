@@ -1,0 +1,64 @@
+diff --git a/node_modules/karma-sinon-chai/chai-adapter.js b/node_modules/karma-sinon-chai/chai-adapter.js
+index 53b4b05..dc23a8e 100644
+--- a/node_modules/karma-sinon-chai/chai-adapter.js
++++ b/node_modules/karma-sinon-chai/chai-adapter.js
+@@ -1,14 +1,16 @@
++import * as chai from '/base/node_modules/chai/chai.js';
++
+ (function(window, karma) {
+   window.should = null;
+-  window.should = window.chai.should();
+-  window.expect = window.chai.expect;
+-  window.assert = window.chai.assert;
++  window.should = chai.should();
++  window.expect = chai.expect;
++  window.assert = chai.assert;
+ 
+   var chaiConfig = karma.config.chai;
+   if (chaiConfig) {
+     for (var key in chaiConfig) {
+       if (chaiConfig.hasOwnProperty(key)) {
+-        window.chai.config[key] = chaiConfig[key];
++        chai.config[key] = chaiConfig[key];
+       }
+     }
+   }
+diff --git a/node_modules/karma-sinon-chai/index.js b/node_modules/karma-sinon-chai/index.js
+index 1a9a994..5775de4 100644
+--- a/node_modules/karma-sinon-chai/index.js
++++ b/node_modules/karma-sinon-chai/index.js
+@@ -1,7 +1,7 @@
+ var path = require('path');
+ 
+-var pattern = function(file) {
+-  return {pattern: file, included: true, served: true, watched: false};
++var pattern = function(file, isModule) {
++  return {pattern: file, included: true, served: true, watched: false, type: isModule ? 'module' : undefined};
+ };
+ 
+ var endsWith = function(substr) {
+@@ -27,20 +27,20 @@ var framework = function(files) {
+   /* Sinon */
+   var sinonPath = path.dirname(require.resolve('sinon/package.json')) + '/pkg/sinon.js';
+   if (!isDuplicate(sinonPath)) {
+-    files.unshift(pattern(sinonPath));
++    files.unshift(pattern(sinonPath, false));
+   }
+ 
+   /* Chai */
+   var chaiPath = path.dirname(require.resolve('chai/package.json')) + '/chai.js';
+   if (!isDuplicate(chaiPath)) {
+-    files.unshift(pattern(chaiPath));
+-    files.push(pattern(path.join(__dirname, 'chai-adapter.js')));
++    files.unshift(pattern(chaiPath, true));
++    files.push(pattern(path.join(__dirname, 'chai-adapter.js'), true));
+   }
+ 
+   /* Sinon-Chai */
+   var sinonChaiPath = path.resolve(require.resolve('sinon-chai'));
+   if (!isDuplicate(sinonChaiPath)) {
+-    files.push(pattern(sinonChaiPath))
++    files.push(pattern(sinonChaiPath, true))
+   }
+ };
+ 
