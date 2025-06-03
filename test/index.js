@@ -2,10 +2,10 @@ import deprecated from 'prop-types-extra/lib/deprecated';
 
 import { _resetWarned } from '../src/utils/deprecationWarning';
 
-import { /* Enzyme, */ ShallowWrapper, ReactWrapper } from 'enzyme';
-// import Adapter from 'enzyme-adapter-react-16';
+import Enzyme, { ShallowWrapper, ReactWrapper } from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-// Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() });
 
 function assertLength(length) {
   return function $assertLength(selector) {
