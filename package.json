@@ -71,7 +71,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-istanbul": "^5.0.1",
-    "chai": "^3.5.0",
+    "chai": "^5.2.0",
     "chalk": "^2.3.2",
     "codecov": "^3.0.4",
     "colors": "^1.2.1",
@@ -108,8 +108,8 @@
     "react-dom": "18.3.0",
     "react-test-renderer": "18.3.0",
     "release-script": "^1.0.2",
-    "sinon": "^2.3.2",
-    "sinon-chai": "^2.8.0",
+    "sinon": "^20.0.0",
+    "sinon-chai": "^4.0.0",
     "webpack": "^5.95.0"
   },
   "dependencies": {
