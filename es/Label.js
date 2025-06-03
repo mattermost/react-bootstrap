@@ -55,4 +55,4 @@ function (_React$Component) {
   return Label;
 }(React.Component);
 
-export default bsClass('label', bsStyles([].concat(_Object$values(State), [Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Label));
+export default bsClass('label', bsStyles(_Object$values(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Label));

@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import classNames from 'classnames';
 import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
@@ -119,9 +119,9 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_this));
-    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._focusInDropdown = false;
     _this.lastOpenEventType = null;
     return _this;

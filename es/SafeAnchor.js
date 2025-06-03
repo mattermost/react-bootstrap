@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import React from 'react';
 import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
@@ -44,8 +44,8 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
