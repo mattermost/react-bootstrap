@@ -97,7 +97,7 @@ class TabContent extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.animation && this.state.activeChild) {
       this.setState({ activeKey: null, activeChild: null });
     }

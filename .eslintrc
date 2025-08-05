@@ -9,6 +9,7 @@
   "parser": "babel-eslint",
   "plugins": ["react", "prettier"],
   "rules": {
+    "camelcase": "off",
     "max-len": "off",
     "no-plusplus": "off",
     "prefer-const": "off",
@@ -65,6 +66,7 @@
       }
     ],
     "react/require-default-props": "off",
+    "react/sort-comp": "off",
     "import/no-extraneous-dependencies": [
       "error",
       { "devDependencies": ["!src/**/*.js"] }

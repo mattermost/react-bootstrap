@@ -106,7 +106,7 @@ function (_React$Component) {
     this.waitForNext();
   };
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     var activeIndex = this.getActiveIndex();
 
     if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
@@ -126,7 +126,7 @@ function (_React$Component) {
     }
   };
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
+  _proto.UNSAFE_componentWillUnmount = function UNSAFE_componentWillUnmount() {
     clearTimeout(this.timeout);
     this.isUnmounted = true;
   };

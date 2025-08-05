@@ -355,7 +355,7 @@ function uncontrollable(Component, controlledValues, methods) {
       return !this._notifying;
     };
 
-    _proto.componentWillMount = function componentWillMount() {
+    _proto.UNSAFE_componentWillMount = function UNSAFE_componentWillMount() {
       var _this2 = this;
 
       var props = this.props;
@@ -365,7 +365,7 @@ function uncontrollable(Component, controlledValues, methods) {
       });
     };
 
-    _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
       var props = this.props;
@@ -8693,7 +8693,7 @@ function (_React$Component) {
 
   var _proto = CarouselItem.prototype;
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
       this.setState({
         direction: null
@@ -8958,7 +8958,7 @@ function (_React$Component) {
     this.waitForNext();
   };
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     var activeIndex = this.getActiveIndex();
 
     if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
@@ -8978,7 +8978,7 @@ function (_React$Component) {
     }
   };
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
+  _proto.UNSAFE_componentWillUnmount = function UNSAFE_componentWillUnmount() {
     clearTimeout(this.timeout);
     this.isUnmounted = true;
   };
@@ -10493,7 +10493,7 @@ function (_React$Component) {
     this.focusNextOnOpen();
   };
 
-  _proto.componentWillUpdate = function componentWillUpdate(nextProps) {
+  _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains_default()(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default.a.findDOMNode(this.menu), activeElement_default()(document));
     }
@@ -16887,7 +16887,7 @@ function (_React$Component) {
     };
   };
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.animation && this.state.activeChild) {
       this.setState({
         activeKey: null,
