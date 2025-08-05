@@ -12,6 +12,7 @@
   "jsnext:main": "es/index.js",
   "module": "es/index.js",
   "scripts": {
+    "postinstall": "patch-package",
     "bootstrap": "yarn && yarn --cwd www",
     "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider node tools/build.js",
     "build-docs": "yarn --cwd www run build",
@@ -107,6 +108,7 @@
     "lint-staged": "^7.1.1",
     "lodash": "^4.17.10",
     "mocha": "^5.2.0",
+    "patch-package": "^8.0.0",
     "prettier": "^1.12.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",

@@ -133,7 +133,7 @@ function (_React$Component) {
     this.focusNextOnOpen();
   };
 
-  _proto.componentWillUpdate = function componentWillUpdate(nextProps) {
+  _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains(ReactDOM.findDOMNode(this.menu), activeElement(document));
     }

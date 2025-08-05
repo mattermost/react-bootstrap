@@ -40,7 +40,7 @@ function (_React$Component) {
 
   var _proto = CarouselItem.prototype;
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
       this.setState({
         direction: null

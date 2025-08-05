@@ -32,7 +32,7 @@ class CarouselItem extends React.Component {
     this.isUnmounted = false;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
       this.setState({ direction: null });
     }
