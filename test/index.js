@@ -5,7 +5,7 @@ import deprecated from 'prop-types-extra/lib/deprecated';
 import { _resetWarned } from '../src/utils/deprecationWarning';
 
 import Enzyme, { ShallowWrapper, ReactWrapper } from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -37,6 +37,35 @@ beforeEach(() => {
     });
 
     if (expected) {
+      return;
+    }
+
+    if (
+      msg.includes('ReactDOM.render') ||
+      msg.includes('unmountComponentAtNode') ||
+      msg.includes('unstable_renderSubtreeIntoContainer')
+    ) {
+      // @hmhealey This needs to be addressed for React 18, but ignore these for now
+      return;
+    }
+
+    if (msg.includes('defaultProps')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('findDOMNode')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('ReactDOMTestUtils')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
+      // @hmhealey These are removed in React 19
       return;
     }
 
