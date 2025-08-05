@@ -464,23 +464,6 @@ describe('<Dropdown>', () => {
     inst.dropdown.toggle.should.exist;
   });
 
-  it('warns when a string ref is specified', () => {
-    class RefDropdown extends React.Component {
-      render() {
-        return (
-          <Dropdown id="test">
-            <Dropdown.Toggle ref="toggle" />
-            <Dropdown.Menu />
-          </Dropdown>
-        );
-      }
-    }
-
-    shouldWarn('String refs are not supported');
-
-    mount(<RefDropdown />);
-  });
-
   describe('focusable state', () => {
     let focusableContainer;
 

@@ -9,7 +9,6 @@ import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
-import warning from 'warning';
 
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
@@ -237,16 +236,7 @@ class Dropdown extends React.Component {
       this.menu = c;
     };
 
-    if (typeof child.ref === 'string') {
-      warning(
-        false,
-        'String refs are not supported on `<Dropdown.Menu>` components. ' +
-          'To apply a ref to the component use the callback signature:\n\n ' +
-          'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute'
-      );
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
+    ref = createChainedFunction(child.ref, ref);
 
     return cloneElement(child, {
       ...props,
@@ -268,16 +258,7 @@ class Dropdown extends React.Component {
       this.toggle = c;
     };
 
-    if (typeof child.ref === 'string') {
-      warning(
-        false,
-        'String refs are not supported on `<Dropdown.Toggle>` components. ' +
-          'To apply a ref to the component use the callback signature:\n\n ' +
-          'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute'
-      );
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
+    ref = createChainedFunction(child.ref, ref);
 
     return cloneElement(child, {
       ...props,

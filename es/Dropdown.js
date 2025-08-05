@@ -13,7 +13,6 @@ import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
-import warning from 'warning';
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
@@ -248,12 +247,7 @@ function (_React$Component) {
       _this2.menu = c;
     };
 
-    if (typeof child.ref === 'string') {
-      process.env.NODE_ENV !== "production" ? warning(false, 'String refs are not supported on `<Dropdown.Menu>` components. ' + 'To apply a ref to the component use the callback signature:\n\n ' + 'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute') : void 0;
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
-
+    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,
@@ -275,12 +269,7 @@ function (_React$Component) {
       _this3.toggle = c;
     };
 
-    if (typeof child.ref === 'string') {
-      process.env.NODE_ENV !== "production" ? warning(false, 'String refs are not supported on `<Dropdown.Toggle>` components. ' + 'To apply a ref to the component use the callback signature:\n\n ' + 'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute') : void 0;
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
-
+    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
       ref: ref,
       bsClass: prefix(props, 'toggle'),

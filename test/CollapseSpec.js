@@ -20,7 +20,7 @@ describe('<Collapse>', () => {
             {...this.state}
           >
             <div>
-              <div ref="panel">{children}</div>
+              <div>{children}</div>
             </div>
           </Collapse>
         );
