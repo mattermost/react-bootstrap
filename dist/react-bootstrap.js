@@ -14102,10 +14102,13 @@ var UncontrollableNavbar = uncontrollable_default()(Navbar_Navbar, {
 
 function createSimpleWrapper(tag, suffix, displayName) {
   var Wrapper = function Wrapper(_ref, _ref2) {
-    var Component = _ref.componentClass,
+    var _ref$componentClass = _ref.componentClass,
+        Component = _ref$componentClass === void 0 ? tag : _ref$componentClass,
         className = _ref.className,
-        pullRight = _ref.pullRight,
-        pullLeft = _ref.pullLeft,
+        _ref$pullRight = _ref.pullRight,
+        pullRight = _ref$pullRight === void 0 ? false : _ref$pullRight,
+        _ref$pullLeft = _ref.pullLeft,
+        pullLeft = _ref$pullLeft === void 0 ? false : _ref$pullLeft,
         props = _objectWithoutPropertiesLoose(_ref, ["componentClass", "className", "pullRight", "pullLeft"]);
 
     var _ref2$$bs_navbar = _ref2.$bs_navbar,
@@ -14116,7 +14119,7 @@ function createSimpleWrapper(tag, suffix, displayName) {
       className: classnames_default()(className, prefix(navbarProps, suffix), pullRight && prefix(navbarProps, 'right'), pullLeft && prefix(navbarProps, 'left')),
       __source: {
         fileName: Navbar_jsxFileName,
-        lineNumber: 218
+        lineNumber: 224
       },
       __self: this
     }));
@@ -14127,11 +14130,6 @@ function createSimpleWrapper(tag, suffix, displayName) {
     componentClass: elementType_default.a,
     pullRight: prop_types_default.a.bool,
     pullLeft: prop_types_default.a.bool
-  };
-  Wrapper.defaultProps = {
-    componentClass: tag,
-    pullRight: false,
-    pullLeft: false
   };
   Wrapper.contextTypes = {
     $bs_navbar: prop_types_default.a.shape({
