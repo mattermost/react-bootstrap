@@ -188,50 +188,62 @@ describe('<Nav>', () => {
     });
 
     it('should focus the next tab on arrow key', () => {
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[0].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(0)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[0], {
+      anchors.at(0).simulate('keydown', {
         keyCode: keycode('right')
       });
 
       expect(instance.prop('activeKey')).to.equal(3);
 
-      expect(document.activeElement).to.equal(anchors[2]);
+      expect(document.activeElement).to.equal(anchors.at(2).getDOMNode());
     });
 
     it('should focus the previous tab on arrow key', () => {
       instance.setProps({ activeKey: 5 });
 
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[4].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(4)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[4], { keyCode: keycode('left') });
+      anchors.at(4).simulate('keydown', { keyCode: keycode('left') });
 
       expect(instance.props().activeKey).to.equal(3);
-      expect(document.activeElement).to.equal(anchors[2]);
+      expect(document.activeElement).to.equal(anchors.at(2).getDOMNode());
     });
 
     it('should wrap to the next tab on arrow key', () => {
       instance.setProps({ activeKey: 5 });
 
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[4].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(4)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[4], { keyCode: keycode('down') });
+      anchors.at(4).simulate('keydown', { keyCode: keycode('down') });
 
       expect(instance.props().activeKey).to.equal(1);
-      expect(document.activeElement).to.equal(anchors[0]);
+      expect(document.activeElement).to.equal(anchors.at(0).getDOMNode());
     });
 
     it('should wrap to the previous tab on arrow key', () => {
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[0].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(0)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[0], { keyCode: keycode('up') });
+      anchors.at(0).simulate('keydown', { keyCode: keycode('up') });
 
       expect(instance.props().activeKey).to.equal(5);
-      expect(document.activeElement).to.equal(anchors[4]);
+      expect(document.activeElement).to.equal(anchors.at(4).getDOMNode());
     });
   });
 
@@ -248,15 +260,18 @@ describe('<Nav>', () => {
         { attachTo: mountPoint }
       );
 
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[0].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(0)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[0], {
+      anchors.at(0).simulate('keydown', {
         keyCode: keycode('right')
       });
 
       expect(instance.props().activeKey).to.equal(0);
-      expect(document.activeElement).to.equal(anchors[1]);
+      expect(document.activeElement).to.equal(anchors.at(1).getDOMNode());
 
       instance.unmount();
     });
@@ -273,15 +288,18 @@ describe('<Nav>', () => {
         { attachTo: mountPoint }
       );
 
-      const anchors = instance.find('a').map(n => n.getDOMNode());
-      anchors[2].focus();
+      const anchors = instance.find('a');
+      anchors
+        .at(2)
+        .getDOMNode()
+        .focus();
 
-      ReactTestUtils.Simulate.keyDown(anchors[2], {
+      anchors.at(2).simulate('keydown', {
         keyCode: keycode('right')
       });
 
       expect(instance.props().activeKey).to.equal('a');
-      expect(document.activeElement).to.equal(anchors[0]);
+      expect(document.activeElement).to.equal(anchors.at(0).getDOMNode());
 
       instance.unmount();
     });
