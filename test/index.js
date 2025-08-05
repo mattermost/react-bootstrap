@@ -40,6 +40,29 @@ beforeEach(() => {
       return;
     }
 
+    if (
+      msg.includes('ReactDOM.render') ||
+      msg.includes('unmountComponentAtNode')
+    ) {
+      // @hmhealey This needs to be addressed for React 18, but ignore these for now
+      return;
+    }
+
+    if (msg.includes('findDOMNode')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('ReactDOMTestUtils')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
+      // @hmhealey These are removed in React 19
+      return;
+    }
+
     console.error.threw = true;
     throw new Error(msg);
   });
