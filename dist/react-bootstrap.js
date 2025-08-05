@@ -622,6 +622,15 @@ for (var alias in aliases) {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+var core = module.exports = {
+  version: '2.5.7'
+};
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -648,15 +657,6 @@ if (false) {}
 module.exports = warning;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-var core = module.exports = {
-  version: '2.5.7'
-};
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -668,7 +668,7 @@ module.exports = __webpack_require__(102);
 
 var global = __webpack_require__(19);
 
-var core = __webpack_require__(8);
+var core = __webpack_require__(7);
 
 var ctx = __webpack_require__(56);
 
@@ -1764,7 +1764,7 @@ var _reactDom = __webpack_require__(4);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _warning = __webpack_require__(7);
+var _warning = __webpack_require__(8);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -3587,7 +3587,7 @@ module.exports = function (it) {
 /* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(8);
+var core = __webpack_require__(7);
 
 var global = __webpack_require__(19);
 
@@ -4139,7 +4139,7 @@ module.exports = __webpack_require__(150);
 
 __webpack_require__(81);
 
-module.exports = __webpack_require__(8).Object.assign;
+module.exports = __webpack_require__(7).Object.assign;
 
 /***/ }),
 /* 81 */
@@ -4327,7 +4327,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 __webpack_require__(91);
 
-var $Object = __webpack_require__(8).Object;
+var $Object = __webpack_require__(7).Object;
 
 module.exports = function create(P, D) {
   return $Object.create(P, D);
@@ -4380,7 +4380,7 @@ module.exports = document && document.documentElement;
 
 __webpack_require__(95);
 
-module.exports = __webpack_require__(8).Object.keys;
+module.exports = __webpack_require__(7).Object.keys;
 
 /***/ }),
 /* 95 */
@@ -4404,7 +4404,7 @@ __webpack_require__(96)('keys', function () {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(10);
 
-var core = __webpack_require__(8);
+var core = __webpack_require__(7);
 
 var fails = __webpack_require__(25);
 
@@ -4567,7 +4567,7 @@ function isReactComponent(component) {
 
 __webpack_require__(101);
 
-module.exports = __webpack_require__(8).Object.entries;
+module.exports = __webpack_require__(7).Object.entries;
 
 /***/ }),
 /* 101 */
@@ -4590,7 +4590,7 @@ $export($export.S, 'Object', {
 
 __webpack_require__(103);
 
-module.exports = __webpack_require__(8).Object.values;
+module.exports = __webpack_require__(7).Object.values;
 
 /***/ }),
 /* 103 */
@@ -4966,7 +4966,7 @@ module.exports = exports["default"];
 
 __webpack_require__(114);
 
-module.exports = __webpack_require__(8).parseInt;
+module.exports = __webpack_require__(7).parseInt;
 
 /***/ }),
 /* 114 */
@@ -5235,7 +5235,7 @@ __webpack_require__(120);
 
 __webpack_require__(126);
 
-module.exports = __webpack_require__(8).Array.from;
+module.exports = __webpack_require__(7).Array.from;
 
 /***/ }),
 /* 120 */
@@ -5571,7 +5571,7 @@ var ITERATOR = __webpack_require__(16)('iterator');
 
 var Iterators = __webpack_require__(47);
 
-module.exports = __webpack_require__(8).getIteratorMethod = function (it) {
+module.exports = __webpack_require__(7).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
 };
 
@@ -5787,7 +5787,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = deprecated;
 
-var _warning = __webpack_require__(7);
+var _warning = __webpack_require__(8);
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -7011,7 +7011,7 @@ module.exports = exports['default'];
 
 __webpack_require__(151);
 
-module.exports = __webpack_require__(8).Array.isArray;
+module.exports = __webpack_require__(7).Array.isArray;
 
 /***/ }),
 /* 151 */
@@ -9279,7 +9279,7 @@ Carousel_Carousel.Caption = src_CarouselCaption;
 Carousel_Carousel.Item = src_CarouselItem;
 /* harmony default export */ var src_Carousel = (bootstrapUtils_bsClass('carousel', Carousel_Carousel));
 // EXTERNAL MODULE: ./node_modules/warning/browser.js
-var warning_browser = __webpack_require__(7);
+var warning_browser = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/Checkbox.js
 
@@ -10380,7 +10380,6 @@ var Dropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/Dropdown.js";
 
 
 
-
 var TOGGLE_ROLE = src_DropdownToggle.defaultProps.bsRole;
 var MENU_ROLE = src_DropdownMenu.defaultProps.bsRole;
 var Dropdown_propTypes = {
@@ -10608,12 +10607,7 @@ function (_React$Component) {
       _this2.menu = c;
     };
 
-    if (typeof child.ref === 'string') {
-       false ? undefined : void 0;
-    } else {
-      ref = utils_createChainedFunction(child.ref, ref);
-    }
-
+    ref = utils_createChainedFunction(child.ref, ref);
     return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,
@@ -10635,12 +10629,7 @@ function (_React$Component) {
       _this3.toggle = c;
     };
 
-    if (typeof child.ref === 'string') {
-       false ? undefined : void 0;
-    } else {
-      ref = utils_createChainedFunction(child.ref, ref);
-    }
-
+    ref = utils_createChainedFunction(child.ref, ref);
     return Object(external_root_React_commonjs2_react_commonjs_react_amd_react_["cloneElement"])(child, _extends({}, props, {
       ref: ref,
       bsClass: prefix(props, 'toggle'),
@@ -10682,7 +10671,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 328
+        lineNumber: 309
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
