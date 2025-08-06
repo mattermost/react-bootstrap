@@ -195,7 +195,7 @@ describe('<Nav>', () => {
         .focus();
 
       anchors.at(0).simulate('keydown', {
-        keyCode: keycode('right')
+        key: 'ArrowRight'
       });
 
       expect(instance.prop('activeKey')).to.equal(3);
@@ -212,7 +212,7 @@ describe('<Nav>', () => {
         .getDOMNode()
         .focus();
 
-      anchors.at(4).simulate('keydown', { keyCode: keycode('left') });
+      anchors.at(4).simulate('keydown', { key: 'ArrowLeft' });
 
       expect(instance.props().activeKey).to.equal(3);
       expect(document.activeElement).to.equal(anchors.at(2).getDOMNode());
@@ -227,7 +227,7 @@ describe('<Nav>', () => {
         .getDOMNode()
         .focus();
 
-      anchors.at(4).simulate('keydown', { keyCode: keycode('down') });
+      anchors.at(4).simulate('keydown', { key: 'ArrowDown' });
 
       expect(instance.props().activeKey).to.equal(1);
       expect(document.activeElement).to.equal(anchors.at(0).getDOMNode());
@@ -240,7 +240,7 @@ describe('<Nav>', () => {
         .getDOMNode()
         .focus();
 
-      anchors.at(0).simulate('keydown', { keyCode: keycode('up') });
+      anchors.at(0).simulate('keydown', { key: 'ArrowUp' });
 
       expect(instance.props().activeKey).to.equal(5);
       expect(document.activeElement).to.equal(anchors.at(4).getDOMNode());
@@ -267,7 +267,7 @@ describe('<Nav>', () => {
         .focus();
 
       anchors.at(0).simulate('keydown', {
-        keyCode: keycode('right')
+        key: 'ArrowRight'
       });
 
       expect(instance.props().activeKey).to.equal(0);
@@ -295,7 +295,7 @@ describe('<Nav>', () => {
         .focus();
 
       anchors.at(2).simulate('keydown', {
-        keyCode: keycode('right')
+        key: 'ArrowRight'
       });
 
       expect(instance.props().activeKey).to.equal('a');
