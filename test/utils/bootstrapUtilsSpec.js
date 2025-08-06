@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
@@ -9,7 +10,7 @@ import {
   _curry
 } from '../../src/utils/bootstrapUtils';
 
-import { render, shouldWarn } from '../helpers';
+import { shouldWarn } from '../helpers';
 
 describe('bootstrapUtils', () => {
   it('should prefix with bsClass', () => {
@@ -122,11 +123,18 @@ describe('bootstrapUtils', () => {
         Component
       );
 
-      const instance = render(<WrappedComponent />);
+      let instance;
+      const { rerender } = render(
+        <WrappedComponent
+          ref={element => {
+            instance = element;
+          }}
+        />
+      );
 
       expect(instance.props.bsStyle).to.equal('plaid');
 
-      render(<WrappedComponent bsStyle="not-plaid" />);
+      rerender(<WrappedComponent bsStyle="not-plaid" />);
     });
 
     it('should work with createClass', () => {
@@ -143,11 +151,18 @@ describe('bootstrapUtils', () => {
         })
       );
 
-      const instance = render(<Component />);
+      let instance;
+      const { rerender } = render(
+        <Component
+          ref={element => {
+            instance = element;
+          }}
+        />
+      );
 
       expect(instance.props.bsStyle).to.equal('plaid');
 
-      render(<Component bsStyle="not-plaid" />);
+      rerender(<Component bsStyle="not-plaid" />);
     });
 
     it('should work with functional components', () => {
@@ -207,11 +222,18 @@ describe('bootstrapUtils', () => {
         'smallish'
       )(Component);
 
-      const instance = render(<WrappedComponent />);
+      let instance;
+      const { rerender } = render(
+        <WrappedComponent
+          ref={element => {
+            instance = element;
+          }}
+        />
+      );
 
       expect(instance.props.bsSize).to.equal('smallish');
 
-      render(<WrappedComponent bsSize="not-smallish" />);
+      rerender(<WrappedComponent bsSize="not-smallish" />);
     });
 
     it('should work with createClass', () => {
@@ -228,11 +250,18 @@ describe('bootstrapUtils', () => {
         }
       );
 
-      const instance = render(<Component />);
+      let instance;
+      const { rerender } = render(
+        <Component
+          ref={element => {
+            instance = element;
+          }}
+        />
+      );
 
       expect(instance.props.bsSize).to.equal('smallish');
 
-      render(<Component bsSize="not-smallish" />);
+      rerender(<Component bsSize="not-smallish" />);
     });
   });
 });
