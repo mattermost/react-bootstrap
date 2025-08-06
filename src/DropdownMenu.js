@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import keycode from 'keycode';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -73,17 +72,17 @@ class DropdownMenu extends React.Component {
   }
 
   handleKeyDown(event) {
-    switch (event.keyCode) {
-      case keycode.codes.down:
+    switch (event.key) {
+      case 'ArrowDown':
         this.focusNext();
         event.preventDefault();
         break;
-      case keycode.codes.up:
+      case 'ArrowUp':
         this.focusPrevious();
         event.preventDefault();
         break;
-      case keycode.codes.esc:
-      case keycode.codes.tab:
+      case 'Escape':
+      case 'Tab':
         this.props.onClose(event, { source: 'keydown' });
         break;
       default:

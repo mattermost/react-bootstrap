@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import keycode from 'keycode';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -235,13 +234,13 @@ class Nav extends React.Component {
   handleTabKeyDown(onSelect, event) {
     let nextActiveChild;
 
-    switch (event.keyCode) {
-      case keycode.codes.left:
-      case keycode.codes.up:
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
         nextActiveChild = this.getNextActiveChild(-1);
         break;
-      case keycode.codes.right:
-      case keycode.codes.down:
+      case 'ArrowRight':
+      case 'ArrowDown':
         nextActiveChild = this.getNextActiveChild(1);
         break;
       default:
