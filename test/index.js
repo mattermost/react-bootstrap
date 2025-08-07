@@ -40,15 +40,6 @@ beforeEach(() => {
       return;
     }
 
-    if (
-      msg.includes('ReactDOM.render') ||
-      msg.includes('unmountComponentAtNode') ||
-      msg.includes('unstable_renderSubtreeIntoContainer')
-    ) {
-      // @hmhealey This needs to be addressed for React 18, but ignore these for now
-      return;
-    }
-
     if (msg.includes('defaultProps')) {
       // @hmhealey This is removed in React 19
       return;
