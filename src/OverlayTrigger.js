@@ -112,26 +112,12 @@ class OverlayTrigger extends React.Component {
     this.handleMouseOut = e =>
       this.handleMouseOverOut(this.handleDelayedHide, e, 'toElement');
 
-    this._mountNode = null;
-
     this.state = {
       show: props.defaultOverlayShown
     };
   }
 
-  componentDidMount() {
-    this._mountNode = document.createElement('div');
-    this.renderOverlay();
-  }
-
-  componentDidUpdate() {
-    this.renderOverlay();
-  }
-
   componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this._mountNode);
-    this._mountNode = null;
-
     clearTimeout(this._hoverShowDelay);
     clearTimeout(this._hoverHideDelay);
   }
@@ -232,14 +218,6 @@ class OverlayTrigger extends React.Component {
     this.setState({ show: true });
   }
 
-  renderOverlay() {
-    ReactDOM.unstable_renderSubtreeIntoContainer(
-      this,
-      this._overlay,
-      this._mountNode
-    );
-  }
-
   render() {
     const {
       trigger,
@@ -312,9 +290,12 @@ class OverlayTrigger extends React.Component {
       );
     }
 
-    this._overlay = this.makeOverlay(overlay, props);
-
-    return cloneElement(child, triggerProps);
+    return (
+      <>
+        {cloneElement(child, triggerProps)}
+        {ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body)}
+      </>
+    );
   }
 }
 

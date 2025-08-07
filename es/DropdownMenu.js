@@ -4,7 +4,6 @@ import _Array$from from "@babel/runtime-corejs2/core-js/array/from";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import classNames from 'classnames';
-import keycode from 'keycode';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -87,19 +86,19 @@ function (_React$Component) {
   };
 
   _proto.handleKeyDown = function handleKeyDown(event) {
-    switch (event.keyCode) {
-      case keycode.codes.down:
+    switch (event.key) {
+      case 'ArrowDown':
         this.focusNext();
         event.preventDefault();
         break;
 
-      case keycode.codes.up:
+      case 'ArrowUp':
         this.focusPrevious();
         event.preventDefault();
         break;
 
-      case keycode.codes.esc:
-      case keycode.codes.tab:
+      case 'Escape':
+      case 'Tab':
         this.props.onClose(event, {
           source: 'keydown'
         });

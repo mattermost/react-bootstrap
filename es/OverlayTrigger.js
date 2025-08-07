@@ -130,7 +130,6 @@ function (_React$Component) {
       return _this.handleMouseOverOut(_this.handleDelayedHide, e, 'toElement');
     };
 
-    _this._mountNode = null;
     _this.state = {
       show: props.defaultOverlayShown
     };
@@ -139,18 +138,7 @@ function (_React$Component) {
 
   var _proto = OverlayTrigger.prototype;
 
-  _proto.componentDidMount = function componentDidMount() {
-    this._mountNode = document.createElement('div');
-    this.renderOverlay();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    this.renderOverlay();
-  };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this._mountNode);
-    this._mountNode = null;
     clearTimeout(this._hoverShowDelay);
     clearTimeout(this._hoverHideDelay);
   };
@@ -254,10 +242,6 @@ function (_React$Component) {
     });
   };
 
-  _proto.renderOverlay = function renderOverlay() {
-    ReactDOM.unstable_renderSubtreeIntoContainer(this, this._overlay, this._mountNode);
-  };
-
   _proto.render = function render() {
     var _this$props = this.props,
         trigger = _this$props.trigger,
@@ -301,8 +285,7 @@ function (_React$Component) {
       triggerProps.onBlur = createChainedFunction(childProps.onBlur, onBlur, this.handleDelayedHide);
     }
 
-    this._overlay = this.makeOverlay(overlay, props);
-    return cloneElement(child, triggerProps);
+    return React.createElement(React.Fragment, null, cloneElement(child, triggerProps), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
   };
 
   return OverlayTrigger;
