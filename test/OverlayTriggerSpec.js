@@ -105,7 +105,7 @@ describe('<OverlayTrigger>', () => {
     expect(document.getElementsByClassName('test-overlay').length).to.equal(1);
   });
 
-  it('Should pass transition callbacks to Transition', done => {
+  it('Should pass transition callbacks to Transition', async () => {
     let count = 0;
     const increment = () => count++;
 
@@ -119,8 +119,6 @@ describe('<OverlayTrigger>', () => {
         onExiting={increment}
         onExited={() => {
           increment();
-          expect(count).to.equal(6);
-          done();
         }}
         onEnter={increment}
         onEntering={increment}
@@ -134,7 +132,11 @@ describe('<OverlayTrigger>', () => {
     );
 
     overlayTrigger = screen.getByText('button');
-    userEvent.click(overlayTrigger);
+    await userEvent.click(overlayTrigger);
+
+    await waitFor(() => {
+      expect(count).to.equal(6);
+    });
   });
 
   it('Should forward requested context', async () => {
