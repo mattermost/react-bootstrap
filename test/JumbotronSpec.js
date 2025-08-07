@@ -1,36 +1,33 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Jumbotron from '../src/Jumbotron';
 
 describe('<Jumbotron>', () => {
   it('Should output a div with content', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Jumbotron>
         <strong>Content</strong>
       </Jumbotron>
     );
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.equal(document.querySelector('.jumbotron').nodeName, 'DIV');
+    assert.ok(screen.getByText('Content'));
   });
 
   it('Should have a jumbotron class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Jumbotron>Content</Jumbotron>
+    render(<Jumbotron>Content</Jumbotron>);
+    assert.ok(
+      document.querySelector('.jumbotron').className.match(/\bjumbotron\b/)
     );
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bjumbotron\b/));
   });
 
   it('Should override node class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Jumbotron componentClass="section">
         <strong>Content</strong>
       </Jumbotron>
     );
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(document.querySelector('.jumbotron').nodeName, 'SECTION');
   });
 });

@@ -1,58 +1,48 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Breadcrumb from '../src/Breadcrumb';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('<Breadcrumb.Item>', () => {
   it('Should render `a` as inner element when is not active', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Breadcrumb.Item href="#">Crumb</Breadcrumb.Item>
-    );
+    render(<Breadcrumb.Item href="#">Crumb</Breadcrumb.Item>);
 
-    assert.ok(ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'a'));
-    assert.notInclude(ReactDOM.findDOMNode(instance).className, 'active');
+    assert.ok(screen.getByRole('button'));
+    assert.notInclude(screen.getByText('Crumb').className, 'active');
   });
 
   it('Should render `span.active` with `active` attribute set.', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Breadcrumb.Item active>Active Crumb</Breadcrumb.Item>
-    );
+    render(<Breadcrumb.Item active>Active Crumb</Breadcrumb.Item>);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'active');
-    assert.ok(ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'span'));
+    assert.include(document.querySelector('li').className, 'active');
+    assert.ok(document.querySelector('li > span'));
   });
 
   it('Should render `span.active` when active and has href', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item href="#" active>
         Active Crumb
       </Breadcrumb.Item>
     );
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'active');
+    assert.include(document.querySelector('li').className, 'active');
 
-    const spanNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'span'
-    );
+    const spanNode = document.querySelector('li > span');
     assert.ok(spanNode);
     assert.notOk(spanNode.hasAttribute('href'));
 
-    assert.lengthOf(
-      ReactTestUtils.scryRenderedDOMComponentsWithTag(instance, 'a'),
-      0
-    );
+    assert.lengthOf(screen.queryAllByRole('button'), 0);
   });
 
   it('Should add custom classes onto `li` wrapper element', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item className="custom-one custom-two">
         Active Crumb
       </Breadcrumb.Item>
     );
 
-    const classes = ReactDOM.findDOMNode(instance).className;
+    const classes = document.querySelector('li').className;
     assert.include(classes, 'custom-one');
     assert.include(classes, 'custom-two');
   });
@@ -62,44 +52,35 @@ describe('<Breadcrumb.Item>', () => {
       done();
     };
 
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item href="#" onClick={handleClick}>
         Crumb
       </Breadcrumb.Item>
     );
 
-    const anchorNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'a'
-    );
-    ReactTestUtils.Simulate.click(anchorNode);
+    const anchorNode = screen.getByRole('button');
+    userEvent.click(anchorNode);
   });
 
   it('Should apply id onto the anchor', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item href="#" id="test-link-id">
         Crumb
       </Breadcrumb.Item>
     );
 
-    const linkNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'a'
-    );
+    const linkNode = screen.getByRole('button');
     assert.equal(linkNode.id, 'test-link-id');
   });
 
   it('Should apply `href` property onto `a` inner element', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item href="http://getbootstrap.com/components/#breadcrumbs">
         Crumb
       </Breadcrumb.Item>
     );
 
-    const linkNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'a'
-    );
+    const linkNode = screen.getByRole('link');
     assert.equal(
       linkNode.href,
       'http://getbootstrap.com/components/#breadcrumbs'
@@ -107,7 +88,7 @@ describe('<Breadcrumb.Item>', () => {
   });
 
   it('Should apply `title` property onto `a` inner element', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item
         title="test-title"
         href="http://getbootstrap.com/components/#breadcrumbs"
@@ -116,27 +97,24 @@ describe('<Breadcrumb.Item>', () => {
       </Breadcrumb.Item>
     );
 
-    const linkNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'a'
-    );
+    const linkNode = screen.getByRole('link');
     assert.equal(linkNode.title, 'test-title');
   });
 
   it('Should not apply properties for inner `anchor` onto `li` wrapper element', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item title="test-title" href="/hi">
         Crumb
       </Breadcrumb.Item>
     );
 
-    const liNode = ReactDOM.findDOMNode(instance);
+    const liNode = document.querySelector('li');
     assert.notOk(liNode.hasAttribute('href'));
     assert.notOk(liNode.hasAttribute('title'));
   });
 
   it('Should set `target` attribute on `anchor`', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Breadcrumb.Item
         target="_blank"
         href="http://getbootstrap.com/components/#breadcrumbs"
@@ -145,10 +123,7 @@ describe('<Breadcrumb.Item>', () => {
       </Breadcrumb.Item>
     );
 
-    const linkNode = ReactTestUtils.findRenderedDOMComponentWithTag(
-      instance,
-      'a'
-    );
+    const linkNode = screen.getByRole('link');
     assert.equal(linkNode.target, '_blank');
   });
 });

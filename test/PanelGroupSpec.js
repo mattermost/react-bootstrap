@@ -1,5 +1,5 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import { mount } from 'enzyme';
 
@@ -10,7 +10,7 @@ import { shouldWarn } from './helpers';
 
 describe('<PanelGroup>', () => {
   it('Should pass bsStyle to Panels', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <PanelGroup bsStyle="default" id="panel">
         <Panel>
           <Panel.Body>Panel 1</Panel.Body>
@@ -18,13 +18,13 @@ describe('<PanelGroup>', () => {
       </PanelGroup>
     );
 
-    let panel = ReactTestUtils.findRenderedComponentWithType(instance, Panel);
+    let panel = document.querySelector('.panel');
 
-    assert.equal(panel.props.bsStyle, 'default');
+    assert.equal(panel.className, 'panel panel-default');
   });
 
   it('Should not override bsStyle on Panel', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <PanelGroup bsStyle="default" id="panel">
         <Panel bsStyle="primary">
           <Panel.Body>Panel 1</Panel.Body>
@@ -32,9 +32,9 @@ describe('<PanelGroup>', () => {
       </PanelGroup>
     );
 
-    let panel = ReactTestUtils.findRenderedComponentWithType(instance, Panel);
+    let panel = document.querySelector('.panel');
 
-    assert.equal(panel.props.bsStyle, 'primary');
+    assert.equal(panel.className, 'panel panel-primary');
   });
 
   describe('accordion', () => {

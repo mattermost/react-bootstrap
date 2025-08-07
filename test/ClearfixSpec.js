@@ -1,27 +1,24 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Clearfix from '../src/Clearfix';
 
 describe('<Clearfix>', () => {
   it('uses "div" by default', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Clearfix />);
+    render(<Clearfix />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(document.querySelector('.clearfix').nodeName, 'DIV');
   });
 
   it('has "clearfix" class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Clearfix>Clearfix content</Clearfix>
-    );
-    assert.equal(ReactDOM.findDOMNode(instance).className, 'clearfix');
+    render(<Clearfix>Clearfix content</Clearfix>);
+    assert.equal(document.querySelector('.clearfix').className, 'clearfix');
   });
 
   it('Defaults to no visible block classes', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Clearfix />);
+    render(<Clearfix />);
 
-    let instanceClassName = ReactDOM.findDOMNode(instance).className;
+    let instanceClassName = document.querySelector('.clearfix').className;
     assert.ok(!instanceClassName.match(/\bvisible-xs-block\b/));
     assert.ok(!instanceClassName.match(/\bvisible-sm-block\b/));
     assert.ok(!instanceClassName.match(/\bvisible-md-block\b/));
@@ -29,11 +26,11 @@ describe('<Clearfix>', () => {
   });
 
   it('Should apply visible block classes', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Clearfix visibleXsBlock visibleSmBlock visibleMdBlock visibleLgBlock />
     );
 
-    let instanceClassName = ReactDOM.findDOMNode(instance).className;
+    let instanceClassName = document.querySelector('.clearfix').className;
     assert.ok(instanceClassName.match(/\bvisible-xs-block\b/));
     assert.ok(instanceClassName.match(/\bvisible-sm-block\b/));
     assert.ok(instanceClassName.match(/\bvisible-md-block\b/));
@@ -41,18 +38,16 @@ describe('<Clearfix>', () => {
   });
 
   it('Should merge additional classes passed in', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Clearfix className="bob" />
+    render(<Clearfix className="bob" />);
+    assert.ok(document.querySelector('.clearfix').className.match(/\bbob\b/));
+    assert.ok(
+      document.querySelector('.clearfix').className.match(/\bclearfix\b/)
     );
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bbob\b/));
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bclearfix\b/));
   });
 
   it('allows custom elements instead of "div"', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Clearfix componentClass="section" />
-    );
+    render(<Clearfix componentClass="section" />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(document.querySelector('.clearfix').nodeName, 'SECTION');
   });
 });

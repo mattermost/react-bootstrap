@@ -1,48 +1,44 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Modal from '../src/Modal';
 
 describe('Modal.Footer', () => {
   it('uses "div" by default', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Footer />);
+    render(<Modal.Footer />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(document.querySelector('.modal-footer').nodeName, 'DIV');
   });
 
   it('has "modal-footer" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Footer />);
+    render(<Modal.Footer />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'modal-footer');
+    assert.include(
+      document.querySelector('.modal-footer').className,
+      'modal-footer'
+    );
   });
 
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Footer className="custom-class" />
-    );
-    const classes = ReactDOM.findDOMNode(instance).className;
+    render(<Modal.Footer className="custom-class" />);
+    const classes = document.querySelector('.modal-footer').className;
 
     assert.include(classes, 'modal-footer');
     assert.include(classes, 'custom-class');
   });
 
   it('should allow custom elements instead of "div"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Footer componentClass="section" />
-    );
+    render(<Modal.Footer componentClass="section" />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(document.querySelector('.modal-footer').nodeName, 'SECTION');
   });
 
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Modal.Footer>
         <strong>Content</strong>
       </Modal.Footer>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Content'));
   });
 });

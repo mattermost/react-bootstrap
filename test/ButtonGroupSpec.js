@@ -1,6 +1,5 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import ButtonGroup from '../src/ButtonGroup';
 import Button from '../src/Button';
@@ -9,51 +8,57 @@ import { shouldWarn } from './helpers';
 
 describe('ButtonGroup', () => {
   it('Should output a button group', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup>
         <Button>Title</Button>
       </ButtonGroup>
     );
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bbtn-group\b/));
+    assert.equal(document.querySelector('.btn-group').nodeName, 'DIV');
+    assert.ok(
+      document.querySelector('.btn-group').className.match(/\bbtn-group\b/)
+    );
   });
 
   it('Should add size', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup bsSize="large">
         <Button>Title</Button>
       </ButtonGroup>
     );
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bbtn-group-lg\b/)
+      document.querySelector('.btn-group').className.match(/\bbtn-group-lg\b/)
     );
   });
 
   it('Should add vertical variation', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup vertical>
         <Button>Title</Button>
       </ButtonGroup>
     );
     assert.equal(
-      ReactDOM.findDOMNode(instance).className.trim(),
+      document.querySelector('.btn-group-vertical').className.trim(),
       'btn-group-vertical'
     );
   });
 
   it('Should add block variation', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup vertical block>
         <Button>Title</Button>
       </ButtonGroup>
     );
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bbtn-block\b/));
+    assert.ok(
+      document
+        .querySelector('.btn-group-vertical')
+        .className.match(/\bbtn-block\b/)
+    );
   });
 
   it('Should warn about block without vertical', () => {
     shouldWarn('`block` requires `vertical` to be set to have any effect');
 
-    ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup block>
         <Button>Title</Button>
       </ButtonGroup>
@@ -61,13 +66,15 @@ describe('ButtonGroup', () => {
   });
 
   it('Should add justified variation', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <ButtonGroup justified>
         <Button>Title</Button>
       </ButtonGroup>
     );
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bbtn-group-justified\b/)
+      document
+        .querySelector('.btn-group')
+        .className.match(/\bbtn-group-justified\b/)
     );
   });
 });

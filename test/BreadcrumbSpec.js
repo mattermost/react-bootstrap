@@ -1,34 +1,27 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Breadcrumb from '../src/Breadcrumb';
 
 describe('<Breadcrumb>', () => {
   it('Should apply id to the wrapper ol element', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Breadcrumb id="custom-id" />
-    );
+    render(<Breadcrumb id="custom-id" />);
 
-    let olNode = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'ol');
+    let olNode = document.querySelector('ol');
     assert.equal(olNode.id, 'custom-id');
   });
 
   it('Should have breadcrumb class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Breadcrumb />);
+    render(<Breadcrumb />);
 
-    let olNode = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'ol');
+    let olNode = document.querySelector('ol');
     assert.include(olNode.className, 'breadcrumb');
   });
 
   it('Should have custom classes', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Breadcrumb className="custom-one custom-two" />
-    );
+    render(<Breadcrumb className="custom-one custom-two" />);
 
-    let olNode = ReactDOM.findDOMNode(
-      ReactTestUtils.findRenderedComponentWithType(instance, Breadcrumb)
-    );
+    let olNode = document.querySelector('ol');
 
     let classes = olNode.className;
     assert.include(classes, 'breadcrumb');
@@ -37,20 +30,16 @@ describe('<Breadcrumb>', () => {
   });
 
   it('Should have a navigation role', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Breadcrumb />);
+    render(<Breadcrumb />);
 
-    let olNode = ReactDOM.findDOMNode(
-      ReactTestUtils.findRenderedComponentWithType(instance, Breadcrumb)
-    );
+    let olNode = document.querySelector('ol');
     assert.equal(olNode.getAttribute('role'), 'navigation');
   });
 
   it('Should have an aria-label in ol', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Breadcrumb />);
+    render(<Breadcrumb />);
 
-    let olNode = ReactDOM.findDOMNode(
-      ReactTestUtils.findRenderedComponentWithType(instance, Breadcrumb)
-    );
+    let olNode = document.querySelector('ol');
     assert.equal(olNode.getAttribute('aria-label'), 'breadcrumbs');
   });
 });

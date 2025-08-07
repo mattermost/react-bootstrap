@@ -1,48 +1,44 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Modal from '../src/Modal';
 
 describe('Modal.Body', () => {
   it('uses "div" by default', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Body />);
+    render(<Modal.Body />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(document.querySelector('.modal-body').nodeName, 'DIV');
   });
 
   it('has "modal-body" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Body />);
+    render(<Modal.Body />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'modal-body');
+    assert.include(
+      document.querySelector('.modal-body').className,
+      'modal-body'
+    );
   });
 
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Body className="custom-class" />
-    );
-    const classes = ReactDOM.findDOMNode(instance).className;
+    render(<Modal.Body className="custom-class" />);
+    const classes = document.querySelector('.modal-body').className;
 
     assert.include(classes, 'modal-body');
     assert.include(classes, 'custom-class');
   });
 
   it('should allow custom elements instead of "div"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Body componentClass="section" />
-    );
+    render(<Modal.Body componentClass="section" />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(document.querySelector('.modal-body').nodeName, 'SECTION');
   });
 
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Modal.Body>
         <strong>Content</strong>
       </Modal.Body>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Content'));
   });
 });

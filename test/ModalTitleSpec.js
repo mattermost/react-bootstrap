@@ -1,48 +1,44 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Modal from '../src/Modal';
 
 describe('Modal.Title', () => {
   it('uses "h4" by default', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Title />);
+    render(<Modal.Title />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'H4');
+    assert.equal(document.querySelector('.modal-title').nodeName, 'H4');
   });
 
   it('has "modal-title" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Modal.Title />);
+    render(<Modal.Title />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'modal-title');
+    assert.include(
+      document.querySelector('.modal-title').className,
+      'modal-title'
+    );
   });
 
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Title className="custom-class" />
-    );
-    const classes = ReactDOM.findDOMNode(instance).className;
+    render(<Modal.Title className="custom-class" />);
+    const classes = document.querySelector('.modal-title').className;
 
     assert.include(classes, 'modal-title');
     assert.include(classes, 'custom-class');
   });
 
   it('should allow custom elements instead of "h4"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Modal.Title componentClass="h3" />
-    );
+    render(<Modal.Title componentClass="h3" />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'H3');
+    assert.equal(document.querySelector('.modal-title').nodeName, 'H3');
   });
 
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Modal.Title>
         <strong>Children</strong>
       </Modal.Title>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Children'));
   });
 });
