@@ -5,7 +5,6 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
-import keycode from 'keycode';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -177,6 +176,12 @@ function (_React$Component) {
   };
 
   _proto.handleClick = function handleClick(event) {
+    // @hmhealey I added this because, when migrating the "passes open, event, and source correctly when closed with click"
+    // test to use RTL, the root close handler started triggering when clicking on the menu button toggle which seems
+    // like it shouldn't happen. We had similar issues with React 17 where overlays would open and immediately close, so
+    // while that didn't happen in the tests using React 17, I'd be willing to guess that ReactTestUtils hid that from us.
+    event.stopPropagation();
+
     if (this.props.disabled) {
       return;
     }
@@ -199,8 +204,8 @@ function (_React$Component) {
       return;
     }
 
-    switch (event.keyCode) {
-      case keycode.codes.down:
+    switch (event.key) {
+      case 'ArrowDown':
         if (!this.props.open) {
           this.toggleOpen(event, {
             source: 'keydown'
@@ -212,8 +217,8 @@ function (_React$Component) {
         event.preventDefault();
         break;
 
-      case keycode.codes.esc:
-      case keycode.codes.tab:
+      case 'Escape':
+      case 'Tab':
         this.handleClose(event, {
           source: 'keydown'
         });
