@@ -1,33 +1,29 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Alert from '../src/Alert';
 
 describe('<Alert>', () => {
   it('Should output a alert with message', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Alert>
         <strong>Message</strong>
       </Alert>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Message'));
   });
 
   it('Should have bsType by default', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Alert>Message</Alert>);
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\balert\b/));
+    render(<Alert>Message</Alert>);
+    assert.ok(screen.getByRole('alert').className.match(/\balert\b/));
   });
 
   it('Should have dismissable style with onDismiss', () => {
     let noOp = () => {};
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Alert onDismiss={noOp}>Message</Alert>
-    );
+    render(<Alert onDismiss={noOp}>Message</Alert>);
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\balert-dismissable\b/)
+      screen.getByRole('alert').className.match(/\balert-dismissable\b/)
     );
   });
 
@@ -35,46 +31,35 @@ describe('<Alert>', () => {
     let doneOp = () => {
       done();
     };
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Alert onDismiss={doneOp}>Message</Alert>
-    );
-    ReactTestUtils.Simulate.click(ReactDOM.findDOMNode(instance).children[0]);
+    render(<Alert onDismiss={doneOp}>Message</Alert>);
+    userEvent.click(screen.getByRole('alert').children[0]);
   });
 
   it('Should have a default bsStyle class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Alert>Message</Alert>);
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\balert-\w+\b/));
+    render(<Alert>Message</Alert>);
+    assert.ok(screen.getByRole('alert').className.match(/\balert-\w+\b/));
   });
 
   it('Should have use bsStyle class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Alert bsStyle="danger">Message</Alert>
-    );
-    assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\balert-danger\b/)
-    );
+    render(<Alert bsStyle="danger">Message</Alert>);
+    assert.ok(screen.getByRole('alert').className.match(/\balert-danger\b/));
   });
 
   describe('Web Accessibility', () => {
     it('Should have alert role', () => {
-      let instance = ReactTestUtils.renderIntoDocument(<Alert>Message</Alert>);
+      render(<Alert>Message</Alert>);
 
-      assert.equal(
-        ReactDOM.findDOMNode(instance).getAttribute('role'),
-        'alert'
-      );
+      assert.equal(screen.getByRole('alert').getAttribute('role'), 'alert');
     });
 
     it('Should call onDismiss callback when the sr-only dismiss link is activated', done => {
       let doneOp = () => {
         done();
       };
-      let instance = ReactTestUtils.renderIntoDocument(
-        <Alert onDismiss={doneOp}>Message</Alert>
-      );
+      render(<Alert onDismiss={doneOp}>Message</Alert>);
 
-      ReactTestUtils.Simulate.click(
-        ReactDOM.findDOMNode(instance).getElementsByClassName('sr-only')[0]
+      userEvent.click(
+        screen.getByRole('alert').getElementsByClassName('sr-only')[0]
       );
     });
   });

@@ -1,6 +1,6 @@
-import keycode from 'keycode';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 
 import Nav from '../src/Nav';
@@ -20,78 +20,63 @@ describe('<Nav>', () => {
   });
 
   it('Should set the correct item active', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="pills" activeKey={1}>
         <NavItem eventKey={1}>Pill 1 content</NavItem>
         <NavItem eventKey={2}>Pill 2 content</NavItem>
       </Nav>
     );
 
-    const items = ReactTestUtils.scryRenderedComponentsWithType(
-      instance,
-      NavItem
-    );
+    const items = document.querySelector('.nav').children;
 
-    assert.ok(items[0].props.active);
-    assert.notOk(items[1].props.active);
+    assert.ok(items[0].classList.contains('active'));
+    assert.notOk(items[1].classList.contains('active'));
   });
 
   it('Should adds style class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" activeKey={1}>
         <NavItem eventKey={1}>Tab 1 content</NavItem>
         <NavItem eventKey={2}>Tab 2 content</NavItem>
       </Nav>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'nav')
-    );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'nav-tabs')
-    );
+    assert.ok(document.querySelector('.nav').classList.contains('nav-tabs'));
   });
 
   it('Should adds stacked variation class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" stacked activeKey={1}>
         <NavItem eventKey={1}>Tab 1 content</NavItem>
         <NavItem eventKey={2}>Tab 2 content</NavItem>
       </Nav>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'nav-stacked')
-    );
+    assert.ok(document.querySelector('.nav').classList.contains('nav-stacked'));
   });
 
   it('Should adds variation class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" justified activeKey={1}>
         <NavItem eventKey={1}>Tab 1 content</NavItem>
         <NavItem eventKey={2}>Tab 2 content</NavItem>
       </Nav>
     );
     assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'nav-justified'
-      )
+      document.querySelector('.nav').classList.contains('nav-justified')
     );
   });
 
   it('Should add pull-right class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" pullRight activeKey={1}>
         <NavItem eventKey={1}>Tab 1 content</NavItem>
         <NavItem eventKey={2}>Tab 2 content</NavItem>
       </Nav>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'pull-right')
-    );
+    assert.ok(document.querySelector('.nav').classList.contains('pull-right'));
   });
 
   it('Should add navbar-right class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" navbar pullRight activeKey={1}>
         <NavItem key={1}>Tab 1 content</NavItem>
         <NavItem key={2}>Tab 2 content</NavItem>
@@ -99,7 +84,7 @@ describe('<Nav>', () => {
     );
 
     assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'navbar-right')
+      document.querySelector('.nav').classList.contains('navbar-right')
     );
   });
 
@@ -108,7 +93,7 @@ describe('<Nav>', () => {
       assert.equal(key, '2');
       done();
     }
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="tabs" activeKey={1} onSelect={handleSelect}>
         <NavItem eventKey={1}>Tab 1 content</NavItem>
         <NavItem eventKey={2}>
@@ -117,16 +102,11 @@ describe('<Nav>', () => {
       </Nav>
     );
 
-    const items = ReactTestUtils.scryRenderedDOMComponentsWithTag(
-      instance,
-      'A'
-    );
-
-    ReactTestUtils.Simulate.click(items[1]);
+    userEvent.click(screen.getByText('Tab 2 content'));
   });
 
   it('Should set the correct item active by href', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav bsStyle="pills" activeHref="#item2">
         <NavItem eventKey={1} href="#item1">
           Pill 1 content
@@ -137,19 +117,22 @@ describe('<Nav>', () => {
       </Nav>
     );
 
-    const items = ReactTestUtils.scryRenderedComponentsWithType(
-      instance,
-      NavItem
+    assert.ok(
+      screen
+        .getByText('Pill 2 content')
+        .parentElement.classList.contains('active')
     );
-
-    assert.ok(items[1].props.active);
-    assert.notOk(items[0].props.active);
+    assert.notOk(
+      screen
+        .getByText('Pill 1 content')
+        .parentElement.classList.contains('active')
+    );
   });
 
   it('Should warn when attempting to use a justified navbar nav', () => {
     shouldWarn('justified navbar `Nav`s are not supported');
 
-    ReactTestUtils.renderIntoDocument(<Nav navbar justified />);
+    render(<Nav navbar justified />);
   });
 
   describe('keyboard navigation', () => {
@@ -307,21 +290,15 @@ describe('<Nav>', () => {
 
   describe('Web Accessibility', () => {
     it('Should have tablist and tab roles', () => {
-      const instance = ReactTestUtils.renderIntoDocument(
+      render(
         <Nav role="tablist" bsStyle="tabs" activeKey={1}>
           <NavItem key={1}>Tab 1 content</NavItem>
           <NavItem key={2}>Tab 2 content</NavItem>
         </Nav>
       );
 
-      const ul = ReactTestUtils.scryRenderedDOMComponentsWithTag(
-        instance,
-        'ul'
-      )[0];
-      const navItem = ReactTestUtils.scryRenderedDOMComponentsWithTag(
-        instance,
-        'a'
-      )[0];
+      const ul = document.querySelector('ul');
+      const navItem = screen.getByText('Tab 1 content');
 
       assert.equal(ul.getAttribute('role'), 'tablist');
       assert.equal(navItem.getAttribute('role'), 'tab');

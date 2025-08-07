@@ -1,57 +1,58 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Media from '../src/Media';
 
 describe('Media.Left', () => {
   it('uses "div"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media.Left />);
+    render(<Media.Left />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(document.querySelector('.media-left').nodeName, 'DIV');
   });
 
   it('has "media-left" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media.Left />);
+    render(<Media.Left />);
 
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bmedia-left\b/));
+    assert.ok(
+      document.querySelector('.media-left').className.match(/\bmedia-left\b/)
+    );
   });
 
   it('should be able to change alignment to middle', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media.Left align="middle" />
-    );
+    render(<Media.Left align="middle" />);
 
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bmedia-middle\b/)
+      document.querySelector('.media-left').className.match(/\bmedia-middle\b/)
     );
   });
 
   it('should be able to change alignment to bottom', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media.Left align="bottom" />
-    );
+    render(<Media.Left align="bottom" />);
 
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bmedia-bottom\b/)
+      document.querySelector('.media-left').className.match(/\bmedia-bottom\b/)
     );
   });
 
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media.Left className="custom-class" />
-    );
+    render(<Media.Left className="custom-class" />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'media-left');
-    assert.include(ReactDOM.findDOMNode(instance).className, 'custom-class');
+    assert.include(
+      document.querySelector('.media-left').className,
+      'media-left'
+    );
+    assert.include(
+      document.querySelector('.media-left').className,
+      'custom-class'
+    );
   });
 
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Media.Left>
         <img />
       </Media.Left>
     );
-    assert.ok(ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'img'));
+    assert.ok(screen.getByRole('img'));
   });
 });

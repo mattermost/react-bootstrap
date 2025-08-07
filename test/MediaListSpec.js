@@ -1,37 +1,35 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Media from '../src/Media';
 
 describe('Media.List', () => {
   it('uses "ul"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media.List />);
+    render(<Media.List />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'UL');
+    assert.equal(document.querySelector('.media-list').nodeName, 'UL');
   });
   it('has "media-list" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media.List />);
+    render(<Media.List />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'media-list');
+    assert.include(
+      document.querySelector('.media-list').className,
+      'media-list'
+    );
   });
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media.List className="custom-class" />
-    );
-    const classes = ReactDOM.findDOMNode(instance).className;
+    render(<Media.List className="custom-class" />);
+    const classes = document.querySelector('.media-list').className;
 
     assert.include(classes, 'media-list');
     assert.include(classes, 'custom-class');
   });
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Media.List>
         <strong>Content</strong>
       </Media.List>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Content'));
   });
 });
