@@ -50,11 +50,6 @@ beforeEach(() => {
       return;
     }
 
-    if (msg.includes('ReactDOMTestUtils')) {
-      // @hmhealey This is removed in React 19
-      return;
-    }
-
     if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
       // @hmhealey These are removed in React 19
       return;

@@ -1,5 +1,5 @@
+import { act } from '@testing-library/react';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 
 import Nav from '../src/Nav';
@@ -161,12 +161,12 @@ describe('<TabContainer>', () => {
       instance.assertSingle(TabContent);
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1] });
       });
       instance.assertNone('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ activeKey: 1 });
       });
       instance.assertSingle('[eventKey=1]').assertSingle('.active');
@@ -177,7 +177,7 @@ describe('<TabContainer>', () => {
 
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1], activeKey: 1 });
       });
       // XXX I have no idea why this is needed but the test fails without it.
@@ -193,7 +193,7 @@ describe('<TabContainer>', () => {
 
       instance.assertSingle(TabPane);
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ show: false });
       });
       spy.should.have.not.been.called;
@@ -205,7 +205,7 @@ describe('<TabContainer>', () => {
       instance.find(TabPane).length.should.equal(3);
       instance.assertSingle('[eventKey=3]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1, 2], activeKey: 2 });
       });
       // XXX I have no idea why this is needed but the test fails without it.
@@ -219,20 +219,20 @@ describe('<TabContainer>', () => {
 
       instance.assertSingle('[eventKey=1]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ animation: false });
       });
       instance.assertSingle('[eventKey=1]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ activeKey: 2 });
       });
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ animation: true });
       });
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ activeKey: 1 });
       });
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
@@ -243,14 +243,14 @@ describe('<TabContainer>', () => {
 
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1, 3], activeKey: 3 });
       });
       // XXX I have no idea why this is needed but the test fails without it.
       instance.update();
       instance.assertSingle('[eventKey=3]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1, 4], activeKey: 4 });
       });
       // XXX I have no idea why this is needed but the test fails without it.
@@ -263,24 +263,24 @@ describe('<TabContainer>', () => {
 
       instance.assertSingle('[eventKey=2]').assertSingle('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1, 3] });
       });
       instance.assertNone('.active');
 
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ activeKey: 3 });
       });
       instance.assertSingle('[eventKey=3]').assertSingle('.active');
 
       // Check that active state lingers after changing event key.
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ activeKey: 1 });
       });
       instance.assertSingle('[eventKey=3]').assertSingle('.active');
 
       // But once event key changes again, make sure active state switches.
-      ReactTestUtils.act(() => {
+      act(() => {
         instance.setState({ eventKeys: [1, 2] });
       });
       // XXX I have no idea why this is needed but the test fails without it.
@@ -294,13 +294,13 @@ describe('<TabContainer>', () => {
 
         instance.assertSingle('[eventKey=1]').assertSingle('.active');
 
-        ReactTestUtils.act(() => {
+        act(() => {
           instance.setState({ eventKeys: order2 });
         });
         instance.assertSingle('[eventKey=1]').assertSingle('.active');
 
         // Check that the animation is still wired up.
-        ReactTestUtils.act(() => {
+        act(() => {
           instance.setState({ activeKey: 2 });
         });
         instance.assertSingle('[eventKey=1]').assertSingle('.active');
