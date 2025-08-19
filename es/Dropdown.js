@@ -1,11 +1,10 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import classNames from 'classnames';
 import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
-import keycode from 'keycode';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -13,7 +12,6 @@ import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
-import warning from 'warning';
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
@@ -119,9 +117,9 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_this));
-    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._focusInDropdown = false;
     _this.lastOpenEventType = null;
     return _this;
@@ -133,7 +131,7 @@ function (_React$Component) {
     this.focusNextOnOpen();
   };
 
-  _proto.componentWillUpdate = function componentWillUpdate(nextProps) {
+  _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains(ReactDOM.findDOMNode(this.menu), activeElement(document));
     }
@@ -178,6 +176,12 @@ function (_React$Component) {
   };
 
   _proto.handleClick = function handleClick(event) {
+    // @hmhealey I added this because, when migrating the "passes open, event, and source correctly when closed with click"
+    // test to use RTL, the root close handler started triggering when clicking on the menu button toggle which seems
+    // like it shouldn't happen. We had similar issues with React 17 where overlays would open and immediately close, so
+    // while that didn't happen in the tests using React 17, I'd be willing to guess that ReactTestUtils hid that from us.
+    event.stopPropagation();
+
     if (this.props.disabled) {
       return;
     }
@@ -200,8 +204,8 @@ function (_React$Component) {
       return;
     }
 
-    switch (event.keyCode) {
-      case keycode.codes.down:
+    switch (event.key) {
+      case 'ArrowDown':
         if (!this.props.open) {
           this.toggleOpen(event, {
             source: 'keydown'
@@ -213,8 +217,8 @@ function (_React$Component) {
         event.preventDefault();
         break;
 
-      case keycode.codes.esc:
-      case keycode.codes.tab:
+      case 'Escape':
+      case 'Tab':
         this.handleClose(event, {
           source: 'keydown'
         });
@@ -248,12 +252,7 @@ function (_React$Component) {
       _this2.menu = c;
     };
 
-    if (typeof child.ref === 'string') {
-      process.env.NODE_ENV !== "production" ? warning(false, 'String refs are not supported on `<Dropdown.Menu>` components. ' + 'To apply a ref to the component use the callback signature:\n\n ' + 'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute') : void 0;
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
-
+    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,
@@ -275,12 +274,7 @@ function (_React$Component) {
       _this3.toggle = c;
     };
 
-    if (typeof child.ref === 'string') {
-      process.env.NODE_ENV !== "production" ? warning(false, 'String refs are not supported on `<Dropdown.Toggle>` components. ' + 'To apply a ref to the component use the callback signature:\n\n ' + 'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute') : void 0;
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
-
+    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
       ref: ref,
       bsClass: prefix(props, 'toggle'),

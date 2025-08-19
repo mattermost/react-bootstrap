@@ -1,27 +1,22 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import PageHeader from '../src/PageHeader';
 
 describe('PageHeader', () => {
   it('Should output a div with content', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <PageHeader>
         <strong>Content</strong>
       </PageHeader>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Content'));
   });
 
   it('Should have a page-header class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <PageHeader>Content</PageHeader>
-    );
+    render(<PageHeader>Content</PageHeader>);
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bpage-header\b/)
+      document.querySelector('.page-header').className.match(/\bpage-header\b/)
     );
   });
 });

@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 // TODO: Remove this pragma once we upgrade eslint-config-airbnb.
 
 /* eslint-disable react/no-multi-comp */
@@ -128,8 +128,8 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    _this.handleCollapse = _this.handleCollapse.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleCollapse = _this.handleCollapse.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -219,10 +219,13 @@ var UncontrollableNavbar = uncontrollable(Navbar, {
 
 function createSimpleWrapper(tag, suffix, displayName) {
   var Wrapper = function Wrapper(_ref, _ref2) {
-    var Component = _ref.componentClass,
+    var _ref$componentClass = _ref.componentClass,
+        Component = _ref$componentClass === void 0 ? tag : _ref$componentClass,
         className = _ref.className,
-        pullRight = _ref.pullRight,
-        pullLeft = _ref.pullLeft,
+        _ref$pullRight = _ref.pullRight,
+        pullRight = _ref$pullRight === void 0 ? false : _ref$pullRight,
+        _ref$pullLeft = _ref.pullLeft,
+        pullLeft = _ref$pullLeft === void 0 ? false : _ref$pullLeft,
         props = _objectWithoutPropertiesLoose(_ref, ["componentClass", "className", "pullRight", "pullLeft"]);
 
     var _ref2$$bs_navbar = _ref2.$bs_navbar,
@@ -239,11 +242,6 @@ function createSimpleWrapper(tag, suffix, displayName) {
     componentClass: elementType,
     pullRight: PropTypes.bool,
     pullLeft: PropTypes.bool
-  };
-  Wrapper.defaultProps = {
-    componentClass: tag,
-    pullRight: false,
-    pullLeft: false
   };
   Wrapper.contextTypes = {
     $bs_navbar: PropTypes.shape({

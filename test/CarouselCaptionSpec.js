@@ -1,38 +1,49 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Carousel from '../src/Carousel';
 
 describe('<Carousel.Caption>', () => {
   it('uses "div" by default', () => {
-    let instance = ReactTestUtils.renderIntoDocument(<Carousel.Caption />);
+    render(<Carousel.Caption>Carousel.Caption content</Carousel.Caption>);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(screen.getByText('Carousel.Caption content').nodeName, 'DIV');
   });
 
   it('has "carousel-caption" class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Carousel.Caption>Carousel.Caption content</Carousel.Caption>
+    render(<Carousel.Caption>Carousel.Caption content</Carousel.Caption>);
+    assert.equal(
+      screen.getByText('Carousel.Caption content').className,
+      'carousel-caption'
     );
-    assert.equal(ReactDOM.findDOMNode(instance).className, 'carousel-caption');
   });
 
   it('Should merge additional classes passed in', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Carousel.Caption className="bob" />
+    render(
+      <Carousel.Caption className="bob">
+        Carousel.Caption content
+      </Carousel.Caption>
     );
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bbob\b/));
     assert.ok(
-      ReactDOM.findDOMNode(instance).className.match(/\bcarousel-caption\b/)
+      screen.getByText('Carousel.Caption content').className.match(/\bbob\b/)
+    );
+    assert.ok(
+      screen
+        .getByText('Carousel.Caption content')
+        .className.match(/\bcarousel-caption\b/)
     );
   });
 
   it('allows custom elements instead of "div"', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
-      <Carousel.Caption componentClass="section" />
+    render(
+      <Carousel.Caption componentClass="section">
+        Carousel.Caption content
+      </Carousel.Caption>
     );
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(
+      screen.getByText('Carousel.Caption content').nodeName,
+      'SECTION'
+    );
   });
 });

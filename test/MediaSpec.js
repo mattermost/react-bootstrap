@@ -1,47 +1,40 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Media from '../src/Media';
 
 describe('Media', () => {
   it('uses "div" by default', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media />);
+    render(<Media />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+    assert.equal(document.querySelector('.media').nodeName, 'DIV');
   });
 
   it('has "media" class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(<Media />);
+    render(<Media />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'media');
+    assert.include(document.querySelector('.media').className, 'media');
   });
 
   it('should merge additional classes passed in', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media className="custom-class" />
-    );
+    render(<Media className="custom-class" />);
 
-    assert.include(ReactDOM.findDOMNode(instance).className, 'media');
-    assert.include(ReactDOM.findDOMNode(instance).className, 'custom-class');
+    assert.include(document.querySelector('.media').className, 'media');
+    assert.include(document.querySelector('.media').className, 'custom-class');
   });
 
   it('should allow custom elements instead of "div"', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
-      <Media componentClass="section" />
-    );
+    render(<Media componentClass="section" />);
 
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'SECTION');
+    assert.equal(document.querySelector('.media').nodeName, 'SECTION');
   });
 
   it('should render children', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Media>
         <strong>Children</strong>
       </Media>
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'strong')
-    );
+    assert.ok(screen.getByText('Children'));
   });
 });

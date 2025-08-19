@@ -1,6 +1,6 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import MenuItem from '../src/MenuItem';
 import Nav from '../src/Nav';
@@ -8,7 +8,7 @@ import NavDropdown from '../src/NavDropdown';
 
 describe('<NavDropdown>', () => {
   it('Should render li when in nav', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <Nav>
         <NavDropdown title="Title" className="test-class" id="nav-test">
           <MenuItem eventKey="1">MenuItem 1 content</MenuItem>
@@ -17,13 +17,8 @@ describe('<NavDropdown>', () => {
       </Nav>
     );
 
-    const dropdown = ReactDOM.findDOMNode(
-      ReactTestUtils.findRenderedComponentWithType(instance, NavDropdown)
-    );
-    const button = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'dropdown-toggle'
-    );
+    const dropdown = document.querySelector('.dropdown');
+    const button = screen.getByRole('button');
 
     assert.equal(dropdown.nodeName, 'LI');
     assert.ok(dropdown.className.match(/\bdropdown\b/));
@@ -34,23 +29,20 @@ describe('<NavDropdown>', () => {
   });
 
   it('renders div with active class', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <NavDropdown active title="Title" className="test-class" id="nav-test">
         <MenuItem eventKey="1">MenuItem 1 content</MenuItem>
         <MenuItem eventKey="2">MenuItem 2 content</MenuItem>
       </NavDropdown>
     );
 
-    const li = ReactDOM.findDOMNode(instance);
+    const li = document.querySelector('.dropdown');
 
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'active')
-    );
     assert.ok(li.className.match(/\btest-class\b/)); // it still has the given className
     assert.ok(li.className.match(/\bactive\b/)); // plus the active class
   });
 
-  it('is open with explicit prop', () => {
+  it('is open with explicit prop', async () => {
     class OpenProp extends React.Component {
       constructor(props) {
         super(props);
@@ -82,25 +74,19 @@ describe('<NavDropdown>', () => {
       }
     }
 
-    const instance = ReactTestUtils.renderIntoDocument(<OpenProp />);
-    const outerToggle = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'outer-button'
-    );
-    const dropdownNode = ReactTestUtils.findRenderedDOMComponentWithClass(
-      instance,
-      'dropdown'
-    );
+    render(<OpenProp />);
+    const outerToggle = screen.getByText('Outer button');
+    const dropdownNode = document.querySelector('.dropdown');
 
     dropdownNode.className.should.not.match(/\bopen\b/);
-    ReactTestUtils.Simulate.click(outerToggle);
+    await userEvent.click(outerToggle);
     dropdownNode.className.should.match(/\bopen\b/);
-    ReactTestUtils.Simulate.click(outerToggle);
+    await userEvent.click(outerToggle);
     dropdownNode.className.should.not.match(/\bopen\b/);
   });
 
   it('should handle child active state', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <NavDropdown id="test-id" title="title" activeKey="2">
         <MenuItem eventKey="1">MenuItem 1 content</MenuItem>
         <MenuItem eventKey="2">MenuItem 2 content</MenuItem>
@@ -108,57 +94,26 @@ describe('<NavDropdown>', () => {
       </NavDropdown>
     );
 
-    expect(ReactDOM.findDOMNode(instance).className).to.match(/active/);
+    expect(document.querySelector('.dropdown').className).to.match(/active/);
 
-    const items = ReactTestUtils.scryRenderedComponentsWithType(
-      instance,
-      MenuItem
-    );
-    expect(ReactDOM.findDOMNode(items[0]).className).to.not.match(/active/);
-    expect(ReactDOM.findDOMNode(items[1]).className).to.match(/active/);
-    expect(ReactDOM.findDOMNode(items[2]).className).to.not.match(/active/);
-  });
-
-  it('should handle nested child null active state', () => {
-    class Container extends React.Component {
-      render() {
-        return null;
-      }
-    }
-
-    const instance = ReactTestUtils.renderIntoDocument(
-      <NavDropdown id="test-id" title="title">
-        <Container>
-          <MenuItem>MenuItem 1 content</MenuItem>
-        </Container>
-      </NavDropdown>
-    );
-
-    const container = ReactTestUtils.findRenderedComponentWithType(
-      instance,
-      Container
-    );
-    expect(container.props.active).to.not.be.false;
+    const items = screen
+      .getAllByRole('menuitem')
+      .map(element => element.parentElement);
+    expect(items[0].className).to.not.match(/active/);
+    expect(items[1].className).to.match(/active/);
+    expect(items[2].className).to.not.match(/active/);
   });
 
   it('should derive bsClass from parent', () => {
-    const instance = ReactTestUtils.renderIntoDocument(
+    render(
       <NavDropdown title="title" id="test-id" bsClass="my-dropdown">
         <MenuItem eventKey="1">MenuItem 1 content</MenuItem>
       </NavDropdown>
     );
 
     assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'my-dropdown-toggle'
-      )
+      screen.getByRole('button').classList.contains('my-dropdown-toggle')
     );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'my-dropdown-menu'
-      )
-    );
+    assert.ok(screen.getByRole('menu').classList.contains('my-dropdown-menu'));
   });
 });

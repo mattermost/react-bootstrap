@@ -1,7 +1,7 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
@@ -85,11 +85,11 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
-    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
-    _this.handlePrev = _this.handlePrev.bind(_assertThisInitialized(_this));
-    _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_this));
-    _this.handleItemAnimateOutEnd = _this.handleItemAnimateOutEnd.bind(_assertThisInitialized(_this));
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handlePrev = _this.handlePrev.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleNext = _this.handleNext.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleItemAnimateOutEnd = _this.handleItemAnimateOutEnd.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     var defaultActiveIndex = props.defaultActiveIndex;
     _this.state = {
       activeIndex: defaultActiveIndex != null ? defaultActiveIndex : 0,
@@ -106,7 +106,7 @@ function (_React$Component) {
     this.waitForNext();
   };
 
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     var activeIndex = this.getActiveIndex();
 
     if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
@@ -126,7 +126,7 @@ function (_React$Component) {
     }
   };
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
+  _proto.UNSAFE_componentWillUnmount = function UNSAFE_componentWillUnmount() {
     clearTimeout(this.timeout);
     this.isUnmounted = true;
   };
@@ -198,14 +198,14 @@ function (_React$Component) {
     }
 
     this.select(index, e, 'prev');
-  } // This might be a public API.
-  ;
+  }; // This might be a public API.
+
 
   _proto.pause = function pause() {
     this.isPaused = true;
     clearTimeout(this.timeout);
-  } // This might be a public API.
-  ;
+  }; // This might be a public API.
+
 
   _proto.play = function play() {
     this.isPaused = false;

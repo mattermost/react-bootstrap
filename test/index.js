@@ -1,9 +1,11 @@
+import * as util from 'util';
+
 import deprecated from 'prop-types-extra/lib/deprecated';
 
 import { _resetWarned } from '../src/utils/deprecationWarning';
 
 import Enzyme, { ShallowWrapper, ReactWrapper } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,7 +25,8 @@ ShallowWrapper.prototype.assertNone = assertLength(0);
 
 beforeEach(() => {
   /* eslint-disable no-console */
-  sinon.stub(console, 'error').callsFake(msg => {
+  sinon.stub(console, 'error').callsFake((msg, ...args) => {
+    msg = util.format(msg, ...args);
     let expected = false;
 
     console.error.expected.forEach(about => {
@@ -34,6 +37,21 @@ beforeEach(() => {
     });
 
     if (expected) {
+      return;
+    }
+
+    if (msg.includes('defaultProps')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('findDOMNode')) {
+      // @hmhealey This is removed in React 19
+      return;
+    }
+
+    if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
+      // @hmhealey These are removed in React 19
       return;
     }
 

@@ -1,11 +1,10 @@
+import { act, render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import Fade from '../src/Fade';
 
 describe('Fade', () => {
-  let Component, instance;
+  let Component;
 
   beforeEach(() => {
     Component = class extends React.Component {
@@ -22,50 +21,60 @@ describe('Fade', () => {
   });
 
   it('Should default to hidden', () => {
-    instance = ReactTestUtils.renderIntoDocument(
-      <Component>Panel content</Component>
+    let instance;
+    render(
+      <Component ref={element => (instance = element)}>Panel content</Component>
     );
 
     assert.ok(instance.fade.props.in === false);
   });
 
   it('Should always have the "fade" class', () => {
-    instance = ReactTestUtils.renderIntoDocument(
-      <Component>Panel content</Component>
+    let instance;
+    render(
+      <Component ref={element => (instance = element)}>Panel content</Component>
     );
 
     assert.ok(instance.fade.props.in === false);
 
-    assert.equal(ReactDOM.findDOMNode(instance).className, 'fade');
+    assert.equal(screen.getByText('Panel content').className, 'fade');
   });
 
   it('Should add "in" class when entering', done => {
-    instance = ReactTestUtils.renderIntoDocument(
-      <Component>Panel content</Component>
+    let instance;
+    render(
+      <Component ref={element => (instance = element)}>Panel content</Component>
     );
 
     function onEntering() {
-      assert.equal(ReactDOM.findDOMNode(instance).className, 'fade in');
+      assert.equal(screen.getByText('Panel content').className, 'fade in');
       done();
     }
 
     assert.ok(instance.fade.props.in === false);
 
-    instance.setState({ in: true, onEntering });
+    act(() => {
+      instance.setState({ in: true, onEntering });
+    });
   });
 
   it('Should remove "in" class when exiting', done => {
-    instance = ReactTestUtils.renderIntoDocument(
-      <Component in>Panel content</Component>
+    let instance;
+    render(
+      <Component ref={element => (instance = element)} in>
+        Panel content
+      </Component>
     );
 
     function onExiting() {
-      assert.equal(ReactDOM.findDOMNode(instance).className, 'fade');
+      assert.equal(screen.getByText('Panel content').className, 'fade');
       done();
     }
 
-    assert.equal(ReactDOM.findDOMNode(instance).className, 'fade in');
+    assert.equal(screen.getByText('Panel content').className, 'fade in');
 
-    instance.setState({ in: false, onExiting });
+    act(() => {
+      instance.setState({ in: false, onExiting });
+    });
   });
 });

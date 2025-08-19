@@ -1,6 +1,6 @@
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _Array$isArray from "@babel/runtime-corejs2/core-js/array/is-array";
 import contains from 'dom-helpers/query/contains';
@@ -117,10 +117,10 @@ function (_React$Component) {
     var _this;
 
     _this = _React$Component.call(this, props, context) || this;
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    _this.handleDelayedShow = _this.handleDelayedShow.bind(_assertThisInitialized(_this));
-    _this.handleDelayedHide = _this.handleDelayedHide.bind(_assertThisInitialized(_this));
-    _this.handleHide = _this.handleHide.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleDelayedShow = _this.handleDelayedShow.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleDelayedHide = _this.handleDelayedHide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleHide = _this.handleHide.bind(_assertThisInitialized(_assertThisInitialized(_this)));
 
     _this.handleMouseOver = function (e) {
       return _this.handleMouseOverOut(_this.handleDelayedShow, e, 'fromElement');
@@ -130,7 +130,6 @@ function (_React$Component) {
       return _this.handleMouseOverOut(_this.handleDelayedHide, e, 'toElement');
     };
 
-    _this._mountNode = null;
     _this.state = {
       show: props.defaultOverlayShown
     };
@@ -139,18 +138,7 @@ function (_React$Component) {
 
   var _proto = OverlayTrigger.prototype;
 
-  _proto.componentDidMount = function componentDidMount() {
-    this._mountNode = document.createElement('div');
-    this.renderOverlay();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    this.renderOverlay();
-  };
-
   _proto.componentWillUnmount = function componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this._mountNode);
-    this._mountNode = null;
     clearTimeout(this._hoverShowDelay);
     clearTimeout(this._hoverHideDelay);
   };
@@ -211,11 +199,11 @@ function (_React$Component) {
 
   _proto.handleHide = function handleHide() {
     this.hide();
-  } // Simple implementation of mouseEnter and mouseLeave.
+  }; // Simple implementation of mouseEnter and mouseLeave.
   // React's built version is broken: https://github.com/facebook/react/issues/4251
   // for cases when the trigger is disabled and mouseOut/Over can cause flicker
   // moving from one child element to another.
-  ;
+
 
   _proto.handleMouseOverOut = function handleMouseOverOut(handler, e, relatedNative) {
     var target = e.currentTarget;
@@ -252,10 +240,6 @@ function (_React$Component) {
     this.setState({
       show: true
     });
-  };
-
-  _proto.renderOverlay = function renderOverlay() {
-    ReactDOM.unstable_renderSubtreeIntoContainer(this, this._overlay, this._mountNode);
   };
 
   _proto.render = function render() {
@@ -301,8 +285,7 @@ function (_React$Component) {
       triggerProps.onBlur = createChainedFunction(childProps.onBlur, onBlur, this.handleDelayedHide);
     }
 
-    this._overlay = this.makeOverlay(overlay, props);
-    return cloneElement(child, triggerProps);
+    return React.createElement(React.Fragment, null, cloneElement(child, triggerProps), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
   };
 
   return OverlayTrigger;

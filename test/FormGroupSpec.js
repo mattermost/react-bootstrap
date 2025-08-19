@@ -1,71 +1,49 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
 
 import FormControl from '../src/FormControl';
 import FormGroup from '../src/FormGroup';
+import { shouldWarn } from './helpers';
 
 describe('<FormGroup>', () => {
   it('renders children', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <FormGroup>
-        <span className="child1" />
-        <span className="child2" />
+        <span className="child1">Child 1</span>
+        <span className="child2">Child 2</span>
       </FormGroup>
     );
 
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'child1')
-    );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'child2')
-    );
+    assert.ok(screen.getByText('Child 1'));
+    assert.ok(screen.getByText('Child 2'));
   });
 
   it('renders with form-group class', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    render(
       <FormGroup>
         <span />
       </FormGroup>
     );
 
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'form-group')
-    );
+    assert.ok(document.querySelector('.form-group'));
   });
 
   it('renders form-group with sm or lg class when bsSize is small or large', () => {
-    let instance = ReactTestUtils.renderIntoDocument(
+    const { rerender } = render(
       <FormGroup bsSize="small">
         <span />
       </FormGroup>
     );
 
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'form-group')
-    );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'form-group-sm'
-      )
-    );
+    assert.ok(document.querySelector('.form-group.form-group-sm'));
 
-    instance = ReactTestUtils.renderIntoDocument(
+    rerender(
       <FormGroup bsSize="large">
         <span />
       </FormGroup>
     );
 
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'form-group')
-    );
-    assert.ok(
-      ReactTestUtils.findRenderedDOMComponentWithClass(
-        instance,
-        'form-group-lg'
-      )
-    );
+    assert.ok(document.querySelector('.form-group.form-group-lg'));
   });
 
   [
@@ -87,53 +65,73 @@ describe('<FormGroup>', () => {
     }
   ].forEach(({ props, className }) => {
     it(`does not render ${className} class`, () => {
-      shallow(
+      render(
         <FormGroup>
           <span />
         </FormGroup>
-      ).assertNone(`.${className}`);
+      );
+      assert.ok(
+        !document.querySelector('.form-group').classList.contains(className)
+      );
     });
 
     it(`renders with ${className} class`, () => {
-      shallow(
+      render(
         <FormGroup {...props}>
           <span />
         </FormGroup>
-      ).assertSingle(`.${className}`);
+      );
+      assert.ok(
+        document.querySelector('.form-group').classList.contains(className)
+      );
     });
   });
 
   describe('feedback', () => {
     it('should not have feedback without feedback component', () => {
-      shallow(<FormGroup validationState="success" />).assertNone(
-        '.has-feedback'
+      render(<FormGroup validationState="success" />);
+      assert.ok(
+        !document
+          .querySelector('.form-group')
+          .classList.contains('has-feedback')
       );
     });
 
     it('should have feedback with feedback component', () => {
-      shallow(
+      render(
         <FormGroup validationState="success">
           <FormControl.Feedback />
         </FormGroup>
-      ).assertSingle('.has-feedback');
+      );
+      assert.ok(
+        document.querySelector('.form-group').classList.contains('has-feedback')
+      );
     });
 
     it('should have feedback with nested feedback component', () => {
-      shallow(
+      render(
         <FormGroup validationState="success">
           <div>
             <FormControl.Feedback />
           </div>
         </FormGroup>
-      ).assertSingle('.has-feedback');
+      );
+      assert.ok(
+        document.querySelector('.form-group').classList.contains('has-feedback')
+      );
     });
 
     it('should have feedback with custom feedback component', () => {
-      shallow(
+      shouldWarn('React does not recognize the `bsRole` prop on a DOM element');
+
+      render(
         <FormGroup validationState="success">
           <div bsRole="feedback" />
         </FormGroup>
-      ).assertSingle('.has-feedback');
+      );
+      assert.ok(
+        document.querySelector('.form-group').classList.contains('has-feedback')
+      );
     });
   });
 });

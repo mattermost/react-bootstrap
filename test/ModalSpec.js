@@ -1,33 +1,23 @@
+import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import events from 'dom-helpers/events';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
-import BaseModal from 'react-overlays/lib/Modal';
 
 import Modal from '../src/Modal';
 
-import { render } from './helpers';
-
 describe('<Modal>', () => {
-  let mountPoint;
-
-  beforeEach(() => {
-    mountPoint = document.createElement('div');
-    document.body.appendChild(mountPoint);
-  });
-
-  afterEach(() => {
-    ReactDOM.unmountComponentAtNode(mountPoint);
-    document.body.removeChild(mountPoint);
-  });
-
   it('Should render the modal content', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show onHide={noOp} animation={false}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        onHide={noOp}
+        animation={false}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     assert.ok(instance._modal.getDialogElement().querySelector('strong'));
@@ -38,30 +28,35 @@ describe('<Modal>', () => {
       done();
     };
 
-    const instance = render(
-      <Modal show onHide={doneOp}>
+    let instance;
+    render(
+      <Modal ref={element => (instance = element)} show onHide={doneOp}>
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal.getDialogElement();
 
-    ReactTestUtils.Simulate.click(dialog);
+    userEvent.click(dialog);
   });
 
   it('Should not close the modal when the "static" dialog is clicked', () => {
     const onHideSpy = sinon.spy();
-    const instance = render(
-      <Modal show onHide={onHideSpy} backdrop="static">
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        onHide={onHideSpy}
+        backdrop="static"
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal.getDialogElement();
 
-    ReactTestUtils.Simulate.click(dialog);
+    userEvent.click(dialog);
 
     expect(onHideSpy).to.not.have.been.called;
   });
@@ -71,28 +66,33 @@ describe('<Modal>', () => {
       done();
     };
 
-    const instance = render(
-      <Modal show onHide={doneOp}>
+    let instance;
+    render(
+      <Modal ref={element => (instance = element)} show onHide={doneOp}>
         <Modal.Header closeButton />
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const button = instance._modal
       .getDialogElement()
       .getElementsByClassName('close')[0];
 
-    ReactTestUtils.Simulate.click(button);
+    userEvent.click(button);
   });
 
   it('Should pass className to the dialog', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show className="mymodal" onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        className="mymodal"
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal.getDialogElement();
@@ -102,11 +102,16 @@ describe('<Modal>', () => {
 
   it('Should use bsClass on the dialog', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show bsClass="mymodal" onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        bsClass="mymodal"
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const modal = instance._modal.getDialogElement();
@@ -117,38 +122,32 @@ describe('<Modal>', () => {
       modal.children[0].children[0].className.match(/\bmymodal-content\b/)
     );
 
-    const baseModal = ReactTestUtils.findRenderedComponentWithType(
-      instance,
-      BaseModal
-    );
-    assert.ok(baseModal.backdrop.className.match(/\bmymodal-backdrop\b/));
+    assert.ok(document.querySelector('.mymodal-backdrop'));
   });
 
   it('Should use backdropClassName to add classes to the backdrop', () => {
     const noOp = () => {};
-    const instance = render(
+    render(
       <Modal show backdropClassName="my-modal-backdrop" onHide={noOp}>
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
-    const baseModal = ReactTestUtils.findRenderedComponentWithType(
-      instance,
-      BaseModal
-    );
-    assert.ok(
-      baseModal.backdrop.className.match(/\bmodal-backdrop my-modal-backdrop\b/)
-    );
+    assert.ok(document.querySelector('.modal-backdrop.my-modal-backdrop'));
   });
 
   it('Should pass bsSize to the dialog', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show bsSize="small" onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        bsSize="small"
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal
@@ -160,11 +159,16 @@ describe('<Modal>', () => {
 
   it('Should pass dialog style to the dialog', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show style={{ top: 1000 }} onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        style={{ top: 1000 }}
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal.getDialogElement();
@@ -174,11 +178,16 @@ describe('<Modal>', () => {
 
   it('Should pass dialogClassName to the dialog', () => {
     const noOp = () => {};
-    const instance = render(
-      <Modal show dialogClassName="testCss" onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        dialogClassName="testCss"
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     const dialog = instance._modal
@@ -195,11 +204,16 @@ describe('<Modal>', () => {
       return <div className="custom-dialog" tabIndex="-1" />;
     }
 
-    const instance = render(
-      <Modal show dialogComponentClass={CustomDialog} onHide={noOp}>
+    let instance;
+    render(
+      <Modal
+        ref={element => (instance = element)}
+        show
+        dialogComponentClass={CustomDialog}
+        onHide={noOp}
+      >
         <strong>Message</strong>
-      </Modal>,
-      mountPoint
+      </Modal>
     );
 
     assert.equal(instance._modal.getDialogElement().className, 'custom-dialog');
@@ -211,28 +225,35 @@ describe('<Modal>', () => {
       ++count;
     };
 
-    const instance = render(
-      <Modal
-        show
-        onHide={() => {}}
-        onExit={increment}
-        onExiting={increment}
-        onExited={() => {
-          increment();
-          expect(count).to.equal(6);
-          done();
-        }}
-        onEnter={increment}
-        onEntering={increment}
-        onEntered={() => {
-          increment();
-          instance.renderWithProps({ show: false });
-        }}
-      >
-        <strong>Message</strong>
-      </Modal>,
-      mountPoint
-    );
+    let rerender;
+
+    function modalWithProps(show) {
+      return (
+        <Modal
+          show={show}
+          onHide={() => {}}
+          onExit={increment}
+          onExiting={increment}
+          onExited={() => {
+            increment();
+            expect(count).to.equal(6);
+            done();
+          }}
+          onEnter={increment}
+          onEntering={increment}
+          onEntered={() => {
+            increment();
+            requestAnimationFrame(() => {
+              rerender(modalWithProps(false));
+            });
+          }}
+        >
+          <strong>Message</strong>
+        </Modal>
+      );
+    }
+
+    rerender = render(modalWithProps(true)).rerender;
   });
 
   describe('cleanup', () => {
@@ -246,7 +267,7 @@ describe('<Modal>', () => {
       events.off.restore();
     });
 
-    it('should remove resize listener when unmounted', () => {
+    it('should remove resize listener when unmounted', async () => {
       class Component extends React.Component {
         constructor(props, context) {
           super(props, context);
@@ -265,10 +286,13 @@ describe('<Modal>', () => {
         }
       }
 
-      const instance = render(<Component />, mountPoint);
+      let instance;
+      render(<Component ref={element => (instance = element)} />);
       instance.setState({ show: false });
 
-      expect(offSpy).to.have.been.calledWith(window, 'resize');
+      await waitFor(() => {
+        expect(offSpy).to.have.been.calledWith(window, 'resize');
+      });
     });
   });
 });

@@ -1,6 +1,5 @@
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 
 import ListGroup from '../src/ListGroup';
 import ListGroupItem from '../src/ListGroupItem';
@@ -8,99 +7,65 @@ import ListGroupItem from '../src/ListGroupItem';
 describe('<ListGroup>', () => {
   describe('All children are of type ListGroupItem', () => {
     it('Should output a "div" with the class "list-group"', () => {
-      let instance = ReactTestUtils.renderIntoDocument(<ListGroup />);
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
-      );
+      render(<ListGroup />);
+      assert.equal(document.querySelector('.list-group').nodeName, 'DIV');
     });
 
     it('Should support a single "ListGroupItem" child', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem>Only Child</ListGroupItem>
         </ListGroup>
       );
 
-      let items = ReactTestUtils.scryRenderedComponentsWithType(
-        instance,
-        ListGroupItem
-      );
-
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[0],
-          'list-group-item'
-        )
-      );
+      assert.ok(screen.getByText('Only Child'));
     });
 
     it('Should support a single "ListGroupItem" child contained in an array', () => {
       let child = [<ListGroupItem key={42}>Only Child in array</ListGroupItem>];
-      let instance = ReactTestUtils.renderIntoDocument(
-        <ListGroup>{child}</ListGroup>
-      );
+      render(<ListGroup>{child}</ListGroup>);
 
-      let items = ReactTestUtils.scryRenderedComponentsWithType(
-        instance,
-        ListGroupItem
-      );
-
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[0],
-          'list-group-item'
-        )
-      );
+      assert.ok(screen.getByText('Only Child in array'));
     });
 
     it('Should output a "ul" when single "ListGroupItem" child is a list item', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem>Only Child</ListGroupItem>
         </ListGroup>
       );
 
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'UL');
-      assert.equal(ReactDOM.findDOMNode(instance).firstChild.nodeName, 'LI');
+      assert.equal(document.querySelector('.list-group').nodeName, 'UL');
+      assert.equal(
+        document.querySelector('.list-group').firstChild.nodeName,
+        'LI'
+      );
     });
 
     it('Should output a "div" when single "ListGroupItem" child is an anchor', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem href="#test">Only Child</ListGroupItem>
         </ListGroup>
       );
 
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-      assert.equal(ReactDOM.findDOMNode(instance).firstChild.nodeName, 'A');
+      assert.equal(document.querySelector('.list-group').nodeName, 'DIV');
+      assert.equal(
+        document.querySelector('.list-group').firstChild.nodeName,
+        'A'
+      );
     });
 
     it('Should support multiple "ListGroupItem" children', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem>1st Child</ListGroupItem>
           <ListGroupItem>2nd Child</ListGroupItem>
         </ListGroup>
       );
 
-      let items = ReactTestUtils.scryRenderedComponentsWithType(
-        instance,
-        ListGroupItem
-      );
-
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[0],
-          'list-group-item'
-        )
-      );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[1],
-          'list-group-item'
-        )
-      );
+      assert.ok(screen.getByText('1st Child'));
+      assert.ok(screen.getByText('2nd Child'));
     });
 
     it('Should support multiple "ListGroupItem" children including a subset contained in an array', () => {
@@ -109,7 +74,7 @@ describe('<ListGroup>', () => {
         <ListGroupItem key={1}>3rd Child nested</ListGroupItem>
       ];
 
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem>1st Child</ListGroupItem>
           {itemArray}
@@ -117,84 +82,73 @@ describe('<ListGroup>', () => {
         </ListGroup>
       );
 
-      let items = ReactTestUtils.scryRenderedComponentsWithType(
-        instance,
-        ListGroupItem
-      );
-
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[0],
-          'list-group-item'
-        )
-      );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(
-          items[1],
-          'list-group-item'
-        )
-      );
+      assert.ok(screen.getByText('1st Child'));
+      assert.ok(screen.getByText('2nd Child nested'));
     });
 
     it('Should output a "ul" when children are list items', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem>1st Child</ListGroupItem>
           <ListGroupItem>2nd Child</ListGroupItem>
         </ListGroup>
       );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
+      assert.ok(document.querySelector('.list-group'));
+      assert.equal(document.querySelector('.list-group').nodeName, 'UL');
+      assert.equal(
+        document.querySelector('.list-group').firstChild.nodeName,
+        'LI'
       );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'UL');
-      assert.equal(ReactDOM.findDOMNode(instance).firstChild.nodeName, 'LI');
-      assert.equal(ReactDOM.findDOMNode(instance).lastChild.nodeName, 'LI');
+      assert.equal(
+        document.querySelector('.list-group').lastChild.nodeName,
+        'LI'
+      );
     });
 
     it('Should output a "div" when "ListGroupItem" children are anchors and spans', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem href="#test">1st Child</ListGroupItem>
           <ListGroupItem>2nd Child</ListGroupItem>
         </ListGroup>
       );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-      assert.equal(ReactDOM.findDOMNode(instance).firstChild.nodeName, 'A');
-      assert.equal(ReactDOM.findDOMNode(instance).lastChild.nodeName, 'SPAN');
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
+      assert.equal(document.querySelector('.list-group').nodeName, 'DIV');
+      assert.equal(
+        document.querySelector('.list-group').firstChild.nodeName,
+        'A'
+      );
+      assert.equal(
+        document.querySelector('.list-group').lastChild.nodeName,
+        'SPAN'
       );
     });
 
     it('Should output a "div" when "ListGroupItem" children have an onClick handler', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup>
           <ListGroupItem onClick={() => null}>1st Child</ListGroupItem>
           <ListGroupItem>2nd Child</ListGroupItem>
         </ListGroup>
       );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
+      assert.equal(document.querySelector('.list-group').nodeName, 'DIV');
       assert.equal(
-        ReactDOM.findDOMNode(instance).firstChild.nodeName,
+        document.querySelector('.list-group').firstChild.nodeName,
         'BUTTON'
       );
-      assert.equal(ReactDOM.findDOMNode(instance).lastChild.nodeName, 'SPAN');
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
+      assert.equal(
+        document.querySelector('.list-group').lastChild.nodeName,
+        'SPAN'
       );
     });
 
     it('Should support an element id through "id" prop', () => {
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup id="testItem">
           <ListGroupItem>Child</ListGroupItem>
         </ListGroup>
       );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
-      );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'UL');
-      assert.equal(ReactDOM.findDOMNode(instance).id, 'testItem');
+      assert.equal(document.querySelector('.list-group').nodeName, 'UL');
+      assert.equal(document.querySelector('.list-group').id, 'testItem');
     });
   });
 
@@ -210,16 +164,17 @@ describe('<ListGroup>', () => {
         }
       }
 
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup id="testItem">
           <CustomComponent>Child</CustomComponent>
         </ListGroup>
       );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
+      assert.ok(document.querySelector('.list-group'));
+      assert.equal(document.querySelector('.list-group').nodeName, 'DIV');
+      assert.equal(
+        document.querySelector('.list-group').firstChild.nodeName,
+        'LI'
       );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'DIV');
-      assert.equal(ReactDOM.findDOMNode(instance).firstChild.nodeName, 'LI');
     });
 
     it('Should use a "componentClass" prop if specified if any children are custom components', () => {
@@ -233,18 +188,19 @@ describe('<ListGroup>', () => {
         }
       }
 
-      let instance = ReactTestUtils.renderIntoDocument(
+      render(
         <ListGroup id="testItem" componentClass="ul">
           <CustomComponent>Custom Child</CustomComponent>
           <CustomComponent>Custom Child</CustomComponent>
           <ListGroupItem listItem>RB Child</ListGroupItem>
         </ListGroup>
       );
-      assert.ok(
-        ReactTestUtils.findRenderedDOMComponentWithClass(instance, 'list-group')
+      assert.ok(document.querySelector('.list-group'));
+      assert.equal(document.querySelector('.list-group').nodeName, 'UL');
+      assert.equal(
+        document.querySelector('.list-group').lastChild.nodeName,
+        'LI'
       );
-      assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'UL');
-      assert.equal(ReactDOM.findDOMNode(instance).lastChild.nodeName, 'LI');
     });
   });
 });

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
-import keycode from 'keycode';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -9,7 +8,6 @@ import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
-import warning from 'warning';
 
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
@@ -132,7 +130,7 @@ class Dropdown extends React.Component {
     this.focusNextOnOpen();
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains(
         ReactDOM.findDOMNode(this.menu),
@@ -183,6 +181,12 @@ class Dropdown extends React.Component {
   }
 
   handleClick(event) {
+    // @hmhealey I added this because, when migrating the "passes open, event, and source correctly when closed with click"
+    // test to use RTL, the root close handler started triggering when clicking on the menu button toggle which seems
+    // like it shouldn't happen. We had similar issues with React 17 where overlays would open and immediately close, so
+    // while that didn't happen in the tests using React 17, I'd be willing to guess that ReactTestUtils hid that from us.
+    event.stopPropagation();
+
     if (this.props.disabled) {
       return;
     }
@@ -203,8 +207,8 @@ class Dropdown extends React.Component {
       return;
     }
 
-    switch (event.keyCode) {
-      case keycode.codes.down:
+    switch (event.key) {
+      case 'ArrowDown':
         if (!this.props.open) {
           this.toggleOpen(event, { source: 'keydown' });
         } else if (this.menu.focusNext) {
@@ -212,8 +216,8 @@ class Dropdown extends React.Component {
         }
         event.preventDefault();
         break;
-      case keycode.codes.esc:
-      case keycode.codes.tab:
+      case 'Escape':
+      case 'Tab':
         this.handleClose(event, { source: 'keydown' });
         break;
       default:
@@ -237,16 +241,7 @@ class Dropdown extends React.Component {
       this.menu = c;
     };
 
-    if (typeof child.ref === 'string') {
-      warning(
-        false,
-        'String refs are not supported on `<Dropdown.Menu>` components. ' +
-          'To apply a ref to the component use the callback signature:\n\n ' +
-          'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute'
-      );
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
+    ref = createChainedFunction(child.ref, ref);
 
     return cloneElement(child, {
       ...props,
@@ -268,16 +263,7 @@ class Dropdown extends React.Component {
       this.toggle = c;
     };
 
-    if (typeof child.ref === 'string') {
-      warning(
-        false,
-        'String refs are not supported on `<Dropdown.Toggle>` components. ' +
-          'To apply a ref to the component use the callback signature:\n\n ' +
-          'https://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute'
-      );
-    } else {
-      ref = createChainedFunction(child.ref, ref);
-    }
+    ref = createChainedFunction(child.ref, ref);
 
     return cloneElement(child, {
       ...props,

@@ -2,7 +2,6 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
-import keycode from 'keycode';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -224,14 +223,14 @@ function (_React$Component) {
   _proto.handleTabKeyDown = function handleTabKeyDown(onSelect, event) {
     var nextActiveChild;
 
-    switch (event.keyCode) {
-      case keycode.codes.left:
-      case keycode.codes.up:
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
         nextActiveChild = this.getNextActiveChild(-1);
         break;
 
-      case keycode.codes.right:
-      case keycode.codes.down:
+      case 'ArrowRight':
+      case 'ArrowDown':
         nextActiveChild = this.getNextActiveChild(1);
         break;
 
