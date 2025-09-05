@@ -81,6 +81,36 @@ describe('<Modal>', () => {
     userEvent.click(button);
   });
 
+  it('Should close the modal when the escape key is pressed with keyboard=true', async () => {
+    const handleHide = sinon.spy();
+
+    render(
+      <Modal show onHide={handleHide} keyboard>
+        <Modal.Header closeButton />
+        <strong>Message</strong>
+      </Modal>
+    );
+
+    await userEvent.keyboard('{escape}');
+
+    assert.ok(handleHide.called);
+  });
+
+  it('Should not close the modal when the escape key is pressed with keyboard=false', async () => {
+    const handleHide = sinon.spy();
+
+    render(
+      <Modal show onHide={handleHide} keyboard={false}>
+        <Modal.Header closeButton />
+        <strong>Message</strong>
+      </Modal>
+    );
+
+    await userEvent.keyboard('{escape}');
+
+    assert.ok(!handleHide.called);
+  });
+
   it('Should pass className to the dialog', () => {
     const noOp = () => {};
     let instance;

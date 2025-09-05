@@ -1,0 +1,35 @@
+diff --git a/node_modules/react-overlays/lib/Modal.js b/node_modules/react-overlays/lib/Modal.js
+index 9fbba3b..c876341 100644
+--- a/node_modules/react-overlays/lib/Modal.js
++++ b/node_modules/react-overlays/lib/Modal.js
+@@ -576,7 +576,7 @@ var _initialiseProps = function _initialiseProps() {
+   };
+ 
+   this.handleDocumentKeyDown = function (e) {
+-    if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
++    if (_this2.props.keyboard && (e.keyCode === 27 || e.key === 'Escape') && _this2.isTopModal()) {
+       if (_this2.props.onEscapeKeyDown) {
+         _this2.props.onEscapeKeyDown(e);
+       }
+@@ -586,7 +586,7 @@ var _initialiseProps = function _initialiseProps() {
+   };
+ 
+   this.handleDocumentKeyUp = function (e) {
+-    if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
++    if (_this2.props.keyboard && (e.keyCode === 27 || e.key === 'Escape') && _this2.isTopModal()) {
+       if (_this2.props.onEscapeKeyUp) {
+         _this2.props.onEscapeKeyUp(e);
+       }
+diff --git a/node_modules/react-overlays/lib/RootCloseWrapper.js b/node_modules/react-overlays/lib/RootCloseWrapper.js
+index 683e1cf..c561092 100644
+--- a/node_modules/react-overlays/lib/RootCloseWrapper.js
++++ b/node_modules/react-overlays/lib/RootCloseWrapper.js
+@@ -115,7 +115,7 @@ var RootCloseWrapper = function (_React$Component) {
+         return;
+       }
+ 
+-      if (e.keyCode === escapeKeyCode && _this.props.onRootClose) {
++      if ((e.keyCode === escapeKeyCode || e.key === 'Escape') && _this.props.onRootClose) {
+         _this.props.onRootClose(e);
+       }
+     };
