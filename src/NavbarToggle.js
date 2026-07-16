@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 
@@ -13,18 +14,10 @@ const propTypes = {
   children: PropTypes.node
 };
 
-const contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool,
-    onToggle: PropTypes.func.isRequired
-  })
-};
-
 class NavbarToggle extends React.Component {
   render() {
     const { onClick, className, children, ...props } = this.props;
-    const navbarProps = this.context.$bs_navbar || { bsClass: 'navbar' };
+    const navbarProps = this.context || { bsClass: 'navbar' };
 
     const buttonProps = {
       type: 'button',
@@ -53,6 +46,6 @@ class NavbarToggle extends React.Component {
 }
 
 NavbarToggle.propTypes = propTypes;
-NavbarToggle.contextTypes = contextTypes;
+NavbarToggle.contextType = NavbarContext;
 
 export default NavbarToggle;

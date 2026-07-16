@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
 
+import PanelContext from './PanelContext';
 import { prefix, bsClass, splitBsProps } from './utils/bootstrapUtils';
 
 const propTypes = {
@@ -13,13 +13,6 @@ const defaultProps = {
   componentClass: 'div'
 };
 
-const contextTypes = {
-  $bs_panel: PropTypes.shape({
-    headingId: PropTypes.string,
-    bsClass: PropTypes.string
-  })
-};
-
 class PanelHeading extends React.Component {
   render() {
     const {
@@ -28,7 +21,7 @@ class PanelHeading extends React.Component {
       componentClass: Component,
       ...props
     } = this.props;
-    const { headingId, bsClass: _bsClass } = this.context.$bs_panel || {};
+    const { headingId, bsClass: _bsClass } = this.context || {};
 
     const [bsProps, elementProps] = splitBsProps(props);
     bsProps.bsClass = _bsClass || bsProps.bsClass;
@@ -51,6 +44,6 @@ class PanelHeading extends React.Component {
 
 PanelHeading.propTypes = propTypes;
 PanelHeading.defaultProps = defaultProps;
-PanelHeading.contextTypes = contextTypes;
+PanelHeading.contextType = PanelContext;
 
 export default bsClass('panel', PanelHeading);
