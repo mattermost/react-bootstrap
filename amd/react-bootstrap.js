@@ -1829,7 +1829,7 @@ var RootCloseWrapper = function (_React$Component) {
         return;
       }
 
-      if (e.keyCode === escapeKeyCode && _this.props.onRootClose) {
+      if ((e.keyCode === escapeKeyCode || e.key === 'Escape') && _this.props.onRootClose) {
         _this.props.onRootClose(e);
       }
     };
@@ -3098,7 +3098,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.handleDocumentKeyDown = function (e) {
-    if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
+    if (_this2.props.keyboard && (e.keyCode === 27 || e.key === 'Escape') && _this2.isTopModal()) {
       if (_this2.props.onEscapeKeyDown) {
         _this2.props.onEscapeKeyDown(e);
       }
@@ -3108,7 +3108,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.handleDocumentKeyUp = function (e) {
-    if (_this2.props.keyboard && e.keyCode === 27 && _this2.isTopModal()) {
+    if (_this2.props.keyboard && (e.keyCode === 27 || e.key === 'Escape') && _this2.isTopModal()) {
       if (_this2.props.onEscapeKeyUp) {
         _this2.props.onEscapeKeyUp(e);
       }
@@ -7219,6 +7219,11 @@ var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 // EXTERNAL MODULE: ./node_modules/uncontrollable/index.js
 var uncontrollable = __webpack_require__(3215);
 var uncontrollable_default = /*#__PURE__*/__webpack_require__.n(uncontrollable);
+;// ./src/PanelGroupContext.js
+
+var PanelGroupContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+PanelGroupContext.displayName = 'PanelGroupContext';
+/* harmony default export */ const src_PanelGroupContext = (PanelGroupContext);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/entries.js
 var entries = __webpack_require__(1953);
 var entries_default = /*#__PURE__*/__webpack_require__.n(entries);
@@ -7702,6 +7707,7 @@ var _jsxFileName = "/Users/harrison/react-bootstrap/src/PanelGroup.js";
 
 
 
+
 var propTypes = {
   accordion: (prop_types_default()).bool,
 
@@ -7746,15 +7752,6 @@ var propTypes = {
 var defaultProps = {
   accordion: false
 };
-var childContextTypes = {
-  $bs_panelGroup: prop_types_default().shape({
-    getId: (prop_types_default()).func,
-    headerRole: (prop_types_default()).string,
-    panelRole: (prop_types_default()).string,
-    activeKey: (prop_types_default()).any,
-    onToggle: (prop_types_default()).func
-  })
-};
 
 var PanelGroup =
 /*#__PURE__*/
@@ -7783,38 +7780,12 @@ function (_React$Component) {
 
   var _proto = PanelGroup.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        accordion = _this$props.accordion,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
-    var getId = null;
-
-    if (accordion) {
-      getId = generateChildId || function (key, type) {
-        return id ? id + "-" + type + "-" + key : null;
-      };
-    }
-
-    return {
-      $bs_panelGroup: _extends({
-        getId: getId,
-        headerRole: 'tab',
-        panelRole: 'tabpanel'
-      }, accordion && {
-        activeKey: activeKey,
-        onToggle: this.handleSelect
-      })
-    };
-  };
-
   _proto.render = function render() {
-    var _this$props2 = this.props,
-        accordion = _this$props2.accordion,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["accordion", "className", "children"]);
+    var _this$props = this.props,
+        accordion = _this$props.accordion,
+        className = _this$props.className,
+        children = _this$props.children,
+        props = _objectWithoutPropertiesLoose(_this$props, ["accordion", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['onSelect', 'activeKey']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -7825,18 +7796,46 @@ function (_React$Component) {
     }
 
     var classes = getClassSet(bsProps);
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
+    var _this$props2 = this.props,
+        activeKey = _this$props2.activeKey,
+        generateChildId = _this$props2.generateChildId,
+        id = _this$props2.id;
+    var getId = null;
+
+    if (accordion) {
+      getId = generateChildId || function (key, type) {
+        return id ? id + "-" + type + "-" + key : null;
+      };
+    }
+
+    var panelGroupContext = _extends({
+      getId: getId,
+      headerRole: 'tab',
+      panelRole: 'tabpanel'
+    }, accordion && {
+      activeKey: activeKey,
+      onToggle: this.handleSelect
+    });
+
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_PanelGroupContext.Provider, {
+      value: panelGroupContext,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 103
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 116
+        lineNumber: 104
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
       return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, {
         bsStyle: child.props.bsStyle || bsProps.bsStyle
       });
-    }));
+    })));
   };
 
   return PanelGroup;
@@ -7844,7 +7843,6 @@ function (_React$Component) {
 
 PanelGroup.propTypes = propTypes;
 PanelGroup.defaultProps = defaultProps;
-PanelGroup.childContextTypes = childContextTypes;
 /* harmony default export */ const src_PanelGroup = (uncontrollable_default()(bsClass('panel-group', PanelGroup), {
   activeKey: 'onSelect'
 }));
@@ -9549,11 +9547,17 @@ function (_React$Component) {
 Clearfix.propTypes = Clearfix_propTypes;
 Clearfix.defaultProps = Clearfix_defaultProps;
 /* harmony default export */ const src_Clearfix = (bsClass('clearfix', Clearfix));
+;// ./src/FormGroupContext.js
+
+var FormGroupContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+FormGroupContext.displayName = 'FormGroupContext';
+/* harmony default export */ const src_FormGroupContext = (FormGroupContext);
 ;// ./src/ControlLabel.js
 
 
 
 var ControlLabel_jsxFileName = "/Users/harrison/react-bootstrap/src/ControlLabel.js";
+
 
 
 
@@ -9569,9 +9573,6 @@ var ControlLabel_propTypes = {
 var ControlLabel_defaultProps = {
   srOnly: false
 };
-var contextTypes = {
-  $bs_formGroup: (prop_types_default()).object
-};
 
 var ControlLabel =
 /*#__PURE__*/
@@ -9585,7 +9586,7 @@ function (_React$Component) {
   var _proto = ControlLabel.prototype;
 
   _proto.render = function render() {
-    var formGroup = this.context.$bs_formGroup;
+    var formGroup = this.context;
     var controlId = formGroup && formGroup.controlId;
 
     var _this$props = this.props,
@@ -9610,7 +9611,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: ControlLabel_jsxFileName,
-        lineNumber: 43
+        lineNumber: 40
       },
       __self: this
     }));
@@ -9621,7 +9622,7 @@ function (_React$Component) {
 
 ControlLabel.propTypes = ControlLabel_propTypes;
 ControlLabel.defaultProps = ControlLabel_defaultProps;
-ControlLabel.contextTypes = contextTypes;
+ControlLabel.contextType = src_FormGroupContext;
 /* harmony default export */ const src_ControlLabel = (bsClass('control-label', ControlLabel));
 ;// ./src/Col.js
 
@@ -11035,9 +11036,6 @@ var FormControlFeedback_jsxFileName = "/Users/harrison/react-bootstrap/src/FormC
 var FormControlFeedback_defaultProps = {
   bsRole: 'feedback'
 };
-var FormControlFeedback_contextTypes = {
-  $bs_formGroup: (prop_types_default()).object
-};
 
 var FormControlFeedback =
 /*#__PURE__*/
@@ -11078,7 +11076,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: FormControlFeedback_jsxFileName,
-        lineNumber: 37
+        lineNumber: 33
       },
       __self: this
     }));
@@ -11097,7 +11095,7 @@ function (_React$Component) {
     var classes = getClassSet(bsProps);
 
     if (!children) {
-      return this.renderDefaultFeedback(this.context.$bs_formGroup, className, classes, elementProps);
+      return this.renderDefaultFeedback(this.context, className, classes, elementProps);
     }
 
     var child = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.only(children);
@@ -11110,7 +11108,7 @@ function (_React$Component) {
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 FormControlFeedback.defaultProps = FormControlFeedback_defaultProps;
-FormControlFeedback.contextTypes = FormControlFeedback_contextTypes;
+FormControlFeedback.contextType = src_FormGroupContext;
 /* harmony default export */ const src_FormControlFeedback = (bsClass('form-control-feedback', FormControlFeedback));
 ;// ./src/FormControlStatic.js
 
@@ -11180,6 +11178,7 @@ var FormControl_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControl.j
 
 
 
+
 var FormControl_propTypes = {
   componentClass: (elementType_default()),
 
@@ -11205,9 +11204,6 @@ var FormControl_propTypes = {
 var FormControl_defaultProps = {
   componentClass: 'input'
 };
-var FormControl_contextTypes = {
-  $bs_formGroup: (prop_types_default()).object
-};
 
 var FormControl =
 /*#__PURE__*/
@@ -11221,7 +11217,7 @@ function (_React$Component) {
   var _proto = FormControl.prototype;
 
   _proto.render = function render() {
-    var formGroup = this.context.$bs_formGroup;
+    var formGroup = this.context;
     var controlId = formGroup && formGroup.controlId;
 
     var _this$props = this.props,
@@ -11262,7 +11258,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: FormControl_jsxFileName,
-        lineNumber: 82
+        lineNumber: 79
       },
       __self: this
     }));
@@ -11273,7 +11269,7 @@ function (_React$Component) {
 
 FormControl.propTypes = FormControl_propTypes;
 FormControl.defaultProps = FormControl_defaultProps;
-FormControl.contextTypes = FormControl_contextTypes;
+FormControl.contextType = src_FormGroupContext;
 FormControl.Feedback = src_FormControlFeedback;
 FormControl.Static = src_FormControlStatic;
 /* harmony default export */ const src_FormControl = (bsClass('form-control', bsSizes([Size.SMALL, Size.LARGE], FormControl)));
@@ -11288,15 +11284,13 @@ var FormGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/FormGroup.js";
 
 
 
+
 var FormGroup_propTypes = {
   /**
    * Sets `id` on `<FormControl>` and `htmlFor` on `<FormGroup.Label>`.
    */
   controlId: (prop_types_default()).string,
   validationState: prop_types_default().oneOf(['success', 'warning', 'error', null])
-};
-var FormGroup_childContextTypes = {
-  $bs_formGroup: (prop_types_default()).object.isRequired
 };
 
 var FormGroup =
@@ -11310,18 +11304,6 @@ function (_React$Component) {
 
   var _proto = FormGroup.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        controlId = _this$props.controlId,
-        validationState = _this$props.validationState;
-    return {
-      $bs_formGroup: {
-        controlId: controlId,
-        validationState: validationState
-      }
-    };
-  };
-
   _proto.hasFeedback = function hasFeedback(children) {
     var _this = this;
 
@@ -11331,11 +11313,11 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props2 = this.props,
-        validationState = _this$props2.validationState,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["validationState", "className", "children"]);
+    var _this$props = this.props,
+        validationState = _this$props.validationState,
+        className = _this$props.className,
+        children = _this$props.children,
+        props = _objectWithoutPropertiesLoose(_this$props, ["validationState", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['controlId']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -11349,21 +11331,30 @@ function (_React$Component) {
       classes["has-" + validationState] = true;
     }
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_FormGroupContext.Provider, {
+      value: {
+        controlId: this.props.controlId,
+        validationState: validationState
+      },
+      __source: {
+        fileName: FormGroup_jsxFileName,
+        lineNumber: 46
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: FormGroup_jsxFileName,
-        lineNumber: 60
+        lineNumber: 49
       },
       __self: this
-    }), children);
+    }), children));
   };
 
   return FormGroup;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 FormGroup.propTypes = FormGroup_propTypes;
-FormGroup.childContextTypes = FormGroup_childContextTypes;
 /* harmony default export */ const src_FormGroup = (bsClass('form-group', bsSizes([Size.LARGE, Size.SMALL], FormGroup)));
 ;// ./src/Grid.js
 
@@ -12655,6 +12646,11 @@ function (_React$Component) {
 ModalBody.propTypes = ModalBody_propTypes;
 ModalBody.defaultProps = ModalBody_defaultProps;
 /* harmony default export */ const src_ModalBody = (bsClass('modal-body', ModalBody));
+;// ./src/ModalContext.js
+
+var ModalContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+ModalContext.displayName = 'ModalContext';
+/* harmony default export */ const src_ModalContext = (ModalContext);
 ;// ./src/ModalDialog.js
 
 
@@ -12809,6 +12805,7 @@ var ModalHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalHeader.j
 
 
 
+
  // TODO: `aria-label` should be `closeLabel`.
 
 var ModalHeader_propTypes = {
@@ -12835,11 +12832,6 @@ var ModalHeader_defaultProps = {
   closeLabel: 'Close',
   closeButton: false
 };
-var ModalHeader_contextTypes = {
-  $bs_modal: prop_types_default().shape({
-    onHide: (prop_types_default()).func
-  })
-};
 
 var ModalHeader =
 /*#__PURE__*/
@@ -12861,7 +12853,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["closeLabel", "closeButton", "onHide", "className", "children"]);
 
-    var modal = this.context.$bs_modal;
+    var modal = this.context;
 
     var _splitBsProps = splitBsProps(props),
         bsProps = _splitBsProps[0],
@@ -12872,7 +12864,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: ModalHeader_jsxFileName,
-        lineNumber: 61
+        lineNumber: 56
       },
       __self: this
     }), closeButton && external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_CloseButton, {
@@ -12880,7 +12872,7 @@ function (_React$Component) {
       onClick: utils_createChainedFunction(modal && modal.onHide, onHide),
       __source: {
         fileName: ModalHeader_jsxFileName,
-        lineNumber: 63
+        lineNumber: 58
       },
       __self: this
     }), children);
@@ -12891,7 +12883,7 @@ function (_React$Component) {
 
 ModalHeader.propTypes = ModalHeader_propTypes;
 ModalHeader.defaultProps = ModalHeader_defaultProps;
-ModalHeader.contextTypes = ModalHeader_contextTypes;
+ModalHeader.contextType = src_ModalContext;
 /* harmony default export */ const src_ModalHeader = (bsClass('modal-header', ModalHeader));
 ;// ./src/ModalTitle.js
 
@@ -12953,6 +12945,7 @@ ModalTitle.defaultProps = ModalTitle_defaultProps;
 
 
 var Modal_jsxFileName = "/Users/harrison/react-bootstrap/src/Modal.js";
+
 
 
 
@@ -13077,20 +13070,15 @@ var Modal_defaultProps = _extends({}, (Modal_default()).defaultProps, {
   animation: true,
   dialogComponentClass: src_ModalDialog
 });
-
-var Modal_childContextTypes = {
-  $bs_modal: prop_types_default().shape({
-    onHide: (prop_types_default()).func
-  })
-};
 /* eslint-disable no-use-before-define, react/no-multi-comp */
+
 
 function DialogTransition(props) {
   return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Fade, _extends({}, props, {
     timeout: Modal.TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 139
+      lineNumber: 134
     },
     __self: this
   }));
@@ -13101,7 +13089,7 @@ function BackdropTransition(props) {
     timeout: Modal.BACKDROP_TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 143
+      lineNumber: 138
     },
     __self: this
   }));
@@ -13135,14 +13123,6 @@ function (_React$Component) {
   }
 
   var _proto = Modal.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    return {
-      $bs_modal: {
-        onHide: this.props.onHide
-      }
-    };
-  };
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     // Clean up the listener if we need to.
@@ -13218,7 +13198,16 @@ function (_React$Component) {
         dialogProps = _splitComponentProps[1];
 
     var inClassName = show && !animation && 'in';
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Modal_default()), _extends({}, baseModalProps, {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ModalContext.Provider, {
+      value: {
+        onHide: this.props.onHide
+      },
+      __source: {
+        fileName: Modal_jsxFileName,
+        lineNumber: 247
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Modal_default()), _extends({}, baseModalProps, {
       ref: this.setModalRef,
       show: show,
       containerClassName: prefix(props, 'open'),
@@ -13230,7 +13219,7 @@ function (_React$Component) {
       onExited: utils_createChainedFunction(onExited, this.handleExited),
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 260
+        lineNumber: 248
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Dialog, _extends({}, dialogProps, {
@@ -13240,10 +13229,10 @@ function (_React$Component) {
       handleDialogMouseDown: this.handleDialogMouseDown,
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 276
+        lineNumber: 264
       },
       __self: this
-    }), children));
+    }), children)));
   };
 
   return Modal;
@@ -13251,7 +13240,6 @@ function (_React$Component) {
 
 Modal.propTypes = Modal_propTypes;
 Modal.defaultProps = Modal_defaultProps;
-Modal.childContextTypes = Modal_childContextTypes;
 Modal.Body = src_ModalBody;
 Modal.Header = src_ModalHeader;
 Modal.Title = src_ModalTitle;
@@ -13260,11 +13248,23 @@ Modal.Dialog = src_ModalDialog;
 Modal.TRANSITION_DURATION = 300;
 Modal.BACKDROP_TRANSITION_DURATION = 150;
 /* harmony default export */ const src_Modal = (bsClass('modal', bsSizes([Size.LARGE, Size.SMALL], Modal)));
+;// ./src/NavbarContext.js
+
+var NavbarContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+NavbarContext.displayName = 'NavbarContext';
+/* harmony default export */ const src_NavbarContext = (NavbarContext);
+;// ./src/TabContainerContext.js
+
+var TabContainerContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+TabContainerContext.displayName = 'TabContainerContext';
+/* harmony default export */ const src_TabContainerContext = (TabContainerContext);
 ;// ./src/Nav.js
 
 
 
 var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
+
+
 
 
 
@@ -13346,18 +13346,6 @@ var Nav_defaultProps = {
   pullLeft: false,
   stacked: false
 };
-var Nav_contextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    onSelect: (prop_types_default()).func
-  }),
-  $bs_tabContainer: prop_types_default().shape({
-    activeKey: (prop_types_default()).any,
-    onSelect: (prop_types_default()).func.isRequired,
-    getTabId: (prop_types_default()).func.isRequired,
-    getPaneId: (prop_types_default()).func.isRequired
-  })
-};
 
 var Nav =
 /*#__PURE__*/
@@ -13400,7 +13388,7 @@ function (_React$Component) {
   };
 
   _proto.getActiveProps = function getActiveProps() {
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = this.props.tabContainerContext;
 
     if (tabContainer) {
        false ? 0 : void 0;
@@ -13536,9 +13524,11 @@ function (_React$Component) {
         pullLeft = _this$props.pullLeft,
         className = _this$props.className,
         children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children"]);
+        navbarContext = _this$props.navbarContext,
+        tabContainerContext = _this$props.tabContainerContext,
+        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children", "navbarContext", "tabContainerContext"]);
 
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = tabContainerContext;
     var role = propsRole || (tabContainer ? 'tablist' : null);
 
     var _this$getActiveProps3 = this.getActiveProps(),
@@ -13555,12 +13545,12 @@ function (_React$Component) {
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
 
-    var navbar = propsNavbar != null ? propsNavbar : this.context.$bs_navbar;
+    var navbar = propsNavbar != null ? propsNavbar : navbarContext;
     var pullLeftClassName;
     var pullRightClassName;
 
     if (navbar) {
-      var navbarProps = this.context.$bs_navbar || {
+      var navbarProps = navbarContext || {
         bsClass: 'navbar'
       };
       classes[prefix(navbarProps, 'nav')] = true;
@@ -13578,7 +13568,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Nav_jsxFileName,
-        lineNumber: 321
+        lineNumber: 311
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
@@ -13599,8 +13589,22 @@ function (_React$Component) {
 
 Nav.propTypes = Nav_propTypes;
 Nav.defaultProps = Nav_defaultProps;
-Nav.contextTypes = Nav_contextTypes;
-/* harmony default export */ const src_Nav = (bsClass('nav', bsStyles(['tabs', 'pills'], Nav)));
+
+function NavWithContext(props) {
+  var navbarContext = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(src_NavbarContext);
+  var tabContainerContext = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(src_TabContainerContext);
+  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Nav, _extends({}, props, {
+    navbarContext: navbarContext,
+    tabContainerContext: tabContainerContext,
+    __source: {
+      fileName: Nav_jsxFileName,
+      lineNumber: 352
+    },
+    __self: this
+  }));
+}
+
+/* harmony default export */ const src_Nav = (bsClass('nav', bsStyles(['tabs', 'pills'], NavWithContext)));
 ;// ./src/NavbarBrand.js
 
 
@@ -13610,11 +13614,6 @@ var NavbarBrand_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarBrand.j
 
 
 
-var NavbarBrand_contextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string
-  })
-};
 
 var NavbarBrand =
 /*#__PURE__*/
@@ -13633,7 +13632,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'brand');
@@ -13648,7 +13647,7 @@ function (_React$Component) {
       className: classnames_default()(className, bsClassName),
       __source: {
         fileName: NavbarBrand_jsxFileName,
-        lineNumber: 27
+        lineNumber: 21
       },
       __self: this
     }), children);
@@ -13657,7 +13656,7 @@ function (_React$Component) {
   return NavbarBrand;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
-NavbarBrand.contextTypes = NavbarBrand_contextTypes;
+NavbarBrand.contextType = src_NavbarContext;
 /* harmony default export */ const src_NavbarBrand = (NavbarBrand);
 ;// ./src/NavbarCollapse.js
 
@@ -13668,12 +13667,6 @@ var NavbarCollapse_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarColl
 
 
 
-var NavbarCollapse_contextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    expanded: (prop_types_default()).bool
-  })
-};
 
 var NavbarCollapse =
 /*#__PURE__*/
@@ -13691,7 +13684,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["children"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'collapse');
@@ -13700,14 +13693,14 @@ function (_React$Component) {
     }, props, {
       __source: {
         fileName: NavbarCollapse_jsxFileName,
-        lineNumber: 22
+        lineNumber: 15
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: bsClassName,
       __source: {
         fileName: NavbarCollapse_jsxFileName,
-        lineNumber: 23
+        lineNumber: 16
       },
       __self: this
     }, children));
@@ -13716,7 +13709,7 @@ function (_React$Component) {
   return NavbarCollapse;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
-NavbarCollapse.contextTypes = NavbarCollapse_contextTypes;
+NavbarCollapse.contextType = src_NavbarContext;
 /* harmony default export */ const src_NavbarCollapse = (NavbarCollapse);
 ;// ./src/NavbarHeader.js
 
@@ -13727,11 +13720,6 @@ var NavbarHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarHeader
 
 
 
-var NavbarHeader_contextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string
-  })
-};
 
 var NavbarHeader =
 /*#__PURE__*/
@@ -13749,7 +13737,7 @@ function (_React$Component) {
         className = _this$props.className,
         props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'header');
@@ -13757,7 +13745,7 @@ function (_React$Component) {
       className: classnames_default()(className, bsClassName),
       __source: {
         fileName: NavbarHeader_jsxFileName,
-        lineNumber: 20
+        lineNumber: 14
       },
       __self: this
     }));
@@ -13766,13 +13754,14 @@ function (_React$Component) {
   return NavbarHeader;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
-NavbarHeader.contextTypes = NavbarHeader_contextTypes;
+NavbarHeader.contextType = src_NavbarContext;
 /* harmony default export */ const src_NavbarHeader = (NavbarHeader);
 ;// ./src/NavbarToggle.js
 
 
 
 var NavbarToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarToggle.js";
+
 
 
 
@@ -13785,13 +13774,6 @@ var NavbarToggle_propTypes = {
    * The toggle content, if left empty it will render the default toggle (seen above).
    */
   children: (prop_types_default()).node
-};
-var NavbarToggle_contextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    expanded: (prop_types_default()).bool,
-    onToggle: (prop_types_default()).func.isRequired
-  })
 };
 
 var NavbarToggle =
@@ -13812,7 +13794,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "children"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
 
@@ -13827,7 +13809,7 @@ function (_React$Component) {
       return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", _extends({}, buttonProps, {
         __source: {
           fileName: NavbarToggle_jsxFileName,
-          lineNumber: 41
+          lineNumber: 34
         },
         __self: this
       }), children);
@@ -13836,35 +13818,35 @@ function (_React$Component) {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", _extends({}, buttonProps, {
       __source: {
         fileName: NavbarToggle_jsxFileName,
-        lineNumber: 45
+        lineNumber: 38
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "sr-only",
       __source: {
         fileName: NavbarToggle_jsxFileName,
-        lineNumber: 46
+        lineNumber: 39
       },
       __self: this
     }, "Toggle navigation"), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "icon-bar",
       __source: {
         fileName: NavbarToggle_jsxFileName,
-        lineNumber: 47
+        lineNumber: 40
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "icon-bar",
       __source: {
         fileName: NavbarToggle_jsxFileName,
-        lineNumber: 48
+        lineNumber: 41
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "icon-bar",
       __source: {
         fileName: NavbarToggle_jsxFileName,
-        lineNumber: 49
+        lineNumber: 42
       },
       __self: this
     }));
@@ -13874,7 +13856,7 @@ function (_React$Component) {
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 NavbarToggle.propTypes = NavbarToggle_propTypes;
-NavbarToggle.contextTypes = NavbarToggle_contextTypes;
+NavbarToggle.contextType = src_NavbarContext;
 /* harmony default export */ const src_NavbarToggle = (NavbarToggle);
 ;// ./src/Navbar.js
 
@@ -13885,6 +13867,7 @@ var Navbar_jsxFileName = "/Users/harrison/react-bootstrap/src/Navbar.js";
 // TODO: Remove this pragma once we upgrade eslint-config-airbnb.
 
 /* eslint-disable react/no-multi-comp */
+
 
 
 
@@ -13990,14 +13973,6 @@ var Navbar_defaultProps = {
   fluid: false,
   collapseOnSelect: false
 };
-var Navbar_childContextTypes = {
-  $bs_navbar: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    expanded: (prop_types_default()).bool,
-    onToggle: (prop_types_default()).func.isRequired,
-    onSelect: (prop_types_default()).func
-  })
-};
 
 var Navbar =
 /*#__PURE__*/
@@ -14015,26 +13990,10 @@ function (_React$Component) {
 
   var _proto = Navbar.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        bsClass = _this$props.bsClass,
-        expanded = _this$props.expanded,
-        onSelect = _this$props.onSelect,
-        collapseOnSelect = _this$props.collapseOnSelect;
-    return {
-      $bs_navbar: {
-        bsClass: bsClass,
-        expanded: expanded,
-        onToggle: this.handleToggle,
-        onSelect: utils_createChainedFunction(onSelect, collapseOnSelect ? this.handleCollapse : null)
-      }
-    };
-  };
-
   _proto.handleCollapse = function handleCollapse() {
-    var _this$props2 = this.props,
-        onToggle = _this$props2.onToggle,
-        expanded = _this$props2.expanded;
+    var _this$props = this.props,
+        onToggle = _this$props.onToggle,
+        expanded = _this$props.expanded;
 
     if (expanded) {
       onToggle(false);
@@ -14042,25 +14001,25 @@ function (_React$Component) {
   };
 
   _proto.handleToggle = function handleToggle() {
-    var _this$props3 = this.props,
-        onToggle = _this$props3.onToggle,
-        expanded = _this$props3.expanded;
+    var _this$props2 = this.props,
+        onToggle = _this$props2.onToggle,
+        expanded = _this$props2.expanded;
     onToggle(!expanded);
   };
 
   _proto.render = function render() {
     var _extends2;
 
-    var _this$props4 = this.props,
-        Component = _this$props4.componentClass,
-        fixedTop = _this$props4.fixedTop,
-        fixedBottom = _this$props4.fixedBottom,
-        staticTop = _this$props4.staticTop,
-        inverse = _this$props4.inverse,
-        fluid = _this$props4.fluid,
-        className = _this$props4.className,
-        children = _this$props4.children,
-        props = _objectWithoutPropertiesLoose(_this$props4, ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"]);
+    var _this$props3 = this.props,
+        Component = _this$props3.componentClass,
+        fixedTop = _this$props3.fixedTop,
+        fixedBottom = _this$props3.fixedBottom,
+        staticTop = _this$props3.staticTop,
+        inverse = _this$props3.inverse,
+        fluid = _this$props3.fluid,
+        className = _this$props3.className,
+        children = _this$props3.children,
+        props = _objectWithoutPropertiesLoose(_this$props3, ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['expanded', 'onToggle', 'onSelect', 'collapseOnSelect']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -14079,21 +14038,39 @@ function (_React$Component) {
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'fixed-top')] = fixedTop, _extends2[prefix(bsProps, 'fixed-bottom')] = fixedBottom, _extends2[prefix(bsProps, 'static-top')] = staticTop, _extends2));
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, elementProps, {
+    var _this$props4 = this.props,
+        bsClass = _this$props4.bsClass,
+        expanded = _this$props4.expanded,
+        onSelect = _this$props4.onSelect,
+        collapseOnSelect = _this$props4.collapseOnSelect;
+    var navbarContext = {
+      bsClass: bsClass,
+      expanded: expanded,
+      onToggle: this.handleToggle,
+      onSelect: utils_createChainedFunction(onSelect, collapseOnSelect ? this.handleCollapse : null)
+    };
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_NavbarContext.Provider, {
+      value: navbarContext,
+      __source: {
+        fileName: Navbar_jsxFileName,
+        lineNumber: 186
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Navbar_jsxFileName,
-        lineNumber: 198
+        lineNumber: 187
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Grid, {
       fluid: fluid,
       __source: {
         fileName: Navbar_jsxFileName,
-        lineNumber: 199
+        lineNumber: 188
       },
       __self: this
-    }, children));
+    }, children)));
   };
 
   return Navbar;
@@ -14101,14 +14078,13 @@ function (_React$Component) {
 
 Navbar.propTypes = Navbar_propTypes;
 Navbar.defaultProps = Navbar_defaultProps;
-Navbar.childContextTypes = Navbar_childContextTypes;
 bsClass('navbar', Navbar);
 var UncontrollableNavbar = uncontrollable_default()(Navbar, {
   expanded: 'onToggle'
 });
 
 function createSimpleWrapper(tag, suffix, displayName) {
-  var Wrapper = function Wrapper(_ref, _ref2) {
+  var Wrapper = function Wrapper(_ref) {
     var _ref$componentClass = _ref.componentClass,
         Component = _ref$componentClass === void 0 ? tag : _ref$componentClass,
         className = _ref.className,
@@ -14118,15 +14094,14 @@ function createSimpleWrapper(tag, suffix, displayName) {
         pullLeft = _ref$pullLeft === void 0 ? false : _ref$pullLeft,
         props = _objectWithoutPropertiesLoose(_ref, ["componentClass", "className", "pullRight", "pullLeft"]);
 
-    var _ref2$$bs_navbar = _ref2.$bs_navbar,
-        navbarProps = _ref2$$bs_navbar === void 0 ? {
+    var navbarProps = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(src_NavbarContext) || {
       bsClass: 'navbar'
-    } : _ref2$$bs_navbar;
+    };
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
       className: classnames_default()(className, prefix(navbarProps, suffix), pullRight && prefix(navbarProps, 'right'), pullLeft && prefix(navbarProps, 'left')),
       __source: {
         fileName: Navbar_jsxFileName,
-        lineNumber: 224
+        lineNumber: 213
       },
       __self: this
     }));
@@ -14137,11 +14112,6 @@ function createSimpleWrapper(tag, suffix, displayName) {
     componentClass: (elementType_default()),
     pullRight: (prop_types_default()).bool,
     pullLeft: (prop_types_default()).bool
-  };
-  Wrapper.contextTypes = {
-    $bs_navbar: prop_types_default().shape({
-      bsClass: (prop_types_default()).string
-    })
   };
   return Wrapper;
 }
@@ -15254,10 +15224,16 @@ Pagination.Item = PaginationItem;
 Pagination.Next = Next;
 Pagination.Last = Last;
 /* harmony default export */ const src_Pagination = (Pagination);
+;// ./src/PanelContext.js
+
+var PanelContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+PanelContext.displayName = 'PanelContext';
+/* harmony default export */ const src_PanelContext = (PanelContext);
 ;// ./src/PanelCollapse.js
 
 
 var PanelCollapse_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelCollapse.js";
+
 
 
 
@@ -15293,14 +15269,6 @@ var PanelCollapse_propTypes = {
    */
   onExited: (prop_types_default()).func
 };
-var PanelCollapse_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    headingId: (prop_types_default()).string,
-    bodyId: (prop_types_default()).string,
-    bsClass: (prop_types_default()).string,
-    expanded: (prop_types_default()).bool
-  })
-};
 
 var PanelCollapse =
 /*#__PURE__*/
@@ -15316,7 +15284,7 @@ function (_React$Component) {
   _proto.render = function render() {
     var children = this.props.children;
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         headingId = _ref.headingId,
         bodyId = _ref.bodyId,
         _bsClass = _ref.bsClass,
@@ -15339,14 +15307,14 @@ function (_React$Component) {
     }, props, {
       __source: {
         fileName: PanelCollapse_jsxFileName,
-        lineNumber: 60
+        lineNumber: 52
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: prefix(bsProps, 'collapse'),
       __source: {
         fileName: PanelCollapse_jsxFileName,
-        lineNumber: 61
+        lineNumber: 53
       },
       __self: this
     }, children));
@@ -15356,12 +15324,13 @@ function (_React$Component) {
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 PanelCollapse.propTypes = PanelCollapse_propTypes;
-PanelCollapse.contextTypes = PanelCollapse_contextTypes;
+PanelCollapse.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelCollapse = (bsClass('panel', PanelCollapse));
 ;// ./src/PanelBody.js
 
 
 var PanelBody_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelBody.js";
+
 
 
 
@@ -15384,11 +15353,6 @@ var PanelBody_propTypes = {
 var PanelBody_defaultProps = {
   collapsible: false
 };
-var PanelBody_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    bsClass: (prop_types_default()).string
-  })
-};
 
 var PanelBody =
 /*#__PURE__*/
@@ -15407,7 +15371,7 @@ function (_React$Component) {
         className = _this$props.className,
         collapsible = _this$props.collapsible;
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['collapsible']),
@@ -15419,7 +15383,7 @@ function (_React$Component) {
       className: classnames_default()(className, prefix(bsProps, 'body')),
       __source: {
         fileName: PanelBody_jsxFileName,
-        lineNumber: 43
+        lineNumber: 38
       },
       __self: this
     }), children);
@@ -15428,7 +15392,7 @@ function (_React$Component) {
       body = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_PanelCollapse, {
         __source: {
           fileName: PanelBody_jsxFileName,
-          lineNumber: 49
+          lineNumber: 44
         },
         __self: this
       }, body);
@@ -15442,7 +15406,7 @@ function (_React$Component) {
 
 PanelBody.propTypes = PanelBody_propTypes;
 PanelBody.defaultProps = PanelBody_defaultProps;
-PanelBody.contextTypes = PanelBody_contextTypes;
+PanelBody.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelBody = (bsClass('panel', PanelBody));
 // EXTERNAL MODULE: ./node_modules/react-prop-types/lib/elementType.js
 var lib_elementType = __webpack_require__(2595);
@@ -15461,12 +15425,6 @@ var PanelHeading_propTypes = {
 };
 var PanelHeading_defaultProps = {
   componentClass: 'div'
-};
-var PanelHeading_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    headingId: (prop_types_default()).string,
-    bsClass: (prop_types_default()).string
-  })
 };
 
 var PanelHeading =
@@ -15487,7 +15445,7 @@ function (_React$Component) {
         Component = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "componentClass"]);
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         headingId = _ref.headingId,
         _bsClass = _ref.bsClass;
 
@@ -15506,7 +15464,7 @@ function (_React$Component) {
       className: classnames_default()(className, prefix(bsProps, 'heading')),
       __source: {
         fileName: PanelHeading_jsxFileName,
-        lineNumber: 42
+        lineNumber: 35
       },
       __self: this
     }), children);
@@ -15517,7 +15475,7 @@ function (_React$Component) {
 
 PanelHeading.propTypes = PanelHeading_propTypes;
 PanelHeading.defaultProps = PanelHeading_defaultProps;
-PanelHeading.contextTypes = PanelHeading_contextTypes;
+PanelHeading.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelHeading = (bsClass('panel', PanelHeading));
 ;// ./src/PanelToggle.js
 
@@ -15525,6 +15483,7 @@ PanelHeading.contextTypes = PanelHeading_contextTypes;
 
 
 var PanelToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelToggle.js";
+
 
 
 
@@ -15547,13 +15506,6 @@ var PanelToggle_propTypes = {
 var PanelToggle_defaultProps = {
   componentClass: src_SafeAnchor
 };
-var PanelToggle_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    bodyId: (prop_types_default()).string,
-    onToggle: (prop_types_default()).func,
-    expanded: (prop_types_default()).bool
-  })
-};
 
 var PanelToggle =
 /*#__PURE__*/
@@ -15575,7 +15527,7 @@ function (_React$Component) {
   var _proto = PanelToggle.prototype;
 
   _proto.handleToggle = function handleToggle(event) {
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         onToggle = _ref.onToggle;
 
     if (onToggle) {
@@ -15590,7 +15542,7 @@ function (_React$Component) {
         componentClass = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "componentClass"]);
 
-    var _ref2 = this.context.$bs_panel || {},
+    var _ref2 = this.context || {},
         expanded = _ref2.expanded,
         bodyId = _ref2.bodyId;
 
@@ -15606,7 +15558,7 @@ function (_React$Component) {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
       __source: {
         fileName: PanelToggle_jsxFileName,
-        lineNumber: 62
+        lineNumber: 56
       },
       __self: this
     }));
@@ -15617,13 +15569,14 @@ function (_React$Component) {
 
 PanelToggle.propTypes = PanelToggle_propTypes;
 PanelToggle.defaultProps = PanelToggle_defaultProps;
-PanelToggle.contextTypes = PanelToggle_contextTypes;
+PanelToggle.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelToggle = (PanelToggle);
 ;// ./src/PanelTitle.js
 
 
 
 var PanelTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelTitle.js";
+
 
 
 
@@ -15638,11 +15591,6 @@ var PanelTitle_propTypes = {
    * for the common use-case.
    */
   toggle: (prop_types_default()).bool
-};
-var PanelTitle_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    bsClass: (prop_types_default()).string
-  })
 };
 var PanelTitle_defaultProps = {
   componentClass: 'div'
@@ -15667,7 +15615,7 @@ function (_React$Component) {
         Component = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "toggle", "componentClass"]);
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsProps = splitBsProps(props),
@@ -15680,7 +15628,7 @@ function (_React$Component) {
       children = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_PanelToggle, {
         __source: {
           fileName: PanelTitle_jsxFileName,
-          lineNumber: 44
+          lineNumber: 39
         },
         __self: this
       }, children);
@@ -15690,7 +15638,7 @@ function (_React$Component) {
       className: classnames_default()(className, prefix(bsProps, 'title')),
       __source: {
         fileName: PanelTitle_jsxFileName,
-        lineNumber: 48
+        lineNumber: 43
       },
       __self: this
     }), children);
@@ -15701,7 +15649,7 @@ function (_React$Component) {
 
 PanelTitle.propTypes = PanelTitle_propTypes;
 PanelTitle.defaultProps = PanelTitle_defaultProps;
-PanelTitle.contextTypes = PanelTitle_contextTypes;
+PanelTitle.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelTitle = (bsClass('panel', PanelTitle));
 ;// ./src/PanelFooter.js
 
@@ -15711,11 +15659,6 @@ var PanelFooter_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelFooter.j
 
 
 
-var PanelFooter_contextTypes = {
-  $bs_panel: prop_types_default().shape({
-    bsClass: (prop_types_default()).string
-  })
-};
 
 var PanelFooter =
 /*#__PURE__*/
@@ -15733,7 +15676,7 @@ function (_React$Component) {
         children = _this$props.children,
         className = _this$props.className;
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsProps = splitBsProps(this.props),
@@ -15745,7 +15688,7 @@ function (_React$Component) {
       className: classnames_default()(className, prefix(bsProps, 'footer')),
       __source: {
         fileName: PanelFooter_jsxFileName,
-        lineNumber: 21
+        lineNumber: 16
       },
       __self: this
     }), children);
@@ -15754,7 +15697,7 @@ function (_React$Component) {
   return PanelFooter;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
-PanelFooter.contextTypes = PanelFooter_contextTypes;
+PanelFooter.contextType = src_PanelContext;
 /* harmony default export */ const src_PanelFooter = (bsClass('panel', PanelFooter));
 ;// ./src/Panel.js
 
@@ -15762,6 +15705,8 @@ PanelFooter.contextTypes = PanelFooter_contextTypes;
 
 
 var Panel_jsxFileName = "/Users/harrison/react-bootstrap/src/Panel.js";
+
+
 
 
 
@@ -15804,22 +15749,6 @@ var Panel_propTypes = {
    */
   id: (prop_types_default()).string
 };
-var Panel_contextTypes = {
-  $bs_panelGroup: prop_types_default().shape({
-    getId: (prop_types_default()).func,
-    activeKey: (prop_types_default()).any,
-    onToggle: (prop_types_default()).func
-  })
-};
-var Panel_childContextTypes = {
-  $bs_panel: prop_types_default().shape({
-    headingId: (prop_types_default()).string,
-    bodyId: (prop_types_default()).string,
-    bsClass: (prop_types_default()).string,
-    onToggle: (prop_types_default()).func,
-    expanded: (prop_types_default()).bool
-  })
-};
 
 var Panel =
 /*#__PURE__*/
@@ -15836,7 +15765,7 @@ function (_React$Component) {
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
 
     _this.handleToggle = function (e) {
-      var panelGroup = _this.context.$bs_panelGroup;
+      var panelGroup = _this.context;
       var expanded = !_this.getExpanded();
 
       if (panelGroup && panelGroup.onToggle) {
@@ -15851,33 +15780,8 @@ function (_React$Component) {
 
   var _proto = Panel.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        eventKey = _this$props.eventKey,
-        id = _this$props.id;
-    var idKey = eventKey == null ? id : eventKey;
-    var ids;
-
-    if (idKey !== null) {
-      var panelGroup = this.context.$bs_panelGroup;
-      var getId = panelGroup && panelGroup.getId || defaultGetId;
-      ids = {
-        headingId: getId(idKey, 'heading'),
-        bodyId: getId(idKey, 'body')
-      };
-    }
-
-    return {
-      $bs_panel: _extends({}, ids, {
-        bsClass: this.props.bsClass,
-        expanded: this.getExpanded(),
-        onToggle: this.handleToggle
-      })
-    };
-  };
-
   _proto.getExpanded = function getExpanded() {
-    var panelGroup = this.context.$bs_panelGroup;
+    var panelGroup = this.context;
 
     if (panelGroup && has.call(panelGroup, 'activeKey')) {
        false ? 0 : void 0;
@@ -15888,30 +15792,57 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props2 = this.props,
-        className = _this$props2.className,
-        children = _this$props2.children;
+    var _this$props = this.props,
+        className = _this$props.className,
+        children = _this$props.children;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['onToggle', 'eventKey', 'expanded']),
         bsProps = _splitBsPropsAndOmit[0],
         props = _splitBsPropsAndOmit[1];
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, props, {
+    var _this$props2 = this.props,
+        eventKey = _this$props2.eventKey,
+        id = _this$props2.id;
+    var idKey = eventKey == null ? id : eventKey;
+    var ids;
+
+    if (idKey !== null) {
+      var panelGroup = this.context;
+      var getId = panelGroup && panelGroup.getId || defaultGetId;
+      ids = {
+        headingId: getId(idKey, 'heading'),
+        bodyId: getId(idKey, 'body')
+      };
+    }
+
+    var panelContext = _extends({}, ids, {
+      bsClass: this.props.bsClass,
+      expanded: this.getExpanded(),
+      onToggle: this.handleToggle
+    });
+
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_PanelContext.Provider, {
+      value: panelContext,
+      __source: {
+        fileName: Panel_jsxFileName,
+        lineNumber: 110
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, props, {
       className: classnames_default()(className, getClassSet(bsProps)),
       __source: {
         fileName: Panel_jsxFileName,
-        lineNumber: 130
+        lineNumber: 111
       },
       __self: this
-    }), children);
+    }), children));
   };
 
   return Panel;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 Panel.propTypes = Panel_propTypes;
-Panel.contextTypes = Panel_contextTypes;
-Panel.childContextTypes = Panel_childContextTypes;
+Panel.contextType = src_PanelGroupContext;
 var UncontrolledPanel = uncontrollable_default()(bsClass('panel', bsStyles(values_default()(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel)), {
   expanded: 'onToggle'
 });
@@ -16649,6 +16580,8 @@ SplitButton.Toggle = src_SplitToggle;
 ;// ./src/TabContainer.js
 
 
+var TabContainer_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContainer.js";
+
 
 
 
@@ -16705,14 +16638,6 @@ var TabContainer_propTypes = {
    */
   activeKey: (prop_types_default()).any
 };
-var TabContainer_childContextTypes = {
-  $bs_tabContainer: prop_types_default().shape({
-    activeKey: (prop_types_default()).any,
-    onSelect: (prop_types_default()).func.isRequired,
-    getTabId: (prop_types_default()).func.isRequired,
-    getPaneId: (prop_types_default()).func.isRequired
-  })
-};
 
 var TabContainer =
 /*#__PURE__*/
@@ -16725,56 +16650,64 @@ function (_React$Component) {
 
   var _proto = TabContainer.prototype;
 
-  _proto.getChildContext = function getChildContext() {
+  _proto.render = function render() {
     var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        onSelect = _this$props.onSelect,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
+        children = _this$props.children,
+        props = _objectWithoutPropertiesLoose(_this$props, ["children"]);
+
+    var _this$props2 = this.props,
+        activeKey = _this$props2.activeKey,
+        onSelect = _this$props2.onSelect,
+        generateChildId = _this$props2.generateChildId,
+        id = _this$props2.id;
 
     var getId = generateChildId || function (key, type) {
       return id ? id + "-" + type + "-" + key : null;
     };
 
-    return {
-      $bs_tabContainer: {
-        activeKey: activeKey,
-        onSelect: onSelect,
-        getTabId: function getTabId(key) {
-          return getId(key, TAB);
-        },
-        getPaneId: function getPaneId(key) {
-          return getId(key, PANE);
-        }
+    var tabContainerContext = {
+      activeKey: activeKey,
+      onSelect: onSelect,
+      getTabId: function getTabId(key) {
+        return getId(key, TAB);
+      },
+      getPaneId: function getPaneId(key) {
+        return getId(key, PANE);
       }
     };
-  };
-
-  _proto.render = function render() {
-    var _this$props2 = this.props,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["children"]);
-
     delete props.generateChildId;
     delete props.onSelect;
     delete props.activeKey;
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.only(children), props);
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TabContainerContext.Provider, {
+      value: tabContainerContext,
+      __source: {
+        fileName: TabContainer_jsxFileName,
+        lineNumber: 84
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.only(children), props));
   };
 
   return TabContainer;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 TabContainer.propTypes = TabContainer_propTypes;
-TabContainer.childContextTypes = TabContainer_childContextTypes;
 /* harmony default export */ const src_TabContainer = (uncontrollable_default()(TabContainer, {
   activeKey: 'onSelect'
 }));
+;// ./src/TabContentContext.js
+
+var TabContentContext = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createContext(undefined);
+TabContentContext.displayName = 'TabContentContext';
+/* harmony default export */ const src_TabContentContext = (TabContentContext);
 ;// ./src/TabContent.js
 
 
 
 
 var TabContent_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContent.js";
+
+
 
 
 
@@ -16806,23 +16739,6 @@ var TabContent_defaultProps = {
   mountOnEnter: false,
   unmountOnExit: false
 };
-var TabContent_contextTypes = {
-  $bs_tabContainer: prop_types_default().shape({
-    activeKey: (prop_types_default()).any
-  })
-};
-var TabContent_childContextTypes = {
-  $bs_tabContent: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    animation: prop_types_default().oneOfType([(prop_types_default()).bool, (elementType_default())]),
-    activeKey: (prop_types_default()).any,
-    mountOnEnter: (prop_types_default()).bool,
-    unmountOnExit: (prop_types_default()).bool,
-    onPaneEnter: (prop_types_default()).func.isRequired,
-    onPaneExited: (prop_types_default()).func.isRequired,
-    exiting: (prop_types_default()).bool.isRequired
-  })
-};
 
 var TabContent =
 /*#__PURE__*/
@@ -16847,30 +16763,6 @@ function (_React$Component) {
 
   var _proto = TabContent.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        bsClass = _this$props.bsClass,
-        animation = _this$props.animation,
-        mountOnEnter = _this$props.mountOnEnter,
-        unmountOnExit = _this$props.unmountOnExit;
-    var stateActiveKey = this.state.activeKey;
-    var containerActiveKey = this.getContainerActiveKey();
-    var activeKey = stateActiveKey != null ? stateActiveKey : containerActiveKey;
-    var exiting = stateActiveKey != null && stateActiveKey !== containerActiveKey;
-    return {
-      $bs_tabContent: {
-        bsClass: bsClass,
-        animation: animation,
-        activeKey: activeKey,
-        mountOnEnter: mountOnEnter,
-        unmountOnExit: unmountOnExit,
-        onPaneEnter: this.handlePaneEnter,
-        onPaneExited: this.handlePaneExited,
-        exiting: exiting
-      }
-    };
-  };
-
   _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.animation && this.state.activeChild) {
       this.setState({
@@ -16885,7 +16777,7 @@ function (_React$Component) {
   };
 
   _proto.getContainerActiveKey = function getContainerActiveKey() {
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = this.context;
     return tabContainer && tabContainer.activeKey;
   };
 
@@ -16927,23 +16819,49 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props2 = this.props,
-        Component = _this$props2.componentClass,
-        className = _this$props2.className,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["componentClass", "className"]);
+    var _this$props = this.props,
+        Component = _this$props.componentClass,
+        className = _this$props.className,
+        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation', 'mountOnEnter', 'unmountOnExit']),
         bsProps = _splitBsPropsAndOmit[0],
         elementProps = _splitBsPropsAndOmit[1];
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, elementProps, {
+    var _this$props2 = this.props,
+        bsClass = _this$props2.bsClass,
+        animation = _this$props2.animation,
+        mountOnEnter = _this$props2.mountOnEnter,
+        unmountOnExit = _this$props2.unmountOnExit;
+    var stateActiveKey = this.state.activeKey;
+    var containerActiveKey = this.getContainerActiveKey();
+    var activeKey = stateActiveKey != null ? stateActiveKey : containerActiveKey;
+    var exiting = stateActiveKey != null && stateActiveKey !== containerActiveKey;
+    var tabContentContext = {
+      bsClass: bsClass,
+      animation: animation,
+      activeKey: activeKey,
+      mountOnEnter: mountOnEnter,
+      unmountOnExit: unmountOnExit,
+      onPaneEnter: this.handlePaneEnter,
+      onPaneExited: this.handlePaneExited,
+      exiting: exiting
+    };
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TabContentContext.Provider, {
+      value: tabContentContext,
+      __source: {
+        fileName: TabContent_jsxFileName,
+        lineNumber: 139
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'content')),
       __source: {
         fileName: TabContent_jsxFileName,
-        lineNumber: 160
+        lineNumber: 140
       },
       __self: this
-    }));
+    })));
   };
 
   return TabContent;
@@ -16951,8 +16869,7 @@ function (_React$Component) {
 
 TabContent.propTypes = TabContent_propTypes;
 TabContent.defaultProps = TabContent_defaultProps;
-TabContent.contextTypes = TabContent_contextTypes;
-TabContent.childContextTypes = TabContent_childContextTypes;
+TabContent.contextType = src_TabContainerContext;
 /* harmony default export */ const src_TabContent = (bsClass('tab', TabContent));
 ;// ./src/TabPane.js
 
@@ -16960,6 +16877,8 @@ TabContent.childContextTypes = TabContent_childContextTypes;
 
 
 var TabPane_jsxFileName = "/Users/harrison/react-bootstrap/src/TabPane.js";
+
+
 
 
 
@@ -17034,30 +16953,6 @@ var TabPane_propTypes = {
    */
   unmountOnExit: (prop_types_default()).bool
 };
-var TabPane_contextTypes = {
-  $bs_tabContainer: prop_types_default().shape({
-    getTabId: (prop_types_default()).func,
-    getPaneId: (prop_types_default()).func
-  }),
-  $bs_tabContent: prop_types_default().shape({
-    bsClass: (prop_types_default()).string,
-    animation: prop_types_default().oneOfType([(prop_types_default()).bool, (elementType_default())]),
-    activeKey: (prop_types_default()).any,
-    mountOnEnter: (prop_types_default()).bool,
-    unmountOnExit: (prop_types_default()).bool,
-    onPaneEnter: (prop_types_default()).func.isRequired,
-    onPaneExited: (prop_types_default()).func.isRequired,
-    exiting: (prop_types_default()).bool.isRequired
-  })
-};
-/**
- * We override the `<TabContainer>` context so `<Nav>`s in `<TabPane>`s don't
- * conflict with the top level one.
- */
-
-var TabPane_childContextTypes = {
-  $bs_tabContainer: prop_types_default().oneOf([null])
-};
 
 var TabPane =
 /*#__PURE__*/
@@ -17075,12 +16970,6 @@ function (_React$Component) {
   }
 
   var _proto = TabPane.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    return {
-      $bs_tabContainer: null
-    };
-  };
 
   _proto.componentDidMount = function componentDidMount() {
     if (this.shouldBeIn()) {
@@ -17113,12 +17002,12 @@ function (_React$Component) {
       return this.props.animation;
     }
 
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
     return tabContent && tabContent.animation;
   };
 
   _proto.handleEnter = function handleEnter() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
 
     if (!tabContent) {
       return;
@@ -17128,7 +17017,7 @@ function (_React$Component) {
   };
 
   _proto.handleExited = function handleExited() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
 
     if (!tabContent) {
       return;
@@ -17139,7 +17028,7 @@ function (_React$Component) {
   };
 
   _proto.isActive = function isActive() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
     var activeKey = tabContent && tabContent.activeKey;
     return this.props.eventKey === activeKey;
   };
@@ -17148,7 +17037,7 @@ function (_React$Component) {
     return this.getAnimation() && this.isActive();
   };
 
-  _proto.render = function render() {
+  _proto.renderPane = function renderPane(tabContainer) {
     var _this$props = this.props,
         eventKey = _this$props.eventKey,
         className = _this$props.className,
@@ -17162,9 +17051,7 @@ function (_React$Component) {
         propsUnmountOnExit = _this$props.unmountOnExit,
         props = _objectWithoutPropertiesLoose(_this$props, ["eventKey", "className", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "mountOnEnter", "unmountOnExit"]);
 
-    var _this$context = this.context,
-        tabContent = _this$context.$bs_tabContent,
-        tabContainer = _this$context.$bs_tabContainer;
+    var tabContent = this.context;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -17201,7 +17088,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: TabPane_jsxFileName,
-        lineNumber: 254
+        lineNumber: 222
       },
       __self: this
     }));
@@ -17220,7 +17107,7 @@ function (_React$Component) {
         unmountOnExit: unmountOnExit,
         __source: {
           fileName: TabPane_jsxFileName,
-          lineNumber: 266
+          lineNumber: 234
         },
         __self: this
       }, pane);
@@ -17229,12 +17116,35 @@ function (_React$Component) {
     return pane;
   };
 
+  _proto.render = function render() {
+    var _this2 = this;
+
+    // Read the `<TabContainer>` context so we can generate accessible ids, then
+    // override it with `null` so `<Nav>`s in `<TabPane>`s don't conflict with
+    // the top level one.
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TabContainerContext.Consumer, {
+      __source: {
+        fileName: TabPane_jsxFileName,
+        lineNumber: 258
+      },
+      __self: this
+    }, function (tabContainer) {
+      return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TabContainerContext.Provider, {
+        value: null,
+        __source: {
+          fileName: TabPane_jsxFileName,
+          lineNumber: 260
+        },
+        __self: this
+      }, _this2.renderPane(tabContainer));
+    });
+  };
+
   return TabPane;
 }((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
 
 TabPane.propTypes = TabPane_propTypes;
-TabPane.contextTypes = TabPane_contextTypes;
-TabPane.childContextTypes = TabPane_childContextTypes;
+TabPane.contextType = src_TabContentContext;
 /* harmony default export */ const src_TabPane = (bsClass('tab-pane', TabPane));
 ;// ./src/Tab.js
 

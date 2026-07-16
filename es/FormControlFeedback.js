@@ -3,14 +3,11 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
-import PropTypes from 'prop-types';
+import FormGroupContext from './FormGroupContext';
 import Glyphicon from './Glyphicon';
 import { bsClass, getClassSet, splitBsProps } from './utils/bootstrapUtils';
 var defaultProps = {
   bsRole: 'feedback'
-};
-var contextTypes = {
-  $bs_formGroup: PropTypes.object
 };
 
 var FormControlFeedback =
@@ -66,7 +63,7 @@ function (_React$Component) {
     var classes = getClassSet(bsProps);
 
     if (!children) {
-      return this.renderDefaultFeedback(this.context.$bs_formGroup, className, classes, elementProps);
+      return this.renderDefaultFeedback(this.context, className, classes, elementProps);
     }
 
     var child = React.Children.only(children);
@@ -79,5 +76,5 @@ function (_React$Component) {
 }(React.Component);
 
 FormControlFeedback.defaultProps = defaultProps;
-FormControlFeedback.contextTypes = contextTypes;
+FormControlFeedback.contextType = FormGroupContext;
 export default bsClass('form-control-feedback', FormControlFeedback);

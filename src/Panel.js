@@ -12,6 +12,8 @@ import {
 } from './utils/bootstrapUtils';
 import { State, Style } from './utils/StyleConfig';
 import Body from './PanelBody';
+import PanelContext from './PanelContext';
+import PanelGroupContext from './PanelGroupContext';
 import Heading from './PanelHeading';
 import Title from './PanelTitle';
 import Footer from './PanelFooter';
@@ -45,53 +47,9 @@ const propTypes = {
   id: PropTypes.string
 };
 
-const contextTypes = {
-  $bs_panelGroup: PropTypes.shape({
-    getId: PropTypes.func,
-    activeKey: PropTypes.any,
-    onToggle: PropTypes.func
-  })
-};
-
-const childContextTypes = {
-  $bs_panel: PropTypes.shape({
-    headingId: PropTypes.string,
-    bodyId: PropTypes.string,
-    bsClass: PropTypes.string,
-    onToggle: PropTypes.func,
-    expanded: PropTypes.bool
-  })
-};
-
 class Panel extends React.Component {
-  getChildContext() {
-    const { eventKey, id } = this.props;
-    const idKey = eventKey == null ? id : eventKey;
-
-    let ids;
-
-    if (idKey !== null) {
-      const panelGroup = this.context.$bs_panelGroup;
-      const getId = (panelGroup && panelGroup.getId) || defaultGetId;
-
-      ids = {
-        headingId: getId(idKey, 'heading'),
-        bodyId: getId(idKey, 'body')
-      };
-    }
-
-    return {
-      $bs_panel: {
-        ...ids,
-        bsClass: this.props.bsClass,
-        expanded: this.getExpanded(),
-        onToggle: this.handleToggle
-      }
-    };
-  }
-
   getExpanded() {
-    const panelGroup = this.context.$bs_panelGroup;
+    const panelGroup = this.context;
 
     if (panelGroup && has.call(panelGroup, 'activeKey')) {
       warning(
@@ -108,7 +66,7 @@ class Panel extends React.Component {
   }
 
   handleToggle = e => {
-    const panelGroup = this.context.$bs_panelGroup;
+    const panelGroup = this.context;
     const expanded = !this.getExpanded();
 
     if (panelGroup && panelGroup.onToggle) {
@@ -126,18 +84,41 @@ class Panel extends React.Component {
       'expanded'
     ]);
 
+    const { eventKey, id } = this.props;
+    const idKey = eventKey == null ? id : eventKey;
+
+    let ids;
+
+    if (idKey !== null) {
+      const panelGroup = this.context;
+      const getId = (panelGroup && panelGroup.getId) || defaultGetId;
+
+      ids = {
+        headingId: getId(idKey, 'heading'),
+        bodyId: getId(idKey, 'body')
+      };
+    }
+
+    const panelContext = {
+      ...ids,
+      bsClass: this.props.bsClass,
+      expanded: this.getExpanded(),
+      onToggle: this.handleToggle
+    };
+
     return (
-      <div {...props} className={classNames(className, getClassSet(bsProps))}>
-        {children}
-      </div>
+      <PanelContext.Provider value={panelContext}>
+        <div {...props} className={classNames(className, getClassSet(bsProps))}>
+          {children}
+        </div>
+      </PanelContext.Provider>
     );
   }
 }
 
 Panel.propTypes = propTypes;
 
-Panel.contextTypes = contextTypes;
-Panel.childContextTypes = childContextTypes;
+Panel.contextType = PanelGroupContext;
 
 const UncontrolledPanel = uncontrollable(
   bsClass(

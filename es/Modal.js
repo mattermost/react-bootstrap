@@ -15,6 +15,7 @@ import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
 import elementType from 'prop-types-extra/lib/elementType';
 import Fade from './Fade';
 import Body from './ModalBody';
+import ModalContext from './ModalContext';
 import ModalDialog from './ModalDialog';
 import Footer from './ModalFooter';
 import Header from './ModalHeader';
@@ -126,13 +127,8 @@ var defaultProps = _extends({}, BaseModal.defaultProps, {
   animation: true,
   dialogComponentClass: ModalDialog
 });
-
-var childContextTypes = {
-  $bs_modal: PropTypes.shape({
-    onHide: PropTypes.func
-  })
-};
 /* eslint-disable no-use-before-define, react/no-multi-comp */
+
 
 function DialogTransition(props) {
   return React.createElement(Fade, _extends({}, props, {
@@ -174,14 +170,6 @@ function (_React$Component) {
   }
 
   var _proto = Modal.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    return {
-      $bs_modal: {
-        onHide: this.props.onHide
-      }
-    };
-  };
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     // Clean up the listener if we need to.
@@ -257,7 +245,11 @@ function (_React$Component) {
         dialogProps = _splitComponentProps[1];
 
     var inClassName = show && !animation && 'in';
-    return React.createElement(BaseModal, _extends({}, baseModalProps, {
+    return React.createElement(ModalContext.Provider, {
+      value: {
+        onHide: this.props.onHide
+      }
+    }, React.createElement(BaseModal, _extends({}, baseModalProps, {
       ref: this.setModalRef,
       show: show,
       containerClassName: prefix(props, 'open'),
@@ -272,7 +264,7 @@ function (_React$Component) {
       className: classNames(className, inClassName),
       onClick: backdrop === true ? this.handleDialogClick : null,
       handleDialogMouseDown: this.handleDialogMouseDown
-    }), children));
+    }), children)));
   };
 
   return Modal;
@@ -280,7 +272,6 @@ function (_React$Component) {
 
 Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;
-Modal.childContextTypes = childContextTypes;
 Modal.Body = Body;
 Modal.Header = Header;
 Modal.Title = Title;

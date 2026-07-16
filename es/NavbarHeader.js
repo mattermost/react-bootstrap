@@ -3,13 +3,8 @@ import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/ob
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
-import PropTypes from 'prop-types';
+import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
-var contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string
-  })
-};
 
 var NavbarHeader =
 /*#__PURE__*/
@@ -27,7 +22,7 @@ function (_React$Component) {
         className = _this$props.className,
         props = _objectWithoutPropertiesLoose(_this$props, ["className"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'header');
@@ -39,5 +34,5 @@ function (_React$Component) {
   return NavbarHeader;
 }(React.Component);
 
-NavbarHeader.contextTypes = contextTypes;
+NavbarHeader.contextType = NavbarContext;
 export default NavbarHeader;

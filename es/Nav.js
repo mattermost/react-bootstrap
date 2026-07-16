@@ -2,11 +2,13 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
+import NavbarContext from './NavbarContext';
+import TabContainerContext from './TabContainerContext';
 import { bsClass, bsStyles, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import ValidComponentChildren from './utils/ValidComponentChildren'; // TODO: Should we expose `<NavItem>` as `<Nav.Item>`?
@@ -82,18 +84,6 @@ var defaultProps = {
   pullLeft: false,
   stacked: false
 };
-var contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    onSelect: PropTypes.func
-  }),
-  $bs_tabContainer: PropTypes.shape({
-    activeKey: PropTypes.any,
-    onSelect: PropTypes.func.isRequired,
-    getTabId: PropTypes.func.isRequired,
-    getPaneId: PropTypes.func.isRequired
-  })
-};
 
 var Nav =
 /*#__PURE__*/
@@ -136,7 +126,7 @@ function (_React$Component) {
   };
 
   _proto.getActiveProps = function getActiveProps() {
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = this.props.tabContainerContext;
 
     if (tabContainer) {
       process.env.NODE_ENV !== "production" ? warning(this.props.activeKey == null && !this.props.activeHref, 'Specifying a `<Nav>` `activeKey` or `activeHref` in the context of ' + 'a `<TabContainer>` is not supported. Instead use `<TabContainer ' + ("activeKey={" + this.props.activeKey + "} />`.")) : void 0;
@@ -272,9 +262,11 @@ function (_React$Component) {
         pullLeft = _this$props.pullLeft,
         className = _this$props.className,
         children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children"]);
+        navbarContext = _this$props.navbarContext,
+        tabContainerContext = _this$props.tabContainerContext,
+        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children", "navbarContext", "tabContainerContext"]);
 
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = tabContainerContext;
     var role = propsRole || (tabContainer ? 'tablist' : null);
 
     var _this$getActiveProps3 = this.getActiveProps(),
@@ -291,12 +283,12 @@ function (_React$Component) {
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
 
-    var navbar = propsNavbar != null ? propsNavbar : this.context.$bs_navbar;
+    var navbar = propsNavbar != null ? propsNavbar : navbarContext;
     var pullLeftClassName;
     var pullRightClassName;
 
     if (navbar) {
-      var navbarProps = this.context.$bs_navbar || {
+      var navbarProps = navbarContext || {
         bsClass: 'navbar'
       };
       classes[prefix(navbarProps, 'nav')] = true;
@@ -330,5 +322,14 @@ function (_React$Component) {
 
 Nav.propTypes = propTypes;
 Nav.defaultProps = defaultProps;
-Nav.contextTypes = contextTypes;
-export default bsClass('nav', bsStyles(['tabs', 'pills'], Nav));
+
+function NavWithContext(props) {
+  var navbarContext = useContext(NavbarContext);
+  var tabContainerContext = useContext(TabContainerContext);
+  return React.createElement(Nav, _extends({}, props, {
+    navbarContext: navbarContext,
+    tabContainerContext: tabContainerContext
+  }));
+}
+
+export default bsClass('nav', bsStyles(['tabs', 'pills'], NavWithContext));

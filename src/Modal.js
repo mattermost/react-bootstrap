@@ -12,6 +12,7 @@ import elementType from 'prop-types-extra/lib/elementType';
 
 import Fade from './Fade';
 import Body from './ModalBody';
+import ModalContext from './ModalContext';
 import ModalDialog from './ModalDialog';
 import Footer from './ModalFooter';
 import Header from './ModalHeader';
@@ -128,12 +129,6 @@ const defaultProps = {
   dialogComponentClass: ModalDialog
 };
 
-const childContextTypes = {
-  $bs_modal: PropTypes.shape({
-    onHide: PropTypes.func
-  })
-};
-
 /* eslint-disable no-use-before-define, react/no-multi-comp */
 function DialogTransition(props) {
   return <Fade {...props} timeout={Modal.TRANSITION_DURATION} />;
@@ -157,14 +152,6 @@ class Modal extends React.Component {
 
     this.state = {
       style: {}
-    };
-  }
-
-  getChildContext() {
-    return {
-      $bs_modal: {
-        onHide: this.props.onHide
-      }
     };
   }
 
@@ -257,39 +244,40 @@ class Modal extends React.Component {
     const inClassName = show && !animation && 'in';
 
     return (
-      <BaseModal
-        {...baseModalProps}
-        ref={this.setModalRef}
-        show={show}
-        containerClassName={prefix(props, 'open')}
-        transition={animation ? DialogTransition : undefined}
-        backdrop={backdrop}
-        backdropTransition={animation ? BackdropTransition : undefined}
-        backdropClassName={classNames(
-          prefix(props, 'backdrop'),
-          backdropClassName,
-          inClassName
-        )}
-        onEntering={createChainedFunction(onEntering, this.handleEntering)}
-        onExited={createChainedFunction(onExited, this.handleExited)}
-      >
-        <Dialog
-          {...dialogProps}
-          style={{ ...this.state.style, ...style }}
-          className={classNames(className, inClassName)}
-          onClick={backdrop === true ? this.handleDialogClick : null}
-          handleDialogMouseDown={this.handleDialogMouseDown}
+      <ModalContext.Provider value={{ onHide: this.props.onHide }}>
+        <BaseModal
+          {...baseModalProps}
+          ref={this.setModalRef}
+          show={show}
+          containerClassName={prefix(props, 'open')}
+          transition={animation ? DialogTransition : undefined}
+          backdrop={backdrop}
+          backdropTransition={animation ? BackdropTransition : undefined}
+          backdropClassName={classNames(
+            prefix(props, 'backdrop'),
+            backdropClassName,
+            inClassName
+          )}
+          onEntering={createChainedFunction(onEntering, this.handleEntering)}
+          onExited={createChainedFunction(onExited, this.handleExited)}
         >
-          {children}
-        </Dialog>
-      </BaseModal>
+          <Dialog
+            {...dialogProps}
+            style={{ ...this.state.style, ...style }}
+            className={classNames(className, inClassName)}
+            onClick={backdrop === true ? this.handleDialogClick : null}
+            handleDialogMouseDown={this.handleDialogMouseDown}
+          >
+            {children}
+          </Dialog>
+        </BaseModal>
+      </ModalContext.Provider>
     );
   }
 }
 
 Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;
-Modal.childContextTypes = childContextTypes;
 
 Modal.Body = Body;
 Modal.Header = Header;

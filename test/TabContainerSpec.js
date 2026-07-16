@@ -27,18 +27,15 @@ describe('<TabContainer>', () => {
       </TabContainer>
     );
 
-    let top = instance
-      .find('div > Nav')
-      .first()
-      .instance().context.$bs_tabContainer;
+    // The top-level `<Nav>` reads the `<TabContainer>` context and so defaults
+    // its role to `tablist`. The `<Nav>` nested inside the `<TabPane>` does not,
+    // because the context is reset to `null` past `<TabPane>`s.
+    const navs = instance.find(Nav);
+    const top = navs.at(0);
+    const nested = navs.at(1);
 
-    let nested = instance
-      .find('TabPane Nav')
-      .first()
-      .instance().context.$bs_tabContainer;
-
-    expect(top).to.exist;
-    expect(nested).to.not.exist;
+    expect(top.getDOMNode().getAttribute('role')).to.equal('tablist');
+    expect(nested.getDOMNode().getAttribute('role')).to.not.exist;
   });
 
   it('should match up ids', () => {
