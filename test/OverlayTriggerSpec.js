@@ -156,10 +156,6 @@ describe('<OverlayTrigger>', () => {
     ContextReader.contextTypes = contextTypes;
 
     class ContextHolder extends React.Component {
-      getChildContext() {
-        return { key: 'value' };
-      }
-
       render() {
         return (
           <OverlayTrigger trigger="click" overlay={<ContextReader />}>

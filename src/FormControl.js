@@ -6,6 +6,7 @@ import warning from 'warning';
 
 import FormControlFeedback from './FormControlFeedback';
 import FormControlStatic from './FormControlStatic';
+import FormGroupContext from './FormGroupContext';
 import {
   prefix,
   bsClass,
@@ -39,13 +40,9 @@ const defaultProps = {
   componentClass: 'input'
 };
 
-const contextTypes = {
-  $bs_formGroup: PropTypes.object
-};
-
 class FormControl extends React.Component {
   render() {
-    const formGroup = this.context.$bs_formGroup;
+    const formGroup = this.context;
     const controlId = formGroup && formGroup.controlId;
 
     const {
@@ -92,7 +89,7 @@ class FormControl extends React.Component {
 
 FormControl.propTypes = propTypes;
 FormControl.defaultProps = defaultProps;
-FormControl.contextTypes = contextTypes;
+FormControl.contextType = FormGroupContext;
 
 FormControl.Feedback = FormControlFeedback;
 FormControl.Static = FormControlStatic;

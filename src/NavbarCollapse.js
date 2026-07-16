@@ -1,20 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Collapse from './Collapse';
+import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
-
-const contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool
-  })
-};
 
 class NavbarCollapse extends React.Component {
   render() {
     const { children, ...props } = this.props;
-    const navbarProps = this.context.$bs_navbar || { bsClass: 'navbar' };
+    const navbarProps = this.context || { bsClass: 'navbar' };
 
     const bsClassName = prefix(navbarProps, 'collapse');
 
@@ -26,6 +19,6 @@ class NavbarCollapse extends React.Component {
   }
 }
 
-NavbarCollapse.contextTypes = contextTypes;
+NavbarCollapse.contextType = NavbarContext;
 
 export default NavbarCollapse;

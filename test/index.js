@@ -31,11 +31,6 @@ beforeEach(() => {
       return;
     }
 
-    if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
-      // @hmhealey These are removed in React 19
-      return;
-    }
-
     console.error.threw = true;
     throw new Error(msg);
   });
