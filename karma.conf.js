@@ -68,7 +68,7 @@ module.exports = config => {
       }
     },
 
-    browsers: env.BROWSER ? env.BROWSER.split(',') : ['Chrome'],
+    browsers: env.BROWSER ? env.BROWSER.split(',') : ['ChromeHeadless'],
 
     singleRun: env.CONTINUOUS_INTEGRATION === 'true'
   });
