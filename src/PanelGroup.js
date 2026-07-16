@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { cloneElement } from 'react';
 import uncontrollable from 'uncontrollable';
 
+import PanelGroupContext from './PanelGroupContext';
 import {
   bsClass,
   getClassSet,
@@ -56,40 +57,7 @@ const defaultProps = {
   accordion: false
 };
 
-const childContextTypes = {
-  $bs_panelGroup: PropTypes.shape({
-    getId: PropTypes.func,
-    headerRole: PropTypes.string,
-    panelRole: PropTypes.string,
-    activeKey: PropTypes.any,
-    onToggle: PropTypes.func
-  })
-};
-
 class PanelGroup extends React.Component {
-  getChildContext() {
-    const { activeKey, accordion, generateChildId, id } = this.props;
-    let getId = null;
-
-    if (accordion) {
-      getId =
-        generateChildId ||
-        ((key, type) => (id ? `${id}-${type}-${key}` : null));
-    }
-
-    return {
-      $bs_panelGroup: {
-        getId,
-        headerRole: 'tab',
-        panelRole: 'tabpanel',
-        ...(accordion && {
-          activeKey,
-          onToggle: this.handleSelect
-        })
-      }
-    };
-  }
-
   handleSelect = (key, expanded, e) => {
     if (expanded) {
       this.props.onSelect(key, e);
@@ -112,21 +80,41 @@ class PanelGroup extends React.Component {
 
     const classes = getClassSet(bsProps);
 
+    const { activeKey, generateChildId, id } = this.props;
+    let getId = null;
+
+    if (accordion) {
+      getId =
+        generateChildId ||
+        ((key, type) => (id ? `${id}-${type}-${key}` : null));
+    }
+
+    const panelGroupContext = {
+      getId,
+      headerRole: 'tab',
+      panelRole: 'tabpanel',
+      ...(accordion && {
+        activeKey,
+        onToggle: this.handleSelect
+      })
+    };
+
     return (
-      <div {...elementProps} className={classNames(className, classes)}>
-        {ValidComponentChildren.map(children, child =>
-          cloneElement(child, {
-            bsStyle: child.props.bsStyle || bsProps.bsStyle
-          })
-        )}
-      </div>
+      <PanelGroupContext.Provider value={panelGroupContext}>
+        <div {...elementProps} className={classNames(className, classes)}>
+          {ValidComponentChildren.map(children, child =>
+            cloneElement(child, {
+              bsStyle: child.props.bsStyle || bsProps.bsStyle
+            })
+          )}
+        </div>
+      </PanelGroupContext.Provider>
     );
   }
 }
 
 PanelGroup.propTypes = propTypes;
 PanelGroup.defaultProps = defaultProps;
-PanelGroup.childContextTypes = childContextTypes;
 
 export default uncontrollable(bsClass('panel-group', PanelGroup), {
   activeKey: 'onSelect'
