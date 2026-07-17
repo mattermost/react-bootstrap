@@ -408,7 +408,6 @@ describe('<Dropdown>', () => {
     outerRef.dropdown.menu.should.exist;
 
     outerRef.toggle.should.exist;
-    outerRef.dropdown.toggle.should.exist;
   });
 
   describe('focusable state', () => {

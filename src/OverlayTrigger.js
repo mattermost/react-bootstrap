@@ -115,6 +115,8 @@ class OverlayTrigger extends React.Component {
     this.state = {
       show: props.defaultOverlayShown
     };
+
+    this.triggerRef = React.createRef();
   }
 
   componentWillUnmount() {
@@ -207,7 +209,7 @@ class OverlayTrigger extends React.Component {
         {...props}
         show={this.state.show}
         onHide={this.handleHide}
-        target={this}
+        target={this.triggerRef}
       >
         {overlay}
       </Overlay>
@@ -292,7 +294,9 @@ class OverlayTrigger extends React.Component {
 
     return (
       <>
-        {cloneElement(child, triggerProps)}
+        <div ref={this.triggerRef} style={{ display: 'content' }}>
+          {cloneElement(child, triggerProps)}
+        </div>
         {ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body)}
       </>
     );

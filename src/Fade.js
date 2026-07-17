@@ -6,6 +6,8 @@ import Transition, {
   ENTERING
 } from 'react-transition-group/Transition';
 
+import createChainedFunction from './utils/createChainedFunction';
+
 const propTypes = {
   /**
    * Show the component; triggers the fade in or fade out animation
@@ -75,14 +77,27 @@ const fadeStyles = {
 };
 
 class Fade extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.childRef = React.createRef();
+  }
+
   render() {
     const { className, children, ...props } = this.props;
 
+    let ref = c => {
+      this.childRef.current = c;
+    };
+
+    ref = createChainedFunction(children.props.ref, ref);
+
     return (
-      <Transition {...props}>
+      <Transition {...props} nodeRef={this.childRef}>
         {(status, innerProps) =>
           React.cloneElement(children, {
             ...innerProps,
+            ref,
             className: classNames(
               'fade',
               className,

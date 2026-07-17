@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import BaseOverlay from 'react-overlays/lib/Overlay';
+import BaseOverlay from 'react-overlays/Overlay';
 import elementType from 'prop-types-extra/lib/elementType';
 
 import Fade from './Fade';
@@ -88,8 +88,19 @@ class Overlay extends React.Component {
     }
 
     return (
-      <BaseOverlay {...props} transition={transition}>
-        {child}
+      <BaseOverlay {...props} target={null} transition={transition}>
+        {({ props: overlayProps /* , arrowProps, placement */ }) => (
+          // TODO do I need to do something with these other props?
+          // return cloneElement(children, {
+          //   ref: overlayProps.ref,
+          //   className: transition ? children.props.className : classNames(children.props.className, 'in'),
+          //   placement,
+          //   style: {...children.props.style, ...overlayProps.style},
+          // })
+          <div ref={overlayProps.ref} style={{ display: 'content' }}>
+            {child}
+          </div>
+        )}
       </BaseOverlay>
     );
   }

@@ -134,6 +134,12 @@ const defaultProps = {
 };
 
 class Collapse extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.childRef = React.createRef();
+  }
+
   getDimension() {
     return typeof this.props.dimension === 'function'
       ? this.props.dimension()
@@ -146,31 +152,34 @@ class Collapse extends React.Component {
   }
 
   /* -- Expanding -- */
-  handleEnter = elem => {
-    elem.style[this.getDimension()] = '0';
+  handleEnter = () => {
+    this.childRef.current.style[this.getDimension()] = '0';
   };
 
-  handleEntering = elem => {
+  handleEntering = () => {
     const dimension = this.getDimension();
-    elem.style[dimension] = this._getScrollDimensionValue(elem, dimension);
+    this.childRef.current.style[dimension] = this._getScrollDimensionValue(
+      this.childRef.current,
+      dimension
+    );
   };
 
-  handleEntered = elem => {
-    elem.style[this.getDimension()] = null;
+  handleEntered = () => {
+    this.childRef.current.style[this.getDimension()] = null;
   };
 
   /* -- Collapsing -- */
-  handleExit = elem => {
+  handleExit = () => {
     const dimension = this.getDimension();
-    elem.style[dimension] = `${this.props.getDimensionValue(
+    this.childRef.current.style[dimension] = `${this.props.getDimensionValue(
       dimension,
-      elem
+      this.childRef.current
     )}px`;
-    triggerBrowserReflow(elem);
+    triggerBrowserReflow(this.childRef.current);
   };
 
-  handleExiting = elem => {
-    elem.style[this.getDimension()] = '0';
+  handleExiting = () => {
+    this.childRef.current.style[this.getDimension()] = '0';
   };
 
   render() {
@@ -197,10 +206,17 @@ class Collapse extends React.Component {
     const handleExit = createChainedFunction(this.handleExit, onExit);
     const handleExiting = createChainedFunction(this.handleExiting, onExiting);
 
+    let ref = c => {
+      this.childRef.current = c;
+    };
+
+    ref = createChainedFunction(children.props.ref, ref);
+
     return (
       <Transition
         {...props}
         aria-expanded={props.role ? props.in : null}
+        nodeRef={this.childRef}
         onEnter={handleEnter}
         onEntering={handleEntering}
         onEntered={handleEntered}
@@ -210,6 +226,7 @@ class Collapse extends React.Component {
         {(state, innerProps) =>
           React.cloneElement(children, {
             ...innerProps,
+            ref,
             className: classNames(
               className,
               children.props.className,
