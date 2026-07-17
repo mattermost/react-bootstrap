@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 
 import {
@@ -33,10 +32,12 @@ class DropdownMenu extends React.Component {
 
     this.handleRootClose = this.handleRootClose.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+
+    this.menuRef = React.createRef();
   }
 
   getFocusableMenuItems() {
-    const node = ReactDOM.findDOMNode(this);
+    const node = this.menuRef.current;
     if (!node) {
       return [];
     }
@@ -119,6 +120,7 @@ class DropdownMenu extends React.Component {
         event={rootCloseEvent}
       >
         <ul
+          ref={this.menuRef}
           {...elementProps}
           role="menu"
           className={classNames(className, classes)}

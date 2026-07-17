@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import transition from 'dom-helpers/transition';
 
 const propTypes = {
@@ -29,6 +28,7 @@ class CarouselItem extends React.Component {
       direction: null
     };
 
+    this.containerRef = React.createRef();
     this.isUnmounted = false;
   }
 
@@ -43,7 +43,7 @@ class CarouselItem extends React.Component {
     const prevActive = prevProps.active;
 
     if (!active && prevActive) {
-      transition.end(ReactDOM.findDOMNode(this), this.handleAnimateOutEnd);
+      transition.end(this.containerRef.current, this.handleAnimateOutEnd);
     }
 
     if (active !== prevActive) {
@@ -99,7 +99,13 @@ class CarouselItem extends React.Component {
       classes[this.state.direction] = true;
     }
 
-    return <div {...props} className={classNames(className, classes)} />;
+    return (
+      <div
+        ref={this.containerRef}
+        {...props}
+        className={classNames(className, classes)}
+      />
+    );
   }
 }
 
