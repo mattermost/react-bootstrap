@@ -7,7 +7,6 @@ import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
@@ -121,6 +120,7 @@ function (_React$Component) {
     _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._focusInDropdown = false;
+    _this.containerRef = React.createRef();
     _this.lastOpenEventType = null;
     return _this;
   }
@@ -133,7 +133,7 @@ function (_React$Component) {
 
   _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
-      this._focusInDropdown = contains(ReactDOM.findDOMNode(this.menu), activeElement(document));
+      this._focusInDropdown = contains(this.containerRef.current.querySelector('[role=menu]'), activeElement(document));
     }
   };
 
@@ -156,7 +156,7 @@ function (_React$Component) {
   };
 
   _proto.focus = function focus() {
-    var toggle = ReactDOM.findDOMNode(this.toggle);
+    var toggle = this.containerRef.current.querySelector('[role=button][aria-has-popup]');
 
     if (toggle && toggle.focus) {
       toggle.focus();
@@ -248,13 +248,7 @@ function (_React$Component) {
         rootCloseEvent = _ref.rootCloseEvent,
         props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
 
-    var ref = function ref(c) {
-      _this2.menu = c;
-    };
-
-    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
-      ref: ref,
       labelledBy: id,
       bsClass: prefix(props, 'menu'),
       onClose: createChainedFunction(child.props.onClose, this.handleClose),
@@ -268,15 +262,7 @@ function (_React$Component) {
   };
 
   _proto.renderToggle = function renderToggle(child, props) {
-    var _this3 = this;
-
-    var ref = function ref(c) {
-      _this3.toggle = c;
-    };
-
-    ref = createChainedFunction(child.ref, ref);
     return cloneElement(child, _extends({}, props, {
-      ref: ref,
       bsClass: prefix(props, 'toggle'),
       onClick: createChainedFunction(child.props.onClick, this.handleClick),
       onKeyDown: createChainedFunction(child.props.onKeyDown, this.handleKeyDown)
@@ -285,7 +271,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classes,
-        _this4 = this;
+        _this3 = this;
 
     var _this$props = this.props,
         Component = _this$props.componentClass,
@@ -312,12 +298,17 @@ function (_React$Component) {
     // underlying component, to allow it to render size and style variants.
 
 
-    return React.createElement(Component, _extends({}, props, {
+    return React.createElement("div", {
+      ref: this.containerRef,
+      style: {
+        display: 'contents'
+      }
+    }, React.createElement(Component, _extends({}, props, {
       className: classNames(className, classes)
     }), ValidComponentChildren.map(children, function (child) {
       switch (child.props.bsRole) {
         case TOGGLE_ROLE:
-          return _this4.renderToggle(child, {
+          return _this3.renderToggle(child, {
             id: id,
             disabled: disabled,
             open: open,
@@ -326,7 +317,7 @@ function (_React$Component) {
           });
 
         case MENU_ROLE:
-          return _this4.renderMenu(child, {
+          return _this3.renderMenu(child, {
             id: id,
             open: open,
             pullRight: pullRight,
@@ -338,7 +329,7 @@ function (_React$Component) {
         default:
           return child;
       }
-    }));
+    })));
   };
 
   return Dropdown;

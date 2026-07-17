@@ -9,7 +9,6 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import BaseModal from 'react-overlays/lib/Modal';
 import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
 import elementType from 'prop-types-extra/lib/elementType';
@@ -115,12 +114,7 @@ var propTypes = _extends({}, BaseModal.propTypes, ModalDialog.propTypes, {
   /**
    * Callback fired after the Modal finishes transitioning out
    */
-  onExited: PropTypes.func,
-
-  /**
-   * @private
-   */
-  container: BaseModal.propTypes.container
+  onExited: PropTypes.func
 });
 
 var defaultProps = _extends({}, BaseModal.defaultProps, {
@@ -216,7 +210,7 @@ function (_React$Component) {
 
     var dialogHeight = dialogNode.scrollHeight;
     var document = ownerDocument(dialogNode);
-    var bodyIsOverflowing = isOverflowing(ReactDOM.findDOMNode(this.props.container || document.body));
+    var bodyIsOverflowing = isOverflowing(document.body);
     var modalIsOverflowing = dialogHeight > document.documentElement.clientHeight;
     this.setState({
       style: {

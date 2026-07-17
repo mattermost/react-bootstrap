@@ -1448,6 +1448,120 @@ module.exports = document && document.documentElement;
 
 /***/ }),
 
+/***/ 2493:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+/** @license React v16.4.2
+ * react-is.production.min.js
+ *
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: !0
+}));
+var b = "function" === typeof Symbol && Symbol.for,
+    c = b ? Symbol.for("react.element") : 60103,
+    d = b ? Symbol.for("react.portal") : 60106,
+    e = b ? Symbol.for("react.fragment") : 60107,
+    f = b ? Symbol.for("react.strict_mode") : 60108,
+    g = b ? Symbol.for("react.profiler") : 60114,
+    h = b ? Symbol.for("react.provider") : 60109,
+    k = b ? Symbol.for("react.context") : 60110,
+    l = b ? Symbol.for("react.async_mode") : 60111,
+    m = b ? Symbol.for("react.forward_ref") : 60112,
+    n = b ? Symbol.for("react.timeout") : 60113;
+
+function q(a) {
+  if ("object" === typeof a && null !== a) {
+    var p = a.$$typeof;
+
+    switch (p) {
+      case c:
+        switch (a = a.type, a) {
+          case l:
+          case e:
+          case g:
+          case f:
+            return a;
+
+          default:
+            switch (a = a && a.$$typeof, a) {
+              case k:
+              case m:
+              case h:
+                return a;
+
+              default:
+                return p;
+            }
+
+        }
+
+      case d:
+        return p;
+    }
+  }
+}
+
+exports.typeOf = q;
+exports.AsyncMode = l;
+exports.ContextConsumer = k;
+exports.ContextProvider = h;
+exports.Element = c;
+exports.ForwardRef = m;
+exports.Fragment = e;
+exports.Profiler = g;
+exports.Portal = d;
+exports.StrictMode = f;
+
+exports.isValidElementType = function (a) {
+  return "string" === typeof a || "function" === typeof a || a === e || a === l || a === g || a === f || a === n || "object" === typeof a && null !== a && (a.$$typeof === h || a.$$typeof === k || a.$$typeof === m);
+};
+
+exports.isAsyncMode = function (a) {
+  return q(a) === l;
+};
+
+exports.isContextConsumer = function (a) {
+  return q(a) === k;
+};
+
+exports.isContextProvider = function (a) {
+  return q(a) === h;
+};
+
+exports.isElement = function (a) {
+  return "object" === typeof a && null !== a && a.$$typeof === c;
+};
+
+exports.isForwardRef = function (a) {
+  return q(a) === m;
+};
+
+exports.isFragment = function (a) {
+  return q(a) === e;
+};
+
+exports.isProfiler = function (a) {
+  return q(a) === g;
+};
+
+exports.isPortal = function (a) {
+  return q(a) === d;
+};
+
+exports.isStrictMode = function (a) {
+  return q(a) === f;
+};
+
+/***/ }),
+
 /***/ 2536:
 /***/ ((module, exports) => {
 
@@ -1953,7 +2067,7 @@ var _react = __webpack_require__(5442);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactIs = __webpack_require__(9523);
+var _reactIs = __webpack_require__(5409);
 
 var _createChainableTypeChecker = __webpack_require__(8663);
 
@@ -4485,6 +4599,19 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
+/***/ 5409:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+if (true) {
+  module.exports = __webpack_require__(2493);
+} else // removed by dead control flow
+{}
+
+/***/ }),
+
 /***/ 5442:
 /***/ ((module) => {
 
@@ -6358,120 +6485,6 @@ exports.Ay = {
 
 /***/ }),
 
-/***/ 9303:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-/** @license React v16.4.2
- * react-is.production.min.js
- *
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: !0
-}));
-var b = "function" === typeof Symbol && Symbol.for,
-    c = b ? Symbol.for("react.element") : 60103,
-    d = b ? Symbol.for("react.portal") : 60106,
-    e = b ? Symbol.for("react.fragment") : 60107,
-    f = b ? Symbol.for("react.strict_mode") : 60108,
-    g = b ? Symbol.for("react.profiler") : 60114,
-    h = b ? Symbol.for("react.provider") : 60109,
-    k = b ? Symbol.for("react.context") : 60110,
-    l = b ? Symbol.for("react.async_mode") : 60111,
-    m = b ? Symbol.for("react.forward_ref") : 60112,
-    n = b ? Symbol.for("react.timeout") : 60113;
-
-function q(a) {
-  if ("object" === typeof a && null !== a) {
-    var p = a.$$typeof;
-
-    switch (p) {
-      case c:
-        switch (a = a.type, a) {
-          case l:
-          case e:
-          case g:
-          case f:
-            return a;
-
-          default:
-            switch (a = a && a.$$typeof, a) {
-              case k:
-              case m:
-              case h:
-                return a;
-
-              default:
-                return p;
-            }
-
-        }
-
-      case d:
-        return p;
-    }
-  }
-}
-
-exports.typeOf = q;
-exports.AsyncMode = l;
-exports.ContextConsumer = k;
-exports.ContextProvider = h;
-exports.Element = c;
-exports.ForwardRef = m;
-exports.Fragment = e;
-exports.Profiler = g;
-exports.Portal = d;
-exports.StrictMode = f;
-
-exports.isValidElementType = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === e || a === l || a === g || a === f || a === n || "object" === typeof a && null !== a && (a.$$typeof === h || a.$$typeof === k || a.$$typeof === m);
-};
-
-exports.isAsyncMode = function (a) {
-  return q(a) === l;
-};
-
-exports.isContextConsumer = function (a) {
-  return q(a) === k;
-};
-
-exports.isContextProvider = function (a) {
-  return q(a) === h;
-};
-
-exports.isElement = function (a) {
-  return "object" === typeof a && null !== a && a.$$typeof === c;
-};
-
-exports.isForwardRef = function (a) {
-  return q(a) === m;
-};
-
-exports.isFragment = function (a) {
-  return q(a) === e;
-};
-
-exports.isProfiler = function (a) {
-  return q(a) === g;
-};
-
-exports.isPortal = function (a) {
-  return q(a) === d;
-};
-
-exports.isStrictMode = function (a) {
-  return q(a) === f;
-};
-
-/***/ }),
-
 /***/ 9312:
 /***/ ((module, exports, __webpack_require__) => {
 
@@ -6841,19 +6854,6 @@ var core = module.exports = {
   version: '2.5.7'
 };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-/***/ }),
-
-/***/ 9523:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-if (true) {
-  module.exports = __webpack_require__(9303);
-} else // removed by dead control flow
-{}
 
 /***/ }),
 
@@ -8678,9 +8678,6 @@ function (_React$Component) {
 CarouselCaption.propTypes = CarouselCaption_propTypes;
 CarouselCaption.defaultProps = CarouselCaption_defaultProps;
 /* harmony default export */ const src_CarouselCaption = (bsClass('carousel-caption', CarouselCaption));
-// EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
-var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(6003);
-var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 // EXTERNAL MODULE: ./node_modules/dom-helpers/transition/index.js
 var transition = __webpack_require__(1685);
 ;// ./src/CarouselItem.js
@@ -8689,7 +8686,6 @@ var transition = __webpack_require__(1685);
 
 
 var CarouselItem_jsxFileName = "/Users/harrison/react-bootstrap/src/CarouselItem.js";
-
 
 
 
@@ -8721,6 +8717,7 @@ function (_React$Component) {
     _this.state = {
       direction: null
     };
+    _this.containerRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
     _this.isUnmounted = false;
     return _this;
   }
@@ -8742,7 +8739,7 @@ function (_React$Component) {
     var prevActive = prevProps.active;
 
     if (!active && prevActive) {
-      transition/* default.end */.Ay.end(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this), this.handleAnimateOutEnd);
+      transition/* default.end */.Ay.end(this.containerRef.current, this.handleAnimateOutEnd);
     }
 
     if (active !== prevActive) {
@@ -8800,11 +8797,13 @@ function (_React$Component) {
       classes[this.state.direction] = true;
     }
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, props, {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({
+      ref: this.containerRef
+    }, props, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: CarouselItem_jsxFileName,
-        lineNumber: 102
+        lineNumber: 103
       },
       __self: this
     }));
@@ -10146,7 +10145,6 @@ var DropdownMenu_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownMenu
 
 
 
-
 var DropdownMenu_propTypes = {
   open: (prop_types_default()).bool,
   pullRight: (prop_types_default()).bool,
@@ -10171,13 +10169,14 @@ function (_React$Component) {
     _this = _React$Component.call(this, props) || this;
     _this.handleRootClose = _this.handleRootClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.menuRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
     return _this;
   }
 
   var _proto = DropdownMenu.prototype;
 
   _proto.getFocusableMenuItems = function getFocusableMenuItems() {
-    var node = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this);
+    var node = this.menuRef.current;
 
     if (!node) {
       return [];
@@ -10276,16 +10275,18 @@ function (_React$Component) {
       event: rootCloseEvent,
       __source: {
         fileName: DropdownMenu_jsxFileName,
-        lineNumber: 116
+        lineNumber: 117
       },
       __self: this
-    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", _extends({}, elementProps, {
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", _extends({
+      ref: this.menuRef
+    }, elementProps, {
       role: "menu",
       className: classnames_default()(className, classes),
       "aria-labelledby": labelledBy,
       __source: {
         fileName: DropdownMenu_jsxFileName,
-        lineNumber: 121
+        lineNumber: 122
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
@@ -10384,7 +10385,6 @@ DropdownToggle.defaultProps = DropdownToggle_defaultProps;
 
 
 var Dropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/Dropdown.js";
-
 
 
 
@@ -10503,6 +10503,7 @@ function (_React$Component) {
     _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this._focusInDropdown = false;
+    _this.containerRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
     _this.lastOpenEventType = null;
     return _this;
   }
@@ -10515,7 +10516,7 @@ function (_React$Component) {
 
   _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
-      this._focusInDropdown = contains_default()(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this.menu), activeElement_default()(document));
+      this._focusInDropdown = contains_default()(this.containerRef.current.querySelector('[role=menu]'), activeElement_default()(document));
     }
   };
 
@@ -10538,7 +10539,7 @@ function (_React$Component) {
   };
 
   _proto.focus = function focus() {
-    var toggle = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this.toggle);
+    var toggle = this.containerRef.current.querySelector('[role=button][aria-has-popup]');
 
     if (toggle && toggle.focus) {
       toggle.focus();
@@ -10630,13 +10631,7 @@ function (_React$Component) {
         rootCloseEvent = _ref.rootCloseEvent,
         props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
 
-    var ref = function ref(c) {
-      _this2.menu = c;
-    };
-
-    ref = utils_createChainedFunction(child.ref, ref);
     return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, _extends({}, props, {
-      ref: ref,
       labelledBy: id,
       bsClass: prefix(props, 'menu'),
       onClose: utils_createChainedFunction(child.props.onClose, this.handleClose),
@@ -10650,15 +10645,7 @@ function (_React$Component) {
   };
 
   _proto.renderToggle = function renderToggle(child, props) {
-    var _this3 = this;
-
-    var ref = function ref(c) {
-      _this3.toggle = c;
-    };
-
-    ref = utils_createChainedFunction(child.ref, ref);
     return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, _extends({}, props, {
-      ref: ref,
       bsClass: prefix(props, 'toggle'),
       onClick: utils_createChainedFunction(child.props.onClick, this.handleClick),
       onKeyDown: utils_createChainedFunction(child.props.onKeyDown, this.handleKeyDown)
@@ -10667,7 +10654,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _classes,
-        _this4 = this;
+        _this3 = this;
 
     var _this$props = this.props,
         Component = _this$props.componentClass,
@@ -10694,17 +10681,27 @@ function (_React$Component) {
     // underlying component, to allow it to render size and style variants.
 
 
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      ref: this.containerRef,
+      style: {
+        display: 'contents'
+      },
+      __source: {
+        fileName: Dropdown_jsxFileName,
+        lineNumber: 302
+      },
+      __self: this
+    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 314
+        lineNumber: 303
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
       switch (child.props.bsRole) {
         case TOGGLE_ROLE:
-          return _this4.renderToggle(child, {
+          return _this3.renderToggle(child, {
             id: id,
             disabled: disabled,
             open: open,
@@ -10713,7 +10710,7 @@ function (_React$Component) {
           });
 
         case MENU_ROLE:
-          return _this4.renderMenu(child, {
+          return _this3.renderMenu(child, {
             id: id,
             open: open,
             pullRight: pullRight,
@@ -10725,7 +10722,7 @@ function (_React$Component) {
         default:
           return child;
       }
-    }));
+    })));
   };
 
   return Dropdown;
@@ -12967,7 +12964,6 @@ var Modal_jsxFileName = "/Users/harrison/react-bootstrap/src/Modal.js";
 
 
 
-
 var Modal_propTypes = _extends({}, (Modal_default()).propTypes, src_ModalDialog.propTypes, {
   /**
    * Include a backdrop component. Specify 'static' for a backdrop that doesn't
@@ -13058,12 +13054,7 @@ var Modal_propTypes = _extends({}, (Modal_default()).propTypes, src_ModalDialog.
   /**
    * Callback fired after the Modal finishes transitioning out
    */
-  onExited: (prop_types_default()).func,
-
-  /**
-   * @private
-   */
-  container: (Modal_default()).propTypes.container
+  onExited: (prop_types_default()).func
 });
 
 var Modal_defaultProps = _extends({}, (Modal_default()).defaultProps, {
@@ -13078,7 +13069,7 @@ function DialogTransition(props) {
     timeout: Modal.TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 134
+      lineNumber: 128
     },
     __self: this
   }));
@@ -13089,7 +13080,7 @@ function BackdropTransition(props) {
     timeout: Modal.BACKDROP_TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 138
+      lineNumber: 132
     },
     __self: this
   }));
@@ -13169,7 +13160,7 @@ function (_React$Component) {
 
     var dialogHeight = dialogNode.scrollHeight;
     var document = ownerDocument_default()(dialogNode);
-    var bodyIsOverflowing = isOverflowing_default()(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this.props.container || document.body));
+    var bodyIsOverflowing = isOverflowing_default()(document.body);
     var modalIsOverflowing = dialogHeight > document.documentElement.clientHeight;
     this.setState({
       style: {
@@ -13204,7 +13195,7 @@ function (_React$Component) {
       },
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 247
+        lineNumber: 239
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Modal_default()), _extends({}, baseModalProps, {
@@ -13219,7 +13210,7 @@ function (_React$Component) {
       onExited: utils_createChainedFunction(onExited, this.handleExited),
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 248
+        lineNumber: 240
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Dialog, _extends({}, dialogProps, {
@@ -13229,7 +13220,7 @@ function (_React$Component) {
       handleDialogMouseDown: this.handleDialogMouseDown,
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 264
+        lineNumber: 256
       },
       __self: this
     }), children)));
@@ -13263,7 +13254,6 @@ TabContainerContext.displayName = 'TabContainerContext';
 
 
 var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
-
 
 
 
@@ -13352,14 +13342,18 @@ var Nav =
 function (_React$Component) {
   _inheritsLoose(Nav, _React$Component);
 
-  function Nav() {
-    return _React$Component.apply(this, arguments) || this;
+  function Nav(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.containerRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
+    return _this;
   }
 
   var _proto = Nav.prototype;
 
   _proto.componentDidUpdate = function componentDidUpdate() {
-    var _this = this;
+    var _this2 = this;
 
     if (!this._needsRefocus) {
       return;
@@ -13373,11 +13367,11 @@ function (_React$Component) {
         activeHref = _this$getActiveProps.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this.isActive(child, activeKey, activeHref);
+      return _this2.isActive(child, activeKey, activeHref);
     });
     var childrenArray = ValidComponentChildren.toArray(children);
     var activeChildIndex = childrenArray.indexOf(activeChild);
-    var childNodes = external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().findDOMNode(this).children;
+    var childNodes = this.containerRef.current.children;
     var activeNode = childNodes && childNodes[activeChildIndex];
 
     if (!activeNode || !activeNode.firstChild) {
@@ -13399,7 +13393,7 @@ function (_React$Component) {
   };
 
   _proto.getNextActiveChild = function getNextActiveChild(offset) {
-    var _this2 = this;
+    var _this3 = this;
 
     var children = this.props.children;
     var validChildren = children.filter(function (child) {
@@ -13411,7 +13405,7 @@ function (_React$Component) {
         activeHref = _this$getActiveProps2.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this2.isActive(child, activeKey, activeHref);
+      return _this3.isActive(child, activeKey, activeHref);
     }); // This assumes the active child is not disabled.
 
     var activeChildIndex = validChildren.indexOf(activeChild);
@@ -13434,7 +13428,7 @@ function (_React$Component) {
   };
 
   _proto.getTabProps = function getTabProps(child, tabContainer, navRole, active, onSelect) {
-    var _this3 = this;
+    var _this4 = this;
 
     if (!tabContainer && navRole !== 'tablist') {
       // No tab props here.
@@ -13458,7 +13452,7 @@ function (_React$Component) {
     if (navRole === 'tablist') {
       role = role || 'tab';
       onKeyDown = utils_createChainedFunction(function (event) {
-        return _this3.handleTabKeyDown(onSelect, event);
+        return _this4.handleTabKeyDown(onSelect, event);
       }, onKeyDown);
       tabIndex = active ? tabIndex : -1;
     }
@@ -13512,7 +13506,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _extends2,
-        _this4 = this;
+        _this5 = this;
 
     var _this$props = this.props,
         stacked = _this$props.stacked,
@@ -13563,19 +13557,21 @@ function (_React$Component) {
 
     classes[pullRightClassName] = pullRight;
     classes[pullLeftClassName] = pullLeft;
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", _extends({}, elementProps, {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", _extends({
+      ref: this.containerRef
+    }, elementProps, {
       role: role,
       className: classnames_default()(className, classes),
       __source: {
         fileName: Nav_jsxFileName,
-        lineNumber: 311
+        lineNumber: 316
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
-      var active = _this4.isActive(child, activeKey, activeHref);
+      var active = _this5.isActive(child, activeKey, activeHref);
 
       var childOnSelect = utils_createChainedFunction(child.props.onSelect, onSelect, navbar && navbar.onSelect, tabContainer && tabContainer.onSelect);
-      return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, _extends({}, _this4.getTabProps(child, tabContainer, role, active, childOnSelect), {
+      return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, _extends({}, _this5.getTabProps(child, tabContainer, role, active, childOnSelect), {
         active: active,
         activeKey: activeKey,
         activeHref: activeHref,
@@ -13598,7 +13594,7 @@ function NavWithContext(props) {
     tabContainerContext: tabContainerContext,
     __source: {
       fileName: Nav_jsxFileName,
-      lineNumber: 352
+      lineNumber: 358
     },
     __self: this
   }));
@@ -14470,6 +14466,9 @@ Overlay.defaultProps = Overlay_defaultProps;
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/array/is-array.js
 var is_array = __webpack_require__(4683);
 var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
+// EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(6003);
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 ;// ./src/OverlayTrigger.js
 
 

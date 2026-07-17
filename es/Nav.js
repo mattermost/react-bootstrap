@@ -4,7 +4,6 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
 import NavbarContext from './NavbarContext';
@@ -90,14 +89,18 @@ var Nav =
 function (_React$Component) {
   _inheritsLoose(Nav, _React$Component);
 
-  function Nav() {
-    return _React$Component.apply(this, arguments) || this;
+  function Nav(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.containerRef = React.createRef();
+    return _this;
   }
 
   var _proto = Nav.prototype;
 
   _proto.componentDidUpdate = function componentDidUpdate() {
-    var _this = this;
+    var _this2 = this;
 
     if (!this._needsRefocus) {
       return;
@@ -111,11 +114,11 @@ function (_React$Component) {
         activeHref = _this$getActiveProps.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this.isActive(child, activeKey, activeHref);
+      return _this2.isActive(child, activeKey, activeHref);
     });
     var childrenArray = ValidComponentChildren.toArray(children);
     var activeChildIndex = childrenArray.indexOf(activeChild);
-    var childNodes = ReactDOM.findDOMNode(this).children;
+    var childNodes = this.containerRef.current.children;
     var activeNode = childNodes && childNodes[activeChildIndex];
 
     if (!activeNode || !activeNode.firstChild) {
@@ -137,7 +140,7 @@ function (_React$Component) {
   };
 
   _proto.getNextActiveChild = function getNextActiveChild(offset) {
-    var _this2 = this;
+    var _this3 = this;
 
     var children = this.props.children;
     var validChildren = children.filter(function (child) {
@@ -149,7 +152,7 @@ function (_React$Component) {
         activeHref = _this$getActiveProps2.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this2.isActive(child, activeKey, activeHref);
+      return _this3.isActive(child, activeKey, activeHref);
     }); // This assumes the active child is not disabled.
 
     var activeChildIndex = validChildren.indexOf(activeChild);
@@ -172,7 +175,7 @@ function (_React$Component) {
   };
 
   _proto.getTabProps = function getTabProps(child, tabContainer, navRole, active, onSelect) {
-    var _this3 = this;
+    var _this4 = this;
 
     if (!tabContainer && navRole !== 'tablist') {
       // No tab props here.
@@ -196,7 +199,7 @@ function (_React$Component) {
     if (navRole === 'tablist') {
       role = role || 'tab';
       onKeyDown = createChainedFunction(function (event) {
-        return _this3.handleTabKeyDown(onSelect, event);
+        return _this4.handleTabKeyDown(onSelect, event);
       }, onKeyDown);
       tabIndex = active ? tabIndex : -1;
     }
@@ -250,7 +253,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _extends2,
-        _this4 = this;
+        _this5 = this;
 
     var _this$props = this.props,
         stacked = _this$props.stacked,
@@ -301,14 +304,16 @@ function (_React$Component) {
 
     classes[pullRightClassName] = pullRight;
     classes[pullLeftClassName] = pullLeft;
-    return React.createElement("ul", _extends({}, elementProps, {
+    return React.createElement("ul", _extends({
+      ref: this.containerRef
+    }, elementProps, {
       role: role,
       className: classNames(className, classes)
     }), ValidComponentChildren.map(children, function (child) {
-      var active = _this4.isActive(child, activeKey, activeHref);
+      var active = _this5.isActive(child, activeKey, activeHref);
 
       var childOnSelect = createChainedFunction(child.props.onSelect, onSelect, navbar && navbar.onSelect, tabContainer && tabContainer.onSelect);
-      return cloneElement(child, _extends({}, _this4.getTabProps(child, tabContainer, role, active, childOnSelect), {
+      return cloneElement(child, _extends({}, _this5.getTabProps(child, tabContainer, role, active, childOnSelect), {
         active: active,
         activeKey: activeKey,
         activeHref: activeHref,

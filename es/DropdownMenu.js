@@ -6,7 +6,6 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 import { bsClass, getClassSet, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
@@ -35,13 +34,14 @@ function (_React$Component) {
     _this = _React$Component.call(this, props) || this;
     _this.handleRootClose = _this.handleRootClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.menuRef = React.createRef();
     return _this;
   }
 
   var _proto = DropdownMenu.prototype;
 
   _proto.getFocusableMenuItems = function getFocusableMenuItems() {
-    var node = ReactDOM.findDOMNode(this);
+    var node = this.menuRef.current;
 
     if (!node) {
       return [];
@@ -138,7 +138,9 @@ function (_React$Component) {
       disabled: !open,
       onRootClose: this.handleRootClose,
       event: rootCloseEvent
-    }, React.createElement("ul", _extends({}, elementProps, {
+    }, React.createElement("ul", _extends({
+      ref: this.menuRef
+    }, elementProps, {
       role: "menu",
       className: classNames(className, classes),
       "aria-labelledby": labelledBy
