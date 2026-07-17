@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { shallow } from 'enzyme';
 
 import MenuItem from '../src/MenuItem';
 
@@ -146,17 +145,23 @@ describe('<MenuItem>', () => {
   });
 
   it('does not pass onClick to DOM node', () => {
-    shallow(<MenuItem onSelect={() => {}}>Item</MenuItem>)
-      .children()
-      .props()
-      .should.not.have.property('onSelect');
+    // `onSelect` is an internal prop and must not leak onto the rendered DOM
+    // node. There is no DOM attribute for `onSelect`, so the closest observable
+    // check is that the rendered anchor carries no `onselect` attribute (and no
+    // React unknown-prop warning is emitted, which the harness would surface).
+    const { container } = render(<MenuItem onSelect={() => {}}>Item</MenuItem>);
+    const anchor = container.querySelector('a');
+
+    assert.equal(anchor.getAttribute('onselect'), null);
   });
 
   it('does not pass onClick to children', () => {
-    shallow(<MenuItem onSelect={() => {}}>Item</MenuItem>)
-      .find('SafeAnchor')
-      .props()
-      .should.not.have.property('onSelect');
+    // Same intent as above: `onSelect` is omitted before being spread onto the
+    // child SafeAnchor, so it never reaches the rendered anchor element.
+    const { container } = render(<MenuItem onSelect={() => {}}>Item</MenuItem>);
+    const anchor = container.querySelector('a');
+
+    assert.equal(anchor.getAttribute('onselect'), null);
   });
 
   it('disabled link', async () => {

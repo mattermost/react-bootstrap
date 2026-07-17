@@ -1,6 +1,5 @@
-import { act } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import React from 'react';
-import { mount } from 'enzyme';
 
 import Nav from '../src/Nav';
 import NavItem from '../src/NavItem';
@@ -8,9 +7,20 @@ import TabPane from '../src/TabPane';
 import TabContent from '../src/TabContent';
 import TabContainer from '../src/TabContainer';
 
+import { assertSingle, assertNone } from './helpers';
+
+// Asserts that exactly one pane is active and that it corresponds to the given
+// `eventKey`. Replaces enzyme's `assertSingle('[eventKey=N]').assertSingle('.active')`
+// — `<TabContainer id="custom-id">` generates pane ids of the form
+// `custom-id-pane-<eventKey>`.
+function assertActivePane(container, eventKey) {
+  const active = assertSingle(container, '.tab-pane.active');
+  active.id.should.equal(`custom-id-pane-${eventKey}`);
+}
+
 describe('<TabContainer>', () => {
   it('should not propagate context past TabPanes', () => {
-    let instance = mount(
+    const { container } = render(
       <TabContainer id="custom-id">
         <div>
           <Nav>
@@ -30,16 +40,16 @@ describe('<TabContainer>', () => {
     // The top-level `<Nav>` reads the `<TabContainer>` context and so defaults
     // its role to `tablist`. The `<Nav>` nested inside the `<TabPane>` does not,
     // because the context is reset to `null` past `<TabPane>`s.
-    const navs = instance.find(Nav);
-    const top = navs.at(0);
-    const nested = navs.at(1);
+    const navs = container.querySelectorAll('.nav');
+    const top = navs[0];
+    const nested = navs[1];
 
-    expect(top.getDOMNode().getAttribute('role')).to.equal('tablist');
-    expect(nested.getDOMNode().getAttribute('role')).to.not.exist;
+    expect(top.getAttribute('role')).to.equal('tablist');
+    expect(nested.getAttribute('role')).to.not.exist;
   });
 
   it('should match up ids', () => {
-    let instance = mount(
+    const { container } = render(
       <TabContainer id="custom-id">
         <div>
           <Nav>
@@ -52,25 +62,18 @@ describe('<TabContainer>', () => {
       </TabContainer>
     );
 
-    let tabId = instance
-      .find('NavItem a')
-      .first()
-      .prop('id');
-
-    let paneId = instance
-      .find('TabPane div')
-      .first()
-      .prop('id');
+    let tabId = container.querySelector('.nav a').id;
+    let paneId = container.querySelector('.tab-pane').id;
 
     expect(tabId).to.exist;
     expect(paneId).to.exist;
 
-    instance.assertSingle(`a[aria-controls="${paneId}"]`);
-    instance.assertSingle(`div[aria-labelledby="${tabId}"]`);
+    assertSingle(container, `a[aria-controls="${paneId}"]`);
+    assertSingle(container, `div[aria-labelledby="${tabId}"]`);
   });
 
   it('should default Nav role to tablist', () => {
-    let instance = mount(
+    const { container } = render(
       <TabContainer id="custom-id">
         <div>
           <Nav bsStyle="pills">
@@ -80,22 +83,19 @@ describe('<TabContainer>', () => {
       </TabContainer>
     );
 
-    instance
-      .find(Nav)
-      .getDOMNode()
+    container
+      .querySelector('.nav')
       .getAttribute('role')
       .should.equal('tablist');
 
-    instance
-      .find('NavItem a')
-      .first()
-      .getDOMNode()
+    container
+      .querySelector('.nav a')
       .getAttribute('role')
       .should.equal('tab');
   });
 
   it('should use explicit Nav role', () => {
-    let instance = mount(
+    const { container } = render(
       <TabContainer id="custom-id">
         <div>
           <Nav role="navigation" bsStyle="pills">
@@ -107,20 +107,13 @@ describe('<TabContainer>', () => {
       </TabContainer>
     );
 
-    instance
-      .find(Nav)
-      .getDOMNode()
+    container
+      .querySelector('.nav')
       .getAttribute('role')
       .should.equal('navigation');
 
     // make sure its not passed to the NavItem
-    expect(
-      instance
-        .find('NavItem a')
-        .first()
-        .getDOMNode()
-        .getAttribute('role')
-    ).to.not.exist;
+    expect(container.querySelector('.nav a').getAttribute('role')).to.not.exist;
   });
 
   describe('tab switching edge cases', () => {
@@ -153,154 +146,166 @@ describe('<TabContainer>', () => {
     }
 
     it('should not get stuck after tab becomes unmounted', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2]} activeKey={2} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2]} activeKey={2} />
+      );
 
-      instance.assertSingle(TabContent);
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
-
-      act(() => {
-        instance.setState({ eventKeys: [1] });
-      });
-      instance.assertNone('.active');
+      assertSingle(container, '.tab-content');
+      assertActivePane(container, 2);
 
       act(() => {
-        instance.setState({ activeKey: 1 });
+        ref.current.setState({ eventKeys: [1] });
       });
-      instance.assertSingle('[eventKey=1]').assertSingle('.active');
+      assertNone(container, '.tab-pane.active');
+
+      act(() => {
+        ref.current.setState({ activeKey: 1 });
+      });
+      assertActivePane(container, 1);
     });
 
     it('should handle closing tab and changing active tab', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2]} activeKey={2} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2]} activeKey={2} />
+      );
 
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
+      assertActivePane(container, 2);
 
       act(() => {
-        instance.setState({ eventKeys: [1], activeKey: 1 });
+        ref.current.setState({ eventKeys: [1], activeKey: 1 });
       });
-      // XXX I have no idea why this is needed but the test fails without it.
-      instance.update();
-      instance.assertSingle('[eventKey=1]').assertSingle('.active');
+      assertActivePane(container, 1);
     });
 
     it('should not call onSelect when container unmounts', () => {
       const spy = sinon.spy();
-      const instance = mount(
-        <Switcher eventKeys={[1]} activeKey={1} onSelect={spy} />
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1]} activeKey={1} onSelect={spy} />
       );
 
-      instance.assertSingle(TabPane);
+      assertSingle(container, '.tab-pane');
 
       act(() => {
-        instance.setState({ show: false });
+        ref.current.setState({ show: false });
       });
       spy.should.have.not.been.called;
     });
 
     it('should clean up unmounted tab state', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2, 3]} activeKey={3} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2, 3]} activeKey={3} />
+      );
 
-      instance.find(TabPane).length.should.equal(3);
-      instance.assertSingle('[eventKey=3]').assertSingle('.active');
+      container.querySelectorAll('.tab-pane').length.should.equal(3);
+      assertActivePane(container, 3);
 
       act(() => {
-        instance.setState({ eventKeys: [1, 2], activeKey: 2 });
+        ref.current.setState({ eventKeys: [1, 2], activeKey: 2 });
       });
-      // XXX I have no idea why this is needed but the test fails without it.
-      instance.update();
-      instance.find(TabPane).length.should.equal(2);
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
+      container.querySelectorAll('.tab-pane').length.should.equal(2);
+      assertActivePane(container, 2);
     });
 
     it('should not get stuck if tab stops animating', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2]} activeKey={1} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2]} activeKey={1} />
+      );
 
-      instance.assertSingle('[eventKey=1]').assertSingle('.active');
-
-      act(() => {
-        instance.setState({ animation: false });
-      });
-      instance.assertSingle('[eventKey=1]').assertSingle('.active');
+      assertActivePane(container, 1);
 
       act(() => {
-        instance.setState({ activeKey: 2 });
+        ref.current.setState({ animation: false });
       });
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
+      assertActivePane(container, 1);
 
       act(() => {
-        instance.setState({ animation: true });
+        ref.current.setState({ activeKey: 2 });
+      });
+      assertActivePane(container, 2);
+
+      act(() => {
+        ref.current.setState({ animation: true });
       });
       act(() => {
-        instance.setState({ activeKey: 1 });
+        ref.current.setState({ activeKey: 1 });
       });
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
+      assertActivePane(container, 2);
     });
 
     it('should handle simultaneous eventKey and activeKey change', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2]} activeKey={2} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2]} activeKey={2} />
+      );
 
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
-
-      act(() => {
-        instance.setState({ eventKeys: [1, 3], activeKey: 3 });
-      });
-      // XXX I have no idea why this is needed but the test fails without it.
-      instance.update();
-      instance.assertSingle('[eventKey=3]').assertSingle('.active');
+      assertActivePane(container, 2);
 
       act(() => {
-        instance.setState({ eventKeys: [1, 4], activeKey: 4 });
+        ref.current.setState({ eventKeys: [1, 3], activeKey: 3 });
       });
-      // XXX I have no idea why this is needed but the test fails without it.
-      instance.update();
-      instance.assertSingle('[eventKey=4]').assertSingle('.active');
+      assertActivePane(container, 3);
+
+      act(() => {
+        ref.current.setState({ eventKeys: [1, 4], activeKey: 4 });
+      });
+      assertActivePane(container, 4);
     });
 
     it('should not get stuck if eventKey ceases to exist', () => {
-      const instance = mount(<Switcher eventKeys={[1, 2]} activeKey={2} />);
+      const ref = React.createRef();
+      const { container } = render(
+        <Switcher ref={ref} eventKeys={[1, 2]} activeKey={2} />
+      );
 
-      instance.assertSingle('[eventKey=2]').assertSingle('.active');
-
-      act(() => {
-        instance.setState({ eventKeys: [1, 3] });
-      });
-      instance.assertNone('.active');
+      assertActivePane(container, 2);
 
       act(() => {
-        instance.setState({ activeKey: 3 });
+        ref.current.setState({ eventKeys: [1, 3] });
       });
-      instance.assertSingle('[eventKey=3]').assertSingle('.active');
+      assertNone(container, '.tab-pane.active');
+
+      act(() => {
+        ref.current.setState({ activeKey: 3 });
+      });
+      assertActivePane(container, 3);
 
       // Check that active state lingers after changing event key.
       act(() => {
-        instance.setState({ activeKey: 1 });
+        ref.current.setState({ activeKey: 1 });
       });
-      instance.assertSingle('[eventKey=3]').assertSingle('.active');
+      assertActivePane(container, 3);
 
       // But once event key changes again, make sure active state switches.
       act(() => {
-        instance.setState({ eventKeys: [1, 2] });
+        ref.current.setState({ eventKeys: [1, 2] });
       });
-      // XXX I have no idea why this is needed but the test fails without it.
-      instance.update();
-      instance.assertSingle('[eventKey=1]').assertSingle('.active');
+      assertActivePane(container, 1);
     });
 
     [[[1, 2], [2, 1]], [[2, 1], [1, 2]]].forEach(([order1, order2]) => {
       it('should handle event key swaps', () => {
-        const instance = mount(<Switcher eventKeys={order1} activeKey={1} />);
+        const ref = React.createRef();
+        const { container } = render(
+          <Switcher ref={ref} eventKeys={order1} activeKey={1} />
+        );
 
-        instance.assertSingle('[eventKey=1]').assertSingle('.active');
+        assertActivePane(container, 1);
 
         act(() => {
-          instance.setState({ eventKeys: order2 });
+          ref.current.setState({ eventKeys: order2 });
         });
-        instance.assertSingle('[eventKey=1]').assertSingle('.active');
+        assertActivePane(container, 1);
 
         // Check that the animation is still wired up.
         act(() => {
-          instance.setState({ activeKey: 2 });
+          ref.current.setState({ activeKey: 2 });
         });
-        instance.assertSingle('[eventKey=1]').assertSingle('.active');
+        assertActivePane(container, 1);
       });
     });
   });

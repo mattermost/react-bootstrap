@@ -1,122 +1,141 @@
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-
-import { mount } from 'enzyme';
 
 import Panel from '../src/Panel';
 
+import { assertSingle, assertNone } from './helpers';
+
 describe('<Panel>', () => {
   it('Should have class and body', () => {
-    const inst = mount(
+    const { container } = render(
       <Panel>
         <Panel.Body>Panel content</Panel.Body>
       </Panel>
     );
 
-    inst.assertSingle('div.panel.panel-default');
-    inst.assertSingle('div.panel-body');
+    assertSingle(container, 'div.panel.panel-default');
+    assertSingle(container, 'div.panel-body');
   });
 
   it('Should have bootstrap style class', () => {
-    mount(
+    const { container } = render(
       <Panel bsStyle="primary">
         <Panel.Body>Panel content</Panel.Body>
       </Panel>
-    ).assertSingle('div.panel-primary');
+    );
+
+    assertSingle(container, 'div.panel-primary');
   });
 
   it('Should honor additional classes passed in; adding not overriding', () => {
-    mount(<Panel className="foo" />).assertSingle('div.foo');
+    const { container } = render(<Panel className="foo" />);
+
+    assertSingle(container, 'div.foo');
   });
 
   it('Should have unwrapped header', () => {
-    mount(
+    const { container } = render(
       <Panel>
         <Panel.Heading>Heading</Panel.Heading>
       </Panel>
-    )
-      .assertSingle('div.panel-heading')
-      .text()
-      .should.equal('Heading');
+    );
+
+    assertSingle(container, 'div.panel-heading').textContent.should.equal(
+      'Heading'
+    );
   });
 
   it('Should have custom component header', () => {
-    mount(
+    const { container } = render(
       <Panel>
         <Panel.Heading componentClass="h3">Heading</Panel.Heading>
       </Panel>
-    )
-      .assertSingle('h3.panel-heading')
-      .text()
-      .should.equal('Heading');
+    );
+
+    assertSingle(container, 'h3.panel-heading').textContent.should.equal(
+      'Heading'
+    );
   });
 
   describe('<PanelTitle>', () => {
     it('Should render a title', () => {
-      mount(<Panel.Title>foo</Panel.Title>)
-        .assertSingle('div.panel-title')
-        .text()
-        .should.equal('foo');
+      const { container } = render(<Panel.Title>foo</Panel.Title>);
+
+      assertSingle(container, 'div.panel-title').textContent.should.equal(
+        'foo'
+      );
     });
 
     it('Should render a custom component', () => {
-      mount(<Panel.Title componentClass="h3">foo</Panel.Title>).assertSingle(
-        'h3.panel-title'
+      const { container } = render(
+        <Panel.Title componentClass="h3">foo</Panel.Title>
       );
+
+      assertSingle(container, 'h3.panel-title');
     });
 
     it('Should render with a toggle', () => {
-      mount(<Panel.Title toggle>foo</Panel.Title>).assertSingle(
-        '.panel-title > PanelToggle'
-      );
+      const { container } = render(<Panel.Title toggle>foo</Panel.Title>);
+
+      // The toggle renders a `SafeAnchor` (an `<a>`) directly inside the title.
+      assertSingle(container, '.panel-title > a');
     });
   });
 
   describe('<PanelToggle>', () => {
     it('Should render a Toggle a SafeAnchor', () => {
-      mount(<Panel.Toggle>foo</Panel.Toggle>)
-        .assertSingle('SafeAnchor')
-        .assertSingle('a[role="button"][href="#"]');
+      const { container } = render(<Panel.Toggle>foo</Panel.Toggle>);
+
+      assertSingle(container, 'a[role="button"][href="#"]');
     });
 
     it('Should render a custom component', () => {
-      mount(<Panel.Toggle componentClass="h3">foo</Panel.Toggle>).assertSingle(
-        'h3'
+      const { container } = render(
+        <Panel.Toggle componentClass="h3">foo</Panel.Toggle>
       );
+
+      assertSingle(container, 'h3');
     });
 
     it('Should simulate onToggle', done => {
-      mount(
+      const { container } = render(
         <Panel onToggle={() => done()}>
           <Panel.Toggle>foo</Panel.Toggle>
         </Panel>
-      )
-        .assertSingle('PanelToggle')
-        .simulate('click');
+      );
+
+      fireEvent.click(assertSingle(container, 'a'));
     });
   });
 
   it('Should have a footer', () => {
-    mount(
+    const { container } = render(
       <Panel>
         <Panel.Footer>foo</Panel.Footer>
       </Panel>
-    ).assertSingle('div.panel-footer');
+    );
+
+    assertSingle(container, 'div.panel-footer');
   });
 
   it('Should have collapse classes', () => {
-    mount(
+    const { container } = render(
       <Panel defaultExpanded>
         <Panel.Body collapsible>Panel content</Panel.Body>
       </Panel>
-    ).assertSingle('div.panel-collapse.collapse.in');
+    );
+
+    assertSingle(container, 'div.panel-collapse.collapse.in');
   });
 
   it('Should pass through dom properties', () => {
-    mount(<Panel id="testid">Panel content</Panel>).assertSingle('div#testid');
+    const { container } = render(<Panel id="testid">Panel content</Panel>);
+
+    assertSingle(container, 'div#testid');
   });
 
   it('Should set ids on toggle and collapse', () => {
-    const inst = mount(
+    const { container } = render(
       <Panel id="testid">
         <Panel.Heading>
           <Panel.Title toggle>foo</Panel.Title>
@@ -125,12 +144,12 @@ describe('<Panel>', () => {
       </Panel>
     );
 
-    inst.assertSingle('#testid--body.panel-collapse');
-    inst.assertSingle('#testid--heading.panel-heading');
+    assertSingle(container, '#testid--body.panel-collapse');
+    assertSingle(container, '#testid--heading.panel-heading');
   });
 
   it('Should be open', () => {
-    const inst = mount(
+    const { container } = render(
       <Panel defaultExpanded>
         <Panel.Heading>
           <Panel.Title toggle>foo</Panel.Title>
@@ -140,12 +159,12 @@ describe('<Panel>', () => {
       </Panel>
     );
 
-    inst.assertSingle('.in.panel-collapse');
-    inst.assertNone('a.collapsed');
+    assertSingle(container, '.in.panel-collapse');
+    assertNone(container, 'a.collapsed');
   });
 
   it('Should be closed', () => {
-    const inst = mount(
+    const { container } = render(
       <Panel defaultExpanded={false}>
         <Panel.Heading>
           <Panel.Title toggle>foo</Panel.Title>
@@ -155,12 +174,12 @@ describe('<Panel>', () => {
       </Panel>
     );
 
-    inst.assertNone('.in.panel-collapse');
-    inst.assertSingle('a.collapsed');
+    assertNone(container, '.in.panel-collapse');
+    assertSingle(container, 'a.collapsed');
   });
 
   it('Should toggle when uncontrolled', () => {
-    const inst = mount(
+    const { container } = render(
       <Panel defaultExpanded={false}>
         <Panel.Heading>
           <Panel.Title toggle>foo</Panel.Title>
@@ -170,17 +189,18 @@ describe('<Panel>', () => {
       </Panel>
     );
 
-    inst.assertSingle('a').simulate('click');
+    fireEvent.click(assertSingle(container, 'a'));
 
-    inst
-      .children() // get pass controlled wrapper
-      .prop('expanded')
-      .should.equal(true);
+    // Toggling the uncontrolled panel expands it, which the toggle reflects
+    // through its `aria-expanded` attribute.
+    assertSingle(container, 'a')
+      .getAttribute('aria-expanded')
+      .should.equal('true');
   });
 
   describe('Web Accessibility', () => {
     it('Should be aria-expanded=true', () => {
-      mount(
+      const { container } = render(
         <Panel defaultExpanded>
           <Panel.Heading>
             <Panel.Title toggle>foo</Panel.Title>
@@ -188,11 +208,13 @@ describe('<Panel>', () => {
 
           <Panel.Body collapsible>Panel content</Panel.Body>
         </Panel>
-      ).assertSingle('.panel-title a[aria-expanded=true]');
+      );
+
+      assertSingle(container, '.panel-title a[aria-expanded="true"]');
     });
 
     it('Should be aria-expanded=false', () => {
-      mount(
+      const { container } = render(
         <Panel defaultExpanded={false}>
           <Panel.Heading>
             <Panel.Title toggle>foo</Panel.Title>
@@ -200,13 +222,13 @@ describe('<Panel>', () => {
 
           <Panel.Body collapsible>Panel content</Panel.Body>
         </Panel>
-      )
-        .assertSingle('.panel-title a')
-        .assertSingle('[aria-expanded=false]');
+      );
+
+      assertSingle(container, '.panel-title a[aria-expanded="false"]');
     });
 
     it('Should add aria-controls with id', () => {
-      const inst = mount(
+      const { container } = render(
         <Panel id="testid">
           <Panel.Heading>
             <Panel.Title toggle>foo</Panel.Title>
@@ -216,8 +238,11 @@ describe('<Panel>', () => {
         </Panel>
       );
 
-      inst.assertSingle('a[aria-controls="testid--body"]');
-      inst.assertSingle('.panel-collapse[aria-labelledby="testid--heading"]');
+      assertSingle(container, 'a[aria-controls="testid--body"]');
+      assertSingle(
+        container,
+        '.panel-collapse[aria-labelledby="testid--heading"]'
+      );
     });
   });
 });
