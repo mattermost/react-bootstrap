@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
+import { useRootClose } from 'react-overlays';
 
 import {
   bsClass,
@@ -118,6 +118,7 @@ class DropdownMenu extends React.Component {
         disabled={!open}
         onRootClose={this.handleRootClose}
         event={rootCloseEvent}
+        menuRef={this.menuRef}
       >
         <ul
           ref={this.menuRef}
@@ -139,6 +140,19 @@ class DropdownMenu extends React.Component {
       </RootCloseWrapper>
     );
   }
+}
+
+function RootCloseWrapper({
+  disabled,
+  onRootClose,
+  event,
+
+  children,
+  menuRef
+}) {
+  useRootClose(menuRef, onRootClose, { disabled, clickTrigger: event });
+
+  return children;
 }
 
 DropdownMenu.propTypes = propTypes;
