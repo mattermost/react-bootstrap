@@ -26,11 +26,6 @@ beforeEach(() => {
       return;
     }
 
-    if (msg.includes('findDOMNode')) {
-      // @hmhealey This is removed in React 19
-      return;
-    }
-
     console.error.threw = true;
     throw new Error(msg);
   });

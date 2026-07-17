@@ -3,7 +3,6 @@ import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
@@ -123,6 +122,7 @@ class Dropdown extends React.Component {
     this.handleClose = this.handleClose.bind(this);
 
     this._focusInDropdown = false;
+    this.containerRef = React.createRef();
     this.lastOpenEventType = null;
   }
 
@@ -133,7 +133,7 @@ class Dropdown extends React.Component {
   UNSAFE_componentWillUpdate(nextProps) {
     if (!nextProps.open && this.props.open) {
       this._focusInDropdown = contains(
-        ReactDOM.findDOMNode(this.menu),
+        this.containerRef.current.querySelector('[role=menu]'),
         activeElement(document)
       );
     }
@@ -158,7 +158,9 @@ class Dropdown extends React.Component {
   }
 
   focus() {
-    const toggle = ReactDOM.findDOMNode(this.toggle);
+    const toggle = this.containerRef.current.querySelector(
+      '[role=button][aria-haspopup]'
+    );
 
     if (toggle && toggle.focus) {
       toggle.focus();
@@ -241,7 +243,9 @@ class Dropdown extends React.Component {
       this.menu = c;
     };
 
-    ref = createChainedFunction(child.ref, ref);
+    if (child.props && child.props.ref) {
+      ref = createChainedFunction(child.props.ref, ref);
+    }
 
     return cloneElement(child, {
       ...props,
@@ -259,15 +263,8 @@ class Dropdown extends React.Component {
   }
 
   renderToggle(child, props) {
-    let ref = c => {
-      this.toggle = c;
-    };
-
-    ref = createChainedFunction(child.ref, ref);
-
     return cloneElement(child, {
       ...props,
-      ref,
       bsClass: prefix(props, 'toggle'),
       onClick: createChainedFunction(child.props.onClick, this.handleClick),
       onKeyDown: createChainedFunction(
@@ -311,31 +308,33 @@ class Dropdown extends React.Component {
     // underlying component, to allow it to render size and style variants.
 
     return (
-      <Component {...props} className={classNames(className, classes)}>
-        {ValidComponentChildren.map(children, child => {
-          switch (child.props.bsRole) {
-            case TOGGLE_ROLE:
-              return this.renderToggle(child, {
-                id,
-                disabled,
-                open,
-                role,
-                bsClass
-              });
-            case MENU_ROLE:
-              return this.renderMenu(child, {
-                id,
-                open,
-                pullRight,
-                bsClass,
-                onSelect,
-                rootCloseEvent
-              });
-            default:
-              return child;
-          }
-        })}
-      </Component>
+      <div ref={this.containerRef} style={{ display: 'contents' }}>
+        <Component {...props} className={classNames(className, classes)}>
+          {ValidComponentChildren.map(children, child => {
+            switch (child.props.bsRole) {
+              case TOGGLE_ROLE:
+                return this.renderToggle(child, {
+                  id,
+                  disabled,
+                  open,
+                  role,
+                  bsClass
+                });
+              case MENU_ROLE:
+                return this.renderMenu(child, {
+                  id,
+                  open,
+                  pullRight,
+                  bsClass,
+                  onSelect,
+                  rootCloseEvent
+                });
+              default:
+                return child;
+            }
+          })}
+        </Component>
+      </div>
     );
   }
 }
