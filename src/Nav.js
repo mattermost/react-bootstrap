@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
 
@@ -98,6 +97,12 @@ const defaultProps = {
 };
 
 class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.containerRef = React.createRef();
+  }
+
   componentDidUpdate() {
     if (!this._needsRefocus) {
       return;
@@ -115,7 +120,7 @@ class Nav extends React.Component {
     const childrenArray = ValidComponentChildren.toArray(children);
     const activeChildIndex = childrenArray.indexOf(activeChild);
 
-    const childNodes = ReactDOM.findDOMNode(this).children;
+    const childNodes = this.containerRef.current.children;
     const activeNode = childNodes && childNodes[activeChildIndex];
 
     if (!activeNode || !activeNode.firstChild) {
@@ -309,6 +314,7 @@ class Nav extends React.Component {
 
     return (
       <ul
+        ref={this.containerRef}
         {...elementProps}
         role={role}
         className={classNames(className, classes)}
