@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { mount } from 'enzyme';
 
 import Nav from '../src/Nav';
 import NavItem from '../src/NavItem';
@@ -136,32 +135,41 @@ describe('<Nav>', () => {
   });
 
   describe('keyboard navigation', () => {
-    let instance;
-    let selectSpy;
+    // Renders a `<Nav>` wrapped in a controlled parent, mirroring the way a
+    // real consumer updates `activeKey` in response to `onSelect`. `state`
+    // exposes the current `activeKey` and a setter so tests can drive and
+    // observe it in place of enzyme's `instance.prop`/`setProps`.
+    function renderNav(startKey = 1) {
+      const state = { setActiveKey: null, activeKey: startKey };
+      const selectSpy = sinon.spy(activeKey => state.setActiveKey(activeKey));
 
-    beforeEach(() => {
-      instance = mount(
-        <Nav activeKey={1} onSelect={selectSpy} role="tablist">
-          <NavItem eventKey={1}>NavItem 1 content</NavItem>
-          <NavItem eventKey={2} disabled>
-            NavItem 2 content
-          </NavItem>
-          <NavItem eventKey={3}>NavItem 3 content</NavItem>
-          <NavItem eventKey={4} disabled>
-            NavItem 4 content
-          </NavItem>
-          <NavItem eventKey={5}>NavItem 5 content</NavItem>
-        </Nav>,
-        { attachTo: mountPoint }
-      );
+      function ControlledNav() {
+        const [activeKey, setActiveKey] = React.useState(startKey);
+        state.setActiveKey = setActiveKey;
+        state.activeKey = activeKey;
 
-      selectSpy = sinon.spy(activeKey => instance.setProps({ activeKey }));
-    });
+        return (
+          <Nav activeKey={activeKey} onSelect={selectSpy} role="tablist">
+            <NavItem eventKey={1}>NavItem 1 content</NavItem>
+            <NavItem eventKey={2} disabled>
+              NavItem 2 content
+            </NavItem>
+            <NavItem eventKey={3}>NavItem 3 content</NavItem>
+            <NavItem eventKey={4} disabled>
+              NavItem 4 content
+            </NavItem>
+            <NavItem eventKey={5}>NavItem 5 content</NavItem>
+          </Nav>
+        );
+      }
 
-    afterEach(() => instance.unmount());
+      const { container } = render(<ControlledNav />);
+      return { container, selectSpy, state };
+    }
 
     it('only the active tab should be focusable', () => {
-      const links = instance.find('a').map(n => n.getDOMNode());
+      const { container } = renderNav();
+      const links = Array.from(container.querySelectorAll('a'));
 
       expect(links[0].getAttribute('tabindex')).to.not.equal('-1');
       expect(links[1].getAttribute('tabindex')).to.equal('-1');
@@ -171,120 +179,101 @@ describe('<Nav>', () => {
     });
 
     it('should focus the next tab on arrow key', () => {
-      const anchors = instance.find('a');
-      anchors
-        .at(0)
-        .getDOMNode()
-        .focus();
+      const { container, state } = renderNav();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[0].focus();
 
-      anchors.at(0).simulate('keydown', {
-        key: 'ArrowRight'
-      });
+      fireEvent.keyDown(anchors[0], { key: 'ArrowRight' });
 
-      expect(instance.prop('activeKey')).to.equal(3);
-
-      expect(document.activeElement).to.equal(anchors.at(2).getDOMNode());
+      expect(state.activeKey).to.equal(3);
+      expect(document.activeElement).to.equal(anchors[2]);
     });
 
     it('should focus the previous tab on arrow key', () => {
-      instance.setProps({ activeKey: 5 });
+      const { container, state } = renderNav();
+      act(() => state.setActiveKey(5));
 
-      const anchors = instance.find('a');
-      anchors
-        .at(4)
-        .getDOMNode()
-        .focus();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[4].focus();
 
-      anchors.at(4).simulate('keydown', { key: 'ArrowLeft' });
+      fireEvent.keyDown(anchors[4], { key: 'ArrowLeft' });
 
-      expect(instance.props().activeKey).to.equal(3);
-      expect(document.activeElement).to.equal(anchors.at(2).getDOMNode());
+      expect(state.activeKey).to.equal(3);
+      expect(document.activeElement).to.equal(anchors[2]);
     });
 
     it('should wrap to the next tab on arrow key', () => {
-      instance.setProps({ activeKey: 5 });
+      const { container, state } = renderNav();
+      act(() => state.setActiveKey(5));
 
-      const anchors = instance.find('a');
-      anchors
-        .at(4)
-        .getDOMNode()
-        .focus();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[4].focus();
 
-      anchors.at(4).simulate('keydown', { key: 'ArrowDown' });
+      fireEvent.keyDown(anchors[4], { key: 'ArrowDown' });
 
-      expect(instance.props().activeKey).to.equal(1);
-      expect(document.activeElement).to.equal(anchors.at(0).getDOMNode());
+      expect(state.activeKey).to.equal(1);
+      expect(document.activeElement).to.equal(anchors[0]);
     });
 
     it('should wrap to the previous tab on arrow key', () => {
-      const anchors = instance.find('a');
-      anchors
-        .at(0)
-        .getDOMNode()
-        .focus();
+      const { container, state } = renderNav();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[0].focus();
 
-      anchors.at(0).simulate('keydown', { key: 'ArrowUp' });
+      fireEvent.keyDown(anchors[0], { key: 'ArrowUp' });
 
-      expect(instance.props().activeKey).to.equal(5);
-      expect(document.activeElement).to.equal(anchors.at(4).getDOMNode());
+      expect(state.activeKey).to.equal(5);
+      expect(document.activeElement).to.equal(anchors[4]);
     });
   });
 
   describe('event keys', () => {
+    function renderNav(startKey, items) {
+      const state = { setActiveKey: null, activeKey: startKey };
+      const selectSpy = sinon.spy(activeKey => state.setActiveKey(activeKey));
+
+      function ControlledNav() {
+        const [activeKey, setActiveKey] = React.useState(startKey);
+        state.setActiveKey = setActiveKey;
+        state.activeKey = activeKey;
+
+        return (
+          <Nav activeKey={activeKey} onSelect={selectSpy} role="tablist">
+            {items.map(eventKey => (
+              <NavItem key={String(eventKey)} eventKey={eventKey}>
+                NavItem {String(eventKey)} content
+              </NavItem>
+            ))}
+          </Nav>
+        );
+      }
+
+      const { container } = render(<ControlledNav />);
+      return { container, selectSpy, state };
+    }
+
     it('should accept any number as an event key', () => {
-      let instance;
-      let selectSpy = sinon.spy(activeKey => instance.setProps({ activeKey }));
-      instance = mount(
-        <Nav activeKey={-100} onSelect={selectSpy} role="tablist">
-          <NavItem eventKey={-100}>NavItem 1 content</NavItem>
-          <NavItem eventKey={0}>NavItem 2 content</NavItem>
-          <NavItem eventKey={1}>NavItem 3 content</NavItem>
-        </Nav>,
-        { attachTo: mountPoint }
-      );
+      const { container, state } = renderNav(-100, [-100, 0, 1]);
 
-      const anchors = instance.find('a');
-      anchors
-        .at(0)
-        .getDOMNode()
-        .focus();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[0].focus();
 
-      anchors.at(0).simulate('keydown', {
-        key: 'ArrowRight'
-      });
+      fireEvent.keyDown(anchors[0], { key: 'ArrowRight' });
 
-      expect(instance.props().activeKey).to.equal(0);
-      expect(document.activeElement).to.equal(anchors.at(1).getDOMNode());
-
-      instance.unmount();
+      expect(state.activeKey).to.equal(0);
+      expect(document.activeElement).to.equal(anchors[1]);
     });
 
     it('should accept any string as an event key', () => {
-      let instance;
-      let selectSpy = sinon.spy(activeKey => instance.setProps({ activeKey }));
-      instance = mount(
-        <Nav activeKey="" onSelect={selectSpy} role="tablist">
-          <NavItem eventKey="a">NavItem 1 content</NavItem>
-          <NavItem eventKey="b">NavItem 2 content</NavItem>
-          <NavItem eventKey="">NavItem 3 content</NavItem>
-        </Nav>,
-        { attachTo: mountPoint }
-      );
+      const { container, state } = renderNav('', ['a', 'b', '']);
 
-      const anchors = instance.find('a');
-      anchors
-        .at(2)
-        .getDOMNode()
-        .focus();
+      const anchors = Array.from(container.querySelectorAll('a'));
+      anchors[2].focus();
 
-      anchors.at(2).simulate('keydown', {
-        key: 'ArrowRight'
-      });
+      fireEvent.keyDown(anchors[2], { key: 'ArrowRight' });
 
-      expect(instance.props().activeKey).to.equal('a');
-      expect(document.activeElement).to.equal(anchors.at(0).getDOMNode());
-
-      instance.unmount();
+      expect(state.activeKey).to.equal('a');
+      expect(document.activeElement).to.equal(anchors[0]);
     });
   });
 
