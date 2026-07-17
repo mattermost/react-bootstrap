@@ -4,25 +4,6 @@ import deprecated from 'prop-types-extra/lib/deprecated';
 
 import { _resetWarned } from '../src/utils/deprecationWarning';
 
-import Enzyme, { ShallowWrapper, ReactWrapper } from 'enzyme';
-import Adapter from '@cfaester/enzyme-adapter-react-18';
-
-Enzyme.configure({ adapter: new Adapter() });
-
-function assertLength(length) {
-  return function $assertLength(selector) {
-    let result = this.find(selector);
-    expect(result).to.have.length(length);
-    return result;
-  };
-}
-
-ReactWrapper.prototype.assertSingle = assertLength(1);
-ShallowWrapper.prototype.assertSingle = assertLength(1);
-
-ReactWrapper.prototype.assertNone = assertLength(0);
-ShallowWrapper.prototype.assertNone = assertLength(0);
-
 beforeEach(() => {
   /* eslint-disable no-console */
   sinon.stub(console, 'error').callsFake((msg, ...args) => {
@@ -67,11 +48,16 @@ beforeEach(() => {
 
 afterEach(() => {
   /* eslint-disable no-console */
-  if (!console.error.threw && console.error.expected.length) {
-    expect(console.error.warned).to.have.keys(console.error.expected);
+  try {
+    if (!console.error.threw && console.error.expected.length) {
+      expect(console.error.warned).to.have.keys(console.error.expected);
+    }
+  } finally {
+    // Always restore the stub, even when the expectation above fails, so a
+    // single failing assertion doesn't leave `console.error` wrapped and cause
+    // the next test's `sinon.stub` to throw and abort the whole run.
+    console.error.restore();
   }
-
-  console.error.restore();
   /* eslint-enable no-console */
 
   _resetWarned();

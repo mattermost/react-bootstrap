@@ -1,12 +1,10 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-
-import { mount } from 'enzyme';
 
 import Panel from '../src/Panel';
 import PanelGroup from '../src/PanelGroup';
 
-import { shouldWarn } from './helpers';
+import { assertSingle, shouldWarn } from './helpers';
 
 describe('<PanelGroup>', () => {
   it('Should pass bsStyle to Panels', () => {
@@ -39,7 +37,7 @@ describe('<PanelGroup>', () => {
 
   describe('accordion', () => {
     it('Should not collapse panel by bubbling onSelect callback', () => {
-      mount(
+      const { container } = render(
         <PanelGroup
           accordion
           id="panel"
@@ -51,9 +49,9 @@ describe('<PanelGroup>', () => {
             <input type="text" className="changeme" />
           </Panel>
         </PanelGroup>
-      )
-        .assertSingle('input.changeme')
-        .simulate('select');
+      );
+
+      fireEvent.select(assertSingle(container, 'input.changeme'));
     });
 
     it('Should call onSelect handler with eventKey', done => {
@@ -63,7 +61,7 @@ describe('<PanelGroup>', () => {
         done();
       }
 
-      mount(
+      const { container } = render(
         <PanelGroup accordion onSelect={handleSelect} id="panel">
           <Panel eventKey="1">
             <Panel.Heading>
@@ -73,13 +71,13 @@ describe('<PanelGroup>', () => {
             <Panel.Body collapsible>Panel 1</Panel.Body>
           </Panel>
         </PanelGroup>
-      )
-        .find('a')
-        .simulate('click');
+      );
+
+      fireEvent.click(assertSingle(container, 'a'));
     });
 
     it('Should manage expanded panels', () => {
-      const inst = mount(
+      const { container } = render(
         <PanelGroup accordion defaultActiveKey="1" id="panel">
           <Panel id="panel1" eventKey="1">
             <Panel.Heading>
@@ -98,20 +96,18 @@ describe('<PanelGroup>', () => {
         </PanelGroup>
       );
 
-      const panel1 = inst.find('#panel1').find('a');
-      const panel2 = inst.find('#panel2').find('a');
-      const panel1Dom = panel1.getDOMNode();
-      const panel2Dom = panel2.getDOMNode();
+      const panel1Dom = container.querySelector('#panel1 a');
+      const panel2Dom = container.querySelector('#panel2 a');
 
-      panel2.simulate('click');
+      fireEvent.click(panel2Dom);
       assert.equal(panel1Dom.getAttribute('class'), 'collapsed');
       assert.equal(panel2Dom.getAttribute('class'), '');
 
-      panel1.simulate('click');
+      fireEvent.click(panel1Dom);
       assert.equal(panel1Dom.getAttribute('class'), '');
       assert.equal(panel2Dom.getAttribute('class'), 'collapsed');
 
-      panel1.simulate('click');
+      fireEvent.click(panel1Dom);
       assert.equal(panel1Dom.getAttribute('class'), 'collapsed');
       assert.equal(panel2Dom.getAttribute('class'), 'collapsed');
     });
@@ -119,7 +115,7 @@ describe('<PanelGroup>', () => {
     it('Should warn if panel has explicit expanded', () => {
       shouldWarn('`<Panel>` `expanded`');
 
-      mount(
+      render(
         <PanelGroup accordion defaultActiveKey="1" id="panel">
           <Panel id="panel1" eventKey="1" />
           <Panel id="panel2" eventKey="2" expanded onToggle={() => {}} />
@@ -132,7 +128,7 @@ describe('<PanelGroup>', () => {
     let panelBodies, panelGroup, headers, links; // eslint-disable-line
 
     beforeEach(() => {
-      const inst = mount(
+      const { container } = render(
         <PanelGroup accordion defaultActiveKey="1" id="panel">
           <Panel eventKey="1">
             <Panel.Heading>
@@ -151,10 +147,10 @@ describe('<PanelGroup>', () => {
         </PanelGroup>
       );
 
-      panelGroup = inst.getDOMNode();
-      panelBodies = inst.find('.panel-collapse').map(n => n.getDOMNode());
-      headers = inst.find('.panel-heading').map(n => n.getDOMNode());
-      links = inst.find('.panel-heading a').map(n => n.getDOMNode());
+      panelGroup = container.querySelector('.panel-group');
+      panelBodies = Array.from(container.querySelectorAll('.panel-collapse'));
+      headers = Array.from(container.querySelectorAll('.panel-heading'));
+      links = Array.from(container.querySelectorAll('.panel-heading a'));
     });
 
     it('Should have a role of tablist', () => {
