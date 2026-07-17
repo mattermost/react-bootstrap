@@ -6,7 +6,7 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
+import { useRootClose } from 'react-overlays';
 import { bsClass, getClassSet, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import ValidComponentChildren from './utils/ValidComponentChildren';
@@ -137,7 +137,8 @@ function (_React$Component) {
     return React.createElement(RootCloseWrapper, {
       disabled: !open,
       onRootClose: this.handleRootClose,
-      event: rootCloseEvent
+      event: rootCloseEvent,
+      menuRef: this.menuRef
     }, React.createElement("ul", _extends({
       ref: this.menuRef
     }, elementProps, {
@@ -154,6 +155,19 @@ function (_React$Component) {
 
   return DropdownMenu;
 }(React.Component);
+
+function RootCloseWrapper(_ref) {
+  var disabled = _ref.disabled,
+      onRootClose = _ref.onRootClose,
+      event = _ref.event,
+      children = _ref.children,
+      menuRef = _ref.menuRef;
+  useRootClose(menuRef, onRootClose, {
+    disabled: disabled,
+    clickTrigger: event
+  });
+  return children;
+}
 
 DropdownMenu.propTypes = propTypes;
 DropdownMenu.defaultProps = defaultProps;

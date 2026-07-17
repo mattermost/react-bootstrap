@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Transition, { ENTERED, ENTERING } from 'react-transition-group/Transition';
+import createChainedFunction from './utils/createChainedFunction';
 var propTypes = {
   /**
    * Show the component; triggers the fade in or fade out animation
@@ -81,20 +82,34 @@ var Fade =
 function (_React$Component) {
   _inheritsLoose(Fade, _React$Component);
 
-  function Fade() {
-    return _React$Component.apply(this, arguments) || this;
+  function Fade(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.childRef = React.createRef();
+    return _this;
   }
 
   var _proto = Fade.prototype;
 
   _proto.render = function render() {
+    var _this2 = this;
+
     var _this$props = this.props,
         className = _this$props.className,
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
 
-    return React.createElement(Transition, props, function (status, innerProps) {
+    var ref = function ref(c) {
+      _this2.childRef.current = c;
+    };
+
+    ref = createChainedFunction(children.props.ref, ref);
+    return React.createElement(Transition, _extends({}, props, {
+      nodeRef: this.childRef
+    }), function (status, innerProps) {
       return React.cloneElement(children, _extends({}, innerProps, {
+        ref: ref,
         className: classNames('fade', className, children.props.className, fadeStyles[status])
       }));
     });

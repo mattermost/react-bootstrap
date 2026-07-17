@@ -1,6 +1,5 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import OverlayTrigger from '../src/OverlayTrigger';
@@ -140,9 +139,8 @@ describe('<OverlayTrigger>', () => {
   });
 
   it('Should forward requested context', async () => {
-    const contextTypes = {
-      key: PropTypes.string
-    };
+    const TestContext = React.createContext(undefined);
+    TestContext.displayName = 'TestContext';
 
     const contextSpy = sinon.spy();
 
@@ -153,7 +151,7 @@ describe('<OverlayTrigger>', () => {
       }
     }
 
-    ContextReader.contextTypes = contextTypes;
+    ContextReader.contextType = TestContext;
 
     class ContextHolder extends React.Component {
       getChildContext() {
@@ -162,13 +160,14 @@ describe('<OverlayTrigger>', () => {
 
       render() {
         return (
-          <OverlayTrigger trigger="click" overlay={<ContextReader />}>
-            <button>button</button>
-          </OverlayTrigger>
+          <TestContext.Provider value={{ key: 'value' }}>
+            <OverlayTrigger trigger="click" overlay={<ContextReader />}>
+              <button>button</button>
+            </OverlayTrigger>
+          </TestContext.Provider>
         );
       }
     }
-    ContextHolder.childContextTypes = contextTypes;
 
     render(<ContextHolder />);
     const overlayTrigger = screen.getByText('button');

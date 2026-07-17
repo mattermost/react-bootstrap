@@ -1,0 +1,52 @@
+diff --git a/node_modules/react-overlays/cjs/Modal.js b/node_modules/react-overlays/cjs/Modal.js
+index 2247ad0..71c9f4a 100644
+--- a/node_modules/react-overlays/cjs/Modal.js
++++ b/node_modules/react-overlays/cjs/Modal.js
+@@ -215,7 +215,7 @@ var Modal = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
+     }
+   });
+   var handleDocumentKeyDown = (0, _useEventCallback["default"])(function (e) {
+-    if (keyboard && e.keyCode === 27 && modal.isTopModal()) {
++    if (keyboard && (e.keyCode === 27 || e.key === 'Escape') && modal.isTopModal()) {
+       onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+ 
+       if (!e.defaultPrevented) {
+diff --git a/node_modules/react-overlays/cjs/useRootClose.js b/node_modules/react-overlays/cjs/useRootClose.js
+index 3fc40a7..cc16674 100644
+--- a/node_modules/react-overlays/cjs/useRootClose.js
++++ b/node_modules/react-overlays/cjs/useRootClose.js
+@@ -66,7 +66,7 @@ function useRootClose(ref, onRootClose, _temp) {
+     }
+   });
+   var handleKeyUp = (0, _useEventCallback["default"])(function (e) {
+-    if (e.keyCode === escapeKeyCode) {
++    if (e.keyCode === escapeKeyCode || e.key === 'Escape') {
+       onClose(e);
+     }
+   });
+diff --git a/node_modules/react-overlays/esm/Modal.js b/node_modules/react-overlays/esm/Modal.js
+index 42f79e4..a12ebac 100644
+--- a/node_modules/react-overlays/esm/Modal.js
++++ b/node_modules/react-overlays/esm/Modal.js
+@@ -193,7 +193,7 @@ var Modal = /*#__PURE__*/forwardRef(function (_ref, ref) {
+     }
+   });
+   var handleDocumentKeyDown = useEventCallback(function (e) {
+-    if (keyboard && e.keyCode === 27 && modal.isTopModal()) {
++    if (keyboard && (e.keyCode === 27 || e.key === 'Escape') && modal.isTopModal()) {
+       onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+ 
+       if (!e.defaultPrevented) {
+diff --git a/node_modules/react-overlays/esm/useRootClose.js b/node_modules/react-overlays/esm/useRootClose.js
+index 8c7882c..30d0d56 100644
+--- a/node_modules/react-overlays/esm/useRootClose.js
++++ b/node_modules/react-overlays/esm/useRootClose.js
+@@ -53,7 +53,7 @@ function useRootClose(ref, onRootClose, _temp) {
+     }
+   });
+   var handleKeyUp = useEventCallback(function (e) {
+-    if (e.keyCode === escapeKeyCode) {
++    if (e.keyCode === escapeKeyCode || e.key === 'Escape') {
+       onClose(e);
+     }
+   });

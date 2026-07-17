@@ -156,7 +156,7 @@ function (_React$Component) {
   };
 
   _proto.focus = function focus() {
-    var toggle = this.containerRef.current.querySelector('[role=button][aria-has-popup]');
+    var toggle = this.containerRef.current.querySelector('[role=button][aria-haspopup]');
 
     if (toggle && toggle.focus) {
       toggle.focus();
@@ -248,7 +248,16 @@ function (_React$Component) {
         rootCloseEvent = _ref.rootCloseEvent,
         props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
 
+    var ref = function ref(c) {
+      _this2.menu = c;
+    };
+
+    if (child.props && child.props.ref) {
+      ref = createChainedFunction(child.props.ref, ref);
+    }
+
     return cloneElement(child, _extends({}, props, {
+      ref: ref,
       labelledBy: id,
       bsClass: prefix(props, 'menu'),
       onClose: createChainedFunction(child.props.onClose, this.handleClose),

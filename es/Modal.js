@@ -9,8 +9,8 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import PropTypes from 'prop-types';
-import BaseModal from 'react-overlays/lib/Modal';
-import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
+import isOverflowing from 'react-overlays/isOverflowing';
+import BaseModal from 'react-overlays/Modal';
 import elementType from 'prop-types-extra/lib/elementType';
 import Fade from './Fade';
 import Body from './ModalBody';
@@ -117,12 +117,21 @@ var propTypes = _extends({}, BaseModal.propTypes, ModalDialog.propTypes, {
   onExited: PropTypes.func
 });
 
-var defaultProps = _extends({}, BaseModal.defaultProps, {
+var defaultProps = {
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  onHide: function onHide() {},
+  renderBackdrop: function renderBackdrop(props) {
+    return React.createElement("div", props);
+  },
   animation: true,
   dialogComponentClass: ModalDialog
-});
+};
 /* eslint-disable no-use-before-define, react/no-multi-comp */
-
 
 function DialogTransition(props) {
   return React.createElement(Fade, _extends({}, props, {
@@ -206,8 +215,7 @@ function (_React$Component) {
       return;
     }
 
-    var dialogNode = this._modal.getDialogElement();
-
+    var dialogNode = this._modal.dialog;
     var dialogHeight = dialogNode.scrollHeight;
     var document = ownerDocument(dialogNode);
     var bodyIsOverflowing = isOverflowing(document.body);
@@ -250,7 +258,11 @@ function (_React$Component) {
       transition: animation ? DialogTransition : undefined,
       backdrop: backdrop,
       backdropTransition: animation ? BackdropTransition : undefined,
-      backdropClassName: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName),
+      renderBackdrop: function renderBackdrop(backdropProps) {
+        return React.createElement("div", _extends({}, backdropProps, {
+          className: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName)
+        }));
+      },
       onEntering: createChainedFunction(onEntering, this.handleEntering),
       onExited: createChainedFunction(onExited, this.handleExited)
     }), React.createElement(Dialog, _extends({}, dialogProps, {

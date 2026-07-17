@@ -126,40 +126,37 @@ var Collapse =
 function (_React$Component) {
   _inheritsLoose(Collapse, _React$Component);
 
-  function Collapse() {
+  function Collapse(props) {
     var _this;
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _React$Component.call(this, props) || this;
 
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-
-    _this.handleEnter = function (elem) {
-      elem.style[_this.getDimension()] = '0';
+    _this.handleEnter = function () {
+      _this.childRef.current.style[_this.getDimension()] = '0';
     };
 
-    _this.handleEntering = function (elem) {
+    _this.handleEntering = function () {
       var dimension = _this.getDimension();
 
-      elem.style[dimension] = _this._getScrollDimensionValue(elem, dimension);
+      _this.childRef.current.style[dimension] = _this._getScrollDimensionValue(_this.childRef.current, dimension);
     };
 
-    _this.handleEntered = function (elem) {
-      elem.style[_this.getDimension()] = null;
+    _this.handleEntered = function () {
+      _this.childRef.current.style[_this.getDimension()] = null;
     };
 
-    _this.handleExit = function (elem) {
+    _this.handleExit = function () {
       var dimension = _this.getDimension();
 
-      elem.style[dimension] = _this.props.getDimensionValue(dimension, elem) + "px";
-      triggerBrowserReflow(elem);
+      _this.childRef.current.style[dimension] = _this.props.getDimensionValue(dimension, _this.childRef.current) + "px";
+      triggerBrowserReflow(_this.childRef.current);
     };
 
-    _this.handleExiting = function (elem) {
-      elem.style[_this.getDimension()] = '0';
+    _this.handleExiting = function () {
+      _this.childRef.current.style[_this.getDimension()] = '0';
     };
 
+    _this.childRef = React.createRef();
     return _this;
   }
 
@@ -196,8 +193,15 @@ function (_React$Component) {
     var handleEntered = createChainedFunction(this.handleEntered, onEntered);
     var handleExit = createChainedFunction(this.handleExit, onExit);
     var handleExiting = createChainedFunction(this.handleExiting, onExiting);
+
+    var ref = function ref(c) {
+      _this2.childRef.current = c;
+    };
+
+    ref = createChainedFunction(children.props.ref, ref);
     return React.createElement(Transition, _extends({}, props, {
       "aria-expanded": props.role ? props.in : null,
+      nodeRef: this.childRef,
       onEnter: handleEnter,
       onEntering: handleEntering,
       onEntered: handleEntered,
@@ -205,6 +209,7 @@ function (_React$Component) {
       onExiting: handleExiting
     }), function (state, innerProps) {
       return React.cloneElement(children, _extends({}, innerProps, {
+        ref: ref,
         className: classNames(className, children.props.className, collapseStyles[state], _this2.getDimension() === 'width' && 'width')
       }));
     });

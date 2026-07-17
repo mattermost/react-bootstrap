@@ -133,6 +133,7 @@ function (_React$Component) {
     _this.state = {
       show: props.defaultOverlayShown
     };
+    _this.triggerRef = React.createRef();
     return _this;
   }
 
@@ -232,8 +233,31 @@ function (_React$Component) {
     return React.createElement(Overlay, _extends({}, props, {
       show: this.state.show,
       onHide: this.handleHide,
-      target: this
-    }), overlay);
+      target: this.triggerRef
+    }), overlay); //   try {
+    //   return (
+    //     <Overlay
+    //       {...props}
+    //       show={this.state.show}
+    //       onHide={this.handleHide}
+    //       target={this}
+    //     >
+    //       {({props: overlayProps, arrowProps, placement}) => {
+    //         const {ref, style, ...otherOverlayProps} = overlayProps;
+    //         console.log('aa', overlayProps.ref);
+    //         return <div>aaa</div>;
+    //         // return cloneElement(overlay, {
+    //         //   ...overlay.props,
+    //         //   ref: overlayProps.ref,
+    //         //   style: overlayProps.style,
+    //         // })
+    //       }}
+    //     </Overlay>
+    //   );
+    // } catch (e) {
+    //   console.error('HARR', e)
+    //   return undefined;
+    // }
   };
 
   _proto.show = function show() {
@@ -285,7 +309,12 @@ function (_React$Component) {
       triggerProps.onBlur = createChainedFunction(childProps.onBlur, onBlur, this.handleDelayedHide);
     }
 
-    return React.createElement(React.Fragment, null, cloneElement(child, triggerProps), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
+    return React.createElement(React.Fragment, null, React.createElement("div", {
+      ref: this.triggerRef,
+      style: {
+        display: 'content'
+      }
+    }, cloneElement(child, triggerProps)), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
   };
 
   return OverlayTrigger;

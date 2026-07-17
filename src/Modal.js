@@ -5,8 +5,8 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import PropTypes from 'prop-types';
-import BaseModal from 'react-overlays/lib/Modal';
-import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
+import isOverflowing from 'react-overlays/isOverflowing';
+import BaseModal from 'react-overlays/Modal';
 import elementType from 'prop-types-extra/lib/elementType';
 
 import Fade from './Fade';
@@ -118,7 +118,16 @@ const propTypes = {
 };
 
 const defaultProps = {
-  ...BaseModal.defaultProps,
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  onHide: function onHide() {},
+  renderBackdrop: function renderBackdrop(props) {
+    return <div {...props} />;
+  },
   animation: true,
   dialogComponentClass: ModalDialog
 };
@@ -194,7 +203,7 @@ class Modal extends React.Component {
       return;
     }
 
-    const dialogNode = this._modal.getDialogElement();
+    const dialogNode = this._modal.dialog;
     const dialogHeight = dialogNode.scrollHeight;
 
     const document = ownerDocument(dialogNode);
@@ -245,10 +254,15 @@ class Modal extends React.Component {
           transition={animation ? DialogTransition : undefined}
           backdrop={backdrop}
           backdropTransition={animation ? BackdropTransition : undefined}
-          backdropClassName={classNames(
-            prefix(props, 'backdrop'),
-            backdropClassName,
-            inClassName
+          renderBackdrop={backdropProps => (
+            <div
+              {...backdropProps}
+              className={classNames(
+                prefix(props, 'backdrop'),
+                backdropClassName,
+                inClassName
+              )}
+            />
           )}
           onEntering={createChainedFunction(onEntering, this.handleEntering)}
           onExited={createChainedFunction(onExited, this.handleExited)}
