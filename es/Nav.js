@@ -4,7 +4,6 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
 import NavbarContext from './NavbarContext';
 import TabContainerContext from './TabContainerContext';
@@ -31,11 +30,7 @@ var propTypes = {
    * NavItems are be positioned vertically.
    */
   stacked: PropTypes.bool,
-  justified: all(PropTypes.bool, function (_ref) {
-    var justified = _ref.justified,
-        navbar = _ref.navbar;
-    return justified && navbar ? Error('justified navbar `Nav`s are not supported') : null;
-  }),
+  justified: PropTypes.bool,
 
   /**
    * A callback fired when a NavItem is selected.
@@ -241,8 +236,8 @@ function (_React$Component) {
     this._needsRefocus = true;
   };
 
-  _proto.isActive = function isActive(_ref2, activeKey, activeHref) {
-    var props = _ref2.props;
+  _proto.isActive = function isActive(_ref, activeKey, activeHref) {
+    var props = _ref.props;
 
     if (props.active || activeKey != null && props.eventKey === activeKey || activeHref && props.href === activeHref) {
       return true;
@@ -283,6 +278,8 @@ function (_React$Component) {
     var _splitBsProps = splitBsProps(props),
         bsProps = _splitBsProps[0],
         elementProps = _splitBsProps[1];
+
+    process.env.NODE_ENV !== "production" ? warning(!(justified && propsNavbar), 'justified navbar `Nav`s are not supported') : void 0;
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
 

@@ -7,16 +7,16 @@ import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
+import warning from 'warning';
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
 import { bsClass as setBsClass, prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
-import { exclusiveRoles, requiredRoles } from './utils/PropTypes';
+import { getDuplicateRoleError, getMissingRoleError } from './utils/PropTypes';
 import ValidComponentChildren from './utils/ValidComponentChildren';
 var TOGGLE_ROLE = DropdownToggle.defaultProps.bsRole;
 var MENU_ROLE = DropdownMenu.defaultProps.bsRole;
@@ -38,7 +38,7 @@ var propTypes = {
    * The children of a Dropdown may be a `<Dropdown.Toggle>` or a `<Dropdown.Menu>`.
    * @type {node}
    */
-  children: all(requiredRoles(TOGGLE_ROLE, MENU_ROLE), exclusiveRoles(MENU_ROLE)),
+  children: PropTypes.node,
 
   /**
    * Whether or not component is disabled.
@@ -298,6 +298,18 @@ function (_React$Component) {
         props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "id", "dropup", "disabled", "pullRight", "open", "onSelect", "role", "bsClass", "className", "rootCloseEvent", "children"]);
 
     delete props.onToggle;
+    var missingRoleError = getMissingRoleError('Dropdown', children, TOGGLE_ROLE, MENU_ROLE);
+
+    if (missingRoleError) {
+      process.env.NODE_ENV !== "production" ? warning(false, missingRoleError) : void 0;
+    }
+
+    var duplicateRoleError = getDuplicateRoleError('Dropdown', children, MENU_ROLE);
+
+    if (duplicateRoleError) {
+      process.env.NODE_ENV !== "production" ? warning(false, duplicateRoleError) : void 0;
+    }
+
     var classes = (_classes = {}, _classes[bsClass] = true, _classes.open = open, _classes.disabled = disabled, _classes);
 
     if (dropup) {

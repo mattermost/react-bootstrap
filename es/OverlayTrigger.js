@@ -234,30 +234,7 @@ function (_React$Component) {
       show: this.state.show,
       onHide: this.handleHide,
       target: this.triggerRef
-    }), overlay); //   try {
-    //   return (
-    //     <Overlay
-    //       {...props}
-    //       show={this.state.show}
-    //       onHide={this.handleHide}
-    //       target={this}
-    //     >
-    //       {({props: overlayProps, arrowProps, placement}) => {
-    //         const {ref, style, ...otherOverlayProps} = overlayProps;
-    //         console.log('aa', overlayProps.ref);
-    //         return <div>aaa</div>;
-    //         // return cloneElement(overlay, {
-    //         //   ...overlay.props,
-    //         //   ref: overlayProps.ref,
-    //         //   style: overlayProps.style,
-    //         // })
-    //       }}
-    //     </Overlay>
-    //   );
-    // } catch (e) {
-    //   console.error('HARR', e)
-    //   return undefined;
-    // }
+    }), overlay);
   };
 
   _proto.show = function show() {

@@ -504,6 +504,22 @@ module.exports = __webpack_require__(4725) ? function (object, key, value) {
 
 /***/ }),
 
+/***/ 1897:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var core = __webpack_require__(9520);
+
+var $JSON = core.JSON || (core.JSON = {
+  stringify: JSON.stringify
+});
+
+module.exports = function stringify(it) {
+  // eslint-disable-line no-unused-vars
+  return $JSON.stringify.apply($JSON, arguments);
+};
+
+/***/ }),
+
 /***/ 1933:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -1480,59 +1496,6 @@ module.exports = function (object, index, value) {
 
 /***/ }),
 
-/***/ 3526:
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = all;
-
-var _createChainableTypeChecker = __webpack_require__(8663);
-
-var _createChainableTypeChecker2 = _interopRequireDefault(_createChainableTypeChecker);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-function all() {
-  for (var _len = arguments.length, validators = Array(_len), _key = 0; _key < _len; _key++) {
-    validators[_key] = arguments[_key];
-  }
-
-  function allPropTypes() {
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    var error = null;
-    validators.forEach(function (validator) {
-      if (error != null) {
-        return;
-      }
-
-      var result = validator.apply(undefined, args);
-
-      if (result != null) {
-        error = result;
-      }
-    });
-    return error;
-  }
-
-  return (0, _createChainableTypeChecker2.default)(allPropTypes);
-}
-
-module.exports = exports['default'];
-
-/***/ }),
-
 /***/ 3537:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -1658,6 +1621,13 @@ module.exports = __webpack_require__(4725) ? Object.defineProperties : function 
 __webpack_require__(3993);
 
 module.exports = __webpack_require__(9520).Object.keys;
+
+/***/ }),
+
+/***/ 3837:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/* unused reexport */ __webpack_require__(1897);
 
 /***/ }),
 
@@ -3817,9 +3787,13 @@ PanelGroupContext.displayName = 'PanelGroupContext';
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/entries.js
 var entries = __webpack_require__(1953);
 var entries_default = /*#__PURE__*/__webpack_require__.n(entries);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js
+var stringify = __webpack_require__(3837);
 // EXTERNAL MODULE: ./node_modules/invariant/browser.js
 var browser = __webpack_require__(3737);
 var browser_default = /*#__PURE__*/__webpack_require__.n(browser);
+// EXTERNAL MODULE: ./node_modules/warning/browser.js
+var warning_browser = __webpack_require__(7909);
 ;// ./src/utils/StyleConfig.js
 var Size = {
   LARGE: 'large',
@@ -3852,7 +3826,10 @@ var Style = {
 ;// ./src/utils/bootstrapUtils.js
 
 
+
 // TODO: The publicly exposed parts of this should be in lib/BootstrapUtils.
+
+
 
 
 
@@ -3875,6 +3852,107 @@ function curry(fn) {
   };
 }
 
+function componentName(Component) {
+  return Component.displayName || Component.name || 'Component';
+}
+
+function isReactClass(Component) {
+  return Boolean(Component && Component.prototype && typeof Component.prototype.render === 'function');
+}
+
+function warnOutOfRange(name, propName, value, allowed) {
+  if (value != null && allowed.indexOf(value) === -1) {
+     false ? 0 : void 0;
+  }
+} // Patch a class component's `render` so `propName` is validated on every
+// render, without wrapping the component (which would break ref forwarding,
+// static reads, and — for e.g. `bsRole` — class `defaultProps` merging).
+
+
+function patchRenderValidation(Component, propName, allowed) {
+  var flag = "__bsValidated_" + propName;
+  var proto = Component.prototype;
+
+  if (Object.prototype.hasOwnProperty.call(proto, flag)) {
+    return;
+  }
+
+  var name = componentName(Component);
+  var innerRender = proto.render;
+
+  proto.render = function validatedRender() {
+    warnOutOfRange(name, propName, this.props[propName], allowed);
+
+    for (var _len2 = arguments.length, renderArgs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      renderArgs[_key2] = arguments[_key2];
+    }
+
+    return innerRender.apply(this, renderArgs);
+  };
+
+  proto[flag] = true;
+} // Wrap a function component so the default is applied and the value validated
+// at render.
+
+
+function wrapFunctionComponent(Inner, _ref) {
+  var propName = _ref.propName,
+      defaultValue = _ref.defaultValue,
+      allowed = _ref.allowed;
+  var name = componentName(Inner);
+
+  function BootstrapComponent(props) {
+    var _extends2;
+
+    var resolved = defaultValue !== undefined && props[propName] === undefined ? _extends({}, props, (_extends2 = {}, _extends2[propName] = defaultValue, _extends2)) : props;
+
+    if (allowed) {
+      warnOutOfRange(name, propName, resolved[propName], allowed);
+    }
+
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Inner, resolved);
+  }
+
+  BootstrapComponent.displayName = name; // Carry over metadata read elsewhere: `propTypes`/`_values` for docs and
+  // `STYLES`/`SIZES` for decorator chaining.
+
+  if (Inner.propTypes) BootstrapComponent.propTypes = Inner.propTypes;
+  if (Inner.STYLES) BootstrapComponent.STYLES = Inner.STYLES;
+  if (Inner.SIZES) BootstrapComponent.SIZES = Inner.SIZES;
+  return BootstrapComponent;
+} // Apply a `bs*` default and (optionally) enum validation to a component,
+// dispatching on what kind of thing it is. Class components keep working
+// `defaultProps`; function components get a validating wrapper; anything else
+// (e.g. a plain object in tests) just records the default.
+
+
+function applyBsProp(Component, _ref2) {
+  var propName = _ref2.propName,
+      defaultValue = _ref2.defaultValue,
+      allowed = _ref2.allowed;
+  var isClassComponent = isReactClass(Component);
+
+  if (typeof Component === 'function' && !isClassComponent) {
+    return wrapFunctionComponent(Component, {
+      propName: propName,
+      defaultValue: defaultValue,
+      allowed: allowed
+    });
+  }
+
+  if (defaultValue !== undefined) {
+    var _extends3;
+
+    Component.defaultProps = _extends({}, Component.defaultProps, (_extends3 = {}, _extends3[propName] = defaultValue, _extends3));
+  }
+
+  if (allowed && isClassComponent) {
+    patchRenderValidation(Component, propName, allowed);
+  }
+
+  return Component;
+}
+
 function prefix(props, variant) {
   var bsClass = (props.bsClass || '').trim();
   !(bsClass != null) ?  false ? 0 : browser_default()(false) : void 0;
@@ -3882,10 +3960,11 @@ function prefix(props, variant) {
 }
 var bsClass = curry(function (defaultClass, Component) {
   var propTypes = Component.propTypes || (Component.propTypes = {});
-  var defaultProps = Component.defaultProps || (Component.defaultProps = {});
   propTypes.bsClass = (prop_types_default()).string;
-  defaultProps.bsClass = defaultClass;
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsClass',
+    defaultValue: defaultClass
+  });
 });
 var bsStyles = curry(function (styles, defaultStyle, Component) {
   if (typeof defaultStyle !== 'string') {
@@ -3907,13 +3986,11 @@ var bsStyles = curry(function (styles, defaultStyle, Component) {
   Component.propTypes = _extends({}, propTypes, {
     bsStyle: propType
   });
-
-  if (defaultStyle !== undefined) {
-    var defaultProps = Component.defaultProps || (Component.defaultProps = {});
-    defaultProps.bsStyle = defaultStyle;
-  }
-
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsStyle',
+    defaultValue: defaultStyle,
+    allowed: existing
+  });
 });
 var bsSizes = curry(function (sizes, defaultSize, Component) {
   if (typeof defaultSize !== 'string') {
@@ -3945,16 +4022,11 @@ var bsSizes = curry(function (sizes, defaultSize, Component) {
   Component.propTypes = _extends({}, propTypes, {
     bsSize: propType
   });
-
-  if (defaultSize !== undefined) {
-    if (!Component.defaultProps) {
-      Component.defaultProps = {};
-    }
-
-    Component.defaultProps.bsSize = defaultSize;
-  }
-
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsSize',
+    defaultValue: defaultSize,
+    allowed: values
+  });
 });
 function getClassSet(props) {
   var _classes;
@@ -3989,9 +4061,9 @@ function isBsProp(propName) {
 function splitBsProps(props) {
   var elementProps = {};
 
-  entries_default()(props).forEach(function (_ref) {
-    var propName = _ref[0],
-        propValue = _ref[1];
+  entries_default()(props).forEach(function (_ref3) {
+    var propName = _ref3[0],
+        propValue = _ref3[1];
 
     if (!isBsProp(propName)) {
       elementProps[propName] = propValue;
@@ -4007,9 +4079,9 @@ function splitBsPropsAndOmit(props, omittedPropNames) {
   });
   var elementProps = {};
 
-  entries_default()(props).forEach(function (_ref2) {
-    var propName = _ref2[0],
-        propValue = _ref2[1];
+  entries_default()(props).forEach(function (_ref4) {
+    var propName = _ref4[0],
+        propValue = _ref4[1];
 
     if (!isBsProp(propName) && !isOmittedProp[propName]) {
       elementProps[propName] = propValue;
@@ -4024,8 +4096,8 @@ function splitBsPropsAndOmit(props, omittedPropNames) {
  */
 
 function addStyle(Component) {
-  for (var _len2 = arguments.length, styleVariant = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-    styleVariant[_key2 - 1] = arguments[_key2];
+  for (var _len3 = arguments.length, styleVariant = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+    styleVariant[_key3 - 1] = arguments[_key3];
   }
 
   bsStyles(styleVariant, Component);
@@ -4206,11 +4278,7 @@ function toArray(children) {
   some: some,
   toArray: toArray
 });
-// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/utils/createChainableTypeChecker.js
-var createChainableTypeChecker = __webpack_require__(8663);
-var createChainableTypeChecker_default = /*#__PURE__*/__webpack_require__.n(createChainableTypeChecker);
 ;// ./src/utils/PropTypes.js
-
 
 
 var idPropType = prop_types_default().oneOfType([(prop_types_default()).string, (prop_types_default()).number]);
@@ -4233,57 +4301,66 @@ function generatedId(name) {
     return error;
   };
 }
-function requiredRoles() {
-  for (var _len2 = arguments.length, roles = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    roles[_key2] = arguments[_key2];
+/**
+ * Return a warning message if `children` is missing a child for any of the
+ * required `roles`, otherwise `null`. `bsRole` is matched against each child's
+ * `bsRole` prop.
+ */
+
+function getMissingRoleError(component, children) {
+  var missing;
+
+  for (var _len2 = arguments.length, roles = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+    roles[_key2 - 2] = arguments[_key2];
   }
 
-  return createChainableTypeChecker_default()(function (props, propName, component) {
-    var missing;
-    roles.every(function (role) {
-      if (!ValidComponentChildren.some(props.children, function (child) {
-        return child.props.bsRole === role;
-      })) {
-        missing = role;
-        return false;
-      }
-
-      return true;
-    });
-
-    if (missing) {
-      return new Error("(children) " + component + " - Missing a required child with bsRole: " + (missing + ". " + component + " must have at least one child of each of ") + ("the following bsRoles: " + roles.join(', ')));
+  roles.every(function (role) {
+    if (!ValidComponentChildren.some(children, function (child) {
+      return child.props.bsRole === role;
+    })) {
+      missing = role;
+      return false;
     }
 
-    return null;
+    return true;
   });
+
+  if (missing) {
+    return "(children) " + component + " - Missing a required child with bsRole: " + (missing + ". " + component + " must have at least one child of each of ") + ("the following bsRoles: " + roles.join(', '));
+  }
+
+  return null;
 }
-function exclusiveRoles() {
-  for (var _len3 = arguments.length, roles = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-    roles[_key3] = arguments[_key3];
+/**
+ * Return a warning message if `children` contains more than one child for any
+ * of the exclusive `roles`, otherwise `null`.
+ */
+
+function getDuplicateRoleError(component, children) {
+  var duplicate;
+
+  for (var _len3 = arguments.length, roles = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+    roles[_key3 - 2] = arguments[_key3];
   }
 
-  return createChainableTypeChecker_default()(function (props, propName, component) {
-    var duplicate;
-    roles.every(function (role) {
-      var childrenWithRole = ValidComponentChildren.filter(props.children, function (child) {
-        return child.props.bsRole === role;
-      });
-
-      if (childrenWithRole.length > 1) {
-        duplicate = role;
-        return false;
-      }
-
-      return true;
+  roles.every(function (role) {
+    var childrenWithRole = ValidComponentChildren.filter(children, function (child) {
+      return child.props.bsRole === role;
     });
 
-    if (duplicate) {
-      return new Error("(children) " + component + " - Duplicate children detected of bsRole: " + (duplicate + ". Only one child each allowed with the following ") + ("bsRoles: " + roles.join(', ')));
+    if (childrenWithRole.length > 1) {
+      duplicate = role;
+      return false;
     }
 
-    return null;
+    return true;
   });
+
+  if (duplicate) {
+    return "(children) " + component + " - Duplicate children detected of bsRole: " + (duplicate + ". Only one child each allowed with the following ") + ("bsRoles: " + roles.join(', '));
+  }
+
+  return null;
 }
 ;// ./src/PanelGroup.js
 
@@ -5092,9 +5169,6 @@ function (_React$Component) {
 Button.propTypes = Button_propTypes;
 Button.defaultProps = Button_defaultProps;
 /* harmony default export */ const src_Button = (bsClass('btn', bsSizes([Size.LARGE, Size.SMALL, Size.XSMALL], bsStyles(values_default()(State).concat([Style.DEFAULT, Style.PRIMARY, Style.LINK]), Style.DEFAULT, Button))));
-// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/all.js
-var lib_all = __webpack_require__(3526);
-var all_default = /*#__PURE__*/__webpack_require__.n(lib_all);
 ;// ./src/ButtonGroup.js
 
 
@@ -5114,11 +5188,7 @@ var ButtonGroup_propTypes = {
    * Display block buttons; only useful when used with the "vertical" prop.
    * @type {bool}
    */
-  block: all_default()((prop_types_default()).bool, function (_ref) {
-    var block = _ref.block,
-        vertical = _ref.vertical;
-    return block && !vertical ? new Error('`block` requires `vertical` to be set to have any effect') : null;
-  })
+  block: (prop_types_default()).bool
 };
 var ButtonGroup_defaultProps = {
   block: false,
@@ -5151,13 +5221,15 @@ function (_React$Component) {
         bsProps = _splitBsProps[0],
         elementProps = _splitBsProps[1];
 
+     false ? 0 : void 0;
+
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps)] = !vertical, _extends2[prefix(bsProps, 'vertical')] = vertical, _extends2[prefix(bsProps, 'justified')] = justified, _extends2[prefix(src_Button.defaultProps, 'block')] = block, _extends2));
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: ButtonGroup_jsxFileName,
-        lineNumber: 52
+        lineNumber: 51
       },
       __self: this
     }));
@@ -5901,8 +5973,6 @@ Carousel.defaultProps = Carousel_defaultProps;
 Carousel.Caption = src_CarouselCaption;
 Carousel.Item = src_CarouselItem;
 /* harmony default export */ const src_Carousel = (bsClass('carousel', Carousel));
-// EXTERNAL MODULE: ./node_modules/warning/browser.js
-var warning_browser = __webpack_require__(7909);
 ;// ./src/Checkbox.js
 
 
@@ -7178,7 +7248,7 @@ function (_React$Component) {
       onExiting: handleExiting,
       __source: {
         fileName: Collapse_jsxFileName,
-        lineNumber: 213
+        lineNumber: 216
       },
       __self: this
     }), function (state, innerProps) {
@@ -7783,7 +7853,7 @@ var Dropdown_propTypes = {
    * The children of a Dropdown may be a `<Dropdown.Toggle>` or a `<Dropdown.Menu>`.
    * @type {node}
    */
-  children: all_default()(requiredRoles(TOGGLE_ROLE, MENU_ROLE), exclusiveRoles(MENU_ROLE)),
+  children: (prop_types_default()).node,
 
   /**
    * Whether or not component is disabled.
@@ -8043,6 +8113,18 @@ function (_React$Component) {
         props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "id", "dropup", "disabled", "pullRight", "open", "onSelect", "role", "bsClass", "className", "rootCloseEvent", "children"]);
 
     delete props.onToggle;
+    var missingRoleError = getMissingRoleError('Dropdown', children, TOGGLE_ROLE, MENU_ROLE);
+
+    if (missingRoleError) {
+       false ? 0 : void 0;
+    }
+
+    var duplicateRoleError = getDuplicateRoleError('Dropdown', children, MENU_ROLE);
+
+    if (duplicateRoleError) {
+       false ? 0 : void 0;
+    }
+
     var classes = (_classes = {}, _classes[bsClass] = true, _classes.open = open, _classes.disabled = disabled, _classes);
 
     if (dropup) {
@@ -8059,14 +8141,14 @@ function (_React$Component) {
       },
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 311
+        lineNumber: 327
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 312
+        lineNumber: 328
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
@@ -8318,7 +8400,7 @@ function (_React$Component) {
       nodeRef: this.childRef,
       __source: {
         fileName: Fade_jsxFileName,
-        lineNumber: 95
+        lineNumber: 96
       },
       __self: this
     }), function (status, innerProps) {
@@ -9808,11 +9890,7 @@ var MenuItem_propTypes = {
    * Styles the menu item as a horizontal rule, providing visual separation between
    * groups of menu items.
    */
-  divider: all_default()((prop_types_default()).bool, function (_ref) {
-    var divider = _ref.divider,
-        children = _ref.children;
-    return divider && children ? new Error('Children will not be rendered for dividers') : null;
-  }),
+  divider: (prop_types_default()).bool,
 
   /**
    * Value passed to the `onSelect` handler, useful for identifying the selected menu item.
@@ -9895,6 +9973,8 @@ function (_React$Component) {
         style = _this$props2.style,
         props = _objectWithoutPropertiesLoose(_this$props2, ["active", "disabled", "divider", "header", "onClick", "className", "style"]);
 
+     false ? 0 : void 0;
+
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['eventKey', 'onSelect']),
         bsProps = _splitBsPropsAndOmit[0],
         elementProps = _splitBsPropsAndOmit[1];
@@ -9908,7 +9988,7 @@ function (_React$Component) {
         style: style,
         __source: {
           fileName: MenuItem_jsxFileName,
-          lineNumber: 114
+          lineNumber: 113
         },
         __self: this
       }));
@@ -9921,7 +10001,7 @@ function (_React$Component) {
         style: style,
         __source: {
           fileName: MenuItem_jsxFileName,
-          lineNumber: 125
+          lineNumber: 124
         },
         __self: this
       }));
@@ -9936,7 +10016,7 @@ function (_React$Component) {
       style: style,
       __source: {
         fileName: MenuItem_jsxFileName,
-        lineNumber: 135
+        lineNumber: 134
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_SafeAnchor, _extends({}, elementProps, {
@@ -9945,7 +10025,7 @@ function (_React$Component) {
       onClick: utils_createChainedFunction(onClick, this.handleClick),
       __source: {
         fileName: MenuItem_jsxFileName,
-        lineNumber: 140
+        lineNumber: 139
       },
       __self: this
     })));
@@ -11668,7 +11748,6 @@ var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
 
 
 
-
  // TODO: Should we expose `<NavItem>` as `<Nav.Item>`?
 // TODO: This `bsStyle` is very unlike the others. Should we rename it?
 // TODO: `pullRight` and `pullLeft` don't render right outside of `navbar`.
@@ -11690,11 +11769,7 @@ var Nav_propTypes = {
    * NavItems are be positioned vertically.
    */
   stacked: (prop_types_default()).bool,
-  justified: all_default()((prop_types_default()).bool, function (_ref) {
-    var justified = _ref.justified,
-        navbar = _ref.navbar;
-    return justified && navbar ? Error('justified navbar `Nav`s are not supported') : null;
-  }),
+  justified: (prop_types_default()).bool,
 
   /**
    * A callback fired when a NavItem is selected.
@@ -11900,8 +11975,8 @@ function (_React$Component) {
     this._needsRefocus = true;
   };
 
-  _proto.isActive = function isActive(_ref2, activeKey, activeHref) {
-    var props = _ref2.props;
+  _proto.isActive = function isActive(_ref, activeKey, activeHref) {
+    var props = _ref.props;
 
     if (props.active || activeKey != null && props.eventKey === activeKey || activeHref && props.href === activeHref) {
       return true;
@@ -11943,6 +12018,8 @@ function (_React$Component) {
         bsProps = _splitBsProps[0],
         elementProps = _splitBsProps[1];
 
+     false ? 0 : void 0;
+
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
 
     var navbar = propsNavbar != null ? propsNavbar : navbarContext;
@@ -11970,7 +12047,7 @@ function (_React$Component) {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Nav_jsxFileName,
-        lineNumber: 316
+        lineNumber: 314
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
@@ -12000,7 +12077,7 @@ function NavWithContext(props) {
     tabContainerContext: tabContainerContext,
     __source: {
       fileName: Nav_jsxFileName,
-      lineNumber: 358
+      lineNumber: 356
     },
     __self: this
   }));
@@ -15621,30 +15698,7 @@ function (_React$Component) {
         lineNumber: 208
       },
       __self: this
-    }), overlay); //   try {
-    //   return (
-    //     <Overlay
-    //       {...props}
-    //       show={this.state.show}
-    //       onHide={this.handleHide}
-    //       target={this}
-    //     >
-    //       {({props: overlayProps, arrowProps, placement}) => {
-    //         const {ref, style, ...otherOverlayProps} = overlayProps;
-    //         console.log('aa', overlayProps.ref);
-    //         return <div>aaa</div>;
-    //         // return cloneElement(overlay, {
-    //         //   ...overlay.props,
-    //         //   ref: overlayProps.ref,
-    //         //   style: overlayProps.style,
-    //         // })
-    //       }}
-    //     </Overlay>
-    //   );
-    // } catch (e) {
-    //   console.error('HARR', e)
-    //   return undefined;
-    // }
+    }), overlay);
   };
 
   _proto.show = function show() {
@@ -15703,7 +15757,7 @@ function (_React$Component) {
       },
       __source: {
         fileName: OverlayTrigger_jsxFileName,
-        lineNumber: 321
+        lineNumber: 297
       },
       __self: this
     }, (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, triggerProps)), external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal(this.makeOverlay(overlay, props), document.body));
@@ -16945,18 +16999,13 @@ var ProgressBar_jsxFileName = "/Users/harrison/react-bootstrap/src/ProgressBar.j
 
 
 
+
 var ROUND_PRECISION = 1000;
 /**
  * Validate that children, if any, are instances of `<ProgressBar>`.
  */
 
-function onlyProgressBar(props, propName, componentName) {
-  var children = props[propName];
-
-  if (!children) {
-    return null;
-  }
-
+function getInvalidChildError(children) {
   var error = null;
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.forEach(children, function (child) {
     if (error) {
@@ -16973,13 +17022,13 @@ function onlyProgressBar(props, propName, componentName) {
     var element = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ProgressBar, {
       __source: {
         fileName: ProgressBar_jsxFileName,
-        lineNumber: 39
+        lineNumber: 35
       },
       __self: this
     });
     if (child.type === element.type) return;
     var childIdentifier = external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child) ? child.type.displayName || child.type.name || child.type : child;
-    error = new Error("Children of " + componentName + " can contain only ProgressBar " + ("components. Found " + childIdentifier + "."));
+    error = "Children of ProgressBar can contain only ProgressBar " + ("components. Found " + childIdentifier + ".");
   });
   return error;
 }
@@ -16992,7 +17041,7 @@ var ProgressBar_propTypes = {
   srOnly: (prop_types_default()).bool,
   striped: (prop_types_default()).bool,
   active: (prop_types_default()).bool,
-  children: onlyProgressBar,
+  children: (prop_types_default()).node,
 
   /**
    * @private
@@ -17057,14 +17106,14 @@ function (_React$Component) {
       "aria-valuemax": max,
       __source: {
         fileName: ProgressBar_jsxFileName,
-        lineNumber: 106
+        lineNumber: 101
       },
       __self: this
     }), srOnly ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "sr-only",
       __source: {
         fileName: ProgressBar_jsxFileName,
-        lineNumber: 115
+        lineNumber: 110
       },
       __self: this
     }, label) : label);
@@ -17091,6 +17140,12 @@ function (_React$Component) {
         className = props.className,
         children = props.children,
         wrapperProps = _objectWithoutPropertiesLoose(props, ["min", "now", "max", "label", "srOnly", "striped", "active", "bsClass", "bsStyle", "className", "children"]);
+
+    var childError = children ? getInvalidChildError(children) : null;
+
+    if (childError) {
+       false ? 0 : void 0;
+    }
 
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, wrapperProps, {
       className: classnames_default()(className, 'progress'),
