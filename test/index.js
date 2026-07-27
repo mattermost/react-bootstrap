@@ -21,16 +21,6 @@ beforeEach(() => {
       return;
     }
 
-    if (msg.includes('defaultProps')) {
-      // @hmhealey This is removed in React 19
-      return;
-    }
-
-    if (msg.includes('childContextTypes') || msg.includes('contextTypes')) {
-      // @hmhealey These are removed in React 19
-      return;
-    }
-
     console.error.threw = true;
     throw new Error(msg);
   });
@@ -45,7 +35,7 @@ afterEach(() => {
   /* eslint-disable no-console */
   try {
     if (!console.error.threw && console.error.expected.length) {
-      // expect(console.error.warned).to.have.keys(console.error.expected);
+      expect(console.error.warned).to.have.keys(console.error.expected);
     }
   } finally {
     // Always restore the stub, even when the expectation above fails, so a
