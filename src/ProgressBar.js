@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
+import warning from 'warning';
 
 import {
   bsClass as setBsClass,
@@ -17,12 +18,7 @@ const ROUND_PRECISION = 1000;
 /**
  * Validate that children, if any, are instances of `<ProgressBar>`.
  */
-function onlyProgressBar(props, propName, componentName) {
-  const children = props[propName];
-  if (!children) {
-    return null;
-  }
-
+function getInvalidChildError(children) {
   let error = null;
 
   React.Children.forEach(children, child => {
@@ -42,10 +38,9 @@ function onlyProgressBar(props, propName, componentName) {
     const childIdentifier = React.isValidElement(child)
       ? child.type.displayName || child.type.name || child.type
       : child;
-    error = new Error(
-      `Children of ${componentName} can contain only ProgressBar ` +
-        `components. Found ${childIdentifier}.`
-    );
+    error =
+      `Children of ProgressBar can contain only ProgressBar ` +
+      `components. Found ${childIdentifier}.`;
   });
 
   return error;
@@ -59,7 +54,7 @@ const propTypes = {
   srOnly: PropTypes.bool,
   striped: PropTypes.bool,
   active: PropTypes.bool,
-  children: onlyProgressBar,
+  children: PropTypes.node,
 
   /**
    * @private
@@ -138,6 +133,11 @@ class ProgressBar extends React.Component {
       children,
       ...wrapperProps
     } = props;
+
+    const childError = children ? getInvalidChildError(children) : null;
+    if (childError) {
+      warning(false, childError);
+    }
 
     return (
       <div {...wrapperProps} className={classNames(className, 'progress')}>
