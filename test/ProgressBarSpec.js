@@ -217,7 +217,7 @@ describe('<ProgressBar>', () => {
   });
 
   it('allows only ProgressBar in children', () => {
-    shouldWarn('Failed prop');
+    shouldWarn('can contain only ProgressBar');
 
     function NotProgressBar() {
       return null;

@@ -3,17 +3,17 @@ import activeElement from 'dom-helpers/activeElement';
 import contains from 'dom-helpers/query/contains';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
 import elementType from 'prop-types-extra/lib/elementType';
 import isRequiredForA11y from 'prop-types-extra/lib/isRequiredForA11y';
 import uncontrollable from 'uncontrollable';
+import warning from 'warning';
 
 import ButtonGroup from './ButtonGroup';
 import DropdownMenu from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
 import { bsClass as setBsClass, prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
-import { exclusiveRoles, requiredRoles } from './utils/PropTypes';
+import { getDuplicateRoleError, getMissingRoleError } from './utils/PropTypes';
 import ValidComponentChildren from './utils/ValidComponentChildren';
 
 const TOGGLE_ROLE = DropdownToggle.defaultProps.bsRole;
@@ -40,10 +40,7 @@ const propTypes = {
    * The children of a Dropdown may be a `<Dropdown.Toggle>` or a `<Dropdown.Menu>`.
    * @type {node}
    */
-  children: all(
-    requiredRoles(TOGGLE_ROLE, MENU_ROLE),
-    exclusiveRoles(MENU_ROLE)
-  ),
+  children: PropTypes.node,
 
   /**
    * Whether or not component is disabled.
@@ -292,6 +289,25 @@ class Dropdown extends React.Component {
     } = this.props;
 
     delete props.onToggle;
+
+    const missingRoleError = getMissingRoleError(
+      'Dropdown',
+      children,
+      TOGGLE_ROLE,
+      MENU_ROLE
+    );
+    if (missingRoleError) {
+      warning(false, missingRoleError);
+    }
+
+    const duplicateRoleError = getDuplicateRoleError(
+      'Dropdown',
+      children,
+      MENU_ROLE
+    );
+    if (duplicateRoleError) {
+      warning(false, duplicateRoleError);
+    }
 
     const classes = {
       [bsClass]: true,
