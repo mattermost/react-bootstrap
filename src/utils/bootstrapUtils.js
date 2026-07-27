@@ -3,6 +3,8 @@
 import invariant from 'invariant';
 import { isValidElementType } from 'react-is';
 import PropTypes from 'prop-types';
+import React from 'react';
+import warning from 'warning';
 
 import { SIZE_MAP } from './StyleConfig';
 
@@ -19,6 +21,107 @@ function curry(fn) {
   };
 }
 
+function componentName(Component) {
+  return Component.displayName || Component.name || 'Component';
+}
+
+function isReactClass(Component) {
+  return Boolean(
+    Component &&
+      Component.prototype &&
+      typeof Component.prototype.render === 'function'
+  );
+}
+
+function warnOutOfRange(name, propName, value, allowed) {
+  if (value != null && allowed.indexOf(value) === -1) {
+    warning(
+      false,
+      `Invalid prop \`${propName}\` of value \`${value}\` supplied to ` +
+        `\`${name}\`, expected one of ${JSON.stringify(allowed)}.`
+    );
+  }
+}
+
+// Patch a class component's `render` so `propName` is validated on every
+// render, without wrapping the component (which would break ref forwarding,
+// static reads, and — for e.g. `bsRole` — class `defaultProps` merging).
+function patchRenderValidation(Component, propName, allowed) {
+  const flag = `__bsValidated_${propName}`;
+  const proto = Component.prototype;
+
+  if (Object.prototype.hasOwnProperty.call(proto, flag)) {
+    return;
+  }
+
+  const name = componentName(Component);
+  const innerRender = proto.render;
+
+  proto.render = function validatedRender(...renderArgs) {
+    warnOutOfRange(name, propName, this.props[propName], allowed);
+    return innerRender.apply(this, renderArgs);
+  };
+  proto[flag] = true;
+}
+
+// Wrap a function component so the default is applied and the value validated
+// at render.
+function wrapFunctionComponent(Inner, { propName, defaultValue, allowed }) {
+  const name = componentName(Inner);
+
+  function BootstrapComponent(props) {
+    const resolved =
+      defaultValue !== undefined && props[propName] === undefined
+        ? { ...props, [propName]: defaultValue }
+        : props;
+
+    if (allowed) {
+      warnOutOfRange(name, propName, resolved[propName], allowed);
+    }
+
+    return React.createElement(Inner, resolved);
+  }
+
+  BootstrapComponent.displayName = name;
+
+  // Carry over metadata read elsewhere: `propTypes`/`_values` for docs and
+  // `STYLES`/`SIZES` for decorator chaining.
+  if (Inner.propTypes) BootstrapComponent.propTypes = Inner.propTypes;
+  if (Inner.STYLES) BootstrapComponent.STYLES = Inner.STYLES;
+  if (Inner.SIZES) BootstrapComponent.SIZES = Inner.SIZES;
+
+  return BootstrapComponent;
+}
+
+// Apply a `bs*` default and (optionally) enum validation to a component,
+// dispatching on what kind of thing it is. Class components keep working
+// `defaultProps`; function components get a validating wrapper; anything else
+// (e.g. a plain object in tests) just records the default.
+function applyBsProp(Component, { propName, defaultValue, allowed }) {
+  const isClassComponent = isReactClass(Component);
+
+  if (typeof Component === 'function' && !isClassComponent) {
+    return wrapFunctionComponent(Component, {
+      propName,
+      defaultValue,
+      allowed
+    });
+  }
+
+  if (defaultValue !== undefined) {
+    Component.defaultProps = {
+      ...Component.defaultProps,
+      [propName]: defaultValue
+    };
+  }
+
+  if (allowed && isClassComponent) {
+    patchRenderValidation(Component, propName, allowed);
+  }
+
+  return Component;
+}
+
 export function prefix(props, variant) {
   let bsClass = (props.bsClass || '').trim();
   invariant(bsClass != null, 'A `bsClass` prop is required for this component');
@@ -27,12 +130,13 @@ export function prefix(props, variant) {
 
 export const bsClass = curry((defaultClass, Component) => {
   let propTypes = Component.propTypes || (Component.propTypes = {});
-  let defaultProps = Component.defaultProps || (Component.defaultProps = {});
 
   propTypes.bsClass = PropTypes.string;
-  defaultProps.bsClass = defaultClass;
 
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsClass',
+    defaultValue: defaultClass
+  });
 });
 
 export const bsStyles = curry((styles, defaultStyle, Component) => {
@@ -61,12 +165,11 @@ export const bsStyles = curry((styles, defaultStyle, Component) => {
     bsStyle: propType
   };
 
-  if (defaultStyle !== undefined) {
-    let defaultProps = Component.defaultProps || (Component.defaultProps = {});
-    defaultProps.bsStyle = defaultStyle;
-  }
-
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsStyle',
+    defaultValue: defaultStyle,
+    allowed: existing
+  });
 });
 
 export const bsSizes = curry((sizes, defaultSize, Component) => {
@@ -105,14 +208,11 @@ export const bsSizes = curry((sizes, defaultSize, Component) => {
     bsSize: propType
   };
 
-  if (defaultSize !== undefined) {
-    if (!Component.defaultProps) {
-      Component.defaultProps = {};
-    }
-    Component.defaultProps.bsSize = defaultSize;
-  }
-
-  return Component;
+  return applyBsProp(Component, {
+    propName: 'bsSize',
+    defaultValue: defaultSize,
+    allowed: values
+  });
 });
 
 export function getClassSet(props) {
