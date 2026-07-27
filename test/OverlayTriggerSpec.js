@@ -154,10 +154,6 @@ describe('<OverlayTrigger>', () => {
     ContextReader.contextType = TestContext;
 
     class ContextHolder extends React.Component {
-      getChildContext() {
-        return { key: 'value' };
-      }
-
       render() {
         return (
           <TestContext.Provider value={{ key: 'value' }}>
