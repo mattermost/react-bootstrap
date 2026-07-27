@@ -21,11 +21,6 @@ beforeEach(() => {
       return;
     }
 
-    if (msg.includes('defaultProps')) {
-      // @hmhealey This is removed in React 19
-      return;
-    }
-
     console.error.threw = true;
     throw new Error(msg);
   });
