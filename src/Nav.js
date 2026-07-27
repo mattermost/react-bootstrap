@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
 
 import NavbarContext from './NavbarContext';
@@ -40,13 +39,7 @@ const propTypes = {
    */
   stacked: PropTypes.bool,
 
-  justified: all(
-    PropTypes.bool,
-    ({ justified, navbar }) =>
-      justified && navbar
-        ? Error('justified navbar `Nav`s are not supported')
-        : null
-  ),
+  justified: PropTypes.bool,
 
   /**
    * A callback fired when a NavItem is selected.
@@ -286,6 +279,11 @@ class Nav extends React.Component {
     delete props.activeHref; // Accessed via this.getActiveProps().
 
     const [bsProps, elementProps] = splitBsProps(props);
+
+    warning(
+      !(justified && propsNavbar),
+      'justified navbar `Nav`s are not supported'
+    );
 
     const classes = {
       ...getClassSet(bsProps),
