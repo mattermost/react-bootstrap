@@ -79,15 +79,14 @@ describe('bootstrapUtils', () => {
 
   describe('bsStyles', () => {
     it('should add style to allowed propTypes', () => {
-      const Component = () => null;
-      bsStyles(['minimal', 'boss', 'plaid'])(Component);
+      const Component = bsStyles(['minimal', 'boss', 'plaid'])(() => null);
 
       expect(Component.propTypes).to.exist;
 
-      React.createElement(Component, { bsStyle: 'plaid' });
+      render(React.createElement(Component, { bsStyle: 'plaid' }));
 
       shouldWarn('expected one of ["minimal","boss","plaid"]');
-      React.createElement(Component, { bsStyle: 'not-plaid' });
+      render(React.createElement(Component, { bsStyle: 'not-plaid' }));
     });
 
     it('should not override other propTypes', () => {
@@ -101,13 +100,14 @@ describe('bootstrapUtils', () => {
     });
 
     it('should set a default if provided', () => {
-      const propTypes = { other: PropTypes.string };
-      const Component = () => null;
-      Component.propTypes = propTypes;
-      bsStyles(['minimal', 'boss', 'plaid'], 'plaid')(Component);
+      const Inner = props => <span data-bs-style={props.bsStyle} />;
+      const Component = bsStyles(['minimal', 'boss', 'plaid'], 'plaid')(Inner);
 
-      expect(Component.defaultProps).to.exist;
-      expect(Component.defaultProps.bsStyle).to.equal('plaid');
+      const { container } = render(React.createElement(Component));
+
+      expect(
+        container.querySelector('span').getAttribute('data-bs-style')
+      ).to.equal('plaid');
     });
 
     it('should work with ES classes', () => {
@@ -178,16 +178,15 @@ describe('bootstrapUtils', () => {
 
   describe('bsSizes', () => {
     it('should add size to allowed propTypes', () => {
-      const Component = () => null;
-      bsSizes(['large', 'small'])(Component);
+      const Component = bsSizes(['large', 'small'])(() => null);
 
       expect(Component.propTypes).to.exist;
 
-      React.createElement(Component, { bsSize: 'small' });
-      React.createElement(Component, { bsSize: 'sm' });
+      render(React.createElement(Component, { bsSize: 'small' }));
+      render(React.createElement(Component, { bsSize: 'sm' }));
 
       shouldWarn('expected one of ["lg","large","sm","small"]');
-      React.createElement(Component, { bsSize: 'superSmall' });
+      render(React.createElement(Component, { bsSize: 'superSmall' }));
     });
 
     it('should not override other propTypes', () => {

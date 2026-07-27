@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
+import warning from 'warning';
 
 import Button from './Button';
 import {
@@ -19,13 +19,7 @@ const propTypes = {
    * Display block buttons; only useful when used with the "vertical" prop.
    * @type {bool}
    */
-  block: all(
-    PropTypes.bool,
-    ({ block, vertical }) =>
-      block && !vertical
-        ? new Error('`block` requires `vertical` to be set to have any effect')
-        : null
-  )
+  block: PropTypes.bool
 };
 
 const defaultProps = {
@@ -38,6 +32,11 @@ class ButtonGroup extends React.Component {
   render() {
     const { block, justified, vertical, className, ...props } = this.props;
     const [bsProps, elementProps] = splitBsProps(props);
+
+    warning(
+      !(block && !vertical),
+      '`block` requires `vertical` to be set to have any effect'
+    );
 
     const classes = {
       ...getClassSet(bsProps),
