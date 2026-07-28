@@ -106,20 +106,12 @@ function (_React$Component) {
       transition: transition
     }), function (_ref) {
       var overlayProps = _ref.props;
-      return (// TODO do I need to do something with these other props?
-        // return cloneElement(children, {
-        //   ref: overlayProps.ref,
-        //   className: transition ? children.props.className : classNames(children.props.className, 'in'),
-        //   placement,
-        //   style: {...children.props.style, ...overlayProps.style},
-        // })
-        React.createElement("div", {
-          ref: overlayProps.ref,
-          style: {
-            display: 'content'
-          }
-        }, child)
-      );
+      return React.createElement("div", {
+        ref: overlayProps.ref,
+        style: {
+          display: 'content'
+        }
+      }, child);
     });
   };
 

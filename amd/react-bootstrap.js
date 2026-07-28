@@ -15431,25 +15431,17 @@ function (_React$Component) {
       __self: this
     }), function (_ref) {
       var overlayProps = _ref.props;
-      return (// TODO do I need to do something with these other props?
-        // return cloneElement(children, {
-        //   ref: overlayProps.ref,
-        //   className: transition ? children.props.className : classNames(children.props.className, 'in'),
-        //   placement,
-        //   style: {...children.props.style, ...overlayProps.style},
-        // })
-        external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          ref: overlayProps.ref,
-          style: {
-            display: 'content'
-          },
-          __source: {
-            fileName: Overlay_jsxFileName,
-            lineNumber: 100
-          },
-          __self: this
-        }, child)
-      );
+      return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        ref: overlayProps.ref,
+        style: {
+          display: 'content'
+        },
+        __source: {
+          fileName: Overlay_jsxFileName,
+          lineNumber: 93
+        },
+        __self: this
+      }, child);
     });
   };
 
