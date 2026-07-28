@@ -38,6 +38,11 @@ const propTypes = {
   backdropClassName: PropTypes.string,
 
   /**
+   * Add optional styles to .modal-backdrop
+   */
+  backdropStyle: PropTypes.object,
+
+  /**
    * Close the modal when escape key is pressed
    */
   keyboard: PropTypes.bool,
@@ -229,6 +234,7 @@ class Modal extends React.Component {
     const {
       backdrop,
       backdropClassName,
+      backdropStyle,
       animation,
       show,
       dialogComponentClass: Dialog,
@@ -262,6 +268,10 @@ class Modal extends React.Component {
                 backdropClassName,
                 inClassName
               )}
+              style={{
+                ...backdropProps.style,
+                ...backdropStyle
+              }}
             />
           )}
           onEntering={createChainedFunction(onEntering, this.handleEntering)}
