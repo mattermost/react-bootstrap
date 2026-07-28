@@ -89,14 +89,7 @@ class Overlay extends React.Component {
 
     return (
       <BaseOverlay {...props} target={null} transition={transition}>
-        {({ props: overlayProps /* , arrowProps, placement */ }) => (
-          // TODO do I need to do something with these other props?
-          // return cloneElement(children, {
-          //   ref: overlayProps.ref,
-          //   className: transition ? children.props.className : classNames(children.props.className, 'in'),
-          //   placement,
-          //   style: {...children.props.style, ...overlayProps.style},
-          // })
+        {({ props: overlayProps }) => (
           <div ref={overlayProps.ref} style={{ display: 'content' }}>
             {child}
           </div>
