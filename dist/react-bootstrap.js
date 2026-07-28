@@ -11114,13 +11114,13 @@ ModalContext.displayName = 'ModalContext';
 ;// ./src/ModalDialog.js
 
 
-
 var ModalDialog_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalDialog.js";
 
 
 
 
 
+var SIZES = [Size.LARGE, Size.SMALL];
 var ModalDialog_propTypes = {
   /**
    * A css class to apply to the Modal dialog DOM node.
@@ -11130,77 +11130,72 @@ var ModalDialog_propTypes = {
   /**
    * A method to run for the mousedown event on the dialog.
    */
-  handleDialogMouseDown: (prop_types_default()).func
+  handleDialogMouseDown: (prop_types_default()).func,
+  bsClass: (prop_types_default()).string,
+  bsSize: prop_types_default().oneOf(SIZES)
 };
+var ModalDialog = external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef(function (_ref, ref) {
+  var _extends2;
 
-var ModalDialog =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(ModalDialog, _React$Component);
+  var dialogClassName = _ref.dialogClassName,
+      className = _ref.className,
+      style = _ref.style,
+      children = _ref.children,
+      handleDialogMouseDown = _ref.handleDialogMouseDown,
+      _ref$bsClass = _ref.bsClass,
+      bsClass = _ref$bsClass === void 0 ? 'modal' : _ref$bsClass,
+      bsSize = _ref.bsSize,
+      props = _objectWithoutPropertiesLoose(_ref, ["dialogClassName", "className", "style", "children", "handleDialogMouseDown", "bsClass", "bsSize"]);
 
-  function ModalDialog() {
-    return _React$Component.apply(this, arguments) || this;
-  }
+  var _splitBsProps = splitBsProps(_extends({}, props, {
+    bsClass: bsClass,
+    bsSize: bsSize
+  })),
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
 
-  var _proto = ModalDialog.prototype;
+  var bsClassName = prefix(bsProps);
 
-  _proto.render = function render() {
-    var _extends2;
+  var modalStyle = _extends({
+    display: 'block'
+  }, style);
 
-    var _this$props = this.props,
-        dialogClassName = _this$props.dialogClassName,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        handleDialogMouseDown = _this$props.handleDialogMouseDown,
-        props = _objectWithoutPropertiesLoose(_this$props, ["dialogClassName", "className", "style", "children", "handleDialogMouseDown"]);
+  var dialogClasses = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[bsClassName] = false, _extends2[prefix(bsProps, 'dialog')] = true, _extends2));
 
-    var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
-    var bsClassName = prefix(bsProps);
-
-    var modalStyle = _extends({
-      display: 'block'
-    }, style);
-
-    var dialogClasses = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[bsClassName] = false, _extends2[prefix(bsProps, 'dialog')] = true, _extends2));
-
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, elementProps, {
-      tabIndex: "-1",
-      role: "dialog",
-      style: modalStyle,
-      className: classnames_default()(className, bsClassName),
-      __source: {
-        fileName: ModalDialog_jsxFileName,
-        lineNumber: 49
-      },
-      __self: this
-    }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: classnames_default()(dialogClassName, dialogClasses),
-      __source: {
-        fileName: ModalDialog_jsxFileName,
-        lineNumber: 56
-      },
-      __self: this
-    }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: prefix(bsProps, 'content'),
-      role: "document",
-      onMouseDown: handleDialogMouseDown,
-      __source: {
-        fileName: ModalDialog_jsxFileName,
-        lineNumber: 57
-      },
-      __self: this
-    }, children)));
-  };
-
-  return ModalDialog;
-}((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
-
+  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({
+    ref: ref
+  }, elementProps, {
+    tabIndex: "-1",
+    role: "dialog",
+    style: modalStyle,
+    className: classnames_default()(className, bsClassName),
+    __source: {
+      fileName: ModalDialog_jsxFileName,
+      lineNumber: 56
+    },
+    __self: this
+  }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: classnames_default()(dialogClassName, dialogClasses),
+    __source: {
+      fileName: ModalDialog_jsxFileName,
+      lineNumber: 64
+    },
+    __self: this
+  }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: prefix(bsProps, 'content'),
+    role: "document",
+    onMouseDown: handleDialogMouseDown,
+    __source: {
+      fileName: ModalDialog_jsxFileName,
+      lineNumber: 65
+    },
+    __self: this
+  }, children)));
+});
+ModalDialog.displayName = 'ModalDialog';
 ModalDialog.propTypes = ModalDialog_propTypes;
-/* harmony default export */ const src_ModalDialog = (bsClass('modal', bsSizes([Size.LARGE, Size.SMALL], ModalDialog)));
+ModalDialog.SIZES = SIZES;
+/* harmony default export */ const src_ModalDialog = (ModalDialog);
 ;// ./src/ModalFooter.js
 
 
@@ -11653,6 +11648,8 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this2 = this;
+
     var _this$props = this.props,
         backdrop = _this$props.backdrop,
         backdropClassName = _this$props.backdropClassName,
@@ -11699,6 +11696,19 @@ function (_React$Component) {
           __self: this
         }));
       },
+      renderDialog: function renderDialog(renderProps) {
+        return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Dialog, _extends({}, dialogProps, renderProps, {
+          style: _extends({}, renderProps.style, _this2.state.style, style),
+          className: classnames_default()(renderProps.className, className, inClassName),
+          onClick: backdrop === true ? _this2.handleDialogClick : null,
+          handleDialogMouseDown: _this2.handleDialogMouseDown,
+          __source: {
+            fileName: Modal_jsxFileName,
+            lineNumber: 278
+          },
+          __self: this
+        }), children);
+      },
       onEntering: utils_createChainedFunction(onEntering, this.handleEntering),
       onExited: utils_createChainedFunction(onExited, this.handleExited),
       __source: {
@@ -11706,17 +11716,7 @@ function (_React$Component) {
         lineNumber: 255
       },
       __self: this
-    }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Dialog, _extends({}, dialogProps, {
-      style: _extends({}, this.state.style, style),
-      className: classnames_default()(className, inClassName),
-      onClick: backdrop === true ? this.handleDialogClick : null,
-      handleDialogMouseDown: this.handleDialogMouseDown,
-      __source: {
-        fileName: Modal_jsxFileName,
-        lineNumber: 280
-      },
-      __self: this
-    }), children)));
+    })));
   };
 
   return Modal;

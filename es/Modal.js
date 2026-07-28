@@ -234,6 +234,8 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this2 = this;
+
     var _this$props = this.props,
         backdrop = _this$props.backdrop,
         backdropClassName = _this$props.backdropClassName,
@@ -270,14 +272,17 @@ function (_React$Component) {
           style: _extends({}, backdropProps.style, backdropStyle)
         }));
       },
+      renderDialog: function renderDialog(renderProps) {
+        return React.createElement(Dialog, _extends({}, dialogProps, renderProps, {
+          style: _extends({}, renderProps.style, _this2.state.style, style),
+          className: classNames(renderProps.className, className, inClassName),
+          onClick: backdrop === true ? _this2.handleDialogClick : null,
+          handleDialogMouseDown: _this2.handleDialogMouseDown
+        }), children);
+      },
       onEntering: createChainedFunction(onEntering, this.handleEntering),
       onExited: createChainedFunction(onExited, this.handleExited)
-    }), React.createElement(Dialog, _extends({}, dialogProps, {
-      style: _extends({}, this.state.style, style),
-      className: classNames(className, inClassName),
-      onClick: backdrop === true ? this.handleDialogClick : null,
-      handleDialogMouseDown: this.handleDialogMouseDown
-    }), children)));
+    })));
   };
 
   return Modal;

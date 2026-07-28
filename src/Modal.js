@@ -274,19 +274,25 @@ class Modal extends React.Component {
               }}
             />
           )}
+          renderDialog={renderProps => (
+            <Dialog
+              {...dialogProps}
+              {...renderProps}
+              style={{ ...renderProps.style, ...this.state.style, ...style }}
+              className={classNames(
+                renderProps.className,
+                className,
+                inClassName
+              )}
+              onClick={backdrop === true ? this.handleDialogClick : null}
+              handleDialogMouseDown={this.handleDialogMouseDown}
+            >
+              {children}
+            </Dialog>
+          )}
           onEntering={createChainedFunction(onEntering, this.handleEntering)}
           onExited={createChainedFunction(onExited, this.handleExited)}
-        >
-          <Dialog
-            {...dialogProps}
-            style={{ ...this.state.style, ...style }}
-            className={classNames(className, inClassName)}
-            onClick={backdrop === true ? this.handleDialogClick : null}
-            handleDialogMouseDown={this.handleDialogMouseDown}
-          >
-            {children}
-          </Dialog>
-        </BaseModal>
+        />
       </ModalContext.Provider>
     );
   }
