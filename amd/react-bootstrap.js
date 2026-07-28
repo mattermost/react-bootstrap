@@ -11441,6 +11441,11 @@ var src_Modal_propTypes = _extends({}, esm_Modal.propTypes, src_ModalDialog.prop
   backdropClassName: (prop_types_default()).string,
 
   /**
+   * Add optional styles to .modal-backdrop
+   */
+  backdropStyle: (prop_types_default()).object,
+
+  /**
    * Close the modal when escape key is pressed
    */
   keyboard: (prop_types_default()).bool,
@@ -11532,7 +11537,7 @@ var Modal_defaultProps = {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, props, {
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 129
+        lineNumber: 134
       },
       __self: this
     }));
@@ -11547,7 +11552,7 @@ function DialogTransition(props) {
     timeout: Modal_Modal.TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 137
+      lineNumber: 142
     },
     __self: this
   }));
@@ -11558,7 +11563,7 @@ function BackdropTransition(props) {
     timeout: Modal_Modal.BACKDROP_TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 141
+      lineNumber: 146
     },
     __self: this
   }));
@@ -11651,6 +11656,7 @@ function (_React$Component) {
     var _this$props = this.props,
         backdrop = _this$props.backdrop,
         backdropClassName = _this$props.backdropClassName,
+        backdropStyle = _this$props.backdropStyle,
         animation = _this$props.animation,
         show = _this$props.show,
         Dialog = _this$props.dialogComponentClass,
@@ -11659,7 +11665,7 @@ function (_React$Component) {
         children = _this$props.children,
         onEntering = _this$props.onEntering,
         onExited = _this$props.onExited,
-        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
+        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "backdropStyle", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
 
     var _splitComponentProps = splitComponentProps(props, esm_Modal),
         baseModalProps = _splitComponentProps[0],
@@ -11672,7 +11678,7 @@ function (_React$Component) {
       },
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 248
+        lineNumber: 254
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(esm_Modal, _extends({}, baseModalProps, {
@@ -11685,9 +11691,10 @@ function (_React$Component) {
       renderBackdrop: function renderBackdrop(backdropProps) {
         return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({}, backdropProps, {
           className: classnames_default()(prefix(props, 'backdrop'), backdropClassName, inClassName),
+          style: _extends({}, backdropProps.style, backdropStyle),
           __source: {
             fileName: Modal_jsxFileName,
-            lineNumber: 258
+            lineNumber: 264
           },
           __self: this
         }));
@@ -11696,7 +11703,7 @@ function (_React$Component) {
       onExited: utils_createChainedFunction(onExited, this.handleExited),
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 249
+        lineNumber: 255
       },
       __self: this
     }), external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Dialog, _extends({}, dialogProps, {
@@ -11706,7 +11713,7 @@ function (_React$Component) {
       handleDialogMouseDown: this.handleDialogMouseDown,
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 270
+        lineNumber: 280
       },
       __self: this
     }), children)));

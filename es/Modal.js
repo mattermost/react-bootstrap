@@ -38,6 +38,11 @@ var propTypes = _extends({}, BaseModal.propTypes, ModalDialog.propTypes, {
   backdropClassName: PropTypes.string,
 
   /**
+   * Add optional styles to .modal-backdrop
+   */
+  backdropStyle: PropTypes.object,
+
+  /**
    * Close the modal when escape key is pressed
    */
   keyboard: PropTypes.bool,
@@ -232,6 +237,7 @@ function (_React$Component) {
     var _this$props = this.props,
         backdrop = _this$props.backdrop,
         backdropClassName = _this$props.backdropClassName,
+        backdropStyle = _this$props.backdropStyle,
         animation = _this$props.animation,
         show = _this$props.show,
         Dialog = _this$props.dialogComponentClass,
@@ -240,7 +246,7 @@ function (_React$Component) {
         children = _this$props.children,
         onEntering = _this$props.onEntering,
         onExited = _this$props.onExited,
-        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
+        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "backdropStyle", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
 
     var _splitComponentProps = splitComponentProps(props, BaseModal),
         baseModalProps = _splitComponentProps[0],
@@ -260,7 +266,8 @@ function (_React$Component) {
       backdropTransition: animation ? BackdropTransition : undefined,
       renderBackdrop: function renderBackdrop(backdropProps) {
         return React.createElement("div", _extends({}, backdropProps, {
-          className: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName)
+          className: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName),
+          style: _extends({}, backdropProps.style, backdropStyle)
         }));
       },
       onEntering: createChainedFunction(onEntering, this.handleEntering),
