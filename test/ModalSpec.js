@@ -20,11 +20,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    assert.ok(
-      instance._modal.dialog
-        .querySelector('[role=dialog]')
-        .querySelector('strong')
-    );
+    assert.ok(instance._modal.dialog.querySelector('strong'));
   });
 
   it('Should close the modal when the modal dialog is clicked', done => {
@@ -39,7 +35,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.dialog.querySelector('[role=dialog]');
+    const dialog = instance._modal.dialog;
 
     userEvent.click(dialog);
   });
@@ -58,7 +54,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.dialog.querySelector('[role=dialog]');
+    const dialog = instance._modal.dialog;
 
     userEvent.click(dialog);
 
@@ -127,7 +123,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.dialog.querySelector('[role=dialog]');
+    const dialog = instance._modal.dialog;
 
     assert.ok(dialog.className.match(/\bmymodal\b/));
   });
@@ -146,7 +142,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const modal = instance._modal.dialog.querySelector('[role=dialog]');
+    const modal = instance._modal.dialog;
 
     assert.ok(modal.className.match(/\bmymodal\b/));
     assert.ok(modal.children[0].className.match(/\bmymodal-dialog\b/));
@@ -203,7 +199,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.dialog.querySelector('[role=dialog]');
+    const dialog = instance._modal.dialog;
 
     assert.ok(dialog.style.top === '1000px');
   });
@@ -230,8 +226,8 @@ describe('<Modal>', () => {
   it('Should use dialogComponentClass', () => {
     const noOp = () => {};
 
-    function CustomDialog() {
-      return <div className="custom-dialog" tabIndex="-1" />;
+    function CustomDialog({ ref }) {
+      return <div ref={ref} className="custom-dialog" tabIndex="-1" />;
     }
 
     let instance;
@@ -246,10 +242,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    assert.equal(
-      instance._modal.dialog.firstElementChild.className,
-      'custom-dialog'
-    );
+    assert.equal(instance._modal.dialog.className, 'custom-dialog');
   });
 
   it('Should pass transition callbacks to Transition', done => {
