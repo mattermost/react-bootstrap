@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import Transition, { EXITED, ENTERED, ENTERING, EXITING } from 'react-transition-group/Transition';
 import capitalize from './utils/capitalize';
 import createChainedFunction from './utils/createChainedFunction';
+import { getElementRef, makeMergedRef } from './utils/mergeRefs';
 var MARGINS = {
   height: ['marginTop', 'marginBottom'],
   width: ['marginLeft', 'marginRight']
@@ -193,12 +194,7 @@ function (_React$Component) {
     var handleEntered = createChainedFunction(this.handleEntered, onEntered);
     var handleExit = createChainedFunction(this.handleExit, onExit);
     var handleExiting = createChainedFunction(this.handleExiting, onExiting);
-
-    var ref = function ref(c) {
-      _this2.childRef.current = c;
-    };
-
-    ref = createChainedFunction(children.props.ref, ref);
+    var ref = makeMergedRef([this.childRef, getElementRef(children)]);
     return React.createElement(Transition, _extends({}, props, {
       "aria-expanded": props.role ? props.in : null,
       nodeRef: this.childRef,

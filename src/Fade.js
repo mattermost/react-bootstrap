@@ -5,8 +5,7 @@ import Transition, {
   ENTERED,
   ENTERING
 } from 'react-transition-group/Transition';
-
-import createChainedFunction from './utils/createChainedFunction';
+import { getElementRef, useMergedRef } from './utils/mergeRefs';
 
 const propTypes = {
   /**
@@ -63,41 +62,43 @@ const propTypes = {
   onExited: PropTypes.func
 };
 
-const defaultProps = {
-  in: false,
-  timeout: 300,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false
-};
-
 const fadeStyles = {
   [ENTERING]: 'in',
   [ENTERED]: 'in'
 };
 
-class Fade extends React.Component {
-  constructor(props) {
-    super(props);
+const Fade = React.forwardRef(
+  (
+    {
+      className,
+      children,
+      in: inProp = false,
+      timeout = 300,
+      mountOnEnter = false,
+      unmountOnExit = false,
+      appear = false,
+      ...props
+    },
+    ref
+  ) => {
+    const childRef = React.useRef(null);
 
-    this.childRef = React.createRef();
-  }
-
-  render() {
-    const { className, children, ...props } = this.props;
-
-    let ref = c => {
-      this.childRef.current = c;
-    };
-
-    ref = createChainedFunction(children.props.ref, ref);
+    const setChildRef = useMergedRef([childRef, getElementRef(children), ref]);
 
     return (
-      <Transition {...props} nodeRef={this.childRef}>
+      <Transition
+        {...props}
+        in={inProp}
+        timeout={timeout}
+        mountOnEnter={mountOnEnter}
+        unmountOnExit={unmountOnExit}
+        appear={appear}
+        nodeRef={childRef}
+      >
         {(status, innerProps) =>
           React.cloneElement(children, {
             ...innerProps,
-            ref,
+            ref: setChildRef,
             className: classNames(
               'fade',
               className,
@@ -109,9 +110,9 @@ class Fade extends React.Component {
       </Transition>
     );
   }
-}
+);
 
+Fade.displayName = 'Fade';
 Fade.propTypes = propTypes;
-Fade.defaultProps = defaultProps;
 
 export default Fade;

@@ -138,19 +138,23 @@ var defaultProps = {
 };
 /* eslint-disable no-use-before-define, react/no-multi-comp */
 
-function DialogTransition(props) {
-  return React.createElement(Fade, _extends({}, props, {
+var DialogTransition = React.forwardRef(function (props, ref) {
+  return React.createElement(Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal.TRANSITION_DURATION
   }));
-}
-
-function BackdropTransition(props) {
-  return React.createElement(Fade, _extends({}, props, {
+});
+DialogTransition.displayName = 'DialogTransition';
+var BackdropTransition = React.forwardRef(function (props, ref) {
+  return React.createElement(Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal.BACKDROP_TRANSITION_DURATION
   }));
-}
+});
+BackdropTransition.displayName = 'BackdropTransition';
 /* eslint-enable no-use-before-define */
-
 
 var Modal =
 /*#__PURE__*/

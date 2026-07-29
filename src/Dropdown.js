@@ -15,6 +15,7 @@ import { bsClass as setBsClass, prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import { getDuplicateRoleError, getMissingRoleError } from './utils/PropTypes';
 import ValidComponentChildren from './utils/ValidComponentChildren';
+import { getElementRef, makeMergedRef } from './utils/mergeRefs';
 
 const TOGGLE_ROLE = DropdownToggle.defaultProps.bsRole;
 const MENU_ROLE = DropdownMenu.defaultProps.bsRole;
@@ -236,13 +237,12 @@ class Dropdown extends React.Component {
   }
 
   renderMenu(child, { id, onSelect, rootCloseEvent, ...props }) {
-    let ref = c => {
-      this.menu = c;
-    };
-
-    if (child.props && child.props.ref) {
-      ref = createChainedFunction(child.props.ref, ref);
-    }
+    const ref = makeMergedRef([
+      el => {
+        this.menu = el;
+      },
+      getElementRef(child)
+    ]);
 
     return cloneElement(child, {
       ...props,

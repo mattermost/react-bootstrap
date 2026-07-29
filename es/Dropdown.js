@@ -18,6 +18,7 @@ import { bsClass as setBsClass, prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import { getDuplicateRoleError, getMissingRoleError } from './utils/PropTypes';
 import ValidComponentChildren from './utils/ValidComponentChildren';
+import { getElementRef, makeMergedRef } from './utils/mergeRefs';
 var TOGGLE_ROLE = DropdownToggle.defaultProps.bsRole;
 var MENU_ROLE = DropdownMenu.defaultProps.bsRole;
 var propTypes = {
@@ -248,14 +249,9 @@ function (_React$Component) {
         rootCloseEvent = _ref.rootCloseEvent,
         props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
 
-    var ref = function ref(c) {
-      _this2.menu = c;
-    };
-
-    if (child.props && child.props.ref) {
-      ref = createChainedFunction(child.props.ref, ref);
-    }
-
+    var ref = makeMergedRef([function (el) {
+      _this2.menu = el;
+    }, getElementRef(child)]);
     return cloneElement(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,

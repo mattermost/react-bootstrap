@@ -7035,6 +7035,48 @@ Transition.ENTERING = ENTERING;
 Transition.ENTERED = ENTERED;
 Transition.EXITING = EXITING;
 /* harmony default export */ const esm_Transition = (Transition);
+;// ./src/utils/mergeRefs.js
+
+
+var hasRefProp = parse_int_default()((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).version, 10) >= 19;
+/**
+ * Given any number of React ref callbacks or ref objects, returns a new ref callback
+ * that sets all of the provided refs. This result isn't memoized, so useMergedRef
+ * should be preferred.
+ */
+
+function makeMergedRef(refs) {
+  return function (el) {
+    refs.forEach(function (ref) {
+      if (typeof ref === 'function') {
+        ref(el);
+      } else if (ref != null) {
+        ref.current = el;
+      }
+    });
+  };
+}
+/**
+ * Given any number of React ref callbacks or ref objects, returns a new ref callback
+ * that sets all of the provided refs.
+ */
+
+function useMergedRef(refs) {
+  return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useCallback)(makeMergedRef(refs), refs);
+}
+/**
+ * Given a React element, returns the ref of that object in a way that's compatible
+ * with different React versions.
+ */
+
+function getElementRef(reactElement) {
+  if (!reactElement) {
+    return null;
+  } // Accessing reactElement.ref prints a warning in React 19 and will likely be removed eventually
+
+
+  return hasRefProp ? reactElement.props.ref : reactElement.ref;
+}
 ;// ./src/Collapse.js
 
 
@@ -7043,6 +7085,7 @@ Transition.EXITING = EXITING;
 
 var _collapseStyles,
     Collapse_jsxFileName = "/Users/harrison/react-bootstrap/src/Collapse.js";
+
 
 
 
@@ -7232,12 +7275,7 @@ function (_React$Component) {
     var handleEntered = utils_createChainedFunction(this.handleEntered, onEntered);
     var handleExit = utils_createChainedFunction(this.handleExit, onExit);
     var handleExiting = utils_createChainedFunction(this.handleExiting, onExiting);
-
-    var ref = function ref(c) {
-      _this2.childRef.current = c;
-    };
-
-    ref = utils_createChainedFunction(children.props.ref, ref);
+    var ref = makeMergedRef([this.childRef, getElementRef(children)]);
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(esm_Transition, _extends({}, props, {
       "aria-expanded": props.role ? props.in : null,
       nodeRef: this.childRef,
@@ -7248,7 +7286,7 @@ function (_React$Component) {
       onExiting: handleExiting,
       __source: {
         fileName: Collapse_jsxFileName,
-        lineNumber: 216
+        lineNumber: 213
       },
       __self: this
     }), function (state, innerProps) {
@@ -7833,6 +7871,7 @@ var Dropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/Dropdown.js";
 
 
 
+
 var TOGGLE_ROLE = src_DropdownToggle.defaultProps.bsRole;
 var MENU_ROLE = src_DropdownMenu.defaultProps.bsRole;
 var Dropdown_propTypes = {
@@ -8063,14 +8102,9 @@ function (_React$Component) {
         rootCloseEvent = _ref.rootCloseEvent,
         props = _objectWithoutPropertiesLoose(_ref, ["id", "onSelect", "rootCloseEvent"]);
 
-    var ref = function ref(c) {
-      _this2.menu = c;
-    };
-
-    if (child.props && child.props.ref) {
-      ref = utils_createChainedFunction(child.props.ref, ref);
-    }
-
+    var ref = makeMergedRef([function (el) {
+      _this2.menu = el;
+    }, getElementRef(child)]);
     return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.cloneElement)(child, _extends({}, props, {
       ref: ref,
       labelledBy: id,
@@ -8291,7 +8325,6 @@ DropdownButton.propTypes = DropdownButton_propTypes;
 
 
 
-
 var _fadeStyles,
     Fade_jsxFileName = "/Users/harrison/react-bootstrap/src/Fade.js";
 
@@ -8359,63 +8392,45 @@ var Fade_propTypes = {
    */
   onExited: (prop_types_default()).func
 };
-var Fade_defaultProps = {
-  in: false,
-  timeout: 300,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false
-};
 var fadeStyles = (_fadeStyles = {}, _fadeStyles[ENTERING] = 'in', _fadeStyles[ENTERED] = 'in', _fadeStyles);
+var Fade = external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef(function (_ref, ref) {
+  var className = _ref.className,
+      children = _ref.children,
+      _ref$in = _ref.in,
+      inProp = _ref$in === void 0 ? false : _ref$in,
+      _ref$timeout = _ref.timeout,
+      timeout = _ref$timeout === void 0 ? 300 : _ref$timeout,
+      _ref$mountOnEnter = _ref.mountOnEnter,
+      mountOnEnter = _ref$mountOnEnter === void 0 ? false : _ref$mountOnEnter,
+      _ref$unmountOnExit = _ref.unmountOnExit,
+      unmountOnExit = _ref$unmountOnExit === void 0 ? false : _ref$unmountOnExit,
+      _ref$appear = _ref.appear,
+      appear = _ref$appear === void 0 ? false : _ref$appear,
+      props = _objectWithoutPropertiesLoose(_ref, ["className", "children", "in", "timeout", "mountOnEnter", "unmountOnExit", "appear"]);
 
-var Fade =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Fade, _React$Component);
-
-  function Fade(props) {
-    var _this;
-
-    _this = _React$Component.call(this, props) || this;
-    _this.childRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
-    return _this;
-  }
-
-  var _proto = Fade.prototype;
-
-  _proto.render = function render() {
-    var _this2 = this;
-
-    var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["className", "children"]);
-
-    var ref = function ref(c) {
-      _this2.childRef.current = c;
-    };
-
-    ref = utils_createChainedFunction(children.props.ref, ref);
-    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(esm_Transition, _extends({}, props, {
-      nodeRef: this.childRef,
-      __source: {
-        fileName: Fade_jsxFileName,
-        lineNumber: 96
-      },
-      __self: this
-    }), function (status, innerProps) {
-      return external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(children, _extends({}, innerProps, {
-        ref: ref,
-        className: classnames_default()('fade', className, children.props.className, fadeStyles[status])
-      }));
-    });
-  };
-
-  return Fade;
-}((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Component);
-
+  var childRef = external_root_React_commonjs2_react_commonjs_react_amd_react_default().useRef(null);
+  var setChildRef = useMergedRef([childRef, getElementRef(children), ref]);
+  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(esm_Transition, _extends({}, props, {
+    in: inProp,
+    timeout: timeout,
+    mountOnEnter: mountOnEnter,
+    unmountOnExit: unmountOnExit,
+    appear: appear,
+    nodeRef: childRef,
+    __source: {
+      fileName: Fade_jsxFileName,
+      lineNumber: 89
+    },
+    __self: this
+  }), function (status, innerProps) {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(children, _extends({}, innerProps, {
+      ref: setChildRef,
+      className: classnames_default()('fade', className, children.props.className, fadeStyles[status])
+    }));
+  });
+});
+Fade.displayName = 'Fade';
 Fade.propTypes = Fade_propTypes;
-Fade.defaultProps = Fade_defaultProps;
 /* harmony default export */ const src_Fade = (Fade);
 ;// ./src/Form.js
 
@@ -11542,8 +11557,10 @@ var Modal_defaultProps = {
 };
 /* eslint-disable no-use-before-define, react/no-multi-comp */
 
-function DialogTransition(props) {
-  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Fade, _extends({}, props, {
+var DialogTransition = external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef(function (props, ref) {
+  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal_Modal.TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
@@ -11551,20 +11568,22 @@ function DialogTransition(props) {
     },
     __self: this
   }));
-}
-
-function BackdropTransition(props) {
-  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Fade, _extends({}, props, {
+});
+DialogTransition.displayName = 'DialogTransition';
+var BackdropTransition = external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef(function (props, ref) {
+  return external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal_Modal.BACKDROP_TRANSITION_DURATION,
     __source: {
       fileName: Modal_jsxFileName,
-      lineNumber: 146
+      lineNumber: 147
     },
     __self: this
   }));
-}
+});
+BackdropTransition.displayName = 'BackdropTransition';
 /* eslint-enable no-use-before-define */
-
 
 var Modal_Modal =
 /*#__PURE__*/
@@ -11675,7 +11694,7 @@ function (_React$Component) {
       },
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 254
+        lineNumber: 256
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(esm_Modal, _extends({}, baseModalProps, {
@@ -11691,7 +11710,7 @@ function (_React$Component) {
           style: _extends({}, backdropProps.style, backdropStyle),
           __source: {
             fileName: Modal_jsxFileName,
-            lineNumber: 264
+            lineNumber: 266
           },
           __self: this
         }));
@@ -11704,7 +11723,7 @@ function (_React$Component) {
           handleDialogMouseDown: _this2.handleDialogMouseDown,
           __source: {
             fileName: Modal_jsxFileName,
-            lineNumber: 278
+            lineNumber: 280
           },
           __self: this
         }), children);
@@ -11713,7 +11732,7 @@ function (_React$Component) {
       onExited: utils_createChainedFunction(onExited, this.handleExited),
       __source: {
         fileName: Modal_jsxFileName,
-        lineNumber: 255
+        lineNumber: 257
       },
       __self: this
     })));
