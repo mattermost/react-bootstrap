@@ -138,13 +138,15 @@ const defaultProps = {
 };
 
 /* eslint-disable no-use-before-define, react/no-multi-comp */
-function DialogTransition(props) {
-  return <Fade {...props} timeout={Modal.TRANSITION_DURATION} />;
-}
+const DialogTransition = React.forwardRef((props, ref) => (
+  <Fade ref={ref} {...props} timeout={Modal.TRANSITION_DURATION} />
+));
+DialogTransition.displayName = 'DialogTransition';
 
-function BackdropTransition(props) {
-  return <Fade {...props} timeout={Modal.BACKDROP_TRANSITION_DURATION} />;
-}
+const BackdropTransition = React.forwardRef((props, ref) => (
+  <Fade ref={ref} {...props} timeout={Modal.BACKDROP_TRANSITION_DURATION} />
+));
+BackdropTransition.displayName = 'BackdropTransition';
 
 /* eslint-enable no-use-before-define */
 
