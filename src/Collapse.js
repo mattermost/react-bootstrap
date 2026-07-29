@@ -11,6 +11,7 @@ import Transition, {
 
 import capitalize from './utils/capitalize';
 import createChainedFunction from './utils/createChainedFunction';
+import { getElementRef, makeMergedRef } from './utils/mergeRefs';
 
 const MARGINS = {
   height: ['marginTop', 'marginBottom'],
@@ -206,11 +207,7 @@ class Collapse extends React.Component {
     const handleExit = createChainedFunction(this.handleExit, onExit);
     const handleExiting = createChainedFunction(this.handleExiting, onExiting);
 
-    let ref = c => {
-      this.childRef.current = c;
-    };
-
-    ref = createChainedFunction(children.props.ref, ref);
+    const ref = makeMergedRef([this.childRef, getElementRef(children)]);
 
     return (
       <Transition

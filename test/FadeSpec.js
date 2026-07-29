@@ -21,21 +21,22 @@ describe('Fade', () => {
   });
 
   it('Should default to hidden', () => {
+    render(<Component>Panel content</Component>);
+
+    assert.equal(screen.getByText('Panel content').className, 'fade');
+  });
+
+  it('Should forward its ref to the child element', () => {
     let instance;
     render(
       <Component ref={element => (instance = element)}>Panel content</Component>
     );
 
-    assert.ok(instance.fade.props.in === false);
+    assert.equal(instance.fade, screen.getByText('Panel content'));
   });
 
   it('Should always have the "fade" class', () => {
-    let instance;
-    render(
-      <Component ref={element => (instance = element)}>Panel content</Component>
-    );
-
-    assert.ok(instance.fade.props.in === false);
+    render(<Component>Panel content</Component>);
 
     assert.equal(screen.getByText('Panel content').className, 'fade');
   });
@@ -51,7 +52,7 @@ describe('Fade', () => {
       done();
     }
 
-    assert.ok(instance.fade.props.in === false);
+    assert.equal(screen.getByText('Panel content').className, 'fade');
 
     act(() => {
       instance.setState({ in: true, onEntering });
