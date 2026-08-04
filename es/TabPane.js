@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
 import warning from 'warning';
+import TabContainerContext from './TabContainerContext';
+import TabContentContext from './TabContentContext';
 import { bsClass, getClassSet, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import Fade from './Fade';
@@ -76,30 +78,6 @@ var propTypes = {
    */
   unmountOnExit: PropTypes.bool
 };
-var contextTypes = {
-  $bs_tabContainer: PropTypes.shape({
-    getTabId: PropTypes.func,
-    getPaneId: PropTypes.func
-  }),
-  $bs_tabContent: PropTypes.shape({
-    bsClass: PropTypes.string,
-    animation: PropTypes.oneOfType([PropTypes.bool, elementType]),
-    activeKey: PropTypes.any,
-    mountOnEnter: PropTypes.bool,
-    unmountOnExit: PropTypes.bool,
-    onPaneEnter: PropTypes.func.isRequired,
-    onPaneExited: PropTypes.func.isRequired,
-    exiting: PropTypes.bool.isRequired
-  })
-};
-/**
- * We override the `<TabContainer>` context so `<Nav>`s in `<TabPane>`s don't
- * conflict with the top level one.
- */
-
-var childContextTypes = {
-  $bs_tabContainer: PropTypes.oneOf([null])
-};
 
 var TabPane =
 /*#__PURE__*/
@@ -117,12 +95,6 @@ function (_React$Component) {
   }
 
   var _proto = TabPane.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    return {
-      $bs_tabContainer: null
-    };
-  };
 
   _proto.componentDidMount = function componentDidMount() {
     if (this.shouldBeIn()) {
@@ -155,12 +127,12 @@ function (_React$Component) {
       return this.props.animation;
     }
 
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
     return tabContent && tabContent.animation;
   };
 
   _proto.handleEnter = function handleEnter() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
 
     if (!tabContent) {
       return;
@@ -170,7 +142,7 @@ function (_React$Component) {
   };
 
   _proto.handleExited = function handleExited() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
 
     if (!tabContent) {
       return;
@@ -181,7 +153,7 @@ function (_React$Component) {
   };
 
   _proto.isActive = function isActive() {
-    var tabContent = this.context.$bs_tabContent;
+    var tabContent = this.context;
     var activeKey = tabContent && tabContent.activeKey;
     return this.props.eventKey === activeKey;
   };
@@ -190,7 +162,7 @@ function (_React$Component) {
     return this.getAnimation() && this.isActive();
   };
 
-  _proto.render = function render() {
+  _proto.renderPane = function renderPane(tabContainer) {
     var _this$props = this.props,
         eventKey = _this$props.eventKey,
         className = _this$props.className,
@@ -204,9 +176,7 @@ function (_React$Component) {
         propsUnmountOnExit = _this$props.unmountOnExit,
         props = _objectWithoutPropertiesLoose(_this$props, ["eventKey", "className", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "mountOnEnter", "unmountOnExit"]);
 
-    var _this$context = this.context,
-        tabContent = _this$context.$bs_tabContent,
-        tabContainer = _this$context.$bs_tabContainer;
+    var tabContent = this.context;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -261,10 +231,22 @@ function (_React$Component) {
     return pane;
   };
 
+  _proto.render = function render() {
+    var _this2 = this;
+
+    // Read the `<TabContainer>` context so we can generate accessible ids, then
+    // override it with `null` so `<Nav>`s in `<TabPane>`s don't conflict with
+    // the top level one.
+    return React.createElement(TabContainerContext.Consumer, null, function (tabContainer) {
+      return React.createElement(TabContainerContext.Provider, {
+        value: null
+      }, _this2.renderPane(tabContainer));
+    });
+  };
+
   return TabPane;
 }(React.Component);
 
 TabPane.propTypes = propTypes;
-TabPane.contextTypes = contextTypes;
-TabPane.childContextTypes = childContextTypes;
+TabPane.contextType = TabContentContext;
 export default bsClass('tab-pane', TabPane);

@@ -9,12 +9,12 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import BaseModal from 'react-overlays/lib/Modal';
-import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
+import isOverflowing from 'react-overlays/isOverflowing';
+import BaseModal from 'react-overlays/Modal';
 import elementType from 'prop-types-extra/lib/elementType';
 import Fade from './Fade';
 import Body from './ModalBody';
+import ModalContext from './ModalContext';
 import ModalDialog from './ModalDialog';
 import Footer from './ModalFooter';
 import Header from './ModalHeader';
@@ -36,6 +36,11 @@ var propTypes = _extends({}, BaseModal.propTypes, ModalDialog.propTypes, {
    * It could end up looking like class="modal-backdrop foo-modal-backdrop in".
    */
   backdropClassName: PropTypes.string,
+
+  /**
+   * Add optional styles to .modal-backdrop
+   */
+  backdropStyle: PropTypes.object,
 
   /**
    * Close the modal when escape key is pressed
@@ -114,39 +119,42 @@ var propTypes = _extends({}, BaseModal.propTypes, ModalDialog.propTypes, {
   /**
    * Callback fired after the Modal finishes transitioning out
    */
-  onExited: PropTypes.func,
-
-  /**
-   * @private
-   */
-  container: BaseModal.propTypes.container
+  onExited: PropTypes.func
 });
 
-var defaultProps = _extends({}, BaseModal.defaultProps, {
+var defaultProps = {
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  onHide: function onHide() {},
+  renderBackdrop: function renderBackdrop(props) {
+    return React.createElement("div", props);
+  },
   animation: true,
   dialogComponentClass: ModalDialog
-});
-
-var childContextTypes = {
-  $bs_modal: PropTypes.shape({
-    onHide: PropTypes.func
-  })
 };
 /* eslint-disable no-use-before-define, react/no-multi-comp */
 
-function DialogTransition(props) {
-  return React.createElement(Fade, _extends({}, props, {
+var DialogTransition = React.forwardRef(function (props, ref) {
+  return React.createElement(Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal.TRANSITION_DURATION
   }));
-}
-
-function BackdropTransition(props) {
-  return React.createElement(Fade, _extends({}, props, {
+});
+DialogTransition.displayName = 'DialogTransition';
+var BackdropTransition = React.forwardRef(function (props, ref) {
+  return React.createElement(Fade, _extends({
+    ref: ref
+  }, props, {
     timeout: Modal.BACKDROP_TRANSITION_DURATION
   }));
-}
+});
+BackdropTransition.displayName = 'BackdropTransition';
 /* eslint-enable no-use-before-define */
-
 
 var Modal =
 /*#__PURE__*/
@@ -174,14 +182,6 @@ function (_React$Component) {
   }
 
   var _proto = Modal.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    return {
-      $bs_modal: {
-        onHide: this.props.onHide
-      }
-    };
-  };
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     // Clean up the listener if we need to.
@@ -224,11 +224,10 @@ function (_React$Component) {
       return;
     }
 
-    var dialogNode = this._modal.getDialogElement();
-
+    var dialogNode = this._modal.dialog;
     var dialogHeight = dialogNode.scrollHeight;
     var document = ownerDocument(dialogNode);
-    var bodyIsOverflowing = isOverflowing(ReactDOM.findDOMNode(this.props.container || document.body));
+    var bodyIsOverflowing = isOverflowing(document.body);
     var modalIsOverflowing = dialogHeight > document.documentElement.clientHeight;
     this.setState({
       style: {
@@ -239,9 +238,12 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
+    var _this2 = this;
+
     var _this$props = this.props,
         backdrop = _this$props.backdrop,
         backdropClassName = _this$props.backdropClassName,
+        backdropStyle = _this$props.backdropStyle,
         animation = _this$props.animation,
         show = _this$props.show,
         Dialog = _this$props.dialogComponentClass,
@@ -250,29 +252,41 @@ function (_React$Component) {
         children = _this$props.children,
         onEntering = _this$props.onEntering,
         onExited = _this$props.onExited,
-        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
+        props = _objectWithoutPropertiesLoose(_this$props, ["backdrop", "backdropClassName", "backdropStyle", "animation", "show", "dialogComponentClass", "className", "style", "children", "onEntering", "onExited"]);
 
     var _splitComponentProps = splitComponentProps(props, BaseModal),
         baseModalProps = _splitComponentProps[0],
         dialogProps = _splitComponentProps[1];
 
     var inClassName = show && !animation && 'in';
-    return React.createElement(BaseModal, _extends({}, baseModalProps, {
+    return React.createElement(ModalContext.Provider, {
+      value: {
+        onHide: this.props.onHide
+      }
+    }, React.createElement(BaseModal, _extends({}, baseModalProps, {
       ref: this.setModalRef,
       show: show,
       containerClassName: prefix(props, 'open'),
       transition: animation ? DialogTransition : undefined,
       backdrop: backdrop,
       backdropTransition: animation ? BackdropTransition : undefined,
-      backdropClassName: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName),
+      renderBackdrop: function renderBackdrop(backdropProps) {
+        return React.createElement("div", _extends({}, backdropProps, {
+          className: classNames(prefix(props, 'backdrop'), backdropClassName, inClassName),
+          style: _extends({}, backdropProps.style, backdropStyle)
+        }));
+      },
+      renderDialog: function renderDialog(renderProps) {
+        return React.createElement(Dialog, _extends({}, dialogProps, renderProps, {
+          style: _extends({}, renderProps.style, _this2.state.style, style),
+          className: classNames(renderProps.className, className, inClassName),
+          onClick: backdrop === true ? _this2.handleDialogClick : null,
+          handleDialogMouseDown: _this2.handleDialogMouseDown
+        }), children);
+      },
       onEntering: createChainedFunction(onEntering, this.handleEntering),
       onExited: createChainedFunction(onExited, this.handleExited)
-    }), React.createElement(Dialog, _extends({}, dialogProps, {
-      style: _extends({}, this.state.style, style),
-      className: classNames(className, inClassName),
-      onClick: backdrop === true ? this.handleDialogClick : null,
-      handleDialogMouseDown: this.handleDialogMouseDown
-    }), children));
+    })));
   };
 
   return Modal;
@@ -280,7 +294,6 @@ function (_React$Component) {
 
 Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;
-Modal.childContextTypes = childContextTypes;
 Modal.Body = Body;
 Modal.Header = Header;
 Modal.Title = Title;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { prefix, splitBsProps, bsClass } from './utils/bootstrapUtils';
 import Collapse from './Collapse';
+import PanelContext from './PanelContext';
 var propTypes = {
   /**
    * Callback fired before the component expands
@@ -35,14 +36,6 @@ var propTypes = {
    */
   onExited: PropTypes.func
 };
-var contextTypes = {
-  $bs_panel: PropTypes.shape({
-    headingId: PropTypes.string,
-    bodyId: PropTypes.string,
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool
-  })
-};
 
 var PanelCollapse =
 /*#__PURE__*/
@@ -58,7 +51,7 @@ function (_React$Component) {
   _proto.render = function render() {
     var children = this.props.children;
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         headingId = _ref.headingId,
         bodyId = _ref.bodyId,
         _bsClass = _ref.bsClass,
@@ -87,5 +80,5 @@ function (_React$Component) {
 }(React.Component);
 
 PanelCollapse.propTypes = propTypes;
-PanelCollapse.contextTypes = contextTypes;
+PanelCollapse.contextType = PanelContext;
 export default bsClass('panel', PanelCollapse);

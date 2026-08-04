@@ -5,6 +5,7 @@ import React from 'react';
 import cn from 'classnames';
 import { prefix, splitBsPropsAndOmit, bsClass } from './utils/bootstrapUtils';
 import PanelCollapse from './PanelCollapse';
+import PanelContext from './PanelContext';
 var propTypes = {
   /**
    * A convenience prop that renders a Collapse component around the Body for
@@ -21,11 +22,6 @@ var propTypes = {
 };
 var defaultProps = {
   collapsible: false
-};
-var contextTypes = {
-  $bs_panel: PropTypes.shape({
-    bsClass: PropTypes.string
-  })
 };
 
 var PanelBody =
@@ -45,7 +41,7 @@ function (_React$Component) {
         className = _this$props.className,
         collapsible = _this$props.collapsible;
 
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['collapsible']),
@@ -69,5 +65,5 @@ function (_React$Component) {
 
 PanelBody.propTypes = propTypes;
 PanelBody.defaultProps = defaultProps;
-PanelBody.contextTypes = contextTypes;
+PanelBody.contextType = PanelContext;
 export default bsClass('panel', PanelBody);

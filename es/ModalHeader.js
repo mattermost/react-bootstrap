@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { bsClass, getClassSet, splitBsProps } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
-import CloseButton from './CloseButton'; // TODO: `aria-label` should be `closeLabel`.
+import CloseButton from './CloseButton';
+import ModalContext from './ModalContext'; // TODO: `aria-label` should be `closeLabel`.
 
 var propTypes = {
   /**
@@ -32,11 +33,6 @@ var defaultProps = {
   closeLabel: 'Close',
   closeButton: false
 };
-var contextTypes = {
-  $bs_modal: PropTypes.shape({
-    onHide: PropTypes.func
-  })
-};
 
 var ModalHeader =
 /*#__PURE__*/
@@ -58,7 +54,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["closeLabel", "closeButton", "onHide", "className", "children"]);
 
-    var modal = this.context.$bs_modal;
+    var modal = this.context;
 
     var _splitBsProps = splitBsProps(props),
         bsProps = _splitBsProps[0],
@@ -78,5 +74,5 @@ function (_React$Component) {
 
 ModalHeader.propTypes = propTypes;
 ModalHeader.defaultProps = defaultProps;
-ModalHeader.contextTypes = contextTypes;
+ModalHeader.contextType = ModalContext;
 export default bsClass('modal-header', ModalHeader);

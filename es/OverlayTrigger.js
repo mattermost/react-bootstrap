@@ -133,6 +133,7 @@ function (_React$Component) {
     _this.state = {
       show: props.defaultOverlayShown
     };
+    _this.triggerRef = React.createRef();
     return _this;
   }
 
@@ -232,7 +233,7 @@ function (_React$Component) {
     return React.createElement(Overlay, _extends({}, props, {
       show: this.state.show,
       onHide: this.handleHide,
-      target: this
+      target: this.triggerRef
     }), overlay);
   };
 
@@ -285,7 +286,12 @@ function (_React$Component) {
       triggerProps.onBlur = createChainedFunction(childProps.onBlur, onBlur, this.handleDelayedHide);
     }
 
-    return React.createElement(React.Fragment, null, cloneElement(child, triggerProps), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
+    return React.createElement(React.Fragment, null, React.createElement("div", {
+      ref: this.triggerRef,
+      style: {
+        display: 'content'
+      }
+    }, cloneElement(child, triggerProps)), ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body));
   };
 
   return OverlayTrigger;

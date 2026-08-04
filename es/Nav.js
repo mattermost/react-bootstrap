@@ -2,11 +2,11 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
+import NavbarContext from './NavbarContext';
+import TabContainerContext from './TabContainerContext';
 import { bsClass, bsStyles, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import ValidComponentChildren from './utils/ValidComponentChildren'; // TODO: Should we expose `<NavItem>` as `<Nav.Item>`?
@@ -30,11 +30,7 @@ var propTypes = {
    * NavItems are be positioned vertically.
    */
   stacked: PropTypes.bool,
-  justified: all(PropTypes.bool, function (_ref) {
-    var justified = _ref.justified,
-        navbar = _ref.navbar;
-    return justified && navbar ? Error('justified navbar `Nav`s are not supported') : null;
-  }),
+  justified: PropTypes.bool,
 
   /**
    * A callback fired when a NavItem is selected.
@@ -82,32 +78,24 @@ var defaultProps = {
   pullLeft: false,
   stacked: false
 };
-var contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    onSelect: PropTypes.func
-  }),
-  $bs_tabContainer: PropTypes.shape({
-    activeKey: PropTypes.any,
-    onSelect: PropTypes.func.isRequired,
-    getTabId: PropTypes.func.isRequired,
-    getPaneId: PropTypes.func.isRequired
-  })
-};
 
 var Nav =
 /*#__PURE__*/
 function (_React$Component) {
   _inheritsLoose(Nav, _React$Component);
 
-  function Nav() {
-    return _React$Component.apply(this, arguments) || this;
+  function Nav(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    _this.containerRef = React.createRef();
+    return _this;
   }
 
   var _proto = Nav.prototype;
 
   _proto.componentDidUpdate = function componentDidUpdate() {
-    var _this = this;
+    var _this2 = this;
 
     if (!this._needsRefocus) {
       return;
@@ -121,11 +109,11 @@ function (_React$Component) {
         activeHref = _this$getActiveProps.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this.isActive(child, activeKey, activeHref);
+      return _this2.isActive(child, activeKey, activeHref);
     });
     var childrenArray = ValidComponentChildren.toArray(children);
     var activeChildIndex = childrenArray.indexOf(activeChild);
-    var childNodes = ReactDOM.findDOMNode(this).children;
+    var childNodes = this.containerRef.current.children;
     var activeNode = childNodes && childNodes[activeChildIndex];
 
     if (!activeNode || !activeNode.firstChild) {
@@ -136,7 +124,7 @@ function (_React$Component) {
   };
 
   _proto.getActiveProps = function getActiveProps() {
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = this.props.tabContainerContext;
 
     if (tabContainer) {
       process.env.NODE_ENV !== "production" ? warning(this.props.activeKey == null && !this.props.activeHref, 'Specifying a `<Nav>` `activeKey` or `activeHref` in the context of ' + 'a `<TabContainer>` is not supported. Instead use `<TabContainer ' + ("activeKey={" + this.props.activeKey + "} />`.")) : void 0;
@@ -147,7 +135,7 @@ function (_React$Component) {
   };
 
   _proto.getNextActiveChild = function getNextActiveChild(offset) {
-    var _this2 = this;
+    var _this3 = this;
 
     var children = this.props.children;
     var validChildren = children.filter(function (child) {
@@ -159,7 +147,7 @@ function (_React$Component) {
         activeHref = _this$getActiveProps2.activeHref;
 
     var activeChild = ValidComponentChildren.find(children, function (child) {
-      return _this2.isActive(child, activeKey, activeHref);
+      return _this3.isActive(child, activeKey, activeHref);
     }); // This assumes the active child is not disabled.
 
     var activeChildIndex = validChildren.indexOf(activeChild);
@@ -182,7 +170,7 @@ function (_React$Component) {
   };
 
   _proto.getTabProps = function getTabProps(child, tabContainer, navRole, active, onSelect) {
-    var _this3 = this;
+    var _this4 = this;
 
     if (!tabContainer && navRole !== 'tablist') {
       // No tab props here.
@@ -206,7 +194,7 @@ function (_React$Component) {
     if (navRole === 'tablist') {
       role = role || 'tab';
       onKeyDown = createChainedFunction(function (event) {
-        return _this3.handleTabKeyDown(onSelect, event);
+        return _this4.handleTabKeyDown(onSelect, event);
       }, onKeyDown);
       tabIndex = active ? tabIndex : -1;
     }
@@ -248,8 +236,8 @@ function (_React$Component) {
     this._needsRefocus = true;
   };
 
-  _proto.isActive = function isActive(_ref2, activeKey, activeHref) {
-    var props = _ref2.props;
+  _proto.isActive = function isActive(_ref, activeKey, activeHref) {
+    var props = _ref.props;
 
     if (props.active || activeKey != null && props.eventKey === activeKey || activeHref && props.href === activeHref) {
       return true;
@@ -260,7 +248,7 @@ function (_React$Component) {
 
   _proto.render = function render() {
     var _extends2,
-        _this4 = this;
+        _this5 = this;
 
     var _this$props = this.props,
         stacked = _this$props.stacked,
@@ -272,9 +260,11 @@ function (_React$Component) {
         pullLeft = _this$props.pullLeft,
         className = _this$props.className,
         children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children"]);
+        navbarContext = _this$props.navbarContext,
+        tabContainerContext = _this$props.tabContainerContext,
+        props = _objectWithoutPropertiesLoose(_this$props, ["stacked", "justified", "onSelect", "role", "navbar", "pullRight", "pullLeft", "className", "children", "navbarContext", "tabContainerContext"]);
 
-    var tabContainer = this.context.$bs_tabContainer;
+    var tabContainer = tabContainerContext;
     var role = propsRole || (tabContainer ? 'tablist' : null);
 
     var _this$getActiveProps3 = this.getActiveProps(),
@@ -289,14 +279,16 @@ function (_React$Component) {
         bsProps = _splitBsProps[0],
         elementProps = _splitBsProps[1];
 
+    process.env.NODE_ENV !== "production" ? warning(!(justified && propsNavbar), 'justified navbar `Nav`s are not supported') : void 0;
+
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'stacked')] = stacked, _extends2[prefix(bsProps, 'justified')] = justified, _extends2));
 
-    var navbar = propsNavbar != null ? propsNavbar : this.context.$bs_navbar;
+    var navbar = propsNavbar != null ? propsNavbar : navbarContext;
     var pullLeftClassName;
     var pullRightClassName;
 
     if (navbar) {
-      var navbarProps = this.context.$bs_navbar || {
+      var navbarProps = navbarContext || {
         bsClass: 'navbar'
       };
       classes[prefix(navbarProps, 'nav')] = true;
@@ -309,14 +301,16 @@ function (_React$Component) {
 
     classes[pullRightClassName] = pullRight;
     classes[pullLeftClassName] = pullLeft;
-    return React.createElement("ul", _extends({}, elementProps, {
+    return React.createElement("ul", _extends({
+      ref: this.containerRef
+    }, elementProps, {
       role: role,
       className: classNames(className, classes)
     }), ValidComponentChildren.map(children, function (child) {
-      var active = _this4.isActive(child, activeKey, activeHref);
+      var active = _this5.isActive(child, activeKey, activeHref);
 
       var childOnSelect = createChainedFunction(child.props.onSelect, onSelect, navbar && navbar.onSelect, tabContainer && tabContainer.onSelect);
-      return cloneElement(child, _extends({}, _this4.getTabProps(child, tabContainer, role, active, childOnSelect), {
+      return cloneElement(child, _extends({}, _this5.getTabProps(child, tabContainer, role, active, childOnSelect), {
         active: active,
         activeKey: activeKey,
         activeHref: activeHref,
@@ -330,5 +324,14 @@ function (_React$Component) {
 
 Nav.propTypes = propTypes;
 Nav.defaultProps = defaultProps;
-Nav.contextTypes = contextTypes;
-export default bsClass('nav', bsStyles(['tabs', 'pills'], Nav));
+
+function NavWithContext(props) {
+  var navbarContext = useContext(NavbarContext);
+  var tabContainerContext = useContext(TabContainerContext);
+  return React.createElement(Nav, _extends({}, props, {
+    navbarContext: navbarContext,
+    tabContainerContext: tabContainerContext
+  }));
+}
+
+export default bsClass('nav', bsStyles(['tabs', 'pills'], NavWithContext));
