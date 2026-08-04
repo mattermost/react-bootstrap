@@ -2,15 +2,9 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import React from 'react';
-import PropTypes from 'prop-types';
 import Collapse from './Collapse';
+import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
-var contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool
-  })
-};
 
 var NavbarCollapse =
 /*#__PURE__*/
@@ -28,7 +22,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["children"]);
 
-    var navbarProps = this.context.$bs_navbar || {
+    var navbarProps = this.context || {
       bsClass: 'navbar'
     };
     var bsClassName = prefix(navbarProps, 'collapse');
@@ -42,5 +36,5 @@ function (_React$Component) {
   return NavbarCollapse;
 }(React.Component);
 
-NavbarCollapse.contextTypes = contextTypes;
+NavbarCollapse.contextType = NavbarContext;
 export default NavbarCollapse;

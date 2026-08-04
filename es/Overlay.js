@@ -4,11 +4,16 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import BaseOverlay from 'react-overlays/lib/Overlay';
+import BaseOverlay from 'react-overlays/Overlay';
 import elementType from 'prop-types-extra/lib/elementType';
 import Fade from './Fade';
 
 var propTypes = _extends({}, BaseOverlay.propTypes, {
+  /**
+   * The element that's rendered in the overlay
+   */
+  children: PropTypes.node,
+
   /**
    * Set the visibility of the Overlay
    */
@@ -102,8 +107,30 @@ function (_React$Component) {
     }
 
     return React.createElement(BaseOverlay, _extends({}, props, {
+      container: document.body,
       transition: transition
-    }), child);
+    }), function (_ref) {
+      var arrowProps = _ref.arrowProps,
+          placement = _ref.placement,
+          overlayProps = _ref.props;
+      var positionTop = overlayProps && overlayProps.style && overlayProps.style.top;
+      var positionLeft = overlayProps && overlayProps.style && overlayProps.style.left; // Passing the positionX and arrowOffsetX props is redundant with the style props,
+      // but it matches how react-overlays used to behave.
+
+      return React.cloneElement(child, _extends({}, overlayProps, {
+        placement: placement,
+        positionTop: positionTop,
+        positionLeft: positionLeft,
+        arrowOffsetTop: arrowProps && arrowProps.style && arrowProps.style.top,
+        arrowOffsetLeft: arrowProps && arrowProps.style && arrowProps.style.left,
+        arrowRef: arrowProps.ref,
+        arrowStyle: arrowProps.style,
+        style: _extends({}, child.props.style, overlayProps.style, {
+          left: positionLeft,
+          top: positionTop
+        })
+      }));
+    });
   };
 
   return Overlay;
