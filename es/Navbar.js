@@ -6,14 +6,13 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 
 /* eslint-disable react/no-multi-comp */
 import classNames from 'classnames';
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
 import uncontrollable from 'uncontrollable';
 import Grid from './Grid';
 import NavbarBrand from './NavbarBrand';
 import NavbarCollapse from './NavbarCollapse';
-import NavbarContext from './NavbarContext';
 import NavbarHeader from './NavbarHeader';
 import NavbarToggle from './NavbarToggle';
 import { bsClass as setBsClass, bsStyles, getClassSet, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
@@ -111,6 +110,14 @@ var defaultProps = {
   fluid: false,
   collapseOnSelect: false
 };
+var childContextTypes = {
+  $bs_navbar: PropTypes.shape({
+    bsClass: PropTypes.string,
+    expanded: PropTypes.bool,
+    onToggle: PropTypes.func.isRequired,
+    onSelect: PropTypes.func
+  })
+};
 
 var Navbar =
 /*#__PURE__*/
@@ -128,10 +135,26 @@ function (_React$Component) {
 
   var _proto = Navbar.prototype;
 
-  _proto.handleCollapse = function handleCollapse() {
+  _proto.getChildContext = function getChildContext() {
     var _this$props = this.props,
-        onToggle = _this$props.onToggle,
-        expanded = _this$props.expanded;
+        bsClass = _this$props.bsClass,
+        expanded = _this$props.expanded,
+        onSelect = _this$props.onSelect,
+        collapseOnSelect = _this$props.collapseOnSelect;
+    return {
+      $bs_navbar: {
+        bsClass: bsClass,
+        expanded: expanded,
+        onToggle: this.handleToggle,
+        onSelect: createChainedFunction(onSelect, collapseOnSelect ? this.handleCollapse : null)
+      }
+    };
+  };
+
+  _proto.handleCollapse = function handleCollapse() {
+    var _this$props2 = this.props,
+        onToggle = _this$props2.onToggle,
+        expanded = _this$props2.expanded;
 
     if (expanded) {
       onToggle(false);
@@ -139,25 +162,25 @@ function (_React$Component) {
   };
 
   _proto.handleToggle = function handleToggle() {
-    var _this$props2 = this.props,
-        onToggle = _this$props2.onToggle,
-        expanded = _this$props2.expanded;
+    var _this$props3 = this.props,
+        onToggle = _this$props3.onToggle,
+        expanded = _this$props3.expanded;
     onToggle(!expanded);
   };
 
   _proto.render = function render() {
     var _extends2;
 
-    var _this$props3 = this.props,
-        Component = _this$props3.componentClass,
-        fixedTop = _this$props3.fixedTop,
-        fixedBottom = _this$props3.fixedBottom,
-        staticTop = _this$props3.staticTop,
-        inverse = _this$props3.inverse,
-        fluid = _this$props3.fluid,
-        className = _this$props3.className,
-        children = _this$props3.children,
-        props = _objectWithoutPropertiesLoose(_this$props3, ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"]);
+    var _this$props4 = this.props,
+        Component = _this$props4.componentClass,
+        fixedTop = _this$props4.fixedTop,
+        fixedBottom = _this$props4.fixedBottom,
+        staticTop = _this$props4.staticTop,
+        inverse = _this$props4.inverse,
+        fluid = _this$props4.fluid,
+        className = _this$props4.className,
+        children = _this$props4.children,
+        props = _objectWithoutPropertiesLoose(_this$props4, ["componentClass", "fixedTop", "fixedBottom", "staticTop", "inverse", "fluid", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['expanded', 'onToggle', 'onSelect', 'collapseOnSelect']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -176,24 +199,11 @@ function (_React$Component) {
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps, 'fixed-top')] = fixedTop, _extends2[prefix(bsProps, 'fixed-bottom')] = fixedBottom, _extends2[prefix(bsProps, 'static-top')] = staticTop, _extends2));
 
-    var _this$props4 = this.props,
-        bsClass = _this$props4.bsClass,
-        expanded = _this$props4.expanded,
-        onSelect = _this$props4.onSelect,
-        collapseOnSelect = _this$props4.collapseOnSelect;
-    var navbarContext = {
-      bsClass: bsClass,
-      expanded: expanded,
-      onToggle: this.handleToggle,
-      onSelect: createChainedFunction(onSelect, collapseOnSelect ? this.handleCollapse : null)
-    };
-    return React.createElement(NavbarContext.Provider, {
-      value: navbarContext
-    }, React.createElement(Component, _extends({}, elementProps, {
+    return React.createElement(Component, _extends({}, elementProps, {
       className: classNames(className, classes)
     }), React.createElement(Grid, {
       fluid: fluid
-    }, children)));
+    }, children));
   };
 
   return Navbar;
@@ -201,13 +211,14 @@ function (_React$Component) {
 
 Navbar.propTypes = propTypes;
 Navbar.defaultProps = defaultProps;
+Navbar.childContextTypes = childContextTypes;
 setBsClass('navbar', Navbar);
 var UncontrollableNavbar = uncontrollable(Navbar, {
   expanded: 'onToggle'
 });
 
 function createSimpleWrapper(tag, suffix, displayName) {
-  var Wrapper = function Wrapper(_ref) {
+  var Wrapper = function Wrapper(_ref, _ref2) {
     var _ref$componentClass = _ref.componentClass,
         Component = _ref$componentClass === void 0 ? tag : _ref$componentClass,
         className = _ref.className,
@@ -217,9 +228,10 @@ function createSimpleWrapper(tag, suffix, displayName) {
         pullLeft = _ref$pullLeft === void 0 ? false : _ref$pullLeft,
         props = _objectWithoutPropertiesLoose(_ref, ["componentClass", "className", "pullRight", "pullLeft"]);
 
-    var navbarProps = useContext(NavbarContext) || {
+    var _ref2$$bs_navbar = _ref2.$bs_navbar,
+        navbarProps = _ref2$$bs_navbar === void 0 ? {
       bsClass: 'navbar'
-    };
+    } : _ref2$$bs_navbar;
     return React.createElement(Component, _extends({}, props, {
       className: classNames(className, prefix(navbarProps, suffix), pullRight && prefix(navbarProps, 'right'), pullLeft && prefix(navbarProps, 'left'))
     }));
@@ -230,6 +242,11 @@ function createSimpleWrapper(tag, suffix, displayName) {
     componentClass: elementType,
     pullRight: PropTypes.bool,
     pullLeft: PropTypes.bool
+  };
+  Wrapper.contextTypes = {
+    $bs_navbar: PropTypes.shape({
+      bsClass: PropTypes.string
+    })
   };
   return Wrapper;
 }

@@ -4,7 +4,7 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import BaseOverlay from 'react-overlays/Overlay';
+import BaseOverlay from 'react-overlays/lib/Overlay';
 import elementType from 'prop-types-extra/lib/elementType';
 import Fade from './Fade';
 
@@ -102,17 +102,8 @@ function (_React$Component) {
     }
 
     return React.createElement(BaseOverlay, _extends({}, props, {
-      target: null,
       transition: transition
-    }), function (_ref) {
-      var overlayProps = _ref.props;
-      return React.createElement("div", {
-        ref: overlayProps.ref,
-        style: {
-          display: 'content'
-        }
-      }, child);
-    });
+    }), child);
   };
 
   return Overlay;

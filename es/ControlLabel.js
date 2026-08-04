@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
-import FormGroupContext from './FormGroupContext';
 import { bsClass, getClassSet, splitBsProps } from './utils/bootstrapUtils';
 var propTypes = {
   /**
@@ -16,6 +15,9 @@ var propTypes = {
 };
 var defaultProps = {
   srOnly: false
+};
+var contextTypes = {
+  $bs_formGroup: PropTypes.object
 };
 
 var ControlLabel =
@@ -30,7 +32,7 @@ function (_React$Component) {
   var _proto = ControlLabel.prototype;
 
   _proto.render = function render() {
-    var formGroup = this.context;
+    var formGroup = this.context.$bs_formGroup;
     var controlId = formGroup && formGroup.controlId;
 
     var _this$props = this.props,
@@ -61,5 +63,5 @@ function (_React$Component) {
 
 ControlLabel.propTypes = propTypes;
 ControlLabel.defaultProps = defaultProps;
-ControlLabel.contextType = FormGroupContext;
+ControlLabel.contextTypes = contextTypes;
 export default bsClass('control-label', ControlLabel);

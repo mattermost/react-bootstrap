@@ -4,7 +4,6 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 var propTypes = {
@@ -14,6 +13,13 @@ var propTypes = {
    * The toggle content, if left empty it will render the default toggle (seen above).
    */
   children: PropTypes.node
+};
+var contextTypes = {
+  $bs_navbar: PropTypes.shape({
+    bsClass: PropTypes.string,
+    expanded: PropTypes.bool,
+    onToggle: PropTypes.func.isRequired
+  })
 };
 
 var NavbarToggle =
@@ -34,7 +40,7 @@ function (_React$Component) {
         children = _this$props.children,
         props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "children"]);
 
-    var navbarProps = this.context || {
+    var navbarProps = this.context.$bs_navbar || {
       bsClass: 'navbar'
     };
 
@@ -64,5 +70,5 @@ function (_React$Component) {
 }(React.Component);
 
 NavbarToggle.propTypes = propTypes;
-NavbarToggle.contextType = NavbarContext;
+NavbarToggle.contextTypes = contextTypes;
 export default NavbarToggle;

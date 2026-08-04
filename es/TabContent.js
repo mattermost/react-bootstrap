@@ -6,8 +6,6 @@ import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
-import TabContainerContext from './TabContainerContext';
-import TabContentContext from './TabContentContext';
 import { bsClass as setBsClass, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 var propTypes = {
   componentClass: elementType,
@@ -35,6 +33,23 @@ var defaultProps = {
   mountOnEnter: false,
   unmountOnExit: false
 };
+var contextTypes = {
+  $bs_tabContainer: PropTypes.shape({
+    activeKey: PropTypes.any
+  })
+};
+var childContextTypes = {
+  $bs_tabContent: PropTypes.shape({
+    bsClass: PropTypes.string,
+    animation: PropTypes.oneOfType([PropTypes.bool, elementType]),
+    activeKey: PropTypes.any,
+    mountOnEnter: PropTypes.bool,
+    unmountOnExit: PropTypes.bool,
+    onPaneEnter: PropTypes.func.isRequired,
+    onPaneExited: PropTypes.func.isRequired,
+    exiting: PropTypes.bool.isRequired
+  })
+};
 
 var TabContent =
 /*#__PURE__*/
@@ -59,6 +74,30 @@ function (_React$Component) {
 
   var _proto = TabContent.prototype;
 
+  _proto.getChildContext = function getChildContext() {
+    var _this$props = this.props,
+        bsClass = _this$props.bsClass,
+        animation = _this$props.animation,
+        mountOnEnter = _this$props.mountOnEnter,
+        unmountOnExit = _this$props.unmountOnExit;
+    var stateActiveKey = this.state.activeKey;
+    var containerActiveKey = this.getContainerActiveKey();
+    var activeKey = stateActiveKey != null ? stateActiveKey : containerActiveKey;
+    var exiting = stateActiveKey != null && stateActiveKey !== containerActiveKey;
+    return {
+      $bs_tabContent: {
+        bsClass: bsClass,
+        animation: animation,
+        activeKey: activeKey,
+        mountOnEnter: mountOnEnter,
+        unmountOnExit: unmountOnExit,
+        onPaneEnter: this.handlePaneEnter,
+        onPaneExited: this.handlePaneExited,
+        exiting: exiting
+      }
+    };
+  };
+
   _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.animation && this.state.activeChild) {
       this.setState({
@@ -73,7 +112,7 @@ function (_React$Component) {
   };
 
   _proto.getContainerActiveKey = function getContainerActiveKey() {
-    var tabContainer = this.context;
+    var tabContainer = this.context.$bs_tabContainer;
     return tabContainer && tabContainer.activeKey;
   };
 
@@ -115,39 +154,18 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props = this.props,
-        Component = _this$props.componentClass,
-        className = _this$props.className,
-        props = _objectWithoutPropertiesLoose(_this$props, ["componentClass", "className"]);
+    var _this$props2 = this.props,
+        Component = _this$props2.componentClass,
+        className = _this$props2.className,
+        props = _objectWithoutPropertiesLoose(_this$props2, ["componentClass", "className"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['animation', 'mountOnEnter', 'unmountOnExit']),
         bsProps = _splitBsPropsAndOmit[0],
         elementProps = _splitBsPropsAndOmit[1];
 
-    var _this$props2 = this.props,
-        bsClass = _this$props2.bsClass,
-        animation = _this$props2.animation,
-        mountOnEnter = _this$props2.mountOnEnter,
-        unmountOnExit = _this$props2.unmountOnExit;
-    var stateActiveKey = this.state.activeKey;
-    var containerActiveKey = this.getContainerActiveKey();
-    var activeKey = stateActiveKey != null ? stateActiveKey : containerActiveKey;
-    var exiting = stateActiveKey != null && stateActiveKey !== containerActiveKey;
-    var tabContentContext = {
-      bsClass: bsClass,
-      animation: animation,
-      activeKey: activeKey,
-      mountOnEnter: mountOnEnter,
-      unmountOnExit: unmountOnExit,
-      onPaneEnter: this.handlePaneEnter,
-      onPaneExited: this.handlePaneExited,
-      exiting: exiting
-    };
-    return React.createElement(TabContentContext.Provider, {
-      value: tabContentContext
-    }, React.createElement(Component, _extends({}, elementProps, {
+    return React.createElement(Component, _extends({}, elementProps, {
       className: classNames(className, prefix(bsProps, 'content'))
-    })));
+    }));
   };
 
   return TabContent;
@@ -155,5 +173,6 @@ function (_React$Component) {
 
 TabContent.propTypes = propTypes;
 TabContent.defaultProps = defaultProps;
-TabContent.contextType = TabContainerContext;
+TabContent.contextTypes = contextTypes;
+TabContent.childContextTypes = childContextTypes;
 export default setBsClass('tab', TabContent);

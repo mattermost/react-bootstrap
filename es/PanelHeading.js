@@ -1,16 +1,22 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
-import PanelContext from './PanelContext';
 import { prefix, bsClass, splitBsProps } from './utils/bootstrapUtils';
 var propTypes = {
   componentClass: elementType
 };
 var defaultProps = {
   componentClass: 'div'
+};
+var contextTypes = {
+  $bs_panel: PropTypes.shape({
+    headingId: PropTypes.string,
+    bsClass: PropTypes.string
+  })
 };
 
 var PanelHeading =
@@ -31,7 +37,7 @@ function (_React$Component) {
         Component = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "componentClass"]);
 
-    var _ref = this.context || {},
+    var _ref = this.context.$bs_panel || {},
         headingId = _ref.headingId,
         _bsClass = _ref.bsClass;
 
@@ -56,5 +62,5 @@ function (_React$Component) {
 
 PanelHeading.propTypes = propTypes;
 PanelHeading.defaultProps = defaultProps;
-PanelHeading.contextType = PanelContext;
+PanelHeading.contextTypes = contextTypes;
 export default bsClass('panel', PanelHeading);

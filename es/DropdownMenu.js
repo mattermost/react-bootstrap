@@ -6,7 +6,8 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useRootClose } from 'react-overlays';
+import ReactDOM from 'react-dom';
+import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 import { bsClass, getClassSet, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import ValidComponentChildren from './utils/ValidComponentChildren';
@@ -34,14 +35,13 @@ function (_React$Component) {
     _this = _React$Component.call(this, props) || this;
     _this.handleRootClose = _this.handleRootClose.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleKeyDown = _this.handleKeyDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.menuRef = React.createRef();
     return _this;
   }
 
   var _proto = DropdownMenu.prototype;
 
   _proto.getFocusableMenuItems = function getFocusableMenuItems() {
-    var node = this.menuRef.current;
+    var node = ReactDOM.findDOMNode(this);
 
     if (!node) {
       return [];
@@ -137,11 +137,8 @@ function (_React$Component) {
     return React.createElement(RootCloseWrapper, {
       disabled: !open,
       onRootClose: this.handleRootClose,
-      event: rootCloseEvent,
-      menuRef: this.menuRef
-    }, React.createElement("ul", _extends({
-      ref: this.menuRef
-    }, elementProps, {
+      event: rootCloseEvent
+    }, React.createElement("ul", _extends({}, elementProps, {
       role: "menu",
       className: classNames(className, classes),
       "aria-labelledby": labelledBy
@@ -155,19 +152,6 @@ function (_React$Component) {
 
   return DropdownMenu;
 }(React.Component);
-
-function RootCloseWrapper(_ref) {
-  var disabled = _ref.disabled,
-      onRootClose = _ref.onRootClose,
-      event = _ref.event,
-      children = _ref.children,
-      menuRef = _ref.menuRef;
-  useRootClose(menuRef, onRootClose, {
-    disabled: disabled,
-    clickTrigger: event
-  });
-  return children;
-}
 
 DropdownMenu.propTypes = propTypes;
 DropdownMenu.defaultProps = defaultProps;

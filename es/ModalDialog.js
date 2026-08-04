@@ -1,11 +1,11 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
+import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
+import { bsClass, bsSizes, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 import { Size } from './utils/StyleConfig';
-var SIZES = [Size.LARGE, Size.SMALL];
 var propTypes = {
   /**
    * A css class to apply to the Modal dialog DOM node.
@@ -15,54 +15,59 @@ var propTypes = {
   /**
    * A method to run for the mousedown event on the dialog.
    */
-  handleDialogMouseDown: PropTypes.func,
-  bsClass: PropTypes.string,
-  bsSize: PropTypes.oneOf(SIZES)
+  handleDialogMouseDown: PropTypes.func
 };
-var ModalDialog = React.forwardRef(function (_ref, ref) {
-  var _extends2;
 
-  var dialogClassName = _ref.dialogClassName,
-      className = _ref.className,
-      style = _ref.style,
-      children = _ref.children,
-      handleDialogMouseDown = _ref.handleDialogMouseDown,
-      _ref$bsClass = _ref.bsClass,
-      bsClass = _ref$bsClass === void 0 ? 'modal' : _ref$bsClass,
-      bsSize = _ref.bsSize,
-      props = _objectWithoutPropertiesLoose(_ref, ["dialogClassName", "className", "style", "children", "handleDialogMouseDown", "bsClass", "bsSize"]);
+var ModalDialog =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(ModalDialog, _React$Component);
 
-  var _splitBsProps = splitBsProps(_extends({}, props, {
-    bsClass: bsClass,
-    bsSize: bsSize
-  })),
-      bsProps = _splitBsProps[0],
-      elementProps = _splitBsProps[1];
+  function ModalDialog() {
+    return _React$Component.apply(this, arguments) || this;
+  }
 
-  var bsClassName = prefix(bsProps);
+  var _proto = ModalDialog.prototype;
 
-  var modalStyle = _extends({
-    display: 'block'
-  }, style);
+  _proto.render = function render() {
+    var _extends2;
 
-  var dialogClasses = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[bsClassName] = false, _extends2[prefix(bsProps, 'dialog')] = true, _extends2));
+    var _this$props = this.props,
+        dialogClassName = _this$props.dialogClassName,
+        className = _this$props.className,
+        style = _this$props.style,
+        children = _this$props.children,
+        handleDialogMouseDown = _this$props.handleDialogMouseDown,
+        props = _objectWithoutPropertiesLoose(_this$props, ["dialogClassName", "className", "style", "children", "handleDialogMouseDown"]);
 
-  return React.createElement("div", _extends({
-    ref: ref
-  }, elementProps, {
-    tabIndex: "-1",
-    role: "dialog",
-    style: modalStyle,
-    className: classNames(className, bsClassName)
-  }), React.createElement("div", {
-    className: classNames(dialogClassName, dialogClasses)
-  }, React.createElement("div", {
-    className: prefix(bsProps, 'content'),
-    role: "document",
-    onMouseDown: handleDialogMouseDown
-  }, children)));
-});
-ModalDialog.displayName = 'ModalDialog';
+    var _splitBsProps = splitBsProps(props),
+        bsProps = _splitBsProps[0],
+        elementProps = _splitBsProps[1];
+
+    var bsClassName = prefix(bsProps);
+
+    var modalStyle = _extends({
+      display: 'block'
+    }, style);
+
+    var dialogClasses = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[bsClassName] = false, _extends2[prefix(bsProps, 'dialog')] = true, _extends2));
+
+    return React.createElement("div", _extends({}, elementProps, {
+      tabIndex: "-1",
+      role: "dialog",
+      style: modalStyle,
+      className: classNames(className, bsClassName)
+    }), React.createElement("div", {
+      className: classNames(dialogClassName, dialogClasses)
+    }, React.createElement("div", {
+      className: prefix(bsProps, 'content'),
+      role: "document",
+      onMouseDown: handleDialogMouseDown
+    }, children)));
+  };
+
+  return ModalDialog;
+}(React.Component);
+
 ModalDialog.propTypes = propTypes;
-ModalDialog.SIZES = SIZES;
-export default ModalDialog;
+export default bsClass('modal', bsSizes([Size.LARGE, Size.SMALL], ModalDialog));

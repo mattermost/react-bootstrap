@@ -4,7 +4,6 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormGroupContext from './FormGroupContext';
 import { bsClass, bsSizes, getClassSet, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import { Size } from './utils/StyleConfig';
 import ValidComponentChildren from './utils/ValidComponentChildren';
@@ -14,6 +13,9 @@ var propTypes = {
    */
   controlId: PropTypes.string,
   validationState: PropTypes.oneOf(['success', 'warning', 'error', null])
+};
+var childContextTypes = {
+  $bs_formGroup: PropTypes.object.isRequired
 };
 
 var FormGroup =
@@ -27,6 +29,18 @@ function (_React$Component) {
 
   var _proto = FormGroup.prototype;
 
+  _proto.getChildContext = function getChildContext() {
+    var _this$props = this.props,
+        controlId = _this$props.controlId,
+        validationState = _this$props.validationState;
+    return {
+      $bs_formGroup: {
+        controlId: controlId,
+        validationState: validationState
+      }
+    };
+  };
+
   _proto.hasFeedback = function hasFeedback(children) {
     var _this = this;
 
@@ -36,11 +50,11 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props = this.props,
-        validationState = _this$props.validationState,
-        className = _this$props.className,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["validationState", "className", "children"]);
+    var _this$props2 = this.props,
+        validationState = _this$props2.validationState,
+        className = _this$props2.className,
+        children = _this$props2.children,
+        props = _objectWithoutPropertiesLoose(_this$props2, ["validationState", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['controlId']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -54,18 +68,14 @@ function (_React$Component) {
       classes["has-" + validationState] = true;
     }
 
-    return React.createElement(FormGroupContext.Provider, {
-      value: {
-        controlId: this.props.controlId,
-        validationState: validationState
-      }
-    }, React.createElement("div", _extends({}, elementProps, {
+    return React.createElement("div", _extends({}, elementProps, {
       className: classNames(className, classes)
-    }), children));
+    }), children);
   };
 
   return FormGroup;
 }(React.Component);
 
 FormGroup.propTypes = propTypes;
+FormGroup.childContextTypes = childContextTypes;
 export default bsClass('form-group', bsSizes([Size.LARGE, Size.SMALL], FormGroup));

@@ -4,7 +4,7 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import warning from 'warning';
+import all from 'prop-types-extra/lib/all';
 import Button from './Button';
 import { bsClass, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 var propTypes = {
@@ -15,7 +15,11 @@ var propTypes = {
    * Display block buttons; only useful when used with the "vertical" prop.
    * @type {bool}
    */
-  block: PropTypes.bool
+  block: all(PropTypes.bool, function (_ref) {
+    var block = _ref.block,
+        vertical = _ref.vertical;
+    return block && !vertical ? new Error('`block` requires `vertical` to be set to have any effect') : null;
+  })
 };
 var defaultProps = {
   block: false,
@@ -47,8 +51,6 @@ function (_React$Component) {
     var _splitBsProps = splitBsProps(props),
         bsProps = _splitBsProps[0],
         elementProps = _splitBsProps[1];
-
-    process.env.NODE_ENV !== "production" ? warning(!(block && !vertical), '`block` requires `vertical` to be set to have any effect') : void 0;
 
     var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[prefix(bsProps)] = !vertical, _extends2[prefix(bsProps, 'vertical')] = vertical, _extends2[prefix(bsProps, 'justified')] = justified, _extends2[prefix(Button.defaultProps, 'block')] = block, _extends2));
 

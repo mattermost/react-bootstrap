@@ -1,9 +1,14 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
-import PanelContext from './PanelContext';
 import { prefix, bsClass, splitBsProps } from './utils/bootstrapUtils';
+var contextTypes = {
+  $bs_panel: PropTypes.shape({
+    bsClass: PropTypes.string
+  })
+};
 
 var PanelFooter =
 /*#__PURE__*/
@@ -21,7 +26,7 @@ function (_React$Component) {
         children = _this$props.children,
         className = _this$props.className;
 
-    var _ref = this.context || {},
+    var _ref = this.context.$bs_panel || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsProps = splitBsProps(this.props),
@@ -37,5 +42,5 @@ function (_React$Component) {
   return PanelFooter;
 }(React.Component);
 
-PanelFooter.contextType = PanelContext;
+PanelFooter.contextTypes = contextTypes;
 export default bsClass('panel', PanelFooter);

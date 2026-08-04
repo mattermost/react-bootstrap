@@ -8,7 +8,6 @@ import elementType from 'prop-types-extra/lib/elementType';
 import warning from 'warning';
 import FormControlFeedback from './FormControlFeedback';
 import FormControlStatic from './FormControlStatic';
-import FormGroupContext from './FormGroupContext';
 import { prefix, bsClass, getClassSet, splitBsProps, bsSizes } from './utils/bootstrapUtils';
 import { SIZE_MAP, Size } from './utils/StyleConfig';
 var propTypes = {
@@ -36,6 +35,9 @@ var propTypes = {
 var defaultProps = {
   componentClass: 'input'
 };
+var contextTypes = {
+  $bs_formGroup: PropTypes.object
+};
 
 var FormControl =
 /*#__PURE__*/
@@ -49,7 +51,7 @@ function (_React$Component) {
   var _proto = FormControl.prototype;
 
   _proto.render = function render() {
-    var formGroup = this.context;
+    var formGroup = this.context.$bs_formGroup;
     var controlId = formGroup && formGroup.controlId;
 
     var _this$props = this.props,
@@ -96,7 +98,7 @@ function (_React$Component) {
 
 FormControl.propTypes = propTypes;
 FormControl.defaultProps = defaultProps;
-FormControl.contextType = FormGroupContext;
+FormControl.contextTypes = contextTypes;
 FormControl.Feedback = FormControlFeedback;
 FormControl.Static = FormControlStatic;
 export default bsClass('form-control', bsSizes([Size.SMALL, Size.LARGE], FormControl));

@@ -10,8 +10,6 @@ import warning from 'warning';
 import { bsStyles, bsClass, getClassSet, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import { State, Style } from './utils/StyleConfig';
 import Body from './PanelBody';
-import PanelContext from './PanelContext';
-import PanelGroupContext from './PanelGroupContext';
 import Heading from './PanelHeading';
 import Title from './PanelTitle';
 import Footer from './PanelFooter';
@@ -46,6 +44,22 @@ var propTypes = {
    */
   id: PropTypes.string
 };
+var contextTypes = {
+  $bs_panelGroup: PropTypes.shape({
+    getId: PropTypes.func,
+    activeKey: PropTypes.any,
+    onToggle: PropTypes.func
+  })
+};
+var childContextTypes = {
+  $bs_panel: PropTypes.shape({
+    headingId: PropTypes.string,
+    bodyId: PropTypes.string,
+    bsClass: PropTypes.string,
+    onToggle: PropTypes.func,
+    expanded: PropTypes.bool
+  })
+};
 
 var Panel =
 /*#__PURE__*/
@@ -62,7 +76,7 @@ function (_React$Component) {
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
 
     _this.handleToggle = function (e) {
-      var panelGroup = _this.context;
+      var panelGroup = _this.context.$bs_panelGroup;
       var expanded = !_this.getExpanded();
 
       if (panelGroup && panelGroup.onToggle) {
@@ -77,8 +91,33 @@ function (_React$Component) {
 
   var _proto = Panel.prototype;
 
+  _proto.getChildContext = function getChildContext() {
+    var _this$props = this.props,
+        eventKey = _this$props.eventKey,
+        id = _this$props.id;
+    var idKey = eventKey == null ? id : eventKey;
+    var ids;
+
+    if (idKey !== null) {
+      var panelGroup = this.context.$bs_panelGroup;
+      var getId = panelGroup && panelGroup.getId || defaultGetId;
+      ids = {
+        headingId: getId(idKey, 'heading'),
+        bodyId: getId(idKey, 'body')
+      };
+    }
+
+    return {
+      $bs_panel: _extends({}, ids, {
+        bsClass: this.props.bsClass,
+        expanded: this.getExpanded(),
+        onToggle: this.handleToggle
+      })
+    };
+  };
+
   _proto.getExpanded = function getExpanded() {
-    var panelGroup = this.context;
+    var panelGroup = this.context.$bs_panelGroup;
 
     if (panelGroup && has.call(panelGroup, 'activeKey')) {
       process.env.NODE_ENV !== "production" ? warning(this.props.expanded == null, 'Specifying `<Panel>` `expanded` in the context of an accordion ' + '`<PanelGroup>` is not supported. Set `activeKey` on the ' + '`<PanelGroup>` instead.') : void 0;
@@ -89,47 +128,25 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    var _this$props = this.props,
-        className = _this$props.className,
-        children = _this$props.children;
+    var _this$props2 = this.props,
+        className = _this$props2.className,
+        children = _this$props2.children;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(this.props, ['onToggle', 'eventKey', 'expanded']),
         bsProps = _splitBsPropsAndOmit[0],
         props = _splitBsPropsAndOmit[1];
 
-    var _this$props2 = this.props,
-        eventKey = _this$props2.eventKey,
-        id = _this$props2.id;
-    var idKey = eventKey == null ? id : eventKey;
-    var ids;
-
-    if (idKey !== null) {
-      var panelGroup = this.context;
-      var getId = panelGroup && panelGroup.getId || defaultGetId;
-      ids = {
-        headingId: getId(idKey, 'heading'),
-        bodyId: getId(idKey, 'body')
-      };
-    }
-
-    var panelContext = _extends({}, ids, {
-      bsClass: this.props.bsClass,
-      expanded: this.getExpanded(),
-      onToggle: this.handleToggle
-    });
-
-    return React.createElement(PanelContext.Provider, {
-      value: panelContext
-    }, React.createElement("div", _extends({}, props, {
+    return React.createElement("div", _extends({}, props, {
       className: classNames(className, getClassSet(bsProps))
-    }), children));
+    }), children);
   };
 
   return Panel;
 }(React.Component);
 
 Panel.propTypes = propTypes;
-Panel.contextType = PanelGroupContext;
+Panel.contextTypes = contextTypes;
+Panel.childContextTypes = childContextTypes;
 var UncontrolledPanel = uncontrollable(bsClass('panel', bsStyles(_Object$values(State).concat([Style.DEFAULT, Style.PRIMARY]), Style.DEFAULT, Panel)), {
   expanded: 'onToggle'
 });

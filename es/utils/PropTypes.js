@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import createChainableTypeChecker from 'prop-types-extra/lib/utils/createChainableTypeChecker';
 import ValidComponentChildren from './ValidComponentChildren';
 var idPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
 export function generatedId(name) {
@@ -20,64 +21,55 @@ export function generatedId(name) {
     return error;
   };
 }
-/**
- * Return a warning message if `children` is missing a child for any of the
- * required `roles`, otherwise `null`. `bsRole` is matched against each child's
- * `bsRole` prop.
- */
-
-export function getMissingRoleError(component, children) {
-  var missing;
-
-  for (var _len2 = arguments.length, roles = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-    roles[_key2 - 2] = arguments[_key2];
+export function requiredRoles() {
+  for (var _len2 = arguments.length, roles = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    roles[_key2] = arguments[_key2];
   }
 
-  roles.every(function (role) {
-    if (!ValidComponentChildren.some(children, function (child) {
-      return child.props.bsRole === role;
-    })) {
-      missing = role;
-      return false;
-    }
+  return createChainableTypeChecker(function (props, propName, component) {
+    var missing;
+    roles.every(function (role) {
+      if (!ValidComponentChildren.some(props.children, function (child) {
+        return child.props.bsRole === role;
+      })) {
+        missing = role;
+        return false;
+      }
 
-    return true;
-  });
-
-  if (missing) {
-    return "(children) " + component + " - Missing a required child with bsRole: " + (missing + ". " + component + " must have at least one child of each of ") + ("the following bsRoles: " + roles.join(', '));
-  }
-
-  return null;
-}
-/**
- * Return a warning message if `children` contains more than one child for any
- * of the exclusive `roles`, otherwise `null`.
- */
-
-export function getDuplicateRoleError(component, children) {
-  var duplicate;
-
-  for (var _len3 = arguments.length, roles = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
-    roles[_key3 - 2] = arguments[_key3];
-  }
-
-  roles.every(function (role) {
-    var childrenWithRole = ValidComponentChildren.filter(children, function (child) {
-      return child.props.bsRole === role;
+      return true;
     });
 
-    if (childrenWithRole.length > 1) {
-      duplicate = role;
-      return false;
+    if (missing) {
+      return new Error("(children) " + component + " - Missing a required child with bsRole: " + (missing + ". " + component + " must have at least one child of each of ") + ("the following bsRoles: " + roles.join(', ')));
     }
 
-    return true;
+    return null;
   });
-
-  if (duplicate) {
-    return "(children) " + component + " - Duplicate children detected of bsRole: " + (duplicate + ". Only one child each allowed with the following ") + ("bsRoles: " + roles.join(', '));
+}
+export function exclusiveRoles() {
+  for (var _len3 = arguments.length, roles = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    roles[_key3] = arguments[_key3];
   }
 
-  return null;
+  return createChainableTypeChecker(function (props, propName, component) {
+    var duplicate;
+    roles.every(function (role) {
+      var childrenWithRole = ValidComponentChildren.filter(props.children, function (child) {
+        return child.props.bsRole === role;
+      });
+
+      if (childrenWithRole.length > 1) {
+        duplicate = role;
+        return false;
+      }
+
+      return true;
+    });
+
+    if (duplicate) {
+      return new Error("(children) " + component + " - Duplicate children detected of bsRole: " + (duplicate + ". Only one child each allowed with the following ") + ("bsRoles: " + roles.join(', ')));
+    }
+
+    return null;
+  });
 }

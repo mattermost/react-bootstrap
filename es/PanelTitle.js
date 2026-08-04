@@ -5,9 +5,8 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import elementType from 'react-prop-types/lib/elementType';
-import PanelContext from './PanelContext';
-import PanelToggle from './PanelToggle';
 import { prefix, splitBsProps, bsClass } from './utils/bootstrapUtils';
+import PanelToggle from './PanelToggle';
 var propTypes = {
   componentClass: elementType,
 
@@ -16,6 +15,11 @@ var propTypes = {
    * for the common use-case.
    */
   toggle: PropTypes.bool
+};
+var contextTypes = {
+  $bs_panel: PropTypes.shape({
+    bsClass: PropTypes.string
+  })
 };
 var defaultProps = {
   componentClass: 'div'
@@ -40,7 +44,7 @@ function (_React$Component) {
         Component = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "toggle", "componentClass"]);
 
-    var _ref = this.context || {},
+    var _ref = this.context.$bs_panel || {},
         _bsClass = _ref.bsClass;
 
     var _splitBsProps = splitBsProps(props),
@@ -63,5 +67,5 @@ function (_React$Component) {
 
 PanelTitle.propTypes = propTypes;
 PanelTitle.defaultProps = defaultProps;
-PanelTitle.contextType = PanelContext;
+PanelTitle.contextTypes = contextTypes;
 export default bsClass('panel', PanelTitle);

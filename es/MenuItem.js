@@ -5,7 +5,7 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import warning from 'warning';
+import all from 'prop-types-extra/lib/all';
 import SafeAnchor from './SafeAnchor';
 import { bsClass, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
@@ -24,7 +24,11 @@ var propTypes = {
    * Styles the menu item as a horizontal rule, providing visual separation between
    * groups of menu items.
    */
-  divider: PropTypes.bool,
+  divider: all(PropTypes.bool, function (_ref) {
+    var divider = _ref.divider,
+        children = _ref.children;
+    return divider && children ? new Error('Children will not be rendered for dividers') : null;
+  }),
 
   /**
    * Value passed to the `onSelect` handler, useful for identifying the selected menu item.
@@ -106,8 +110,6 @@ function (_React$Component) {
         className = _this$props2.className,
         style = _this$props2.style,
         props = _objectWithoutPropertiesLoose(_this$props2, ["active", "disabled", "divider", "header", "onClick", "className", "style"]);
-
-    process.env.NODE_ENV !== "production" ? warning(!(divider && props.children), 'Children will not be rendered for dividers') : void 0;
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['eventKey', 'onSelect']),
         bsProps = _splitBsPropsAndOmit[0],
