@@ -191,8 +191,6 @@ describe('<Panel>', () => {
 
     fireEvent.click(assertSingle(container, 'a'));
 
-    // Toggling the uncontrolled panel expands it, which the toggle reflects
-    // through its `aria-expanded` attribute.
     assertSingle(container, 'a')
       .getAttribute('aria-expanded')
       .should.equal('true');

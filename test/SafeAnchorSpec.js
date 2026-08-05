@@ -72,21 +72,22 @@ describe('SafeAnchor', () => {
 
   it('Should disable link behavior', () => {
     let clickSpy = sinon.spy();
+    let parentClickSpy = sinon.spy();
     let spy = sinon.spy(SafeAnchor.prototype, 'handleClick');
 
     const { container } = render(
-      <SafeAnchor disabled href="#foo" onClick={clickSpy}>
-        Title
-      </SafeAnchor>
+      <div onClick={parentClickSpy}>
+        <SafeAnchor disabled href="#foo" onClick={clickSpy}>
+          Title
+        </SafeAnchor>
+      </div>
     );
     fireEvent.click(container.querySelector('a'));
 
     expect(spy).to.have.been.calledOnce;
-    // Disabled links must not fire the user-provided onClick handler. This also
-    // stands in for the removed `isPropagationStopped()` assertion: the disabled
-    // path returns early after stopping propagation, so onClick is never called.
     expect(clickSpy).to.have.not.been.called;
     expect(spy.getCall(0).args[0].defaultPrevented).to.equal(true);
+    expect(parentClickSpy).to.have.not.been.called;
 
     spy.restore();
   });

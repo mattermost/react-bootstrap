@@ -9,10 +9,9 @@ import TabContainer from '../src/TabContainer';
 
 import { assertSingle, assertNone } from './helpers';
 
-// Asserts that exactly one pane is active and that it corresponds to the given
-// `eventKey`. Replaces enzyme's `assertSingle('[eventKey=N]').assertSingle('.active')`
-// — `<TabContainer id="custom-id">` generates pane ids of the form
-// `custom-id-pane-<eventKey>`.
+/**
+ * Asserts that exactly one pane is active and that it corresponds to the given `eventKey`.
+ */
 function assertActivePane(container, eventKey) {
   const active = assertSingle(container, '.tab-pane.active');
   active.id.should.equal(`custom-id-pane-${eventKey}`);

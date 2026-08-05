@@ -145,10 +145,6 @@ describe('<MenuItem>', () => {
   });
 
   it('does not pass onClick to DOM node', () => {
-    // `onSelect` is an internal prop and must not leak onto the rendered DOM
-    // node. There is no DOM attribute for `onSelect`, so the closest observable
-    // check is that the rendered anchor carries no `onselect` attribute (and no
-    // React unknown-prop warning is emitted, which the harness would surface).
     const { container } = render(<MenuItem onSelect={() => {}}>Item</MenuItem>);
     const anchor = container.querySelector('a');
 
@@ -156,8 +152,6 @@ describe('<MenuItem>', () => {
   });
 
   it('does not pass onClick to children', () => {
-    // Same intent as above: `onSelect` is omitted before being spread onto the
-    // child SafeAnchor, so it never reaches the rendered anchor element.
     const { container } = render(<MenuItem onSelect={() => {}}>Item</MenuItem>);
     const anchor = container.querySelector('a');
 
