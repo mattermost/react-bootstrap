@@ -344,17 +344,19 @@ class Nav extends React.Component {
 Nav.propTypes = propTypes;
 Nav.defaultProps = defaultProps;
 
-function NavWithContext(props) {
+const NavWithContext = React.forwardRef((props, ref) => {
   const navbarContext = useContext(NavbarContext);
   const tabContainerContext = useContext(TabContainerContext);
 
   return (
     <Nav
+      ref={ref}
       {...props}
       navbarContext={navbarContext}
       tabContainerContext={tabContainerContext}
     />
   );
-}
+});
+NavWithContext.displayName = 'NavWithContext';
 
 export default bsClass('nav', bsStyles(['tabs', 'pills'], NavWithContext));
