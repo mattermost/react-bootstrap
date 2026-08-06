@@ -49,25 +49,24 @@ const propTypes = {
   title: PropTypes.node
 };
 
-const defaultProps = {
-  placement: 'right'
-};
-
-class Popover extends React.Component {
-  render() {
-    const {
-      placement,
+const Popover = React.forwardRef(
+  (
+    {
+      placement = 'right',
       positionTop,
       positionLeft,
       arrowOffsetTop,
       arrowOffsetLeft,
+      arrowRef,
+      arrowStyle,
       title,
       className,
       style,
       children,
       ...props
-    } = this.props;
-
+    },
+    ref
+  ) => {
     const [bsProps, elementProps] = splitBsProps(props);
 
     const classes = {
@@ -82,19 +81,21 @@ class Popover extends React.Component {
       ...style
     };
 
-    const arrowStyle = {
+    const combinedArrowStyle = {
       top: arrowOffsetTop,
-      left: arrowOffsetLeft
+      left: arrowOffsetLeft,
+      ...arrowStyle
     };
 
     return (
       <div
+        ref={ref}
         {...elementProps}
         role="tooltip"
         className={classNames(className, classes)}
         style={outerStyle}
       >
-        <div className="arrow" style={arrowStyle} />
+        <div ref={arrowRef} className="arrow" style={combinedArrowStyle} />
 
         {title && <h3 className={prefix(bsProps, 'title')}>{title}</h3>}
 
@@ -102,9 +103,8 @@ class Popover extends React.Component {
       </div>
     );
   }
-}
+);
 
 Popover.propTypes = propTypes;
-Popover.defaultProps = defaultProps;
 
 export default bsClass('popover', Popover);

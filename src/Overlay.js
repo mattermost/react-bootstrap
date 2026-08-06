@@ -10,6 +10,11 @@ const propTypes = {
   ...BaseOverlay.propTypes,
 
   /**
+   * The element that's rendered in the overlay
+   */
+  children: PropTypes.node,
+
+  /**
    * Set the visibility of the Overlay
    */
   show: PropTypes.bool,
@@ -88,12 +93,34 @@ class Overlay extends React.Component {
     }
 
     return (
-      <BaseOverlay {...props} target={null} transition={transition}>
-        {({ props: overlayProps }) => (
-          <div ref={overlayProps.ref} style={{ display: 'content' }}>
-            {child}
-          </div>
-        )}
+      <BaseOverlay {...props} container={document.body} transition={transition}>
+        {({ arrowProps, placement, props: overlayProps }) => {
+          const positionTop =
+            overlayProps && overlayProps.style && overlayProps.style.top;
+          const positionLeft =
+            overlayProps && overlayProps.style && overlayProps.style.left;
+
+          // Passing the positionX and arrowOffsetX props is redundant with the style props,
+          // but it matches how react-overlays used to behave.
+          return React.cloneElement(child, {
+            ...overlayProps,
+            placement,
+            positionTop,
+            positionLeft,
+            arrowOffsetTop:
+              arrowProps && arrowProps.style && arrowProps.style.top,
+            arrowOffsetLeft:
+              arrowProps && arrowProps.style && arrowProps.style.left,
+            arrowRef: arrowProps.ref,
+            arrowStyle: arrowProps.style,
+            style: {
+              ...child.props.style,
+              ...overlayProps.style,
+              left: positionLeft,
+              top: positionTop
+            }
+          });
+        }}
       </BaseOverlay>
     );
   }
