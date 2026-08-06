@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Transition, {
   ENTERED,
   ENTERING
 } from 'react-transition-group/Transition';
 import { getElementRef, useMergedRef } from './utils/mergeRefs';
+import withRef from './utils/withRef';
 
 const propTypes = {
   /**
@@ -77,17 +78,35 @@ const Fade = React.forwardRef(
       mountOnEnter = false,
       unmountOnExit = false,
       appear = false,
+      onEnter,
+      onEntering,
+      onEntered,
+      onExit,
+      onExiting,
+      onExited,
       ...props
     },
     ref
   ) => {
-    const childRef = React.useRef(null);
+    const childRef = useRef(null);
 
     const setChildRef = useMergedRef([childRef, getElementRef(children), ref]);
+
+    // Transition doesn't pass the node as the first parameter of these callbacks when nodeRef is used,
+    // so we add that ourselves to keep the API for Fade consistent
+    const callbacks = {
+      onEnter: useMemo(() => withRef(onEnter, childRef), [onEnter]),
+      onEntering: useMemo(() => withRef(onEntering, childRef), [onEntering]),
+      onEntered: useMemo(() => withRef(onEntered, childRef), [onEntered]),
+      onExit: useMemo(() => withRef(onExit, childRef), [onExit]),
+      onExiting: useMemo(() => withRef(onExiting, childRef), [onExiting]),
+      onExited: useMemo(() => withRef(onExited, childRef), [onExited])
+    };
 
     return (
       <Transition
         {...props}
+        {...callbacks}
         in={inProp}
         timeout={timeout}
         mountOnEnter={mountOnEnter}

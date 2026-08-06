@@ -91,6 +91,8 @@ class TabPane extends React.Component {
     this.handleExited = this.handleExited.bind(this);
 
     this.in = false;
+
+    this.paneRef = React.createRef();
   }
 
   componentDidMount() {
@@ -220,6 +222,7 @@ class TabPane extends React.Component {
 
     const pane = (
       <div
+        ref={this.paneRef}
         {...elementProps}
         role="tabpanel"
         aria-hidden={!active}
@@ -241,6 +244,7 @@ class TabPane extends React.Component {
           onExited={createChainedFunction(this.handleExited, onExited)}
           mountOnEnter={mountOnEnter}
           unmountOnExit={unmountOnExit}
+          nodeRef={this.paneRef}
         >
           {pane}
         </Transition>

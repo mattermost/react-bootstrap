@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isOverflowing from 'react-overlays/isOverflowing';
 import BaseModal from 'react-overlays/Modal';
-import elementType from 'prop-types-extra/lib/elementType';
 
 import Fade from './Fade';
 import Body from './ModalBody';
@@ -51,13 +50,6 @@ const propTypes = {
    * Open and close the Modal with a slide and fade animation.
    */
   animation: PropTypes.bool,
-
-  /**
-   * A Component type that provides the modal content Markup. This is a useful
-   * prop when you want to use your own styles and markup to create a custom
-   * modal component.
-   */
-  dialogComponentClass: elementType,
 
   /**
    * When `true` The modal will automatically shift focus to itself when it
@@ -133,8 +125,7 @@ const defaultProps = {
   renderBackdrop: function renderBackdrop(props) {
     return <div {...props} />;
   },
-  animation: true,
-  dialogComponentClass: ModalDialog
+  animation: true
 };
 
 /* eslint-disable no-use-before-define, react/no-multi-comp */
@@ -239,7 +230,6 @@ class Modal extends React.Component {
       backdropStyle,
       animation,
       show,
-      dialogComponentClass: Dialog,
       className,
       style,
       children, // Just in case this get added to BaseModal propTypes.
@@ -277,7 +267,7 @@ class Modal extends React.Component {
             />
           )}
           renderDialog={renderProps => (
-            <Dialog
+            <ModalDialog
               {...dialogProps}
               {...renderProps}
               style={{ ...renderProps.style, ...this.state.style, ...style }}
@@ -290,7 +280,7 @@ class Modal extends React.Component {
               handleDialogMouseDown={this.handleDialogMouseDown}
             >
               {children}
-            </Dialog>
+            </ModalDialog>
           )}
           onEntering={createChainedFunction(onEntering, this.handleEntering)}
           onExited={createChainedFunction(onExited, this.handleExited)}

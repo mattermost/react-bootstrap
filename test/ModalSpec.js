@@ -223,28 +223,6 @@ describe('<Modal>', () => {
     assert.ok(dialog.className.match(/\btestCss\b/));
   });
 
-  it('Should use dialogComponentClass', () => {
-    const noOp = () => {};
-
-    const CustomDialog = React.forwardRef((props, ref) => (
-      <div ref={ref} className="custom-dialog" tabIndex="-1" />
-    ));
-
-    let instance;
-    render(
-      <Modal
-        ref={element => (instance = element)}
-        show
-        dialogComponentClass={CustomDialog}
-        onHide={noOp}
-      >
-        <strong>Message</strong>
-      </Modal>
-    );
-
-    assert.equal(instance._modal.dialog.className, 'custom-dialog');
-  });
-
   it('Should pass transition callbacks to Transition', done => {
     let count = 0;
     const increment = () => {
