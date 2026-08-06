@@ -294,7 +294,7 @@ class OverlayTrigger extends React.Component {
 
     return (
       <>
-        <div ref={this.triggerRef} style={{ display: 'content' }}>
+        <div ref={this.triggerRef} style={{ display: 'inline-block' }}>
           {cloneElement(child, triggerProps)}
         </div>
         {ReactDOM.createPortal(this.makeOverlay(overlay, props), document.body)}
