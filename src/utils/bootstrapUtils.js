@@ -8,6 +8,8 @@ import warning from 'warning';
 
 import { SIZE_MAP } from './StyleConfig';
 
+const DEV = process.env.NODE_ENV !== 'production';
+
 function curry(fn) {
   return (...args) => {
     let last = args[args.length - 1];
@@ -43,7 +45,7 @@ function getComponentType(Component) {
 function warnOutOfRange(name, propName, value, allowed) {
   if (value != null && allowed.indexOf(value) === -1) {
     warning(
-      false,
+      value == null || allowed.indexOf(value) !== -1,
       `Invalid prop \`${propName}\` of value \`${value}\` supplied to ` +
         `\`${name}\`, expected one of ${JSON.stringify(allowed)}.`
     );
@@ -87,6 +89,10 @@ function addDefaultProp(Component, { propName, defaultValue }) {
  * warning messages when allowed is provided.
  */
 function wrapFunctionComponent(Component, { propName, defaultValue, allowed }) {
+  if (defaultValue === undefined && !allowed) {
+    return Component;
+  }
+
   const name = componentName(Component);
 
   function WrappedComponent(props) {
@@ -119,6 +125,11 @@ function wrapFunctionComponent(Component, { propName, defaultValue, allowed }) {
  */
 function applyBsProp(Component, options) {
   const componentType = getComponentType(Component);
+
+  if (!DEV && options.allowed) {
+    // Only validate this prop during development
+    options.allowed = undefined;
+  }
 
   switch (componentType) {
     case 'class':
