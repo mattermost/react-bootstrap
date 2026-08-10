@@ -25,12 +25,19 @@ function componentName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
-function isReactClass(Component) {
-  return Boolean(
+function getComponentType(Component) {
+  if (
     Component &&
-      Component.prototype &&
-      typeof Component.prototype.render === 'function'
-  );
+    Component.prototype &&
+    typeof Component.prototype.render === 'function'
+  ) {
+    return 'class';
+  } else if (typeof Component === 'function') {
+    return 'function';
+  }
+
+  // Component is likely a forwardRef component
+  return 'other';
 }
 
 function warnOutOfRange(name, propName, value, allowed) {
@@ -43,33 +50,46 @@ function warnOutOfRange(name, propName, value, allowed) {
   }
 }
 
-// Patch a class component's `render` so `propName` is validated on every
-// render, without wrapping the component (which would break ref forwarding,
-// static reads, and — for e.g. `bsRole` — class `defaultProps` merging).
-function patchRenderValidation(Component, propName, allowed) {
-  const flag = `__bsValidated_${propName}`;
-  const proto = Component.prototype;
+/**
+ * Patches a class component's `render` method to validate the given prop value,
+ * mirroring how prop-types validation works before React 19.
+ */
+function patchRenderValidation(Component, { propName, allowed }) {
+  if (allowed) {
+    const name = componentName(Component);
+    const innerRender = Component.prototype.render;
 
-  if (Object.prototype.hasOwnProperty.call(proto, flag)) {
-    return;
+    Component.prototype.render = function validatedRender(...renderArgs) {
+      warnOutOfRange(name, propName, this.props[propName], allowed);
+      return innerRender.apply(this, renderArgs);
+    };
   }
 
-  const name = componentName(Component);
-  const innerRender = proto.render;
-
-  proto.render = function validatedRender(...renderArgs) {
-    warnOutOfRange(name, propName, this.props[propName], allowed);
-    return innerRender.apply(this, renderArgs);
-  };
-  proto[flag] = true;
+  return Component;
 }
 
-// Wrap a function component so the default is applied and the value validated
-// at render.
-function wrapFunctionComponent(Inner, { propName, defaultValue, allowed }) {
-  const name = componentName(Inner);
+/**
+ * Adds a default prop value to a non-function component.
+ */
+function addDefaultProp(Component, { propName, defaultValue }) {
+  if (defaultValue !== undefined) {
+    Component.defaultProps = {
+      ...Component.defaultProps,
+      [propName]: defaultValue
+    };
+  }
 
-  function BootstrapComponent(props) {
+  return Component;
+}
+
+/**
+ * Adds a default prop value to a function component and adds development-only
+ * warning messages when allowed is provided.
+ */
+function wrapFunctionComponent(Component, { propName, defaultValue, allowed }) {
+  const name = componentName(Component);
+
+  function WrappedComponent(props) {
     const resolved =
       defaultValue !== undefined && props[propName] === undefined
         ? { ...props, [propName]: defaultValue }
@@ -79,44 +99,39 @@ function wrapFunctionComponent(Inner, { propName, defaultValue, allowed }) {
       warnOutOfRange(name, propName, resolved[propName], allowed);
     }
 
-    return React.createElement(Inner, resolved);
+    return React.createElement(Component, resolved);
   }
 
-  BootstrapComponent.displayName = name;
+  WrappedComponent.displayName = name;
 
   // Carry over metadata read elsewhere: `propTypes`/`_values` for docs and
   // `STYLES`/`SIZES` for decorator chaining.
-  if (Inner.propTypes) BootstrapComponent.propTypes = Inner.propTypes;
-  if (Inner.STYLES) BootstrapComponent.STYLES = Inner.STYLES;
-  if (Inner.SIZES) BootstrapComponent.SIZES = Inner.SIZES;
+  if (Component.propTypes) WrappedComponent.propTypes = Component.propTypes;
+  if (Component.STYLES) WrappedComponent.STYLES = Component.STYLES;
+  if (Component.SIZES) WrappedComponent.SIZES = Component.SIZES;
 
-  return BootstrapComponent;
+  return WrappedComponent;
 }
 
-// Apply a `bs*` default and (optionally) enum validation to a component,
-// dispatching on what kind of thing it is. Class components keep working
-// `defaultProps`; function components get a validating wrapper; anything else
-// (e.g. a plain object in tests) just records the default.
-function applyBsProp(Component, { propName, defaultValue, allowed }) {
-  const isClassComponent = isReactClass(Component);
+/**
+ * Applies a default prop value and optional, development-only validation
+ * messages to the given Component.
+ */
+function applyBsProp(Component, options) {
+  const componentType = getComponentType(Component);
 
-  if (typeof Component === 'function' && !isClassComponent) {
-    return wrapFunctionComponent(Component, {
-      propName,
-      defaultValue,
-      allowed
-    });
-  }
-
-  if (defaultValue !== undefined) {
-    Component.defaultProps = {
-      ...Component.defaultProps,
-      [propName]: defaultValue
-    };
-  }
-
-  if (allowed && isClassComponent) {
-    patchRenderValidation(Component, propName, allowed);
+  switch (componentType) {
+    case 'class':
+      Component = addDefaultProp(Component, options);
+      Component = patchRenderValidation(Component, options);
+      break;
+    case 'function':
+      Component = wrapFunctionComponent(Component, options);
+      break;
+    default:
+      // No prop validation is added for forwardRef components
+      Component = addDefaultProp(Component, options);
+      break;
   }
 
   return Component;
