@@ -5,6 +5,7 @@ import React from 'react';
 import Dropdown from '../src/Dropdown';
 import Grid from '../src/Grid';
 import MenuItem from '../src/MenuItem';
+import { getDuplicateRoleError } from '../src/utils/PropTypes';
 
 import { shouldWarn } from './helpers';
 
@@ -15,8 +16,6 @@ class CustomMenu extends React.Component {
 }
 
 describe('<Dropdown>', () => {
-  let BaseDropdown = Dropdown.ControlledComponent;
-
   const dropdownChildren = [
     <Dropdown.Toggle key="toggle">Child Title</Dropdown.Toggle>,
     <Dropdown.Menu key="menu">
@@ -110,12 +109,8 @@ describe('<Dropdown>', () => {
       ]
     };
 
-    let err = BaseDropdown.propTypes.children(
-      props,
-      'children',
-      'DropdownButton'
-    );
-    err.message.should.match(/Duplicate children.*bsRole: menu/);
+    const err = getDuplicateRoleError('DropdownButton', props.children, 'menu');
+    err.should.match(/Duplicate children.*bsRole: menu/);
   });
 
   it('forwards pullRight to menu', () => {

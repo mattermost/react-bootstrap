@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import all from 'prop-types-extra/lib/all';
+import warning from 'warning';
 
 import SafeAnchor from './SafeAnchor';
 import { bsClass, prefix, splitBsPropsAndOmit } from './utils/bootstrapUtils';
@@ -22,13 +22,7 @@ const propTypes = {
    * Styles the menu item as a horizontal rule, providing visual separation between
    * groups of menu items.
    */
-  divider: all(
-    PropTypes.bool,
-    ({ divider, children }) =>
-      divider && children
-        ? new Error('Children will not be rendered for dividers')
-        : null
-  ),
+  divider: PropTypes.bool,
 
   /**
    * Value passed to the `onSelect` handler, useful for identifying the selected menu item.
@@ -100,6 +94,11 @@ class MenuItem extends React.Component {
       style,
       ...props
     } = this.props;
+
+    warning(
+      !(divider && props.children),
+      'Children will not be rendered for dividers'
+    );
 
     const [bsProps, elementProps] = splitBsPropsAndOmit(props, [
       'eventKey',
