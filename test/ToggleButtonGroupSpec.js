@@ -1,47 +1,47 @@
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { mount } from 'enzyme';
 
 import ToggleButtonGroup from '../src/ToggleButtonGroup';
 
 describe('ToggleButtonGroup', () => {
   it('should render checkboxes', () => {
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="checkbox">
         <ToggleButtonGroup.Button value={1}>Option 1</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={2}>Option 2</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[type="checkbox"]')
-      .length.should.equal(3);
+    );
+
+    container.querySelectorAll('input[type="checkbox"]').length.should.equal(3);
   });
 
   it('should render radios', () => {
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="radio" name="items">
         <ToggleButtonGroup.Button value={1}>Option 1</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={2}>Option 2</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[type="radio"]')
-      .length.should.equal(3);
+    );
+
+    container.querySelectorAll('input[type="radio"]').length.should.equal(3);
   });
 
   it('should select initial values', () => {
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="checkbox" defaultValue={[1, 3]}>
         <ToggleButtonGroup.Button value={1}>Option 1</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={2}>Option 2</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[checked=true]')
-      .length.should.equal(2);
+    );
+
+    container.querySelectorAll('input:checked').length.should.equal(2);
   });
 
   it('should disable radios', () => {
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="radio" name="items">
         <ToggleButtonGroup.Button value={1} disabled>
           Option 1
@@ -51,39 +51,37 @@ describe('ToggleButtonGroup', () => {
         </ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[disabled=true]')
-      .length.should.equal(2);
+    );
+
+    container.querySelectorAll('input:disabled').length.should.equal(2);
   });
 
   it('should return an array of values', () => {
     const spy = sinon.spy();
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="checkbox" onChange={spy}>
         <ToggleButtonGroup.Button value={1}>Option 1</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={2}>Option 2</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[type="checkbox"]')
-      .at(1)
-      .simulate('change');
+    );
+
+    fireEvent.click(container.querySelectorAll('input[type="checkbox"]')[1]);
 
     spy.should.have.been.calledWith([2]);
   });
 
   it('should return a single value', () => {
     const spy = sinon.spy();
-    mount(
+    const { container } = render(
       <ToggleButtonGroup type="radio" name="items" onChange={spy}>
         <ToggleButtonGroup.Button value={1}>Option 1</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={2}>Option 2</ToggleButtonGroup.Button>
         <ToggleButtonGroup.Button value={3}>Option 3</ToggleButtonGroup.Button>
       </ToggleButtonGroup>
-    )
-      .find('input[type="radio"]')
-      .at(1)
-      .simulate('change');
+    );
+
+    fireEvent.click(container.querySelectorAll('input[type="radio"]')[1]);
 
     spy.should.have.been.calledWith(2);
   });

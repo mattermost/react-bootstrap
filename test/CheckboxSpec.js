@@ -1,74 +1,60 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
 
 import Checkbox from '../src/Checkbox';
 
-import { shouldWarn } from './helpers';
+import { assertNone, assertSingle, shouldWarn } from './helpers';
 
 describe('<Checkbox>', () => {
   it('should render correctly', () => {
-    const wrapper = shallow(
-      <Checkbox name="foo" checked className="my-checkbox">
+    const { container } = render(
+      <Checkbox name="foo" checked readOnly className="my-checkbox">
         My label
       </Checkbox>
     );
 
-    wrapper
-      .assertSingle('div.checkbox.my-checkbox')
-      .assertSingle('input[type="checkbox"][name="foo"][checked]');
+    const div = assertSingle(container, 'div.checkbox.my-checkbox');
+    const input = assertSingle(div, 'input[type="checkbox"][name="foo"]');
+    expect(input.checked).to.equal(true);
 
-    wrapper
-      .assertSingle('label')
-      .text()
-      .should.equal('My label');
+    assertSingle(container, 'label').textContent.should.equal('My label');
   });
 
   it('should support inline', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Checkbox inline name="foo" className="my-checkbox">
         My label
       </Checkbox>
     );
 
-    wrapper
-      .assertSingle('label.checkbox-inline.my-checkbox')
-      .assertSingle('input[type="checkbox"][name="foo"]');
+    const label = assertSingle(container, 'label.checkbox-inline.my-checkbox');
+    assertSingle(label, 'input[type="checkbox"][name="foo"]');
 
-    wrapper
-      .assertSingle('label')
-      .text()
-      .should.equal('My label');
+    assertSingle(container, 'label').textContent.should.equal('My label');
   });
 
   it('should support validation state', () => {
-    shallow(<Checkbox validationState="success" />).assertSingle(
-      '.has-success'
-    );
+    const { container } = render(<Checkbox validationState="success" />);
+    assertSingle(container, '.has-success');
   });
 
   it('should not support validation state when inline', () => {
     shouldWarn('ignored');
 
-    shallow(<Checkbox inline validationState="success" />)
-      .find('.has-success')
-      .should.have.length(0);
+    const { container } = render(<Checkbox inline validationState="success" />);
+    assertNone(container, '.has-success');
   });
 
   it('should support inputRef', () => {
-    class Container extends React.Component {
-      render() {
-        return (
-          <Checkbox
-            inputRef={ref => {
-              this.input = ref;
-            }}
-          />
-        );
-      }
-    }
+    let input;
+    render(
+      <Checkbox
+        inputRef={ref => {
+          input = ref;
+        }}
+      />
+    );
 
-    const instance = mount(<Container />).instance();
-
-    expect(instance.input.tagName).to.equal('INPUT');
+    expect(input.tagName).to.equal('INPUT');
   });
 });

@@ -1,18 +1,21 @@
+import { render } from '@testing-library/react';
 import React from 'react';
-import { shallow } from 'enzyme';
 
 import FormControl from '../src/FormControl';
 
+import { assertSingle } from './helpers';
+
 describe('<FormControl.Static>', () => {
   it('should render correctly', () => {
+    const { container } = render(
+      <FormControl.Static name="foo" className="my-form-control-static">
+        Static text
+      </FormControl.Static>
+    );
+
     expect(
-      shallow(
-        <FormControl.Static name="foo" className="my-form-control-static">
-          Static text
-        </FormControl.Static>
-      )
-        .assertSingle('.form-control-static.my-form-control-static')
-        .text()
+      assertSingle(container, '.form-control-static.my-form-control-static')
+        .textContent
     ).to.equal('Static text');
   });
 
@@ -21,14 +24,14 @@ describe('<FormControl.Static>', () => {
       return <div {...props}>{children}</div>;
     }
 
-    expect(
-      shallow(
-        <FormControl.Static componentClass={MyComponent}>
-          Static text
-        </FormControl.Static>
-      )
-        .assertSingle('MyComponent.form-control-static')
-        .contains('Static text')
-    ).to.equal(true);
+    const { container } = render(
+      <FormControl.Static componentClass={MyComponent}>
+        Static text
+      </FormControl.Static>
+    );
+
+    const node = assertSingle(container, '.form-control-static');
+    assert.equal(node.nodeName, 'DIV');
+    expect(node.textContent).to.contain('Static text');
   });
 });
