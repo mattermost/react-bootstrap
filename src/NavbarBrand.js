@@ -1,19 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
-import PropTypes from 'prop-types';
 
+import NavbarContext from './NavbarContext';
 import { prefix } from './utils/bootstrapUtils';
-
-const contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string
-  })
-};
 
 class NavbarBrand extends React.Component {
   render() {
     const { className, children, ...props } = this.props;
-    const navbarProps = this.context.$bs_navbar || { bsClass: 'navbar' };
+    const navbarProps = this.context || { bsClass: 'navbar' };
 
     const bsClassName = prefix(navbarProps, 'brand');
 
@@ -31,6 +25,6 @@ class NavbarBrand extends React.Component {
   }
 }
 
-NavbarBrand.contextTypes = contextTypes;
+NavbarBrand.contextType = NavbarContext;
 
 export default NavbarBrand;

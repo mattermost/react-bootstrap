@@ -1,10 +1,12 @@
 import classNames from 'classnames';
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import all from 'prop-types-extra/lib/all';
 import warning from 'warning';
 
+import NavbarContext from './NavbarContext';
+import TabContainerContext from './TabContainerContext';
 import {
   bsClass,
   bsStyles,
@@ -95,20 +97,6 @@ const defaultProps = {
   stacked: false
 };
 
-const contextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    onSelect: PropTypes.func
-  }),
-
-  $bs_tabContainer: PropTypes.shape({
-    activeKey: PropTypes.any,
-    onSelect: PropTypes.func.isRequired,
-    getTabId: PropTypes.func.isRequired,
-    getPaneId: PropTypes.func.isRequired
-  })
-};
-
 class Nav extends React.Component {
   componentDidUpdate() {
     if (!this._needsRefocus) {
@@ -138,7 +126,7 @@ class Nav extends React.Component {
   }
 
   getActiveProps() {
-    const tabContainer = this.context.$bs_tabContainer;
+    const tabContainer = this.props.tabContainerContext;
 
     if (tabContainer) {
       warning(
@@ -280,10 +268,12 @@ class Nav extends React.Component {
       pullLeft,
       className,
       children,
+      navbarContext,
+      tabContainerContext,
       ...props
     } = this.props;
 
-    const tabContainer = this.context.$bs_tabContainer;
+    const tabContainer = tabContainerContext;
     const role = propsRole || (tabContainer ? 'tablist' : null);
 
     const { activeKey, activeHref } = this.getActiveProps();
@@ -298,12 +288,12 @@ class Nav extends React.Component {
       [prefix(bsProps, 'justified')]: justified
     };
 
-    const navbar = propsNavbar != null ? propsNavbar : this.context.$bs_navbar;
+    const navbar = propsNavbar != null ? propsNavbar : navbarContext;
     let pullLeftClassName;
     let pullRightClassName;
 
     if (navbar) {
-      const navbarProps = this.context.$bs_navbar || { bsClass: 'navbar' };
+      const navbarProps = navbarContext || { bsClass: 'navbar' };
 
       classes[prefix(navbarProps, 'nav')] = true;
 
@@ -353,6 +343,20 @@ class Nav extends React.Component {
 
 Nav.propTypes = propTypes;
 Nav.defaultProps = defaultProps;
-Nav.contextTypes = contextTypes;
 
-export default bsClass('nav', bsStyles(['tabs', 'pills'], Nav));
+const NavWithContext = React.forwardRef((props, ref) => {
+  const navbarContext = useContext(NavbarContext);
+  const tabContainerContext = useContext(TabContainerContext);
+
+  return (
+    <Nav
+      ref={ref}
+      {...props}
+      navbarContext={navbarContext}
+      tabContainerContext={tabContainerContext}
+    />
+  );
+});
+NavWithContext.displayName = 'NavWithContext';
+
+export default bsClass('nav', bsStyles(['tabs', 'pills'], NavWithContext));

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import uncontrollable from 'uncontrollable';
 
+import TabContainerContext from './TabContainerContext';
+
 const TAB = 'tab';
 const PANE = 'pane';
 
@@ -58,44 +60,34 @@ const propTypes = {
   activeKey: PropTypes.any
 };
 
-const childContextTypes = {
-  $bs_tabContainer: PropTypes.shape({
-    activeKey: PropTypes.any,
-    onSelect: PropTypes.func.isRequired,
-    getTabId: PropTypes.func.isRequired,
-    getPaneId: PropTypes.func.isRequired
-  })
-};
-
 class TabContainer extends React.Component {
-  getChildContext() {
+  render() {
+    const { children, ...props } = this.props;
+
     const { activeKey, onSelect, generateChildId, id } = this.props;
 
     const getId =
       generateChildId || ((key, type) => (id ? `${id}-${type}-${key}` : null));
 
-    return {
-      $bs_tabContainer: {
-        activeKey,
-        onSelect,
-        getTabId: key => getId(key, TAB),
-        getPaneId: key => getId(key, PANE)
-      }
+    const tabContainerContext = {
+      activeKey,
+      onSelect,
+      getTabId: key => getId(key, TAB),
+      getPaneId: key => getId(key, PANE)
     };
-  }
-
-  render() {
-    const { children, ...props } = this.props;
 
     delete props.generateChildId;
     delete props.onSelect;
     delete props.activeKey;
 
-    return React.cloneElement(React.Children.only(children), props);
+    return (
+      <TabContainerContext.Provider value={tabContainerContext}>
+        {React.cloneElement(React.Children.only(children), props)}
+      </TabContainerContext.Provider>
+    );
   }
 }
 
 TabContainer.propTypes = propTypes;
-TabContainer.childContextTypes = childContextTypes;
 
 export default uncontrollable(TabContainer, { activeKey: 'onSelect' });

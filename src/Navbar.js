@@ -2,7 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import classNames from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
 import uncontrollable from 'uncontrollable';
@@ -10,6 +10,7 @@ import uncontrollable from 'uncontrollable';
 import Grid from './Grid';
 import NavbarBrand from './NavbarBrand';
 import NavbarCollapse from './NavbarCollapse';
+import NavbarContext from './NavbarContext';
 import NavbarHeader from './NavbarHeader';
 import NavbarToggle from './NavbarToggle';
 import {
@@ -109,37 +110,12 @@ const defaultProps = {
   collapseOnSelect: false
 };
 
-const childContextTypes = {
-  $bs_navbar: PropTypes.shape({
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool,
-    onToggle: PropTypes.func.isRequired,
-    onSelect: PropTypes.func
-  })
-};
-
 class Navbar extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.handleToggle = this.handleToggle.bind(this);
     this.handleCollapse = this.handleCollapse.bind(this);
-  }
-
-  getChildContext() {
-    const { bsClass, expanded, onSelect, collapseOnSelect } = this.props;
-
-    return {
-      $bs_navbar: {
-        bsClass,
-        expanded,
-        onToggle: this.handleToggle,
-        onSelect: createChainedFunction(
-          onSelect,
-          collapseOnSelect ? this.handleCollapse : null
-        )
-      }
-    };
   }
 
   handleCollapse() {
@@ -194,43 +170,57 @@ class Navbar extends React.Component {
       [prefix(bsProps, 'static-top')]: staticTop
     };
 
+    const { bsClass, expanded, onSelect, collapseOnSelect } = this.props;
+
+    const navbarContext = {
+      bsClass,
+      expanded,
+      onToggle: this.handleToggle,
+      onSelect: createChainedFunction(
+        onSelect,
+        collapseOnSelect ? this.handleCollapse : null
+      )
+    };
+
     return (
-      <Component {...elementProps} className={classNames(className, classes)}>
-        <Grid fluid={fluid}>{children}</Grid>
-      </Component>
+      <NavbarContext.Provider value={navbarContext}>
+        <Component {...elementProps} className={classNames(className, classes)}>
+          <Grid fluid={fluid}>{children}</Grid>
+        </Component>
+      </NavbarContext.Provider>
     );
   }
 }
 
 Navbar.propTypes = propTypes;
 Navbar.defaultProps = defaultProps;
-Navbar.childContextTypes = childContextTypes;
 
 setBsClass('navbar', Navbar);
 
 const UncontrollableNavbar = uncontrollable(Navbar, { expanded: 'onToggle' });
 
 function createSimpleWrapper(tag, suffix, displayName) {
-  const Wrapper = (
-    {
-      componentClass: Component = tag,
-      className,
-      pullRight = false,
-      pullLeft = false,
-      ...props
-    },
-    { $bs_navbar: navbarProps = { bsClass: 'navbar' } }
-  ) => (
-    <Component
-      {...props}
-      className={classNames(
-        className,
-        prefix(navbarProps, suffix),
-        pullRight && prefix(navbarProps, 'right'),
-        pullLeft && prefix(navbarProps, 'left')
-      )}
-    />
-  );
+  const Wrapper = ({
+    componentClass: Component = tag,
+    className,
+    pullRight = false,
+    pullLeft = false,
+    ...props
+  }) => {
+    const navbarProps = useContext(NavbarContext) || { bsClass: 'navbar' };
+
+    return (
+      <Component
+        {...props}
+        className={classNames(
+          className,
+          prefix(navbarProps, suffix),
+          pullRight && prefix(navbarProps, 'right'),
+          pullLeft && prefix(navbarProps, 'left')
+        )}
+      />
+    );
+  };
 
   Wrapper.displayName = displayName;
 
@@ -238,12 +228,6 @@ function createSimpleWrapper(tag, suffix, displayName) {
     componentClass: elementType,
     pullRight: PropTypes.bool,
     pullLeft: PropTypes.bool
-  };
-
-  Wrapper.contextTypes = {
-    $bs_navbar: PropTypes.shape({
-      bsClass: PropTypes.string
-    })
   };
 
   return Wrapper;

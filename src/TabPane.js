@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import elementType from 'prop-types-extra/lib/elementType';
 import warning from 'warning';
 
+import TabContainerContext from './TabContainerContext';
+import TabContentContext from './TabContentContext';
 import {
   bsClass,
   getClassSet,
@@ -81,31 +83,6 @@ const propTypes = {
   unmountOnExit: PropTypes.bool
 };
 
-const contextTypes = {
-  $bs_tabContainer: PropTypes.shape({
-    getTabId: PropTypes.func,
-    getPaneId: PropTypes.func
-  }),
-  $bs_tabContent: PropTypes.shape({
-    bsClass: PropTypes.string,
-    animation: PropTypes.oneOfType([PropTypes.bool, elementType]),
-    activeKey: PropTypes.any,
-    mountOnEnter: PropTypes.bool,
-    unmountOnExit: PropTypes.bool,
-    onPaneEnter: PropTypes.func.isRequired,
-    onPaneExited: PropTypes.func.isRequired,
-    exiting: PropTypes.bool.isRequired
-  })
-};
-
-/**
- * We override the `<TabContainer>` context so `<Nav>`s in `<TabPane>`s don't
- * conflict with the top level one.
- */
-const childContextTypes = {
-  $bs_tabContainer: PropTypes.oneOf([null])
-};
-
 class TabPane extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -114,12 +91,6 @@ class TabPane extends React.Component {
     this.handleExited = this.handleExited.bind(this);
 
     this.in = false;
-  }
-
-  getChildContext() {
-    return {
-      $bs_tabContainer: null
-    };
   }
 
   componentDidMount() {
@@ -153,12 +124,12 @@ class TabPane extends React.Component {
       return this.props.animation;
     }
 
-    const tabContent = this.context.$bs_tabContent;
+    const tabContent = this.context;
     return tabContent && tabContent.animation;
   }
 
   handleEnter() {
-    const tabContent = this.context.$bs_tabContent;
+    const tabContent = this.context;
     if (!tabContent) {
       return;
     }
@@ -167,7 +138,7 @@ class TabPane extends React.Component {
   }
 
   handleExited() {
-    const tabContent = this.context.$bs_tabContent;
+    const tabContent = this.context;
     if (!tabContent) {
       return;
     }
@@ -177,7 +148,7 @@ class TabPane extends React.Component {
   }
 
   isActive() {
-    const tabContent = this.context.$bs_tabContent;
+    const tabContent = this.context;
     const activeKey = tabContent && tabContent.activeKey;
 
     return this.props.eventKey === activeKey;
@@ -187,7 +158,7 @@ class TabPane extends React.Component {
     return this.getAnimation() && this.isActive();
   }
 
-  render() {
+  renderPane(tabContainer) {
     const {
       eventKey,
       className,
@@ -202,10 +173,7 @@ class TabPane extends React.Component {
       ...props
     } = this.props;
 
-    const {
-      $bs_tabContent: tabContent,
-      $bs_tabContainer: tabContainer
-    } = this.context;
+    const tabContent = this.context;
 
     const [bsProps, elementProps] = splitBsPropsAndOmit(props, ['animation']);
 
@@ -281,10 +249,24 @@ class TabPane extends React.Component {
 
     return pane;
   }
+
+  render() {
+    // Read the `<TabContainer>` context so we can generate accessible ids, then
+    // override it with `null` so `<Nav>`s in `<TabPane>`s don't conflict with
+    // the top level one.
+    return (
+      <TabContainerContext.Consumer>
+        {tabContainer => (
+          <TabContainerContext.Provider value={null}>
+            {this.renderPane(tabContainer)}
+          </TabContainerContext.Provider>
+        )}
+      </TabContainerContext.Consumer>
+    );
+  }
 }
 
 TabPane.propTypes = propTypes;
-TabPane.contextTypes = contextTypes;
-TabPane.childContextTypes = childContextTypes;
+TabPane.contextType = TabContentContext;
 
 export default bsClass('tab-pane', TabPane);

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { prefix, splitBsProps, bsClass } from './utils/bootstrapUtils';
 import Collapse from './Collapse';
+import PanelContext from './PanelContext';
 
 const propTypes = {
   /**
@@ -31,20 +32,11 @@ const propTypes = {
   onExited: PropTypes.func
 };
 
-const contextTypes = {
-  $bs_panel: PropTypes.shape({
-    headingId: PropTypes.string,
-    bodyId: PropTypes.string,
-    bsClass: PropTypes.string,
-    expanded: PropTypes.bool
-  })
-};
-
 class PanelCollapse extends React.Component {
   render() {
     const { children } = this.props;
     const { headingId, bodyId, bsClass: _bsClass, expanded } =
-      this.context.$bs_panel || {};
+      this.context || {};
 
     const [bsProps, props] = splitBsProps(this.props);
 
@@ -65,6 +57,6 @@ class PanelCollapse extends React.Component {
 }
 
 PanelCollapse.propTypes = propTypes;
-PanelCollapse.contextTypes = contextTypes;
+PanelCollapse.contextType = PanelContext;
 
 export default bsClass('panel', PanelCollapse);

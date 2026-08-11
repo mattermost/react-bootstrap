@@ -5,6 +5,7 @@ import React from 'react';
 import { bsClass, getClassSet, splitBsProps } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
 import CloseButton from './CloseButton';
+import ModalContext from './ModalContext';
 
 // TODO: `aria-label` should be `closeLabel`.
 
@@ -34,12 +35,6 @@ const defaultProps = {
   closeButton: false
 };
 
-const contextTypes = {
-  $bs_modal: PropTypes.shape({
-    onHide: PropTypes.func
-  })
-};
-
 class ModalHeader extends React.Component {
   render() {
     const {
@@ -51,7 +46,7 @@ class ModalHeader extends React.Component {
       ...props
     } = this.props;
 
-    const modal = this.context.$bs_modal;
+    const modal = this.context;
 
     const [bsProps, elementProps] = splitBsProps(props);
 
@@ -74,6 +69,6 @@ class ModalHeader extends React.Component {
 
 ModalHeader.propTypes = propTypes;
 ModalHeader.defaultProps = defaultProps;
-ModalHeader.contextTypes = contextTypes;
+ModalHeader.contextType = ModalContext;
 
 export default bsClass('modal-header', ModalHeader);
