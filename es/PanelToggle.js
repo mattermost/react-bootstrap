@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 import elementType from 'react-prop-types/lib/elementType';
+import PanelContext from './PanelContext';
 import SafeAnchor from './SafeAnchor';
 import createChainedFunction from './utils/createChainedFunction';
 var propTypes = {
@@ -22,13 +23,6 @@ var propTypes = {
 };
 var defaultProps = {
   componentClass: SafeAnchor
-};
-var contextTypes = {
-  $bs_panel: PropTypes.shape({
-    bodyId: PropTypes.string,
-    onToggle: PropTypes.func,
-    expanded: PropTypes.bool
-  })
 };
 
 var PanelToggle =
@@ -51,7 +45,7 @@ function (_React$Component) {
   var _proto = PanelToggle.prototype;
 
   _proto.handleToggle = function handleToggle(event) {
-    var _ref = this.context.$bs_panel || {},
+    var _ref = this.context || {},
         onToggle = _ref.onToggle;
 
     if (onToggle) {
@@ -66,7 +60,7 @@ function (_React$Component) {
         componentClass = _this$props.componentClass,
         props = _objectWithoutPropertiesLoose(_this$props, ["onClick", "className", "componentClass"]);
 
-    var _ref2 = this.context.$bs_panel || {},
+    var _ref2 = this.context || {},
         expanded = _ref2.expanded,
         bodyId = _ref2.bodyId;
 
@@ -87,5 +81,5 @@ function (_React$Component) {
 
 PanelToggle.propTypes = propTypes;
 PanelToggle.defaultProps = defaultProps;
-PanelToggle.contextTypes = contextTypes;
+PanelToggle.contextType = PanelContext;
 export default PanelToggle;

@@ -1,6 +1,5 @@
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
-import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -39,65 +38,52 @@ var propTypes = {
    */
   arrowOffsetLeft: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
-var defaultProps = {
-  placement: 'right'
-};
+var Tooltip = React.forwardRef(function (_ref, ref) {
+  var _extends2;
 
-var Tooltip =
-/*#__PURE__*/
-function (_React$Component) {
-  _inheritsLoose(Tooltip, _React$Component);
+  var _ref$placement = _ref.placement,
+      placement = _ref$placement === void 0 ? 'right' : _ref$placement,
+      positionTop = _ref.positionTop,
+      positionLeft = _ref.positionLeft,
+      arrowOffsetTop = _ref.arrowOffsetTop,
+      arrowOffsetLeft = _ref.arrowOffsetLeft,
+      arrowRef = _ref.arrowRef,
+      arrowStyle = _ref.arrowStyle,
+      className = _ref.className,
+      style = _ref.style,
+      children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "arrowRef", "arrowStyle", "className", "style", "children"]);
 
-  function Tooltip() {
-    return _React$Component.apply(this, arguments) || this;
-  }
+  var _splitBsProps = splitBsProps(props),
+      bsProps = _splitBsProps[0],
+      elementProps = _splitBsProps[1];
 
-  var _proto = Tooltip.prototype;
+  var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[placement] = true, _extends2));
 
-  _proto.render = function render() {
-    var _extends2;
+  var outerStyle = _extends({
+    top: positionTop,
+    left: positionLeft
+  }, style);
 
-    var _this$props = this.props,
-        placement = _this$props.placement,
-        positionTop = _this$props.positionTop,
-        positionLeft = _this$props.positionLeft,
-        arrowOffsetTop = _this$props.arrowOffsetTop,
-        arrowOffsetLeft = _this$props.arrowOffsetLeft,
-        className = _this$props.className,
-        style = _this$props.style,
-        children = _this$props.children,
-        props = _objectWithoutPropertiesLoose(_this$props, ["placement", "positionTop", "positionLeft", "arrowOffsetTop", "arrowOffsetLeft", "className", "style", "children"]);
+  var combinedArrowStyle = _extends({
+    top: arrowOffsetTop,
+    left: arrowOffsetLeft
+  }, arrowStyle);
 
-    var _splitBsProps = splitBsProps(props),
-        bsProps = _splitBsProps[0],
-        elementProps = _splitBsProps[1];
-
-    var classes = _extends({}, getClassSet(bsProps), (_extends2 = {}, _extends2[placement] = true, _extends2));
-
-    var outerStyle = _extends({
-      top: positionTop,
-      left: positionLeft
-    }, style);
-
-    var arrowStyle = {
-      top: arrowOffsetTop,
-      left: arrowOffsetLeft
-    };
-    return React.createElement("div", _extends({}, elementProps, {
-      role: "tooltip",
-      className: classNames(className, classes),
-      style: outerStyle
-    }), React.createElement("div", {
-      className: prefix(bsProps, 'arrow'),
-      style: arrowStyle
-    }), React.createElement("div", {
-      className: prefix(bsProps, 'inner')
-    }, children));
-  };
-
-  return Tooltip;
-}(React.Component);
-
+  return React.createElement("div", _extends({
+    ref: ref
+  }, elementProps, {
+    role: "tooltip",
+    className: classNames(className, classes),
+    style: outerStyle
+  }), React.createElement("div", {
+    ref: arrowRef,
+    className: prefix(bsProps, 'arrow'),
+    style: combinedArrowStyle
+  }), React.createElement("div", {
+    className: prefix(bsProps, 'inner')
+  }, children));
+});
+Tooltip.displayName = 'Tooltip';
 Tooltip.propTypes = propTypes;
-Tooltip.defaultProps = defaultProps;
 export default bsClass('tooltip', Tooltip);

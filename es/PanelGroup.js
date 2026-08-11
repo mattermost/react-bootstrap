@@ -1,10 +1,11 @@
-import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
+import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { cloneElement } from 'react';
 import uncontrollable from 'uncontrollable';
+import PanelGroupContext from './PanelGroupContext';
 import { bsClass, getClassSet, splitBsPropsAndOmit } from './utils/bootstrapUtils';
 import ValidComponentChildren from './utils/ValidComponentChildren';
 import { generatedId } from './utils/PropTypes';
@@ -52,15 +53,6 @@ var propTypes = {
 var defaultProps = {
   accordion: false
 };
-var childContextTypes = {
-  $bs_panelGroup: PropTypes.shape({
-    getId: PropTypes.func,
-    headerRole: PropTypes.string,
-    panelRole: PropTypes.string,
-    activeKey: PropTypes.any,
-    onToggle: PropTypes.func
-  })
-};
 
 var PanelGroup =
 /*#__PURE__*/
@@ -89,38 +81,12 @@ function (_React$Component) {
 
   var _proto = PanelGroup.prototype;
 
-  _proto.getChildContext = function getChildContext() {
-    var _this$props = this.props,
-        activeKey = _this$props.activeKey,
-        accordion = _this$props.accordion,
-        generateChildId = _this$props.generateChildId,
-        id = _this$props.id;
-    var getId = null;
-
-    if (accordion) {
-      getId = generateChildId || function (key, type) {
-        return id ? id + "-" + type + "-" + key : null;
-      };
-    }
-
-    return {
-      $bs_panelGroup: _extends({
-        getId: getId,
-        headerRole: 'tab',
-        panelRole: 'tabpanel'
-      }, accordion && {
-        activeKey: activeKey,
-        onToggle: this.handleSelect
-      })
-    };
-  };
-
   _proto.render = function render() {
-    var _this$props2 = this.props,
-        accordion = _this$props2.accordion,
-        className = _this$props2.className,
-        children = _this$props2.children,
-        props = _objectWithoutPropertiesLoose(_this$props2, ["accordion", "className", "children"]);
+    var _this$props = this.props,
+        accordion = _this$props.accordion,
+        className = _this$props.className,
+        children = _this$props.children,
+        props = _objectWithoutPropertiesLoose(_this$props, ["accordion", "className", "children"]);
 
     var _splitBsPropsAndOmit = splitBsPropsAndOmit(props, ['onSelect', 'activeKey']),
         bsProps = _splitBsPropsAndOmit[0],
@@ -131,13 +97,36 @@ function (_React$Component) {
     }
 
     var classes = getClassSet(bsProps);
-    return React.createElement("div", _extends({}, elementProps, {
+    var _this$props2 = this.props,
+        activeKey = _this$props2.activeKey,
+        generateChildId = _this$props2.generateChildId,
+        id = _this$props2.id;
+    var getId = null;
+
+    if (accordion) {
+      getId = generateChildId || function (key, type) {
+        return id ? id + "-" + type + "-" + key : null;
+      };
+    }
+
+    var panelGroupContext = _extends({
+      getId: getId,
+      headerRole: 'tab',
+      panelRole: 'tabpanel'
+    }, accordion && {
+      activeKey: activeKey,
+      onToggle: this.handleSelect
+    });
+
+    return React.createElement(PanelGroupContext.Provider, {
+      value: panelGroupContext
+    }, React.createElement("div", _extends({}, elementProps, {
       className: classNames(className, classes)
     }), ValidComponentChildren.map(children, function (child) {
       return cloneElement(child, {
         bsStyle: child.props.bsStyle || bsProps.bsStyle
       });
-    }));
+    })));
   };
 
   return PanelGroup;
@@ -145,7 +134,6 @@ function (_React$Component) {
 
 PanelGroup.propTypes = propTypes;
 PanelGroup.defaultProps = defaultProps;
-PanelGroup.childContextTypes = childContextTypes;
 export default uncontrollable(bsClass('panel-group', PanelGroup), {
   activeKey: 'onSelect'
 });

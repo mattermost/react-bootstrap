@@ -5,6 +5,7 @@ import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
+import warning from 'warning';
 import { bsClass as setBsClass, bsStyles, getClassSet, prefix, splitBsProps } from './utils/bootstrapUtils';
 import { State } from './utils/StyleConfig';
 import ValidComponentChildren from './utils/ValidComponentChildren';
@@ -13,13 +14,7 @@ var ROUND_PRECISION = 1000;
  * Validate that children, if any, are instances of `<ProgressBar>`.
  */
 
-function onlyProgressBar(props, propName, componentName) {
-  var children = props[propName];
-
-  if (!children) {
-    return null;
-  }
-
+function getInvalidChildError(children) {
   var error = null;
   React.Children.forEach(children, function (child) {
     if (error) {
@@ -36,7 +31,7 @@ function onlyProgressBar(props, propName, componentName) {
     var element = React.createElement(ProgressBar, null);
     if (child.type === element.type) return;
     var childIdentifier = React.isValidElement(child) ? child.type.displayName || child.type.name || child.type : child;
-    error = new Error("Children of " + componentName + " can contain only ProgressBar " + ("components. Found " + childIdentifier + "."));
+    error = "Children of ProgressBar can contain only ProgressBar " + ("components. Found " + childIdentifier + ".");
   });
   return error;
 }
@@ -49,7 +44,7 @@ var propTypes = {
   srOnly: PropTypes.bool,
   striped: PropTypes.bool,
   active: PropTypes.bool,
-  children: onlyProgressBar,
+  children: PropTypes.node,
 
   /**
    * @private
@@ -138,6 +133,12 @@ function (_React$Component) {
         className = props.className,
         children = props.children,
         wrapperProps = _objectWithoutPropertiesLoose(props, ["min", "now", "max", "label", "srOnly", "striped", "active", "bsClass", "bsStyle", "className", "children"]);
+
+    var childError = children ? getInvalidChildError(children) : null;
+
+    if (childError) {
+      process.env.NODE_ENV !== "production" ? warning(false, childError) : void 0;
+    }
 
     return React.createElement("div", _extends({}, wrapperProps, {
       className: classNames(className, 'progress')

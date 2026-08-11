@@ -5,7 +5,6 @@ import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThi
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import transition from 'dom-helpers/transition';
 var propTypes = {
   direction: PropTypes.oneOf(['prev', 'next']),
@@ -34,6 +33,7 @@ function (_React$Component) {
     _this.state = {
       direction: null
     };
+    _this.containerRef = React.createRef();
     _this.isUnmounted = false;
     return _this;
   }
@@ -55,7 +55,7 @@ function (_React$Component) {
     var prevActive = prevProps.active;
 
     if (!active && prevActive) {
-      transition.end(ReactDOM.findDOMNode(this), this.handleAnimateOutEnd);
+      transition.end(this.containerRef.current, this.handleAnimateOutEnd);
     }
 
     if (active !== prevActive) {
@@ -113,7 +113,9 @@ function (_React$Component) {
       classes[this.state.direction] = true;
     }
 
-    return React.createElement("div", _extends({}, props, {
+    return React.createElement("div", _extends({
+      ref: this.containerRef
+    }, props, {
       className: classNames(className, classes)
     }));
   };
