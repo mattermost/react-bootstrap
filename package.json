@@ -124,9 +124,10 @@
     "keycode": "^2.2.0",
     "prop-types": "^15.6.1",
     "prop-types-extra": "^1.0.1",
-    "react-overlays": "^0.9.3",
+    "react-is": "^18.3.1",
+    "react-overlays": "^5.2.0",
     "react-prop-types": "^0.4.0",
-    "react-transition-group": "^2.0.0",
+    "react-transition-group": "^4.4.0",
     "uncontrollable": "^5.0.0",
     "warning": "^3.0.0"
   },

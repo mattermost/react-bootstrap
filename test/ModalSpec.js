@@ -20,7 +20,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    assert.ok(instance._modal.getDialogElement().querySelector('strong'));
+    assert.ok(instance._modal.dialog.querySelector('strong'));
   });
 
   it('Should close the modal when the modal dialog is clicked', done => {
@@ -35,7 +35,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.getDialogElement();
+    const dialog = instance._modal.dialog;
 
     userEvent.click(dialog);
   });
@@ -54,7 +54,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.getDialogElement();
+    const dialog = instance._modal.dialog;
 
     userEvent.click(dialog);
 
@@ -74,15 +74,13 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const button = instance._modal
-      .getDialogElement()
-      .getElementsByClassName('close')[0];
+    const button = instance._modal.dialog.getElementsByClassName('close')[0];
 
     userEvent.click(button);
   });
 
   it('Should close the modal when the escape key is pressed with keyboard=true', async () => {
-    const handleHide = sinon.spy();
+    const handleHide = sinon.spy(() => {});
 
     render(
       <Modal show onHide={handleHide} keyboard>
@@ -125,7 +123,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.getDialogElement();
+    const dialog = instance._modal.dialog;
 
     assert.ok(dialog.className.match(/\bmymodal\b/));
   });
@@ -144,7 +142,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const modal = instance._modal.getDialogElement();
+    const modal = instance._modal.dialog;
 
     assert.ok(modal.className.match(/\bmymodal\b/));
     assert.ok(modal.children[0].className.match(/\bmymodal-dialog\b/));
@@ -180,9 +178,9 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal
-      .getDialogElement()
-      .getElementsByClassName('modal-dialog')[0];
+    const dialog = instance._modal.dialog.getElementsByClassName(
+      'modal-dialog'
+    )[0];
 
     assert.ok(dialog.className.match(/\bmodal-sm\b/));
   });
@@ -201,7 +199,7 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal.getDialogElement();
+    const dialog = instance._modal.dialog;
 
     assert.ok(dialog.style.top === '1000px');
   });
@@ -220,33 +218,9 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const dialog = instance._modal
-      .getDialogElement()
-      .querySelector('.modal-dialog');
+    const dialog = instance._modal.dialog.querySelector('.modal-dialog');
 
     assert.ok(dialog.className.match(/\btestCss\b/));
-  });
-
-  it('Should use dialogComponentClass', () => {
-    const noOp = () => {};
-
-    function CustomDialog() {
-      return <div className="custom-dialog" tabIndex="-1" />;
-    }
-
-    let instance;
-    render(
-      <Modal
-        ref={element => (instance = element)}
-        show
-        dialogComponentClass={CustomDialog}
-        onHide={noOp}
-      >
-        <strong>Message</strong>
-      </Modal>
-    );
-
-    assert.equal(instance._modal.getDialogElement().className, 'custom-dialog');
   });
 
   it('Should pass transition callbacks to Transition', done => {

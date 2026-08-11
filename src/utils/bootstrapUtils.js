@@ -1,6 +1,7 @@
 // TODO: The publicly exposed parts of this should be in lib/BootstrapUtils.
 
 import invariant from 'invariant';
+import { isValidElementType } from 'react-is';
 import PropTypes from 'prop-types';
 
 import { SIZE_MAP } from './StyleConfig';
@@ -8,9 +9,12 @@ import { SIZE_MAP } from './StyleConfig';
 function curry(fn) {
   return (...args) => {
     let last = args[args.length - 1];
-    if (typeof last === 'function') {
+    if (typeof last !== 'string' && isValidElementType(last)) {
+      // Supports calling curry(...args, Component)
       return fn(...args);
     }
+
+    // Supports calling curry(...args)(Component)
     return Component => fn(...args, Component);
   };
 }

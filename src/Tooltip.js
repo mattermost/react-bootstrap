@@ -44,24 +44,23 @@ const propTypes = {
   arrowOffsetLeft: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
-const defaultProps = {
-  placement: 'right'
-};
-
-class Tooltip extends React.Component {
-  render() {
-    const {
-      placement,
+const Tooltip = React.forwardRef(
+  (
+    {
+      placement = 'right',
       positionTop,
       positionLeft,
       arrowOffsetTop,
       arrowOffsetLeft,
+      arrowRef,
+      arrowStyle,
       className,
       style,
       children,
       ...props
-    } = this.props;
-
+    },
+    ref
+  ) => {
     const [bsProps, elementProps] = splitBsProps(props);
 
     const classes = {
@@ -75,27 +74,32 @@ class Tooltip extends React.Component {
       ...style
     };
 
-    const arrowStyle = {
+    const combinedArrowStyle = {
       top: arrowOffsetTop,
-      left: arrowOffsetLeft
+      left: arrowOffsetLeft,
+      ...arrowStyle
     };
 
     return (
       <div
+        ref={ref}
         {...elementProps}
         role="tooltip"
         className={classNames(className, classes)}
         style={outerStyle}
       >
-        <div className={prefix(bsProps, 'arrow')} style={arrowStyle} />
+        <div
+          ref={arrowRef}
+          className={prefix(bsProps, 'arrow')}
+          style={combinedArrowStyle}
+        />
 
         <div className={prefix(bsProps, 'inner')}>{children}</div>
       </div>
     );
   }
-}
-
+);
+Tooltip.displayName = 'Tooltip';
 Tooltip.propTypes = propTypes;
-Tooltip.defaultProps = defaultProps;
 
 export default bsClass('tooltip', Tooltip);

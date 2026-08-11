@@ -5,10 +5,8 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import BaseModal from 'react-overlays/lib/Modal';
-import isOverflowing from 'react-overlays/lib/utils/isOverflowing';
-import elementType from 'prop-types-extra/lib/elementType';
+import isOverflowing from 'react-overlays/isOverflowing';
+import BaseModal from 'react-overlays/Modal';
 
 import Fade from './Fade';
 import Body from './ModalBody';
@@ -39,6 +37,11 @@ const propTypes = {
   backdropClassName: PropTypes.string,
 
   /**
+   * Add optional styles to .modal-backdrop
+   */
+  backdropStyle: PropTypes.object,
+
+  /**
    * Close the modal when escape key is pressed
    */
   keyboard: PropTypes.bool,
@@ -47,13 +50,6 @@ const propTypes = {
    * Open and close the Modal with a slide and fade animation.
    */
   animation: PropTypes.bool,
-
-  /**
-   * A Component type that provides the modal content Markup. This is a useful
-   * prop when you want to use your own styles and markup to create a custom
-   * modal component.
-   */
-  dialogComponentClass: elementType,
 
   /**
    * When `true` The modal will automatically shift focus to itself when it
@@ -115,28 +111,33 @@ const propTypes = {
   /**
    * Callback fired after the Modal finishes transitioning out
    */
-  onExited: PropTypes.func,
-
-  /**
-   * @private
-   */
-  container: BaseModal.propTypes.container
+  onExited: PropTypes.func
 };
 
 const defaultProps = {
-  ...BaseModal.defaultProps,
-  animation: true,
-  dialogComponentClass: ModalDialog
+  show: false,
+  backdrop: true,
+  keyboard: true,
+  autoFocus: true,
+  enforceFocus: true,
+  restoreFocus: true,
+  onHide: function onHide() {},
+  renderBackdrop: function renderBackdrop(props) {
+    return <div {...props} />;
+  },
+  animation: true
 };
 
 /* eslint-disable no-use-before-define, react/no-multi-comp */
-function DialogTransition(props) {
-  return <Fade {...props} timeout={Modal.TRANSITION_DURATION} />;
-}
+const DialogTransition = React.forwardRef((props, ref) => (
+  <Fade ref={ref} {...props} timeout={Modal.TRANSITION_DURATION} />
+));
+DialogTransition.displayName = 'DialogTransition';
 
-function BackdropTransition(props) {
-  return <Fade {...props} timeout={Modal.BACKDROP_TRANSITION_DURATION} />;
-}
+const BackdropTransition = React.forwardRef((props, ref) => (
+  <Fade ref={ref} {...props} timeout={Modal.BACKDROP_TRANSITION_DURATION} />
+));
+BackdropTransition.displayName = 'BackdropTransition';
 
 /* eslint-enable no-use-before-define */
 
@@ -200,13 +201,11 @@ class Modal extends React.Component {
       return;
     }
 
-    const dialogNode = this._modal.getDialogElement();
+    const dialogNode = this._modal.dialog;
     const dialogHeight = dialogNode.scrollHeight;
 
     const document = ownerDocument(dialogNode);
-    const bodyIsOverflowing = isOverflowing(
-      ReactDOM.findDOMNode(this.props.container || document.body)
-    );
+    const bodyIsOverflowing = isOverflowing(document.body);
     const modalIsOverflowing =
       dialogHeight > document.documentElement.clientHeight;
 
@@ -228,9 +227,9 @@ class Modal extends React.Component {
     const {
       backdrop,
       backdropClassName,
+      backdropStyle,
       animation,
       show,
-      dialogComponentClass: Dialog,
       className,
       style,
       children, // Just in case this get added to BaseModal propTypes.
@@ -253,24 +252,39 @@ class Modal extends React.Component {
           transition={animation ? DialogTransition : undefined}
           backdrop={backdrop}
           backdropTransition={animation ? BackdropTransition : undefined}
-          backdropClassName={classNames(
-            prefix(props, 'backdrop'),
-            backdropClassName,
-            inClassName
+          renderBackdrop={backdropProps => (
+            <div
+              {...backdropProps}
+              className={classNames(
+                prefix(props, 'backdrop'),
+                backdropClassName,
+                inClassName
+              )}
+              style={{
+                ...backdropProps.style,
+                ...backdropStyle
+              }}
+            />
+          )}
+          renderDialog={renderProps => (
+            <ModalDialog
+              {...dialogProps}
+              {...renderProps}
+              style={{ ...renderProps.style, ...this.state.style, ...style }}
+              className={classNames(
+                renderProps.className,
+                className,
+                inClassName
+              )}
+              onClick={backdrop === true ? this.handleDialogClick : null}
+              handleDialogMouseDown={this.handleDialogMouseDown}
+            >
+              {children}
+            </ModalDialog>
           )}
           onEntering={createChainedFunction(onEntering, this.handleEntering)}
           onExited={createChainedFunction(onExited, this.handleExited)}
-        >
-          <Dialog
-            {...dialogProps}
-            style={{ ...this.state.style, ...style }}
-            className={classNames(className, inClassName)}
-            onClick={backdrop === true ? this.handleDialogClick : null}
-            handleDialogMouseDown={this.handleDialogMouseDown}
-          >
-            {children}
-          </Dialog>
-        </BaseModal>
+        />
       </ModalContext.Provider>
     );
   }

@@ -1,7 +1,6 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import OverlayTrigger from '../src/OverlayTrigger';
 import Popover from '../src/Popover';
@@ -9,9 +8,11 @@ import Tooltip from '../src/Tooltip';
 
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.
-  const Div = ({ className, children }) => (
-    <div className={className}>{children}</div>
-  );
+  const Div = React.forwardRef(({ className, children }, ref) => (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  ));
 
   it('Should create OverlayTrigger element', () => {
     render(
@@ -140,31 +141,36 @@ describe('<OverlayTrigger>', () => {
   });
 
   it('Should forward requested context', async () => {
-    const contextTypes = {
-      key: PropTypes.string
-    };
+    const TestContext = React.createContext(undefined);
+    TestContext.displayName = 'TestContext';
 
     const contextSpy = sinon.spy();
 
-    class ContextReader extends React.Component {
-      render() {
-        contextSpy(this.context.key);
-        return <div />;
-      }
-    }
+    const ContextReader = React.forwardRef((props, ref) => {
+      const context = useContext(TestContext);
+      const contextValue = context.key;
+      useEffect(
+        () => {
+          contextSpy(contextValue);
+        },
+        [contextValue]
+      );
 
-    ContextReader.contextTypes = contextTypes;
+      return <div ref={ref} />;
+    });
+    ContextReader.displayName = 'ContextReader';
 
     class ContextHolder extends React.Component {
       render() {
         return (
-          <OverlayTrigger trigger="click" overlay={<ContextReader />}>
-            <button>button</button>
-          </OverlayTrigger>
+          <TestContext.Provider value={{ key: 'value' }}>
+            <OverlayTrigger trigger="click" overlay={<ContextReader />}>
+              <button>button</button>
+            </OverlayTrigger>
+          </TestContext.Provider>
         );
       }
     }
-    ContextHolder.childContextTypes = contextTypes;
 
     render(<ContextHolder />);
     const overlayTrigger = screen.getByText('button');
@@ -290,7 +296,7 @@ describe('<OverlayTrigger>', () => {
             }
 
             return (
-              <div>
+              <div ref={this.props.innerRef}>
                 <a id="replace-overlay" onClick={this.handleClick}>
                   original
                 </a>
@@ -299,9 +305,13 @@ describe('<OverlayTrigger>', () => {
           }
         }
 
+        const WrappedReplacedOverlay = React.forwardRef((props, ref) => (
+          <ReplacedOverlay {...props} innerRef={ref} />
+        ));
+
         render(
           <OverlayTrigger
-            overlay={<ReplacedOverlay />}
+            overlay={<WrappedReplacedOverlay />}
             trigger="click"
             rootClose
           >
