@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -55,10 +56,14 @@ class TabContent extends React.Component {
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!nextProps.animation && this.state.activeChild) {
-      this.setState({ activeKey: null, activeChild: null });
+  static getDerivedStateFromProps(props, state) {
+    // An active child is only ever recorded while animating, so once animation
+    // is turned off there is nothing left for it to track.
+    if (!props.animation && state.activeChild) {
+      return { activeKey: null, activeChild: null };
     }
+
+    return null;
   }
 
   componentWillUnmount() {

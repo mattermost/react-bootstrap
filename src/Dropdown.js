@@ -128,13 +128,17 @@ class Dropdown extends React.Component {
     this.focusNextOnOpen();
   }
 
-  UNSAFE_componentWillUpdate(nextProps) {
-    if (!nextProps.open && this.props.open) {
+  getSnapshotBeforeUpdate(prevProps) {
+    // Record where focus was while the menu is still in the DOM, so that
+    // componentDidUpdate can decide whether to return it to the toggle.
+    if (!this.props.open && prevProps.open) {
       this._focusInDropdown = contains(
         this.containerRef.current.querySelector('[role=menu]'),
         activeElement(document)
       );
     }
+
+    return null;
   }
 
   componentDidUpdate(prevProps) {
