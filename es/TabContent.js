@@ -2,6 +2,8 @@ import _extends from "@babel/runtime-corejs2/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime-corejs2/helpers/esm/objectWithoutPropertiesLoose";
 import _inheritsLoose from "@babel/runtime-corejs2/helpers/esm/inheritsLoose";
 import _assertThisInitialized from "@babel/runtime-corejs2/helpers/esm/assertThisInitialized";
+
+/* eslint-disable react/no-unused-state */
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -57,16 +59,20 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = TabContent.prototype;
-
-  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!nextProps.animation && this.state.activeChild) {
-      this.setState({
+  TabContent.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    // An active child is only ever recorded while animating, so once animation
+    // is turned off there is nothing left for it to track.
+    if (!props.animation && state.activeChild) {
+      return {
         activeKey: null,
         activeChild: null
-      });
+      };
     }
+
+    return null;
   };
+
+  var _proto = TabContent.prototype;
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.isUnmounted = true;

@@ -132,10 +132,14 @@ function (_React$Component) {
     this.focusNextOnOpen();
   };
 
-  _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
-    if (!nextProps.open && this.props.open) {
+  _proto.getSnapshotBeforeUpdate = function getSnapshotBeforeUpdate(prevProps) {
+    // Record where focus was while the menu is still in the DOM, so that
+    // componentDidUpdate can decide whether to return it to the toggle.
+    if (!this.props.open && prevProps.open) {
       this._focusInDropdown = contains(this.containerRef.current.querySelector('[role=menu]'), activeElement(document));
     }
+
+    return null;
   };
 
   _proto.componentDidUpdate = function componentDidUpdate(prevProps) {

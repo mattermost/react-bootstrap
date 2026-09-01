@@ -4543,7 +4543,7 @@ function getDuplicateRoleError(component, children) {
 
 
 
-var _jsxFileName = "/Users/harrison/react-bootstrap/src/PanelGroup.js";
+var _jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelGroup.js";
 
 
 
@@ -4693,7 +4693,7 @@ PanelGroup.defaultProps = defaultProps;
 ;// ./src/Accordion.js
 
 
-var Accordion_jsxFileName = "/Users/harrison/react-bootstrap/src/Accordion.js";
+var Accordion_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Accordion.js";
 
 
 
@@ -4728,7 +4728,7 @@ var values = __webpack_require__(5115);
 var values_default = /*#__PURE__*/__webpack_require__.n(values);
 ;// ./src/CloseButton.js
 
-var CloseButton_jsxFileName = "/Users/harrison/react-bootstrap/src/CloseButton.js";
+var CloseButton_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/CloseButton.js";
 
 
 var CloseButton_propTypes = {
@@ -4792,7 +4792,7 @@ CloseButton.defaultProps = CloseButton_defaultProps;
 
 
 
-var Alert_jsxFileName = "/Users/harrison/react-bootstrap/src/Alert.js";
+var Alert_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Alert.js";
 
 
 
@@ -4865,7 +4865,7 @@ Alert.defaultProps = Alert_defaultProps;
 
 
 
-var Badge_jsxFileName = "/Users/harrison/react-bootstrap/src/Badge.js";
+var Badge_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Badge.js";
 
 
 
@@ -4990,7 +4990,7 @@ function createChainedFunction() {
 
 
 
-var SafeAnchor_jsxFileName = "/Users/harrison/react-bootstrap/src/SafeAnchor.js";
+var SafeAnchor_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/SafeAnchor.js";
 
 
 
@@ -5109,7 +5109,7 @@ SafeAnchor.defaultProps = SafeAnchor_defaultProps;
 
 
 
-var BreadcrumbItem_jsxFileName = "/Users/harrison/react-bootstrap/src/BreadcrumbItem.js";
+var BreadcrumbItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/BreadcrumbItem.js";
 
 
 
@@ -5199,7 +5199,7 @@ BreadcrumbItem.defaultProps = BreadcrumbItem_defaultProps;
 
 
 
-var Breadcrumb_jsxFileName = "/Users/harrison/react-bootstrap/src/Breadcrumb.js";
+var Breadcrumb_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Breadcrumb.js";
 
 
 
@@ -5248,7 +5248,7 @@ Breadcrumb.Item = src_BreadcrumbItem;
 
 
 
-var Button_jsxFileName = "/Users/harrison/react-bootstrap/src/Button.js";
+var Button_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Button.js";
 
 
 
@@ -5350,7 +5350,7 @@ Button.defaultProps = Button_defaultProps;
 
 
 
-var ButtonGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ButtonGroup.js";
+var ButtonGroup_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ButtonGroup.js";
 
 
 
@@ -5422,7 +5422,7 @@ ButtonGroup.defaultProps = ButtonGroup_defaultProps;
 
 
 
-var ButtonToolbar_jsxFileName = "/Users/harrison/react-bootstrap/src/ButtonToolbar.js";
+var ButtonToolbar_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ButtonToolbar.js";
 
 
 
@@ -5467,7 +5467,7 @@ function (_React$Component) {
 
 
 
-var CarouselCaption_jsxFileName = "/Users/harrison/react-bootstrap/src/CarouselCaption.js";
+var CarouselCaption_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/CarouselCaption.js";
 
 
 
@@ -5524,7 +5524,7 @@ var transition = __webpack_require__(1685);
 
 
 
-var CarouselItem_jsxFileName = "/Users/harrison/react-bootstrap/src/CarouselItem.js";
+var CarouselItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/CarouselItem.js";
 
 
 
@@ -5658,7 +5658,7 @@ CarouselItem.defaultProps = CarouselItem_defaultProps;
 
 
 
-var Glyphicon_jsxFileName = "/Users/harrison/react-bootstrap/src/Glyphicon.js";
+var Glyphicon_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Glyphicon.js";
 
 
 
@@ -5715,7 +5715,7 @@ Glyphicon.propTypes = Glyphicon_propTypes;
 
 
 
-var Carousel_jsxFileName = "/Users/harrison/react-bootstrap/src/Carousel.js";
+var Carousel_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Carousel.js";
 
 
 
@@ -6154,7 +6154,7 @@ Carousel.Item = src_CarouselItem;
 
 
 
-var Checkbox_jsxFileName = "/Users/harrison/react-bootstrap/src/Checkbox.js";
+var Checkbox_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Checkbox.js";
 
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -6285,7 +6285,7 @@ function capitalize(string) {
 
 
 
-var Clearfix_jsxFileName = "/Users/harrison/react-bootstrap/src/Clearfix.js";
+var Clearfix_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Clearfix.js";
 
 
 
@@ -6392,7 +6392,7 @@ FormGroupContext.displayName = 'FormGroupContext';
 
 
 
-var ControlLabel_jsxFileName = "/Users/harrison/react-bootstrap/src/ControlLabel.js";
+var ControlLabel_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ControlLabel.js";
 
 
 
@@ -6464,7 +6464,7 @@ ControlLabel.contextType = src_FormGroupContext;
 
 
 
-var Col_jsxFileName = "/Users/harrison/react-bootstrap/src/Col.js";
+var Col_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Col.js";
 
 
 
@@ -7274,7 +7274,7 @@ function withRef(callback, ref) {
 
 
 var _collapseStyles,
-    Collapse_jsxFileName = "/Users/harrison/react-bootstrap/src/Collapse.js";
+    Collapse_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Collapse.js";
 
 
 
@@ -7784,7 +7784,7 @@ function useRootClose(ref, onRootClose, _temp) {
 
 
 
-var DropdownMenu_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownMenu.js";
+var DropdownMenu_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/DropdownMenu.js";
 
 
 
@@ -7968,7 +7968,7 @@ DropdownMenu.defaultProps = DropdownMenu_defaultProps;
 
 
 
-var DropdownToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownToggle.js";
+var DropdownToggle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/DropdownToggle.js";
 
 
 
@@ -8045,7 +8045,7 @@ DropdownToggle.defaultProps = DropdownToggle_defaultProps;
 
 
 
-var Dropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/Dropdown.js";
+var Dropdown_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Dropdown.js";
 
 
 
@@ -8176,10 +8176,14 @@ function (_React$Component) {
     this.focusNextOnOpen();
   };
 
-  _proto.UNSAFE_componentWillUpdate = function UNSAFE_componentWillUpdate(nextProps) {
-    if (!nextProps.open && this.props.open) {
+  _proto.getSnapshotBeforeUpdate = function getSnapshotBeforeUpdate(prevProps) {
+    // Record where focus was while the menu is still in the DOM, so that
+    // componentDidUpdate can decide whether to return it to the toggle.
+    if (!this.props.open && prevProps.open) {
       this._focusInDropdown = contains_default()(this.containerRef.current.querySelector('[role=menu]'), activeElement_default()(document));
     }
+
+    return null;
   };
 
   _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
@@ -8366,14 +8370,14 @@ function (_React$Component) {
       },
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 327
+        lineNumber: 331
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, props, {
       className: classnames_default()(className, classes),
       __source: {
         fileName: Dropdown_jsxFileName,
-        lineNumber: 328
+        lineNumber: 332
       },
       __self: this
     }), ValidComponentChildren.map(children, function (child) {
@@ -8439,7 +8443,7 @@ function splitComponentProps(props, Component) {
 
 
 
-var DropdownButton_jsxFileName = "/Users/harrison/react-bootstrap/src/DropdownButton.js";
+var DropdownButton_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/DropdownButton.js";
 
 
 
@@ -8517,7 +8521,7 @@ DropdownButton.propTypes = DropdownButton_propTypes;
 
 
 var _fadeStyles,
-    Fade_jsxFileName = "/Users/harrison/react-bootstrap/src/Fade.js";
+    Fade_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Fade.js";
 
 
 
@@ -8656,7 +8660,7 @@ Fade.propTypes = Fade_propTypes;
 
 
 
-var Form_jsxFileName = "/Users/harrison/react-bootstrap/src/Form.js";
+var Form_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Form.js";
 
 
 
@@ -8726,7 +8730,7 @@ Form.defaultProps = Form_defaultProps;
 
 
 
-var FormControlFeedback_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControlFeedback.js";
+var FormControlFeedback_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/FormControlFeedback.js";
 
 
 
@@ -8813,7 +8817,7 @@ FormControlFeedback.contextType = src_FormGroupContext;
 
 
 
-var FormControlStatic_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControlStatic.js";
+var FormControlStatic_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/FormControlStatic.js";
 
 
 
@@ -8867,7 +8871,7 @@ FormControlStatic.defaultProps = FormControlStatic_defaultProps;
 
 
 
-var FormControl_jsxFileName = "/Users/harrison/react-bootstrap/src/FormControl.js";
+var FormControl_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/FormControl.js";
 
 
 
@@ -8976,7 +8980,7 @@ FormControl.Static = src_FormControlStatic;
 
 
 
-var FormGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/FormGroup.js";
+var FormGroup_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/FormGroup.js";
 
 
 
@@ -9059,7 +9063,7 @@ FormGroup.propTypes = FormGroup_propTypes;
 
 
 
-var Grid_jsxFileName = "/Users/harrison/react-bootstrap/src/Grid.js";
+var Grid_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Grid.js";
 
 
 
@@ -9126,7 +9130,7 @@ Grid.defaultProps = Grid_defaultProps;
 
 
 
-var HelpBlock_jsxFileName = "/Users/harrison/react-bootstrap/src/HelpBlock.js";
+var HelpBlock_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/HelpBlock.js";
 
 
 
@@ -9170,7 +9174,7 @@ function (_React$Component) {
 
 
 
-var Image_jsxFileName = "/Users/harrison/react-bootstrap/src/Image.js";
+var Image_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Image.js";
 
 
 
@@ -9250,7 +9254,7 @@ Image.defaultProps = Image_defaultProps;
 
 
 
-var InputGroupAddon_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroupAddon.js";
+var InputGroupAddon_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/InputGroupAddon.js";
 
 
 
@@ -9294,7 +9298,7 @@ function (_React$Component) {
 
 
 
-var InputGroupButton_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroupButton.js";
+var InputGroupButton_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/InputGroupButton.js";
 
 
 
@@ -9338,7 +9342,7 @@ function (_React$Component) {
 
 
 
-var InputGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/InputGroup.js";
+var InputGroup_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/InputGroup.js";
 
 
 
@@ -9387,7 +9391,7 @@ InputGroup.Button = src_InputGroupButton;
 
 
 
-var Jumbotron_jsxFileName = "/Users/harrison/react-bootstrap/src/Jumbotron.js";
+var Jumbotron_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Jumbotron.js";
 
 
 
@@ -9442,7 +9446,7 @@ Jumbotron.defaultProps = Jumbotron_defaultProps;
 
 
 
-var Label_jsxFileName = "/Users/harrison/react-bootstrap/src/Label.js";
+var Label_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Label.js";
 
 
 
@@ -9507,7 +9511,7 @@ function (_React$Component) {
 
 
 
-var ListGroupItem_jsxFileName = "/Users/harrison/react-bootstrap/src/ListGroupItem.js";
+var ListGroupItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ListGroupItem.js";
 
 
 
@@ -9624,7 +9628,7 @@ ListGroupItem.defaultProps = ListGroupItem_defaultProps;
 
 
 
-var ListGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ListGroup.js";
+var ListGroup_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ListGroup.js";
 
 
 
@@ -9706,7 +9710,7 @@ ListGroup.propTypes = ListGroup_propTypes;
 
 
 
-var MediaBody_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaBody.js";
+var MediaBody_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaBody.js";
 
 
 
@@ -9773,7 +9777,7 @@ MediaBody.defaultProps = MediaBody_defaultProps;
 
 
 
-var MediaHeading_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaHeading.js";
+var MediaHeading_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaHeading.js";
 
 
 
@@ -9827,7 +9831,7 @@ MediaHeading.defaultProps = MediaHeading_defaultProps;
 
 
 
-var MediaLeft_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaLeft.js";
+var MediaLeft_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaLeft.js";
 
 
 
@@ -9887,7 +9891,7 @@ MediaLeft.propTypes = MediaLeft_propTypes;
 
 
 
-var MediaList_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaList.js";
+var MediaList_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaList.js";
 
 
 
@@ -9931,7 +9935,7 @@ function (_React$Component) {
 
 
 
-var MediaListItem_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaListItem.js";
+var MediaListItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaListItem.js";
 
 
 
@@ -9975,7 +9979,7 @@ function (_React$Component) {
 
 
 
-var MediaRight_jsxFileName = "/Users/harrison/react-bootstrap/src/MediaRight.js";
+var MediaRight_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MediaRight.js";
 
 
 
@@ -10035,7 +10039,7 @@ MediaRight.propTypes = MediaRight_propTypes;
 
 
 
-var Media_jsxFileName = "/Users/harrison/react-bootstrap/src/Media.js";
+var Media_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Media.js";
 
 
 
@@ -10102,7 +10106,7 @@ Media.ListItem = src_MediaListItem;
 
 
 
-var MenuItem_jsxFileName = "/Users/harrison/react-bootstrap/src/MenuItem.js";
+var MenuItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/MenuItem.js";
 
 
 
@@ -11291,7 +11295,7 @@ Modal.propTypes = Modal_propTypes;
 
 
 
-var ModalBody_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalBody.js";
+var ModalBody_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ModalBody.js";
 
 
 
@@ -11349,7 +11353,7 @@ ModalContext.displayName = 'ModalContext';
 ;// ./src/ModalDialog.js
 
 
-var ModalDialog_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalDialog.js";
+var ModalDialog_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ModalDialog.js";
 
 
 
@@ -11435,7 +11439,7 @@ ModalDialog.SIZES = SIZES;
 
 
 
-var ModalFooter_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalFooter.js";
+var ModalFooter_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ModalFooter.js";
 
 
 
@@ -11489,7 +11493,7 @@ ModalFooter.defaultProps = ModalFooter_defaultProps;
 
 
 
-var ModalHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalHeader.js";
+var ModalHeader_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ModalHeader.js";
 
 
 
@@ -11579,7 +11583,7 @@ ModalHeader.contextType = src_ModalContext;
 
 
 
-var ModalTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/ModalTitle.js";
+var ModalTitle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ModalTitle.js";
 
 
 
@@ -11634,7 +11638,7 @@ ModalTitle.defaultProps = ModalTitle_defaultProps;
 
 
 
-var Modal_jsxFileName = "/Users/harrison/react-bootstrap/src/Modal.js";
+var Modal_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Modal.js";
 
 
 
@@ -11975,7 +11979,7 @@ TabContainerContext.displayName = 'TabContainerContext';
 
 
 
-var Nav_jsxFileName = "/Users/harrison/react-bootstrap/src/Nav.js";
+var Nav_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Nav.js";
 
 
 
@@ -12325,7 +12329,7 @@ NavWithContext.displayName = 'NavWithContext';
 
 
 
-var NavbarBrand_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarBrand.js";
+var NavbarBrand_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavbarBrand.js";
 
 
 
@@ -12378,7 +12382,7 @@ NavbarBrand.contextType = src_NavbarContext;
 
 
 
-var NavbarCollapse_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarCollapse.js";
+var NavbarCollapse_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavbarCollapse.js";
 
 
 
@@ -12431,7 +12435,7 @@ NavbarCollapse.contextType = src_NavbarContext;
 
 
 
-var NavbarHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarHeader.js";
+var NavbarHeader_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavbarHeader.js";
 
 
 
@@ -12476,7 +12480,7 @@ NavbarHeader.contextType = src_NavbarContext;
 
 
 
-var NavbarToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/NavbarToggle.js";
+var NavbarToggle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavbarToggle.js";
 
 
 
@@ -12579,7 +12583,7 @@ NavbarToggle.contextType = src_NavbarContext;
 
 
 
-var Navbar_jsxFileName = "/Users/harrison/react-bootstrap/src/Navbar.js";
+var Navbar_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Navbar.js";
 // TODO: Remove this pragma once we upgrade eslint-config-airbnb.
 
 /* eslint-disable react/no-multi-comp */
@@ -12845,7 +12849,7 @@ UncontrollableNavbar.Link = createSimpleWrapper('a', 'link', 'NavbarLink'); // S
 
 
 
-var NavDropdown_jsxFileName = "/Users/harrison/react-bootstrap/src/NavDropdown.js";
+var NavDropdown_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavDropdown.js";
 
 
 
@@ -12961,7 +12965,7 @@ NavDropdown.propTypes = NavDropdown_propTypes;
 
 
 
-var NavItem_jsxFileName = "/Users/harrison/react-bootstrap/src/NavItem.js";
+var NavItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/NavItem.js";
 
 
 
@@ -15550,7 +15554,7 @@ Overlay.propTypes = {
 
 
 
-var Overlay_jsxFileName = "/Users/harrison/react-bootstrap/src/Overlay.js";
+var Overlay_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Overlay.js";
 
 
 
@@ -15703,7 +15707,7 @@ var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
 
 
 
-var OverlayTrigger_jsxFileName = "/Users/harrison/react-bootstrap/src/OverlayTrigger.js";
+var OverlayTrigger_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/OverlayTrigger.js";
 
 
 
@@ -16015,7 +16019,7 @@ OverlayTrigger.defaultProps = OverlayTrigger_defaultProps;
 
 
 
-var PageHeader_jsxFileName = "/Users/harrison/react-bootstrap/src/PageHeader.js";
+var PageHeader_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PageHeader.js";
 
 
 
@@ -16067,7 +16071,7 @@ function (_React$Component) {
 
 
 
-var PagerItem_jsxFileName = "/Users/harrison/react-bootstrap/src/PagerItem.js";
+var PagerItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PagerItem.js";
 
 
 
@@ -16232,7 +16236,7 @@ function _resetWarned() {
 
 
 
-var Pager_jsxFileName = "/Users/harrison/react-bootstrap/src/Pager.js";
+var Pager_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Pager.js";
 
 
 
@@ -16291,7 +16295,7 @@ Pager.Item = src_PagerItem;
 
 
 
-var PaginationItem_jsxFileName = "/Users/harrison/react-bootstrap/src/PaginationItem.js";
+var PaginationItem_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PaginationItem.js";
 
 /* eslint-disable react/no-multi-comp */
 
@@ -16413,7 +16417,7 @@ var Last = createButton('Last', "\xBB");
 
 
 
-var Pagination_jsxFileName = "/Users/harrison/react-bootstrap/src/Pagination.js";
+var Pagination_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Pagination.js";
 
 
 
@@ -16470,7 +16474,7 @@ PanelContext.displayName = 'PanelContext';
 ;// ./src/PanelCollapse.js
 
 
-var PanelCollapse_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelCollapse.js";
+var PanelCollapse_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelCollapse.js";
 
 
 
@@ -16567,7 +16571,7 @@ PanelCollapse.contextType = src_PanelContext;
 ;// ./src/PanelBody.js
 
 
-var PanelBody_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelBody.js";
+var PanelBody_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelBody.js";
 
 
 
@@ -16652,7 +16656,7 @@ var lib_elementType = __webpack_require__(4976);
 
 
 
-var PanelHeading_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelHeading.js";
+var PanelHeading_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelHeading.js";
 
 
 
@@ -16720,7 +16724,7 @@ PanelHeading.contextType = src_PanelContext;
 
 
 
-var PanelToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelToggle.js";
+var PanelToggle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelToggle.js";
 
 
 
@@ -16813,7 +16817,7 @@ PanelToggle.contextType = src_PanelContext;
 
 
 
-var PanelTitle_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelTitle.js";
+var PanelTitle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelTitle.js";
 
 
 
@@ -16892,7 +16896,7 @@ PanelTitle.contextType = src_PanelContext;
 ;// ./src/PanelFooter.js
 
 
-var PanelFooter_jsxFileName = "/Users/harrison/react-bootstrap/src/PanelFooter.js";
+var PanelFooter_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/PanelFooter.js";
 
 
 
@@ -16942,7 +16946,7 @@ PanelFooter.contextType = src_PanelContext;
 
 
 
-var Panel_jsxFileName = "/Users/harrison/react-bootstrap/src/Panel.js";
+var Panel_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Panel.js";
 
 
 
@@ -17098,7 +17102,7 @@ assign_default()(UncontrolledPanel, {
 ;// ./src/Popover.js
 
 
-var Popover_jsxFileName = "/Users/harrison/react-bootstrap/src/Popover.js";
+var Popover_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Popover.js";
 
 
 
@@ -17219,7 +17223,7 @@ Popover.propTypes = Popover_propTypes;
 
 
 
-var ProgressBar_jsxFileName = "/Users/harrison/react-bootstrap/src/ProgressBar.js";
+var ProgressBar_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ProgressBar.js";
 
 
 
@@ -17408,7 +17412,7 @@ ProgressBar.defaultProps = ProgressBar_defaultProps;
 
 
 
-var Radio_jsxFileName = "/Users/harrison/react-bootstrap/src/Radio.js";
+var Radio_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Radio.js";
 
 /* eslint-disable jsx-a11y/label-has-for */
 
@@ -17535,7 +17539,7 @@ Radio.defaultProps = Radio_defaultProps;
 
 
 
-var ResponsiveEmbed_jsxFileName = "/Users/harrison/react-bootstrap/src/ResponsiveEmbed.js";
+var ResponsiveEmbed_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ResponsiveEmbed.js";
 
 
 
@@ -17615,7 +17619,7 @@ ResponsiveEmbed.defaultProps = ResponsiveEmbed_defaultProps;
 
 
 
-var Row_jsxFileName = "/Users/harrison/react-bootstrap/src/Row.js";
+var Row_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Row.js";
 
 
 
@@ -17668,7 +17672,7 @@ Row.defaultProps = Row_defaultProps;
 ;// ./src/SplitToggle.js
 
 
-var SplitToggle_jsxFileName = "/Users/harrison/react-bootstrap/src/SplitToggle.js";
+var SplitToggle_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/SplitToggle.js";
 
 
 
@@ -17704,7 +17708,7 @@ SplitToggle.defaultProps = src_DropdownToggle.defaultProps;
 
 
 
-var SplitButton_jsxFileName = "/Users/harrison/react-bootstrap/src/SplitButton.js";
+var SplitButton_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/SplitButton.js";
 
 
 
@@ -17804,7 +17808,7 @@ SplitButton.Toggle = src_SplitToggle;
 ;// ./src/TabContainer.js
 
 
-var TabContainer_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContainer.js";
+var TabContainer_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/TabContainer.js";
 
 
 
@@ -17929,7 +17933,9 @@ TabContentContext.displayName = 'TabContentContext';
 
 
 
-var TabContent_jsxFileName = "/Users/harrison/react-bootstrap/src/TabContent.js";
+var TabContent_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/TabContent.js";
+
+/* eslint-disable react/no-unused-state */
 
 
 
@@ -17985,16 +17991,20 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = TabContent.prototype;
-
-  _proto.UNSAFE_componentWillReceiveProps = function UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!nextProps.animation && this.state.activeChild) {
-      this.setState({
+  TabContent.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    // An active child is only ever recorded while animating, so once animation
+    // is turned off there is nothing left for it to track.
+    if (!props.animation && state.activeChild) {
+      return {
         activeKey: null,
         activeChild: null
-      });
+      };
     }
+
+    return null;
   };
+
+  var _proto = TabContent.prototype;
 
   _proto.componentWillUnmount = function componentWillUnmount() {
     this.isUnmounted = true;
@@ -18075,14 +18085,14 @@ function (_React$Component) {
       value: tabContentContext,
       __source: {
         fileName: TabContent_jsxFileName,
-        lineNumber: 139
+        lineNumber: 144
       },
       __self: this
     }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Component, _extends({}, elementProps, {
       className: classnames_default()(className, prefix(bsProps, 'content')),
       __source: {
         fileName: TabContent_jsxFileName,
-        lineNumber: 140
+        lineNumber: 145
       },
       __self: this
     })));
@@ -18100,7 +18110,7 @@ TabContent.contextType = src_TabContainerContext;
 
 
 
-var TabPane_jsxFileName = "/Users/harrison/react-bootstrap/src/TabPane.js";
+var TabPane_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/TabPane.js";
 
 
 
@@ -18377,7 +18387,7 @@ TabPane.contextType = src_TabContentContext;
 ;// ./src/Tab.js
 
 
-var Tab_jsxFileName = "/Users/harrison/react-bootstrap/src/Tab.js";
+var Tab_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Tab.js";
 
 
 
@@ -18433,7 +18443,7 @@ Tab.Pane = src_TabPane;
 
 
 
-var Table_jsxFileName = "/Users/harrison/react-bootstrap/src/Table.js";
+var Table_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Table.js";
 
 
 
@@ -18515,7 +18525,7 @@ Table.defaultProps = Table_defaultProps;
 
 
 
-var Tabs_jsxFileName = "/Users/harrison/react-bootstrap/src/Tabs.js";
+var Tabs_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Tabs.js";
 
 
 
@@ -18689,7 +18699,7 @@ bsClass('tab', Tabs);
 
 
 
-var Thumbnail_jsxFileName = "/Users/harrison/react-bootstrap/src/Thumbnail.js";
+var Thumbnail_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Thumbnail.js";
 
 /* eslint-disable jsx-a11y/alt-text */
 
@@ -18788,7 +18798,7 @@ Thumbnail.propTypes = Thumbnail_propTypes;
 
 
 
-var ToggleButton_jsxFileName = "/Users/harrison/react-bootstrap/src/ToggleButton.js";
+var ToggleButton_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ToggleButton.js";
 
 
 
@@ -18881,7 +18891,7 @@ ToggleButton.propTypes = ToggleButton_propTypes;
 
 
 
-var ToggleButtonGroup_jsxFileName = "/Users/harrison/react-bootstrap/src/ToggleButtonGroup.js";
+var ToggleButtonGroup_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/ToggleButtonGroup.js";
 
 
 
@@ -19016,7 +19026,7 @@ UncontrolledToggleButtonGroup.Button = src_ToggleButton;
 ;// ./src/Tooltip.js
 
 
-var Tooltip_jsxFileName = "/Users/harrison/react-bootstrap/src/Tooltip.js";
+var Tooltip_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Tooltip.js";
 
 
 
@@ -19123,7 +19133,7 @@ Tooltip.propTypes = Tooltip_propTypes;
 
 
 
-var Well_jsxFileName = "/Users/harrison/react-bootstrap/src/Well.js";
+var Well_jsxFileName = "/Users/jesse/Documents/mattermost/src/react-bootstrap/src/Well.js";
 
 
 
